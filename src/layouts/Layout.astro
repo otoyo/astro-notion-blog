@@ -1,35 +1,306 @@
 ---
+import {
+  PUBLIC_SITE_TITLE,
+  PUBLIC_SITE_DESCRIPTION,
+  PUBLIC_GA_TRACKING_ID,
+} from '../server-constants.ts'
+import '../styles/syntax-coloring.css'
+import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+
 export interface Props {
-	title: string;
+  title: string
+  desctiption: string
+  path: string
 }
 
-const { title } = Astro.props;
+const { title = '', description = '', path = '/' } = Astro.props
+
+const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE
+const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION
+const siteURL = new URL(path, Astro.site).toString()
+const siteOGImage = new URL('/default-og-image.png', Astro.site)
+
+const navItems = [
+  { label: 'Home', path: '/' },
+  { label: 'Blog', path: '/blog' },
+]
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta charset="UTF-8" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{siteTitle}</title>
+    <meta name="description" content={siteDescription} />
+    <link rel="canonical" href={siteURL} />
+    <meta property="og:url" content={siteURL} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:site_name" content={PUBLIC_SITE_TITLE} />
+    <meta property="og:image" content={siteOGImage} />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDescription} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={siteOGImage} />
+  </head>
+  <body>
+    <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <header class="header">
+      <h1>
+        <a href="/">{PUBLIC_SITE_TITLE}</a>
+      </h1>
+
+      <ul>
+        {navItems.map(({ label, path: p }) => (
+          <li key={label}>
+            <a href={p} class={p === path ? 'active' : null}>{label}</a>
+          </li>
+        ))}
+      </ul>
+    </header>
+    <div class="container">
+      <slot />
+    </div>
+    <footer class="footer">
+      <div>
+        <span>Powered by </span>
+        <a href="https://github.com/otoyo/astro-notion-blog">astro-notion-blog</a>
+      </div>
+    </footer>
+  </body>
 </html>
+
+<style>
+  .header {
+    display: block;
+    padding: 15px 0;
+    text-align: center;
+  }
+  .header h1 {
+    padding: 0.5rem 0;
+    font-weight: 400;
+    color: #000;
+  }
+  .header h1 a {
+    color: inherit;
+  }
+  .header ul {
+    list-style: none;
+    margin: inherit;
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+  }
+  @media (max-width: 640px) {
+    .header ul {
+      font-size: 1rem;
+    }
+  }
+  .header ul li {
+    display: inline-block;
+    padding: 0 15px;
+  }
+  .header ul li :global(a.active) {
+    color: var(--accents-3);
+  }
+
+  .container {
+    width: 100%;
+    padding: 0 5%;
+  }
+
+  .footer {
+    margin: 40px 0 10px;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  .footer span {
+    color: #777;
+  }
+  .footer span a {
+    color: inherit;
+  }
+</style>
+
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  :root {
+    --gap-quarter: 0.25rem;
+    --gap-half: 0.5rem;
+    --gap: 1rem;
+    --gap-double: 2rem;
+
+    --bg: #fff;
+    --fg: #333;
+    --accents-1: #ff7e33;
+    --accents-2: #f26000;
+    --accents-3: #666;
+    --geist-foreground: #000;
+    --geist-success: #690;
+
+    --radius: 4px;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    --font-mono: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    word-break: break-word;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Segoe UI,
+      Hiragino Kaku Gothic ProN, Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial,
+      メイリオ, Meiryo, sans-serif;
+    /*-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    */
+
+    /*background-image: radial-gradient(#ddd 1px, transparent 1px),
+      radial-gradient(#ddd 1px, transparent 1px);*/
+    background-position: 0 0, 25px 25px;
+    background-attachment: fixed;
+    background-size: 50px 50px;
+
+    /* Hack */
+    overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+  }
+
+  figure {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 1.8rem;
+  }
+
+  a {
+    color: var(--accents-1);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--accents-2);
+  }
+
+  mark {
+    padding: var(--gap-quarter);
+    border-radius: var(--radius);
+    background: rgba(247, 212, 255, 0.8);
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--fg);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--fg);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    margin: 0;
+    color: var(--fg);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+    }
+  }
+
+  ol {
+    color: #222;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.8rem;
+  }
+  p,
+  ul {
+    color: #222;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.8rem;
+  }
+  ul, ol {
+    margin: 0;
+    padding-inline-start: 1.5rem;
+  }
+  pre {
+    margin: 0;
+    white-space: pre;
+    tab-size: 2;
+  }
+  pre :global(code) {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    margin: 0.3rem 0;
+    background-color: #333;
+  }
+
+  code {
+    font-size: 0.9rem;
+    background: #f1f1f1;
+    color: #eb5757;
+    padding: 0.25rem;
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+  }
+
+  table {
+    color: #222;
+    border-collapse: collapse;
+  }
+
+  table tr {
+    vertical-align: middle;
+  }
+
+  table th {
+    font-weight: 600;
+    background-color: #f4f4f4;
+  }
+
+  table td,
+  table th {
+    font-size: 0.9rem;
+    border: 1px solid #e4e4e4;
+    padding: 0.5rem 1rem;
+    line-height: 1.2rem;
+  }
 </style>
