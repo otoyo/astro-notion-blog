@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 640px) {
+  .container {
+    display: block;
+  }
+}
+
+main {
+  width: 60%;
+}
+@media (max-width: 640px) {
+  main {
+    width: 100%;
+  }
+}
+main header {
+  padding: 0 0 20px;
+  text-align: center;
+}
+main footer {
+  border-top: 1px dashed #888;
+  margin: 0 auto;
+  padding: 40px 0 0;
+}
+@media (max-width: 640px) {
+  main footer {
+    margin: 0 auto 40px;
+  }
+}
+
+aside {
+  width: 35%;
+}
+@media (max-width: 640px) {
+  aside {
+    width: 100%;
+  }
+}
+
+.post {
+  margin: 0 auto 40px;
+}
+.post :global(h3) {
+  margin: 0;
+  color: var(--fg);
+}
+.post :global(h4) {
+  margin: 1.8rem 0 0.8rem;
+  color: var(--fg);
+  font-size: 1.1rem;
+}
+.post :global(h4):after {
+  color: var(--accents-1);
+  font-size: 0.9rem;
+  content: '▼';
+  padding-left: 0.2rem;
+}
+.post :global(h5) {
+  margin: 1.8rem 0 0.8rem;
+  color: var(--fg);
+  font-size: 1.1rem;
+}
+.post :global(h5):after {
+  color: var(--accents-1);
+  font-size: 0.9rem;
+  content: '▼';
+  padding-left: 0.2rem;
+}
+.post :global(h6) {
+  margin: 1.8rem 0 0.8rem;
+  color: var(--fg);
+  font-size: 1.1rem;
+}
+.post :global(h6):after {
+  color: var(--accents-1);
+  font-size: 0.9rem;
+  content: '▼';
+  padding-left: 0.2rem;
+}
+.post :global(p) {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  min-height: 1.8rem;
+}
+.post :global(video),
+.post :global(img) {
+  max-width: 100%;
+  display: inline-block;
+}
+.post :global(blockquote) {
+  margin: 0.6rem 0;
+  padding: 0 0.9rem;
+  border-left: 3px solid var(--fg);
+  font-size: 1rem;
+  line-height: 1.8rem;
+}
+.post table {
+  margin: 1rem 0;
+}
+.post ul, .post ol {
+  font-size: 1rem;
+}
+.post p code {
+  color: #eb5757;
+  padding: 0.25rem;
+}
+.post footer {
+  padding: 0;
+  border: 0;
+}
