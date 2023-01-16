@@ -1,0 +1,48 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { snakeToKebab } from '../../lib/style-helpers.ts'
+import RichText from './RichText.astro'
+import NotionBlocks from '../NotionBlocks.astro'
+import '../../styles/notion-color.css'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+---
+
+<div class="to-do">
+  {block.ListItems
+    .filter((b: interfaces.Block) => b.Type === 'to_do')
+    .map((b: interfaces.Block) => (
+      <div class={snakeToKebab(b.ToDo.Color)}>
+        <input type="checkbox" checked={b.ToDo.Checked} disabled />
+        {b.ToDo.RichTexts.map((richText: interfaces.RichText) => {
+          if (b.ToDo.Checked) {
+            return <s><RichText richText={richText} /></s>
+          }
+          return <RichText richText={richText} />
+        })}
+        {b.HasChildren && <NotionBlocks blocks={b.ToDo.Children} headings={headings} />}
+      </div>
+    ))}
+</div>
+
+<style>
+  .to-do {
+    color: #222;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.8rem;
+    padding-inline-start: 1rem;
+  }
+  .to-do > div {
+  }
+  .to-do > div > input {
+  }
+  .to-do > div > s {
+    color: var(--accents-3);
+  }
+</style>

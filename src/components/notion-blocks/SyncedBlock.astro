@@ -1,0 +1,12 @@
+---
+import NotionBlocks from '../NotionBlocks.astro'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+---
+
+<NotionBlocks blocks={block.SyncedBlock.Children} headings={headings} />

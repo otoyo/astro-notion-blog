@@ -1,0 +1,45 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import {
+  isYouTubeURL,
+  parseYouTubeVideoId,
+} from '../../lib/blog-helpers.ts'
+import Caption from './Caption.astro'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+
+let url: URL
+try {
+  url = new URL(block.Video.External?.Url)
+} catch (err) {
+  console.log(err)
+}
+---
+
+<div class="video">
+  <div>
+    {isYouTubeURL(url) && (
+      <iframe src={`https://www.youtube.com/embed/${parseYouTubeVideoId(url)}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      )}
+  </div>
+  <Caption richTexts={block.Video.Caption} />
+</div>
+
+<style>
+  .video div:first-child {
+    width: 100%;
+  }
+  .video div:first-child iframe {
+    width: 100%;
+    height: 340px;
+  }
+  @media (max-width: 640px) {
+    .video div:first-child iframe {
+      height: 220px;
+    }
+  }
+</style>

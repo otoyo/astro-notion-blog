@@ -1,0 +1,63 @@
+---
+import Prism from 'prismjs'
+import 'prismjs/components/prism-css'
+import 'prismjs/components/prism-diff'
+import 'prismjs/components/prism-docker'
+import 'prismjs/components/prism-elixir'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-hcl'
+import 'prismjs/components/prism-java'
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-python'
+import 'prismjs/components/prism-ruby'
+import 'prismjs/components/prism-sql'
+import 'prismjs/components/prism-typescript'
+import 'prismjs/components/prism-yaml'
+import * as interfaces from '../../lib/notion/interfaces'
+import Caption from './Caption.astro'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+
+const code = block.Code.RichTexts.map((richText: interfaces.RichText) => richText.Text.Content).join('')
+const language = block.Code.Language.toLowerCase()
+const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javascript
+---
+
+<div class="code">
+  {language === 'mermaid' ? (
+      <pre class="mermaid">{code}</pre>
+    ) : (
+      <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
+    )}
+    <Caption richTexts={block.Code.Caption} />
+</div>
+
+<script>
+  import mermaid from 'mermaid'
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+</script>
+
+<style>
+  .code {
+    display: block;
+    width: 100%;
+  }
+  .code pre {
+    display: block;
+    overflow: auto;
+    padding: 2rem;
+    background: rgb(247, 246, 243);
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    border-radius: var(--radius);
+  }
+  .code pre code {
+    color: var(--fg);
+    padding: 0;
+    background: rgb(247, 246, 243) !important;
+  }
+</style>

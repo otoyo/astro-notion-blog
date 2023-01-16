@@ -1,0 +1,23 @@
+---
+import { RichText } from '../../lib/interfaces.ts'
+
+export interface Props {
+  richTexts: RichText[]
+}
+
+const { richTexts } = Astro.props
+---
+
+{richTexts.length > 0 && richTexts[0].Text.Content && (
+    <div class="caption">
+      {richTexts[0].Text.Content}
+    </div>
+  )}
+
+<style>
+  .caption {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--accents-3);
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { isTweetURL } from '../../lib/blog-helpers.ts'
+import Bookmark from './Bookmark.astro'
+import TweetEmbed from './TweetEmbed.astro'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+
+let url: URL
+try {
+  url = block.Embed.Url
+} catch (err) {
+  console.log(err)
+}
+---
+
+{url ?
+  isTweetURL(url) ? (
+    <div class="tweet-embed">
+      <TweetEmbed url={url} />
+    </div>
+  ) : (
+    <Bookmark block={block} />
+  )
+ : null}
+
+<style>
+  .tweet-embed {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
+  .tweet-embed div:first-child div:first-child {
+    margin: auto;
+  }
+</style>

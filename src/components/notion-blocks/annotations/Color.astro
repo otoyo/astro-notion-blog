@@ -1,0 +1,13 @@
+---
+import { RichText } from '../../../lib/interfaces.ts'
+import { snakeToKebab } from '../../../lib/style-helpers.ts'
+import '../../../styles/notion-color.css'
+
+export interface Props {
+  richText: RichText
+}
+
+const { richText } = Astro.props
+---
+
+{richText.Annotation.Color && richText.Annotation.Color !== 'default' ? <span class={snakeToKebab(richText.Annotation.Color)}><slot /></span> : <slot />}

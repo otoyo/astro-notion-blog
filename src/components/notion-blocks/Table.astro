@@ -1,0 +1,37 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import RichText from './RichText.astro'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+---
+
+<div class="table">
+  <table>
+    <tbody>
+      {block.Table.Rows.map((tableRow: interfaces.TableRow, j: number) => (
+        <tr>
+          {tableRow.Cells.map((cell: interfaces.TableCell, i: number) => {
+            if ((block.Table.HasRowHeader && i === 0) || (block.Table.HasColumnHeader && j === 0)) {
+              return <th>{cell.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</th>
+            }
+            return <td>{cell.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</td>
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table {
+    overflow-x: auto;
+  }
+  .table th,
+  .table td {
+    white-space: pre;
+  }
+</style>

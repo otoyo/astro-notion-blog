@@ -1,0 +1,128 @@
+---
+import createMetascraper from 'metascraper'
+import metascraperDescription from 'metascraper-description'
+import metascraperImage from 'metascraper-image'
+import metascraperTitle from 'metascraper-title'
+import * as interfaces from '../../lib/interfaces.ts'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+
+const metascraper = createMetascraper([metascraperDescription(), metascraperImage(), metascraperTitle()])
+
+let url: URL
+let metadata: Record<string, string>
+try {
+  url = new URL((block.Bookmark || block.LinkPreview || block.Embed).Url)
+  const res = await fetch(url)
+  const html = await res.text()
+  metadata = await metascraper({ html, url })
+} catch (err) {
+  console.log(err)
+}
+---
+
+{url && (
+  <div class="bookmark">
+    <a href={url.toString()} target="_blank" rel="noopener noreferrer">
+      <div>
+        <div>{metadata && metadata.title}</div>
+        <div>{metadata && metadata.description}</div>
+        <div>
+          <div>
+            <img src={`https://www.google.com/s2/favicons?domain=${url.hostname}`} alt="title" loading="lazy" decoding="async" />
+          </div>
+          <div>{url.origin}</div>
+        </div>
+      </div>
+      <div>
+        {metadata.image && (
+            <img src={metadata.image} alt="title" loading="lazy" decoding="async" />
+          )}
+      </div>
+    </a>
+  </div>
+)}
+
+<style>
+  .bookmark {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+  .bookmark > a {
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: 1px solid rgba(55, 53, 47, 0.16);
+    border-radius: 3px;
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+  }
+  .bookmark > a > div:first-child {
+    flex: 4 1 180px;
+    padding: 12px 14px 14px;
+    overflow: hidden;
+    text-align: left;
+    color: var(--fg);
+  }
+  .bookmark > a > div:first-child > div:first-child {
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 24px;
+    margin-bottom: 2px;
+  }
+  .bookmark > a > div:first-child > div:nth-child(2) {
+    font-size: 12px;
+    line-height: 16px;
+    opacity: 0.8;
+    height: 32px;
+    overflow: hidden;
+  }
+  .bookmark > a > div:first-child > div:last-child {
+    display: flex;
+    margin-top: 6px;
+  }
+  .bookmark > a > div:first-child > div:last-child > div:first-child {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin-right: 6px;
+  }
+  .bookmark > a > div:first-child > div:last-child > div:first-child > img {
+    max-width: 100%;
+    display: inline-block;
+  }
+  .bookmark > a > div:first-child > div:last-child > div:last-child {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bookmark > a > div:last-child {
+    flex: 1 1 180px;
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    .bookmark > a > div:last-child {
+      display: none;
+    }
+  }
+  .bookmark > a > div:last-child > img {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

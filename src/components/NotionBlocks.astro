@@ -1,0 +1,131 @@
+---
+import * as interfaces from '../lib/interfaces.ts'
+import Paragraph from './notion-blocks/Paragraph.astro'
+import Heading1 from './notion-blocks/Heading1.astro'
+import Heading2 from './notion-blocks/Heading2.astro'
+import Heading3 from './notion-blocks/Heading3.astro'
+import TableOfContents from './notion-blocks/TableOfContents.astro'
+import Image from './notion-blocks/Image.astro'
+import Video from './notion-blocks/Video.astro'
+import Code from './notion-blocks/Code.astro'
+import Quote from './notion-blocks/Quote.astro'
+import Equation from './notion-blocks/Equation.astro'
+import Callout from './notion-blocks/Callout.astro'
+import Embed from './notion-blocks/Embed.astro'
+import Bookmark from './notion-blocks/Bookmark.astro'
+import Divider from './notion-blocks/Divider.astro'
+import Table from './notion-blocks/Table.astro'
+import ColumnList from './notion-blocks/ColumnList.astro'
+import BulletedListItems from './notion-blocks/BulletedListItems.astro'
+import NumberedListItems from './notion-blocks/NumberedListItems.astro'
+import ToDo from './notion-blocks/ToDo.astro'
+import SyncedBlock from './notion-blocks/SyncedBlock.astro'
+import Toggle from './notion-blocks/Toggle.astro'
+
+export interface Props {
+  blocks: Array<interfaces.Block>
+  isRoot: boolean
+  level: number
+  headings: Array<interfaces.Block>
+}
+
+const { blocks: rawBlocks, isRoot = false, level = 1, headings: rawHeadings = [] } = Astro.props
+
+const blocks =
+  rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
+    const isBulletedListItem = block.Type === 'bulleted_list_item'
+    const isNumberedListItem = block.Type === 'numbered_list_item'
+    const isToDo = block.Type === 'to_do'
+
+    if (!isBulletedListItem && !isNumberedListItem && !isToDo) return arr.concat(block)
+
+    let listType = ''
+    if (isBulletedListItem) {
+      listType = 'bulleted_list'
+    } else if (isNumberedListItem) {
+      listType = 'numbered_list'
+    } else {
+      listType = 'to_do_list'
+    }
+
+    if (i === 0) {
+      const list: interfaces.List = {
+        Type: listType,
+        ListItems: [block],
+      }
+      return arr.concat(list)
+    }
+
+    const prevList = arr[arr.length - 1]
+
+    if (
+      (isBulletedListItem && prevList.Type !== 'bulleted_list') ||
+      (isNumberedListItem && prevList.Type !== 'numbered_list') ||
+      (isToDo && prevList.Type !== 'to_do_list')
+    ) {
+      const list: interfaces.List = {
+        Type: listType,
+        ListItems: [block],
+      }
+      return arr.concat(list)
+    }
+
+    prevList.ListItems.push(block)
+
+    return arr
+  }, [])
+
+let headings = rawHeadings
+if (isRoot) {
+  headings = blocks.filter((b: interfaces.Block) => ['heading_1', 'heading_2', 'heading_3'].includes(b.Type))
+}
+---
+
+{blocks.map((block: interfaces.Block) => {
+  switch (block.Type) {
+    case 'paragraph':
+      return <Paragraph block={block} headings={headings} />
+    case 'heading_1':
+      return <Heading1 block={block} headings={headings} />
+    case 'heading_2':
+      return <Heading2 block={block} headings={headings} />
+    case 'heading_3':
+      return <Heading3 block={block} headings={headings} />
+    case 'table_of_contents':
+      return <TableOfContents block={block} headings={headings} />
+    case 'image':
+      return <Image block={block} />
+    case 'video':
+      return <Video block={block} />
+    case 'code':
+      return <Code block={block} />
+    case 'quote':
+      return <Quote block={block} headings={headings} />
+    case 'equation':
+      return <Equation block={block} />
+    case 'callout':
+      return <Callout block={block} headings={headings} />
+    case 'embed':
+      return <Embed block={block} />
+    case 'bookmark':
+    case 'link_preview':
+      return <Bookmark block={block} />
+    case 'divider':
+      return <Divider />
+    case 'table':
+      return <Table block={block} />
+    case 'column_list':
+      return <ColumnList block={block} headings={headings} />
+    case 'bulleted_list':
+      return <BulletedListItems block={block} headings={headings} />
+    case 'numbered_list':
+      return <NumberedListItems block={block} level={level} headings={headings} />
+    case 'to_do_list':
+      return <ToDo block={block} headings={headings} />
+    case 'synced_block':
+      return <SyncedBlock block={block} headings={headings} />
+    case 'toggle':
+      return <Toggle block={block} headings={headings} />
+  }
+  return null
+  })}

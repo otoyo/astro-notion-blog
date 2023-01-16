@@ -1,0 +1,39 @@
+---
+import katex from 'katex'
+import { RichText } from '../../lib/interfaces.ts'
+import Bold from './annotations/Bold.astro'
+import Italic from './annotations/Italic.astro'
+import Strikethrough from './annotations/Strikethrough.astro'
+import Underline from './annotations/Underline.astro'
+import Color from './annotations/Color.astro'
+import Code from './annotations/Code.astro'
+import Anchor from './annotations/Anchor.astro'
+
+export interface Props {
+  richText: RichText
+}
+
+const { richText } = Astro.props
+---
+
+<Anchor richText={richText}>
+  <Code richText={richText}>
+    <Color richText={richText}>
+      <Underline richText={richText}>
+        <Strikethrough richText={richText}>
+          <Italic richText={richText}>
+            <Bold richText={richText}>
+              {richText.Text && richText.Text.Content.split('\n').map((content: string, i: number) => {
+                if (i === 0) {
+                  return content
+                }
+                return <><br />{content}</>
+              })}
+              {richText.Equation && <span set:html={katex.renderToString(richText.Equation.Expression, { throwOnError: false })} />}
+            </Bold>
+          </Italic>
+        </Strikethrough>
+      </Underline>
+    </Color>
+  </Code>
+</Anchor>

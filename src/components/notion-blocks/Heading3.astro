@@ -1,0 +1,54 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { buildHeadingId } from '../../lib/blog-helpers.ts'
+import RichText from './RichText.astro'
+import NotionBlocks from '../NotionBlocks.astro'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+
+const id = buildHeadingId(block.Heading3)
+---
+
+{block.Heading3.IsToggleable ? (
+    <details class="toggle">
+      <summary>
+        <a href={`#${id}`} id={id}>
+          <h6>{block.Heading3.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h6>
+        </a>
+      </summary>
+      <div>
+        <NotionBlocks blocks={block.Heading3.Children} headings={headings} />
+      </div>
+    </details>
+  ) : (
+    <a href={`#${id}`} id={id}>
+      <h6>{block.Heading3.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h6>
+    </a>
+  )}
+
+<style>
+  .toggle {
+  }
+
+  .toggle > summary {
+    cursor: pointer;
+  }
+
+  .toggle > summary > a {
+    display: inline;
+  }
+
+  .toggle > summary > a > h6,
+  {
+    display: inline;
+  }
+
+  .toggle > div {
+    margin-left: 1em;
+  }
+</style>

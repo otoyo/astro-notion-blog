@@ -1,0 +1,34 @@
+---
+import * as interfaces from '../../lib/notion/interfaces'
+import { fetchImageAsDataURI } from '../../lib/blog-helpers.ts'
+import Caption from './Caption.astro'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+---
+
+<figure class="image">
+  <div>
+    <img
+      src={
+        block.Image.External
+          ? block.Image.External.Url
+          : await fetchImageAsDataURI(block.Image.File.Url)
+      }
+      alt="image block"
+    />
+  </div>
+  <Caption richTexts={block.Image.Caption} />
+</figure>
+
+<style>
+  .image {
+    margin: 0 auto;
+  }
+  .image > div:first-child {
+    text-align: center;
+  }
+</style>

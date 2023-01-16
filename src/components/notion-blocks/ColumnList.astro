@@ -1,0 +1,40 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import NotionBlocks from '../NotionBlocks.astro'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+---
+
+<div class="column-list">
+  {block.ColumnList.Columns.map((column: interfaces.Column) => (
+    <div>
+      <NotionBlocks blocks={column.Children} headings={headings} />
+    </div>
+  ))}
+</div>
+
+<style>
+  .column-list {
+    display: flex;
+    width: 100%;
+    margin: 1rem auto;
+    gap: 0 1rem;
+  }
+  .column-list > div {
+    flex: 1 1 180px;
+    width: 180px;
+  }
+  @media (max-width: 640px) {
+    .column-list {
+      display: block;
+    }
+    .column-list > div {
+      width: 100%;
+    }
+  }
+</style>

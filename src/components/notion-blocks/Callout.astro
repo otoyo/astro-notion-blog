@@ -1,0 +1,44 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { snakeToKebab } from '../../lib/style-helpers.ts'
+import RichText from './RichText.astro'
+import NotionBlocks from '../NotionBlocks.astro'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+---
+
+<div class={`callout ${snakeToKebab(block.Callout.Color)}`}>
+  <div>{block.Callout.Icon.Emoji}</div>
+  <div>
+    {block.Callout.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
+    {block.Callout.Children && <NotionBlocks blocks={block.Callout.Children} headings={headings} />}
+  </div>
+</div>
+
+<style>
+  .callout {
+    display: flex;
+    margin: 0.4rem auto;
+    padding: 16px 12px;
+    width: 100%;
+    font-size: 0.95rem;
+    line-height: 1.6rem;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    background: rgba(235, 236, 237, 0.6);
+  }
+  .callout div {
+    margin: 0;
+    line-height: 1.2rem;
+  }
+  .callout div:first-child {
+    margin-right: 0.7rem;
+  }
+</style>
