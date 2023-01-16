@@ -1,0 +1,26 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { fetchImageAsDataURI } from '../lib/blog-helpers.ts'
+
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+{post.FeaturedImage && (
+  <div class="post-featured-image">
+    <img src={await fetchImageAsDataURI(post.FeaturedImage)} alt="post-featured-image" />
+  </div>
+  )}
+
+<style>
+  .post-featured-image {
+    padding: 0.6rem 0 0.2rem;
+  }
+  .post-featured-image img {
+    display: block;
+    max-height: 20rem;
+  }
+</style>

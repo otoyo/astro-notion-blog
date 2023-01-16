@@ -1,0 +1,38 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getPostLink } from '../lib/blog-helpers.ts'
+
+export interface Props {
+  post: Post
+  enableLink: boolean
+}
+
+const { post, enableLink = true } = Astro.props
+---
+
+<h3 class="post-title">
+  {enableLink ? (
+    <a href={getPostLink(post.Slug)}>
+      {post.Title}
+    </a>
+  ) : post.Title}
+</h3>
+
+<style>
+  .post-title {
+    font-size: 1.6rem;
+    color: var(--fg);
+  }
+  .post-title a {
+    font-size: 1.2rem;
+    color: inherit;
+  }
+  @media (max-width: 640px) {
+    .post-title {
+      font-size: 1.2rem;
+    }
+    .post-title a {
+      font-size: 1.15rem;
+    }
+  }
+</style>

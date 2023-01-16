@@ -1,0 +1,29 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getTagLink } from '../lib/blog-helpers.ts'
+
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+<div class="post-tags">
+  {post.Tags &&
+    post.Tags.length > 0 &&
+    post.Tags.map((tag: string) => (
+      <a href={getTagLink(tag)}>
+        {tag}
+      </a>
+    ))}
+</div>
+
+<style>
+  .post-tags {
+    font-size: 0.9rem;
+  }
+  .post-tags a {
+    padding-right: 0.8rem;
+  }
+</style>

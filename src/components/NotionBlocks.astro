@@ -23,10 +23,10 @@ import SyncedBlock from './notion-blocks/SyncedBlock.astro'
 import Toggle from './notion-blocks/Toggle.astro'
 
 export interface Props {
-  blocks: Array<interfaces.Block>
+  blocks: interfaces.Block[]
   isRoot: boolean
   level: number
-  headings: Array<interfaces.Block>
+  headings: interfaces.Block[]
 }
 
 const { blocks: rawBlocks, isRoot = false, level = 1, headings: rawHeadings = [] } = Astro.props

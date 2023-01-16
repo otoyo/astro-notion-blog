@@ -1,0 +1,20 @@
+---
+import { Post } from '../lib/interfaces.ts'
+
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+<div class="post-excerpt">
+  <p>{post.Excerpt ? post.Excerpt : ''}</p>
+</div>
+
+<style>
+  .post-excerpt {
+    padding: 0.4rem 0;
+    font-size: 1rem;
+  }
+</style>

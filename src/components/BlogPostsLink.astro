@@ -1,0 +1,59 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getPostLink } from '../lib/blog-helpers.ts'
+import NoContents from './NoContents.astro'
+
+export interface Props {
+  heading: string
+  posts: Post[]
+}
+
+const { heading, posts } = Astro.props
+---
+
+<div class="blog-posts-link">
+  <h3>{heading}</h3>
+  {posts.length === 0 ? (
+      <NoContents contents={posts} />
+    ) : (
+      <ul>
+        {posts.map((post: Post) => (
+          <li>
+            <a href={getPostLink(post.Slug)}>{post.Title}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+</div>
+
+<style>
+  .blog-posts-link {
+  }
+  .blog-posts-link h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  .blog-posts-link ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0.3rem;
+  }
+  .blog-posts-link ul li {
+    position: relative;
+    font-size: 0.95rem;
+    padding: 0.4rem 0;
+    padding-left: 0.7rem;
+    line-height: 1.2rem;
+  }
+  .blog-posts-link ul li:before {
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    content: '';
+    background: #333;
+  }
+</style>

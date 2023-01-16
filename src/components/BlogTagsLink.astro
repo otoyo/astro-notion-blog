@@ -1,0 +1,58 @@
+---
+import { getTagLink } from '../lib/blog-helpers.ts'
+import NoContents from './NoContents.astro'
+
+export interface Props {
+  heading: string
+  tags: string[]
+}
+
+const { heading, tags } = Astro.props
+---
+
+<div class="blog-tags-link">
+  <h3>{heading}</h3>
+  {tags.length === 0 ? (
+      <NoContents contents={tags} />
+    ) : (
+      <ul>
+        {tags.map((tag: string) => (
+          <li>
+            <a href={getTagLink(tag)}>{tag}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+</div>
+
+<style>
+  .blog-tags-link {
+  }
+  .blog-tags-link h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  .blog-tags-link ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0.3rem;
+  }
+  .blog-tags-link ul li {
+    position: relative;
+    font-size: 1rem;
+    padding: 0.4rem 0;
+    padding-left: 0.7rem;
+    line-height: 1.2rem;
+  }
+  .blog-tags-link ul li:before {
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    content: '';
+    background: #333;
+  }
+</style>
