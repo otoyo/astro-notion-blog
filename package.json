@@ -15,6 +15,7 @@
     "@astrojs/react": "^1.2.2",
     "@notionhq/client": "^2.2.3",
     "astro": "^1.9.0",
+    "js-base64": "^3.7.4",
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
     "metascraper": "^5.33.4",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
+    "@types/js-base64": "^3.3.1",
     "eslint": "^8.31.0",
     "eslint-plugin-astro": "^0.21.1"
   }
