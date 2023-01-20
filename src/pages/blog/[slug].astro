@@ -1,0 +1,70 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import {
+  getPosts,
+  getAllPosts,
+  getRankedPosts,
+  getPostBySlug,
+  getPostsByTag,
+  getAllTags,
+  getAllBlocksByBlockId,
+} from '../../lib/notion/client.ts'
+import { getPostLink } from '../../lib/blog-helpers.ts'
+import Layout from '../../layouts/Layout.astro'
+import PostDate from '../../components/PostDate.astro'
+import PostTags from '../../components/PostTags.astro'
+import PostTitle from '../../components/PostTitle.astro'
+import PostBody from '../../components/PostBody.astro'
+import BlogPostsLink from '../../components/BlogPostsLink.astro'
+import BlogTagsLink from '../../components/BlogTagsLink.astro'
+import styles from '../../styles/blog.module.css'
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug }}))
+}
+
+const { slug } = Astro.params
+
+const post = await getPostBySlug(slug)
+if (!post) {
+  throw new Error('Post not found. slug: ${slug}')
+}
+
+const [
+  blocks,
+  rankedPosts,
+  recentPosts,
+  tags,
+  postsHavingSameTag,
+] = await Promise.all([
+  getAllBlocksByBlockId(post.PageId),
+  getRankedPosts(),
+  getPosts(5),
+  getAllTags(),
+  getPostsByTag(post.Tags[0], 6),
+])
+---
+
+<Layout title={post.Title} description={post.Excerpt} path={getPostLink(post.Slug)}>
+  <div className={styles.container}>
+    <main>
+      <div className={styles.post}>
+        <PostDate post={post} />
+        <PostTags post={post} />
+        <PostTitle post={post} enableLink={false} />
+        <PostBody blocks={blocks} />
+
+        <footer>
+        </footer>
+      </div>
+    </main>
+
+    <aside>
+      <BlogPostsLink heading="Posts in the same category" posts={postsHavingSameTag.filter((p: interfaces.Post) => p.Slug !== post.Slug)} />
+      <BlogPostsLink heading="Recommended" posts={rankedPosts} />
+      <BlogPostsLink heading="Latest posts" posts={recentPosts} />
+      <BlogTagsLink heading="Categories" tags={tags} />
+    </aside>
+  </div>
+</Layout>
