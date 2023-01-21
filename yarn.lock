@@ -655,6 +655,32 @@
   dependencies:
     "@types/unist" "*"
 
+"@types/metascraper-description@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@types/metascraper-description/-/metascraper-description-5.14.1.tgz#a5f1c005bf5b63198828df200d548a9a48bb62f7"
+  integrity sha512-ztT+5m1oKroS7QpV1h9C2RVx/F+VPWjwFrcwzgrEZhdk4Ok0CcCFgul2WORJbL4DBsiDvxeoO0snGI6B6UjDaQ==
+  dependencies:
+    metascraper "^5.14.0"
+
+"@types/metascraper-image@^5.14.0":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@types/metascraper-image/-/metascraper-image-5.14.0.tgz#1ba496f80db669f5b00358a0ab343832defef095"
+  integrity sha512-9vaKfhHDnR9jdrScKpYztPhKd1Xey1wVMJLkVkMFU/0GOmLL9GrAaS/cATl7XHK8fDqGPEfr/oSz8/T8WwNKJg==
+  dependencies:
+    metascraper "^5.14.0"
+
+"@types/metascraper-title@^5.14.0":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@types/metascraper-title/-/metascraper-title-5.14.0.tgz#5a406c55b0300f1a43d50309d776af057cf58a5b"
+  integrity sha512-+Cs5rFX25znjicXvjPi7N++WY3+18pSvPs3y6xGbHHrLLdK8+u3yVdOBOCYlkar9IrtGrn7V9GzdiZ+Uaoy+Bw==
+  dependencies:
+    metascraper "^5.14.0"
+
+"@types/metascraper@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@types/metascraper/-/metascraper-5.14.1.tgz#3b8a80d1123a125ad0015fd82677679ed46ee150"
+  integrity sha512-AivFkVfmBznB6ZDlmfh5WcIL0WQN7bmDazGaH04RbouijYazmOeLzZZoFkAPmkbx4RdnokSgkGB71Njw/V0T4A==
+
 "@types/ms@*":
   version "0.7.31"
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
@@ -3483,7 +3509,7 @@ metascraper-title@^5.33.4:
   dependencies:
     "@metascraper/helpers" "^5.33.4"
 
-metascraper@^5.33.4:
+metascraper@^5.14.0, metascraper@^5.33.4:
   version "5.33.4"
   resolved "https://registry.yarnpkg.com/metascraper/-/metascraper-5.33.4.tgz#ab57b8b91bdfd5110f8d279fcb2061a57e4d9872"
   integrity sha512-EWQaq13qvDoMgrhS/LyZzUE7cArotrHOwR1mUJ1IBGlfGvmG3BpyRoo3NtDqqodO1lUbJ4wIFS/QPwr84mZmYA==
