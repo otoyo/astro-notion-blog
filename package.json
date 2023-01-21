@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^1.2.2",
+    "@astrojs/rss": "^2.0.0",
     "@notionhq/client": "^2.2.3",
     "astro": "^1.9.0",
     "js-base64": "^3.7.4",
