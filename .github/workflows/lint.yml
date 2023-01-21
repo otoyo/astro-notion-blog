@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Run lint
+        run: yarn lint
