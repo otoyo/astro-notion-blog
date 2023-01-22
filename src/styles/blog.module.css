@@ -48,38 +48,45 @@ aside {
   color: var(--fg);
 }
 .post :global(h4) {
-  margin: 1.8rem 0 0.8rem;
+  margin: 1.8rem 0 1.2rem;
   color: var(--fg);
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+
+  padding-left: 1.2em; /*アイコン分のスペース*/
+  line-height: 1.4;
 }
-.post :global(h4):after {
-  color: var(--accents-1);
+
+/* .post :global(h4):after {
+  color: rgb(112, 108, 108);
   font-size: 0.9rem;
-  content: '▼';
+  content: "▼";
   padding-left: 0.2rem;
-}
+} */
 .post :global(h5) {
-  margin: 1.8rem 0 0.8rem;
+  margin: 1.8rem 0 1.2rem;
   color: var(--fg);
   font-size: 1.1rem;
+  padding-left: 1.2em; /*アイコン分のスペース*/
 }
-.post :global(h5):after {
+/* .post :global(h5):after {
   color: var(--accents-1);
   font-size: 0.9rem;
-  content: '▼';
+  content: "▼";
   padding-left: 0.2rem;
-}
+} */
 .post :global(h6) {
-  margin: 1.8rem 0 0.8rem;
+  margin: 1.8rem 0 1.2rem;
   color: var(--fg);
   font-size: 1.1rem;
+  padding-left: 1.2em; /*アイコン分のスペース*/
+  line-height: 1.4;
 }
-.post :global(h6):after {
+/* .post :global(h6):after {
   color: var(--accents-1);
   font-size: 0.9rem;
-  content: '▼';
+  content: "▼";
   padding-left: 0.2rem;
-}
+} */
 .post :global(p) {
   margin: 0.3rem 0;
   font-size: 1rem;
@@ -100,7 +107,8 @@ aside {
 .post table {
   margin: 1rem 0;
 }
-.post ul, .post ol {
+.post ul,
+.post ol {
   font-size: 1rem;
 }
 .post p code {

@@ -1,24 +1,29 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
-import { buildHeadingId } from '../../lib/blog-helpers.ts'
-import RichText from './RichText.astro'
-import NotionBlocks from '../NotionBlocks.astro'
+import * as interfaces from "../../lib/interfaces.ts";
+import { buildHeadingId } from "../../lib/blog-helpers.ts";
+import RichText from "./RichText.astro";
+import NotionBlocks from "../NotionBlocks.astro";
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: interfaces.Block;
+  headings: interfaces.Block[];
 }
 
-const { block, headings } = Astro.props
+const { block, headings } = Astro.props;
 
-const id = buildHeadingId(block.Heading1)
+const id = buildHeadingId(block.Heading1);
 ---
 
-{block.Heading1.IsToggleable ? (
+{
+  block.Heading1.IsToggleable ? (
     <details class="toggle">
       <summary>
         <a href={`#${id}`} id={id}>
-          <h4>{block.Heading1.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h4>
+          <h4>
+            {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+              <RichText richText={richText} />
+            ))}
+          </h4>
         </a>
       </summary>
       <div>
@@ -27,11 +32,24 @@ const id = buildHeadingId(block.Heading1)
     </details>
   ) : (
     <a href={`#${id}`} id={id}>
-      <h4>{block.Heading1.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h4>
+      <>
+        <h4>
+          {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+            <RichText richText={richText} />
+          ))}
+        </h4>
+      </>
     </a>
-  )}
+  )
+}
 
 <style>
+  h4 {
+    background: #ffaba083;
+    box-shadow: 0px 0px 0px 5px #ffaba083;
+    border: dashed 2px rgba(88, 33, 1, 0.501);
+    padding: 0.2em 0.5em;
+  }
   .toggle {
   }
 
@@ -43,8 +61,7 @@ const id = buildHeadingId(block.Heading1)
     display: inline;
   }
 
-  .toggle > summary > a > h4,
-  {
+  .toggle > summary > a > h4 {
     display: inline;
   }
 

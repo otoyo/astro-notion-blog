@@ -1,24 +1,30 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
-import { buildHeadingId } from '../../lib/blog-helpers.ts'
-import RichText from './RichText.astro'
-import NotionBlocks from '../NotionBlocks.astro'
+import * as interfaces from "../../lib/interfaces.ts";
+import { buildHeadingId } from "../../lib/blog-helpers.ts";
+import RichText from "./RichText.astro";
+import NotionBlocks from "../NotionBlocks.astro";
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: interfaces.Block;
+  headings: interfaces.Block[];
 }
 
-const { block, headings } = Astro.props
+const { block, headings } = Astro.props;
 
-const id = buildHeadingId(block.Heading2)
+const id = buildHeadingId(block.Heading2);
 ---
 
-{block.Heading2.IsToggleable ? (
+{
+  block.Heading2.IsToggleable ? (
     <details class="toggle">
       <summary>
-        <a href={`#${id}`} id={id}>{tag}
-          <h5>{block.Heading2.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h5>
+        <a href={`#${id}`} id={id}>
+          {tag}
+          <h5>
+            {block.Heading2.RichTexts.map((richText: interfaces.RichText) => (
+              <RichText richText={richText} />
+            ))}
+          </h5>
         </a>
       </summary>
       <div>
@@ -27,11 +33,41 @@ const id = buildHeadingId(block.Heading2)
     </details>
   ) : (
     <a href={`#${id}`} id={id}>
-      <h5>{block.Heading2.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h5>
+      <h5>
+        {block.Heading2.RichTexts.map((richText: interfaces.RichText) => (
+          <RichText richText={richText} />
+        ))}
+      </h5>
     </a>
-  )}
+  )
+}
 
 <style>
+  h5 {
+    position: relative;
+  }
+  h5:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 7px;
+    background: -webkit-repeating-linear-gradient(
+      -45deg,
+      #ffaba083,
+      #ffaba083 2px,
+      #fff 2px,
+      #fff 4px
+    );
+    background: repeating-linear-gradient(
+      -45deg,
+      #ffaba083,
+      #ffaba083 2px,
+      #fff 2px,
+      #fff 4px
+    );
+  }
   .toggle {
   }
 
@@ -43,8 +79,7 @@ const id = buildHeadingId(block.Heading2)
     display: inline;
   }
 
-  .toggle > summary > a > h5,
-  {
+  .toggle > summary > a > h5 {
     display: inline;
   }
 
