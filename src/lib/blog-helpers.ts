@@ -6,8 +6,15 @@ import type {
   RichText,
 } from './interfaces'
 
-export const fetchImageAsDataURI = async (url: string) => {
-  const res = await fetch(url)
+export const fetchImageAsDataURI = async (urlString: string): Promise<string> => {
+  try {
+    new URL(urlString)
+  } catch (err) {
+    console.log(err, urlString)
+    return Promise.resolve('')
+  }
+
+  const res = await fetch(urlString)
   const blob = await res.blob()
   const arrayBuffer = await blob.arrayBuffer()
   const bin = String.fromCharCode(...new Uint8Array(arrayBuffer))
