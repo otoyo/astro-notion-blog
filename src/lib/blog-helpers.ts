@@ -1,4 +1,4 @@
-import { Base64 } from 'js-base64'
+import fetch from 'node-fetch'
 import type {
   Heading1,
   Heading2,
@@ -6,12 +6,19 @@ import type {
   RichText,
 } from './interfaces'
 
-export const fetchImageAsDataURI = async (url: string) => {
+export const fetchImageAsDataURI = async (url: string): Promise<string | null> => {
   const res = await fetch(url)
-  const blob = await res.blob()
-  const arrayBuffer = await blob.arrayBuffer()
-  const bin = String.fromCharCode(...new Uint8Array(arrayBuffer))
-  return `data:image/gif;base64,${Base64.btoa(bin)}`
+  if (!res || !res.body) {
+    return Promise.resolve(null)
+  }
+  const stream = res.body
+
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = []
+    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)))
+    stream.on('error', (err) => reject(err))
+    stream.on('end', () => resolve(`data:image/gif;base64,${Buffer.concat(chunks).toString('base64')}`))
+  })
 }
 
 export const getPostLink = (slug: string) => {
