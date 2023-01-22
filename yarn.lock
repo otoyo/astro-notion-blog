@@ -700,7 +700,7 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/node-fetch@^2.5.10":
+"@types/node-fetch@^2.5.10", "@types/node-fetch@^2.6.2":
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.6.2.tgz#d1a9c5fd049d9415dce61571557104dec3ec81da"
   integrity sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==
@@ -3046,7 +3046,7 @@ isostring@0.0.1:
   resolved "https://registry.yarnpkg.com/isostring/-/isostring-0.0.1.tgz#ddb608efbfc89cda86db9cb16be090a788134c7f"
   integrity sha512-wRcdJtXCe2LGtXnD14fXMkduWVdbeGkzBIKg8WcKeEOi6SIc+hRjYYw76WNx3v5FebhUWZrBTWB0NOl3/sagdQ==
 
-js-base64@*, js-base64@^3.7.4:
+js-base64@*:
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.4.tgz#af95b20f23efc8034afd2d1cc5b9d0adf7419037"
   integrity sha512-wpM/wi20Tl+3ifTyi0RdDckS4YTD4Lf953mBRrpG8547T7hInHNPEj8+ck4gB8VDcGyeAWFK++Wb/fU1BeavKQ==
