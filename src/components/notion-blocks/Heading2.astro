@@ -19,7 +19,6 @@ const id = buildHeadingId(block.Heading2);
     <details class="toggle">
       <summary>
         <a href={`#${id}`} id={id}>
-          {tag}
           <h5>
             {block.Heading2.RichTexts.map((richText: interfaces.RichText) => (
               <RichText richText={richText} />
@@ -69,10 +68,12 @@ const id = buildHeadingId(block.Heading2);
     );
   }
   .toggle {
+    margin: 1.8rem 0 1.2rem;
   }
 
   .toggle > summary {
     cursor: pointer;
+    margin: 1.8rem 0 1.2rem;
   }
 
   .toggle > summary > a {
