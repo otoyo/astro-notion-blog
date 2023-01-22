@@ -3,27 +3,27 @@ import {
   PUBLIC_SITE_TITLE,
   PUBLIC_SITE_DESCRIPTION,
   PUBLIC_GA_TRACKING_ID,
-} from '../server-constants.ts'
-import '../styles/syntax-coloring.css'
-import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+} from "../server-constants.ts";
+import "../styles/syntax-coloring.css";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 export interface Props {
-  title: string
-  desctiption: string
-  path: string
+  title: string;
+  desctiption: string;
+  path: string;
 }
 
-const { title = '', description = '', path = '/' } = Astro.props
+const { title = "", description = "", path = "/" } = Astro.props;
 
-const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE
-const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION
-const siteURL = new URL(path, Astro.site).toString()
-const siteOGImage = new URL('/default-og-image.png', Astro.site)
+const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE;
+const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION;
+const siteURL = new URL(path, Astro.site).toString();
+const siteOGImage = new URL("/default-og-love.png", Astro.site);
 
 const navItems = [
-  { label: 'Home', path: '/' },
-  { label: 'Blog', path: '/blog' },
-]
+  { label: "Home", path: "/" },
+  { label: "Blog", path: "/blog" },
+];
 ---
 
 <!DOCTYPE html>
@@ -45,7 +45,12 @@ const navItems = [
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={siteOGImage} />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+      integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
@@ -55,11 +60,15 @@ const navItems = [
       </h1>
 
       <ul>
-        {navItems.map(({ label, path: p }) => (
-          <li key={label}>
-            <a href={p} class={p === path ? 'active' : null}>{label}</a>
-          </li>
-        ))}
+        {
+          navItems.map(({ label, path: p }) => (
+            <li key={label}>
+              <a href={p} class={p === path ? "active" : null}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </header>
     <div class="container">
@@ -67,8 +76,10 @@ const navItems = [
     </div>
     <footer class="footer">
       <div>
-        <span>Powered by </span>
-        <a href="https://github.com/otoyo/astro-notion-blog">astro-notion-blog</a>
+        <span>Powered by</span>
+        <a href="https://github.com/otoyo/astro-notion-blog"
+          >astro-notion-blog</a
+        >
       </div>
     </footer>
   </body>
@@ -142,10 +153,11 @@ const navItems = [
 
     --radius: 4px;
 
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    --font-mono: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    --font-mono: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation Mono",
+      Courier, monospace;
   }
 
   * {
@@ -252,7 +264,8 @@ const navItems = [
     font-size: 1rem;
     line-height: 1.8rem;
   }
-  ul, ol {
+  ul,
+  ol {
     margin: 0;
     padding-inline-start: 1.5rem;
   }
