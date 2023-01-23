@@ -1,26 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { INDEX_PAGE_ID } from "../server-constants";
-import { getAllBlocksByBlockId } from "../lib/notion/client.ts";
+import { INDEX_PAGE_ID, PROFILE_PAGE_ID } from "../server-constants";
+import {
+  getAllBlocksByBlockId,
+  getRankedPosts,
+  getAllTags,
+} from "../lib/notion/client.ts";
 import PostBody from "../components/PostBody.astro";
+import BlogPostsLink from "../components/BlogPostsLink.astro";
+import BlogTagsLink from "../components/BlogTagsLink.astro";
 
-const [blocks] = await Promise.all([getAllBlocksByBlockId(INDEX_PAGE_ID)]);
+import styles from "../styles/blog.module.css";
+
+const [blocksStatic, blocksProfile, rankedPosts, tags] = await Promise.all([
+  getAllBlocksByBlockId(INDEX_PAGE_ID),
+  getAllBlocksByBlockId(PROFILE_PAGE_ID),
+  getRankedPosts(),
+  getAllTags(),
+]);
 ---
 
 <Layout title="HOME" desctiption="" path="/">
-  <div class="container">
+  <div className={styles.container}>
     <main>
       <h2>やっほー</h2>
       <p>horomiでーーす</p>
       <p>これから楽しみ！</p>
       <p>これからガンガン改造していくぞーーーー</p>
-      <PostBody blocks={blocks} />
+      <PostBody blocks={blocksStatic} />
     </main>
+    <aside>
+      <PostBody blocks={blocksProfile} />
+      <BlogPostsLink heading="Recommended" posts={rankedPosts} />
+      <BlogTagsLink heading="Categories" tags={tags} />
+    </aside>
   </div>
 </Layout>
 
 <style>
-  .container {
+  main {
+    width: 70%;
+  }
+  aside {
+    width: 25%;
+  }
+  /* .container {
     width: 640px;
     max-width: 100%;
     margin: 0 auto;
@@ -28,6 +52,7 @@ const [blocks] = await Promise.all([getAllBlocksByBlockId(INDEX_PAGE_ID)]);
 
   .container > main {
     margin-bottom: 40px;
+    width: 60%;
   }
   .container div:last-child {
     margin-bottom: 0;
@@ -42,5 +67,5 @@ const [blocks] = await Promise.all([getAllBlocksByBlockId(INDEX_PAGE_ID)]);
   .container p {
     margin: 0.3rem auto;
     line-height: 2rem;
-  }
+  } */
 </style>
