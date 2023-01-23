@@ -1,14 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { INDEX_PAGE_ID } from "../server-constants";
+import { getAllBlocksByBlockId } from "../lib/notion/client.ts";
+import PostBody from "../components/PostBody.astro";
+
+const [blocks] = await Promise.all([getAllBlocksByBlockId(INDEX_PAGE_ID)]);
 ---
 
-<Layout>
+<Layout title="HOME" desctiption="" path="/">
   <div class="container">
     <main>
       <h2>やっほー</h2>
       <p>horomiでーーす</p>
       <p>これから楽しみ！</p>
       <p>これからガンガン改造していくぞーーーー</p>
+      <PostBody blocks={blocks} />
     </main>
   </div>
 </Layout>
