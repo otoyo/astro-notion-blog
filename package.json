@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@nrwl/nx-cloud": "^15.0.2",
     "@types/js-base64": "^3.3.1",
     "@types/metascraper": "^5.14.1",
     "@types/metascraper-description": "^5.14.1",
@@ -36,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
     "eslint": "^8.31.0",
-    "eslint-plugin-astro": "^0.21.1"
+    "eslint-plugin-astro": "^0.21.1",
+    "nx": "15.5.3"
   }
 }
