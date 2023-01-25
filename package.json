@@ -7,9 +7,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:cached": "npm run cache:fetch && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --ext .js,.ts,.astro src"
+    "lint": "eslint --ext .js,.ts,.astro src",
+    "cache:fetch": "node scripts/blog-contents-cache.cjs",
+    "cache:purge": "nx reset",
+    "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
     "@astrojs/react": "^1.2.2",
@@ -40,5 +44,23 @@
     "eslint": "^8.31.0",
     "eslint-plugin-astro": "^0.21.1",
     "nx": "15.5.3"
+  },
+  "nx": {
+    "targets": {
+      "_fetch-notion-blocks": {
+        "inputs": [
+          "!{projectRoot}/**/*",
+          {
+            "env": "DATABASE_ID"
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/tmp"
+        ]
+      }
+    },
+    "includedScripts": [
+      "_fetch-notion-blocks"
+    ]
   }
 }
