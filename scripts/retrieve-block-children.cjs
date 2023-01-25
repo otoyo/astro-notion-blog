@@ -6,6 +6,15 @@ const notion = new Client({ auth: process.env.NOTION_API_SECRET });
 
 const requestDuration = 300;
 
+const retry = (maxRetries, fn) => {
+  return fn().catch(function(err) {
+    if (maxRetries <= 0) {
+      throw err;
+    }
+    return retry(maxRetries - 1, fn);
+  });
+};
+
 const retrieveAndWriteBlockChildren = async (blockId) => {
   const params = { block_id: blockId };
 
@@ -16,7 +25,7 @@ const retrieveAndWriteBlockChildren = async (blockId) => {
     // See https://developers.notion.com/reference/request-limits
     await setTimeout(requestDuration);
 
-    const res = await notion.blocks.children.list(params);
+    const res = await retry(3, () => notion.blocks.children.list(params));
 
     results = results.concat(res.results);
 
@@ -50,7 +59,7 @@ const retrieveAndWriteBlock = async (blockId) => {
   // See https://developers.notion.com/reference/request-limits
   await setTimeout(requestDuration);
 
-  const block = await notion.blocks.retrieve(params);
+  const block = await retry(3, () => notion.blocks.retrieve(params));
 
   fs.writeFileSync(`tmp/${blockId}.json`, JSON.stringify(block));
 
