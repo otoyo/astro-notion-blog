@@ -1430,6 +1430,13 @@ cli-cursor@^4.0.0:
   dependencies:
     restore-cursor "^4.0.0"
 
+cli-progress@^3.11.2:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/cli-progress/-/cli-progress-3.11.2.tgz#f8c89bd157e74f3f2c43bcfb3505670b4d48fc77"
+  integrity sha512-lCPoS6ncgX4+rJu5bS3F/iCz17kZ9MPZ6dpuTtI0KXKABkhyXIdYB3Inby1OpaGti3YlI3EeEkM9AuWpelJrVA==
+  dependencies:
+    string-width "^4.2.3"
+
 cli-spinners@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/cli-spinners/-/cli-spinners-2.6.1.tgz#adc954ebe281c37a6319bfa401e6dd2488ffb70d"
