@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
@@ -172,26 +173,30 @@ export async function getNumberOfPagesByTag(tag: string): Promise<number> {
 }
 
 export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
-  let allBlocks: Block[] = []
+  let results: responses.BlockObject[] = []
 
-  const params: requestParams.RetrieveBlockChildren = {
-    block_id: blockId,
-  }
-
-  while (true) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
-
-    const blocks = res.results.map(blockObject => _buildBlock(blockObject))
-
-    allBlocks = allBlocks.concat(blocks)
-
-    if (!res.has_more) {
-      break
+  if (fs.existsSync(`tmp/${blockId}.json`)) {
+    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  } else {
+    const params: requestParams.RetrieveBlockChildren = {
+      block_id: blockId,
     }
 
-    params['start_cursor'] = res.next_cursor as string
+    while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+
+      results = results.concat(res.results)
+
+      if (!res.has_more) {
+        break
+      }
+
+      params['start_cursor'] = res.next_cursor as string
+    }
   }
+
+  const allBlocks = results.map(blockObject => _buildBlock(blockObject))
 
   for (let i = 0; i < allBlocks.length; i++) {
     const block = allBlocks[i]
@@ -463,91 +468,100 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
 }
 
 async function _getTableRows(blockId: string): Promise<TableRow[]> {
-  let tableRows: TableRow[] = []
+  let results: responses.BlockObject[] = []
 
-  const params: requestParams.RetrieveBlockChildren = {
-    block_id: blockId,
-  }
-
-  while (true) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
-
-    const blocks = res.results.map(blockObject => {
-      const tableRow: TableRow = {
-        Id: blockObject.id,
-        Type: blockObject.type,
-        HasChildren: blockObject.has_children,
-        Cells: []
-      }
-
-      if (blockObject.type === 'table_row' && blockObject.table_row) {
-        const cells: TableCell[] = blockObject.table_row.cells.map(cell => {
-          const tableCell: TableCell = {
-            RichTexts: cell.map(_buildRichText),
-          }
-
-          return tableCell
-        })
-
-        tableRow.Cells = cells
-      }
-
-      return tableRow
-    })
-
-    tableRows = tableRows.concat(blocks)
-
-    if (!res.has_more) {
-      break
+  if (fs.existsSync(`tmp/${blockId}.json`)) {
+    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  } else {
+    const params: requestParams.RetrieveBlockChildren = {
+      block_id: blockId,
     }
 
-    params['start_cursor'] = res.next_cursor as string
+    while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+
+      results = results.concat(res.results)
+
+      if (!res.has_more) {
+        break
+      }
+
+      params['start_cursor'] = res.next_cursor as string
+    }
   }
 
-  return tableRows
+  return results.map(blockObject => {
+    const tableRow: TableRow = {
+      Id: blockObject.id,
+      Type: blockObject.type,
+      HasChildren: blockObject.has_children,
+      Cells: []
+    }
+
+    if (blockObject.type === 'table_row' && blockObject.table_row) {
+      const cells: TableCell[] = blockObject.table_row.cells.map(cell => {
+        const tableCell: TableCell = {
+          RichTexts: cell.map(_buildRichText),
+        }
+
+        return tableCell
+      })
+
+      tableRow.Cells = cells
+    }
+
+    return tableRow
+  })
 }
 
 async function _getColumns(blockId: string): Promise<Column[]> {
-  let columns: Column[] = []
+  let results: responses.BlockObject[] = []
 
-  const params: requestParams.RetrieveBlockChildren = {
-    block_id: blockId,
-  }
-
-  while (true) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
-
-    const blocks = await Promise.all(res.results.map(async blockObject => {
-      const children = await getAllBlocksByBlockId(blockObject.id)
-
-      const column: Column = {
-        Id: blockObject.id,
-        Type: blockObject.type,
-        HasChildren: blockObject.has_children,
-        Children: children,
-      }
-
-      return column
-    }))
-
-    columns = columns.concat(blocks)
-
-    if (!res.has_more) {
-      break
+  if (fs.existsSync(`tmp/${blockId}.json`)) {
+    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  } else {
+    const params: requestParams.RetrieveBlockChildren = {
+      block_id: blockId,
     }
 
-    params['start_cursor'] = res.next_cursor as string
+    while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+
+      results = results.concat(res.results)
+
+      if (!res.has_more) {
+        break
+      }
+
+      params['start_cursor'] = res.next_cursor as string
+    }
   }
 
-  return columns
+  return await Promise.all(results.map(async blockObject => {
+    const children = await getAllBlocksByBlockId(blockObject.id)
+
+    const column: Column = {
+      Id: blockObject.id,
+      Type: blockObject.type,
+      HasChildren: blockObject.has_children,
+      Children: children,
+    }
+
+    return column
+  }))
 }
 
 async function _getSyncedBlockChildren(block: Block): Promise<Block[]> {
   let originalBlock: Block = block
   if (block.SyncedBlock && block.SyncedBlock.SyncedFrom && block.SyncedBlock.SyncedFrom.BlockId) {
-    originalBlock = await getBlock(block.SyncedBlock.SyncedFrom.BlockId)
+    try {
+      originalBlock = await getBlock(block.SyncedBlock.SyncedFrom.BlockId)
+    } catch (err) {
+      console.log(`Could not retrieve the original synced_block. error: ${err}`)
+      return []
+    }
   }
 
   const children = await getAllBlocksByBlockId(originalBlock.Id)
