@@ -42,25 +42,36 @@ const onigiri =
             <div className={styles.post} key={post.Slug}>
               <div
                 style={{
-                  justifyContent: "center",
+                  justifyContent: "start",
                   display: "flex",
-                  flexWrap: "wrap",
+                  flexWrap: "nowrap",
                 }}
               >
-                <div>
-                  <PostDate post={post} />
-                  <PostTags post={post} />
+                <div
+                  style={{
+                    justifyContent: "center",
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    minWidth: "200px",
+                  }}
+                >
+                  <div>
+                    <PostDate post={post} />
+                    <PostTags post={post} />
+                  </div>
+                  <img
+                    src={`data:image/svg+xml,${encodeURIComponent(onigiri)}`}
+                    width={100}
+                    height={100}
+                    alt="onigiri"
+                  />
                 </div>
-                <img
-                  src={`data:image/svg+xml,${encodeURIComponent(onigiri)}`}
-                  width={100}
-                  height={100}
-                  alt="onigiri"
-                />
+                <div>
+                  <PostTitle post={post} />
+                  <PostFeaturedImage post={post} />
+                  <PostExcerpt post={post} />
+                </div>
               </div>
-              <PostTitle post={post} />
-              <PostFeaturedImage post={post} />
-              <PostExcerpt post={post} />
               <div
                 style={{
                   justifyContent: "center",
