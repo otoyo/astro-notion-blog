@@ -1,12 +1,12 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { getPostLink } from '../lib/blog-helpers.ts'
+import { Post } from "../lib/interfaces.ts";
+import { getPostLink } from "../lib/blog-helpers.ts";
 
 export interface Props {
-  post: Post
+  post: Post;
 }
 
-const { post } = Astro.props
+const { post } = Astro.props;
 ---
 
 <div class="read-more-link">
@@ -19,17 +19,15 @@ const { post } = Astro.props
   }
   .read-more-link a {
     display: block;
-    width: 30%;
+    padding: 0 3rem;
     margin: 1rem auto 0;
     border: 1px solid var(--accents-1);
     color: inherit;
     font-size: 0.85rem;
     text-align: center;
     line-height: 3rem;
+    white-space: nowrap;
   }
   @media (max-width: 640px) {
-    .read-more-link a {
-      width: 50%;
-    }
   }
 </style>
