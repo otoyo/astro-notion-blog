@@ -22,12 +22,15 @@ export async function getStaticPaths() {
   const allTags = await getAllTags()
 
   let params = []
-  await allTags.forEach(async (tag: string) => {
-    const numberOfPages = await getNumberOfPagesByTag(tag)
-    for (let i = 2; i <= numberOfPages; i++) {
-      params.push({ params: { tag: tag, page: i.toString() }})
-    }
-  })
+
+  await Promise.all(allTags.map((tag: string) => {
+    return getNumberOfPagesByTag(tag).then((numberOfPages: number) => {
+      for (let i = 2; i <= numberOfPages; i++) {
+        params.push({ params: { tag: tag, page: i.toString() }})
+      }
+    })
+  }))
+
   return params
 }
 
