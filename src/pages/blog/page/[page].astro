@@ -4,7 +4,6 @@ import {
   getRankedPosts,
   getAllTags,
   getNumberOfPages,
-  getPostsByPage,
 } from "../../../lib/notion/client.ts";
 import Layout from "../../../layouts/Layout.astro";
 import NoContents from "../../../components/NoContents.astro";
@@ -17,6 +16,7 @@ import ReadMoreLink from "../../../components/ReadMoreLink.astro";
 import Pagination from "../../../components/Pagination.astro";
 import BlogPostsLink from "../../../components/BlogPostsLink.astro";
 import BlogTagsLink from "../../../components/BlogTagsLink.astro";
+import TwitterTl from "../../../components/TwitterTl.astro";
 import styles from "../../../styles/blog.module.css";
 
 export async function getStaticPaths() {
@@ -127,6 +127,7 @@ const onigiri =
     <aside>
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />
       <BlogTagsLink heading="Categories" tags={tags} />
+      <TwitterTl />
     </aside>
   </div>
 </Layout>
