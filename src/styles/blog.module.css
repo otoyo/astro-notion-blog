@@ -42,6 +42,21 @@ aside {
 
 .post {
   margin: 0 auto 40px;
+
+  width: 100%;
+  /* height: 300px; */
+  background-color: #feffeb;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(175, 207, 253, 0.767) 0px 8px,
+      transparent 8px 16px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(175, 207, 253, 0.767) 0px 8px,
+      transparent 8px 16px
+    );
+  padding: 20px;
 }
 .post :global(h3) {
   margin: 0;

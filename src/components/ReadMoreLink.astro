@@ -19,14 +19,20 @@ const { post } = Astro.props;
   }
   .read-more-link a {
     display: block;
-    padding: 0 3rem;
+    padding: 0 8rem;
     margin: 1rem auto 0;
-    border: 1px solid var(--accents-1);
-    color: inherit;
-    font-size: 0.85rem;
+    border: 3px solid rgb(250, 187, 200);
+    color: rgb(255, 116, 144);
+    font-weight: bolder;
+    font-size: 1rem;
     text-align: center;
     line-height: 3rem;
+    background-color: rgba(253, 223, 223, 0.736);
     white-space: nowrap;
+  }
+  .read-more-link a:hover {
+    background-color: rgb(229, 255, 197);
+    border: 5px solid rgb(186, 227, 181);
   }
   @media (max-width: 640px) {
   }
