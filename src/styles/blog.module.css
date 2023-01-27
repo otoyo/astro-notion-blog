@@ -57,6 +57,7 @@ aside {
       transparent 8px 16px
     );
   padding: 20px;
+  border-radius: 30px;
 }
 .post :global(h3) {
   margin: 0;
