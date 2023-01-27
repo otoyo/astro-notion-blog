@@ -9,6 +9,7 @@ import {
 import PostBody from "../components/PostBody.astro";
 import BlogPostsLink from "../components/BlogPostsLink.astro";
 import BlogTagsLink from "../components/BlogTagsLink.astro";
+import TwitterTl from "../components/TwitterTl.astro";
 
 import styles from "../styles/blog.module.css";
 
@@ -33,6 +34,7 @@ const [blocksStatic, blocksProfile, rankedPosts, tags] = await Promise.all([
       <PostBody blocks={blocksProfile} />
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />
       <BlogTagsLink heading="Categories" tags={tags} />
+      <TwitterTl />
     </aside>
   </div>
 </Layout>

@@ -17,6 +17,7 @@ import PostTitle from "../../components/PostTitle.astro";
 import PostBody from "../../components/PostBody.astro";
 import BlogPostsLink from "../../components/BlogPostsLink.astro";
 import BlogTagsLink from "../../components/BlogTagsLink.astro";
+import TwitterTl from "../../components/TwitterTl.astro";
 import styles from "../../styles/blog.module.css";
 
 export async function getStaticPaths() {
@@ -95,6 +96,7 @@ const onigiri =
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />
       <BlogPostsLink heading="Latest posts" posts={recentPosts} />
       <BlogTagsLink heading="Categories" tags={tags} />
+      <TwitterTl />
     </aside>
   </div>
 </Layout>
