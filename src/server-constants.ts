@@ -4,6 +4,10 @@ export const PUBLIC_GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID;
 export const NUMBER_OF_POSTS_PER_PAGE = 10;
 export const INDEX_PAGE_ID = import.meta.env.INDEX_PAGE_ID;
 export const PROFILE_PAGE_ID = import.meta.env.PROFILE_PAGE_ID;
+export const REQUEST_TIMEOUT_MS = parseInt(
+  import.meta.env.REQUEST_TIMEOUT_MS || "10000",
+  10
+);
 
 export const PUBLIC_SITE_TITLE = "I love astro-chan";
 export const PUBLIC_SITE_DESCRIPTION =
