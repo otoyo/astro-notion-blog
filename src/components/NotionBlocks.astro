@@ -127,10 +127,10 @@ const urlMap = await buildURLToHTMLMap(bookmarkURLs)
     case 'callout':
       return <Callout block={block} headings={headings} />
     case 'embed':
-      return <Embed block={block} />
+      return <Embed block={block} urlMap={urlMap} />
     case 'bookmark':
     case 'link_preview':
-      return <Bookmark block={block} />
+    return <Bookmark block={block} urlMap={urlMap} />
     case 'divider':
       return <Divider />
     case 'table':

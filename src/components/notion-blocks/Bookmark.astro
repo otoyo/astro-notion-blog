@@ -7,19 +7,22 @@ import * as interfaces from '../../lib/interfaces.ts'
 
 export interface Props {
   block: interfaces.Block
+  urlMap: { [key: string]: string }
 }
 
-const { block } = Astro.props
+const { block, urlMap } = Astro.props
 
+const urlString = (block.Bookmark || block.LinkPreview || block.Embed).Url
 const metascraper = createMetascraper([metascraperDescription(), metascraperImage(), metascraperTitle()])
 
 let url: URL
 let metadata: Record<string, string>
 try {
-  url = new URL((block.Bookmark || block.LinkPreview || block.Embed).Url)
-  const res = await fetch(url)
-  const html = await res.text()
-  metadata = await metascraper({ html, url })
+  url = new URL(urlString)
+  const html = urlMap[urlString]
+  if (html) {
+    metadata = await metascraper({ html, url })
+  }
 } catch (err) {
   console.log(err)
 }

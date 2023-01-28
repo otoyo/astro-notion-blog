@@ -6,9 +6,10 @@ import TweetEmbed from './TweetEmbed.astro'
 
 export interface Props {
   block: interfaces.Block
+  urlMap: { [key: string]: string }
 }
 
-const { block } = Astro.props
+const { block, urlMap } = Astro.props
 
 let url: URL
 try {
@@ -24,7 +25,7 @@ try {
       <TweetEmbed url={url} />
     </div>
   ) : (
-    <Bookmark block={block} />
+    <Bookmark block={block} urlMap={urlMap} />
   )
  : null}
 
