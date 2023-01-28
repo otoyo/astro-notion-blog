@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { REQUEST_TIMEOUT_MS } from '../server-constants'
 import type {
   Heading1,
   Heading2,
@@ -19,6 +20,32 @@ export const fetchImageAsDataURI = async (url: string): Promise<string | null> =
     stream.on('error', (err) => reject(err))
     stream.on('end', () => resolve(`data:image/gif;base64,${Buffer.concat(chunks).toString('base64')}`))
   })
+}
+
+export const buildURLToHTMLMap = async (urls: URL[]): Promise<{[key: string]: string}> => {
+  const htmls: string[] = await Promise.all(urls.map(async (url: URL) => {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => { controller.abort() }, REQUEST_TIMEOUT_MS)
+
+    return fetch(url.toString(), { signal: controller.signal })
+      .then(res => {
+        return res.text()
+      })
+      .catch(() => {
+        console.log('Request was aborted')
+        return ''
+      })
+      .finally(() => {
+        clearTimeout(timeout)
+      })
+  }))
+
+  return urls.reduce((acc: {[key: string]: string}, url, i) => {
+    if (htmls[i]) {
+      acc[url.toString()] = htmls[i]
+    }
+    return acc
+  }, {})
 }
 
 export const getPostLink = (slug: string) => {
