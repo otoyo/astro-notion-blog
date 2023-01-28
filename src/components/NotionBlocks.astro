@@ -1,5 +1,9 @@
 ---
 import * as interfaces from '../lib/interfaces.ts'
+import {
+  isTweetURL,
+  buildURLToHTMLMap,
+} from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
 import Heading2 from './notion-blocks/Heading2.astro'
@@ -79,6 +83,23 @@ let headings = rawHeadings
 if (isRoot) {
   headings = blocks.filter((b: interfaces.Block) => ['heading_1', 'heading_2', 'heading_3'].includes(b.Type))
 }
+
+const bookmarkURLs = blocks
+  .filter((b: interfaces.Block) => ['bookmark', 'link_preview', 'embed'].includes(b.Type))
+  .map((b: interfaces.Block) => {
+    const urlString = (b.Bookmark || b.LinkPreview || b.Embed).Url
+
+    let url: URL
+    try {
+      url = new URL(urlString)
+    } catch (err) {
+      console.log(url)
+    }
+    return url
+  })
+  .filter((url: URL) => url && !isTweetURL(url))
+
+const urlMap = await buildURLToHTMLMap(bookmarkURLs)
 ---
 
 {blocks.map((block: interfaces.Block) => {
