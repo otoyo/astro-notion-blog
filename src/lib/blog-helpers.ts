@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch, { Response, AbortError } from 'node-fetch'
 import { REQUEST_TIMEOUT_MS } from '../server-constants'
 import type {
   Heading1,
@@ -8,7 +8,21 @@ import type {
 } from './interfaces'
 
 export const fetchImageAsDataURI = async (url: string): Promise<string | null> => {
-  const res = await fetch(url)
+  const controller = new AbortController()
+  const timeout = setTimeout(() => { controller.abort() }, REQUEST_TIMEOUT_MS)
+
+  let res!: Response
+  try {
+    res = await fetch(url, { signal: controller.signal }) as Response
+  } catch (err) {
+    if (err instanceof AbortError) {
+		  console.log('Image fetch request was aborted');
+      return Promise.resolve(null)
+	  }
+  } finally {
+    clearTimeout(timeout)
+  }
+
   if (!res || !res.body) {
     return Promise.resolve(null)
   }
