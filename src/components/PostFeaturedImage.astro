@@ -1,16 +1,16 @@
 ---
 import { Post } from '../lib/interfaces.ts'
-import { fetchImageAsDataURI } from '../lib/blog-helpers.ts'
 
 export interface Props {
   post: Post
+  urlMap: { [key: string]: string }
 }
 
-const { post } = Astro.props
+const { post, urlMap } = Astro.props
 
 let image = ''
 if (post.FeaturedImage) {
-  image = await fetchImageAsDataURI(post.FeaturedImage)
+  image = urlMap[post.FeaturedImage]
 }
 ---
 
