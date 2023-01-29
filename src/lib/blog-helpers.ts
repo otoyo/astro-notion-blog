@@ -1,6 +1,7 @@
 import fetch, { Response, AbortError } from 'node-fetch'
 import { REQUEST_TIMEOUT_MS } from '../server-constants'
 import type {
+  Post,
   Heading1,
   Heading2,
   Heading3,
@@ -74,6 +75,24 @@ export const buildURLToImageMap = async (urls: URL[]): Promise<{[key: string]: s
     }
     return acc
   }, {})
+}
+
+export const buildPostFeaturedImageURLs = (posts: Post[]): (URL | null)[] => {
+  return posts
+    .map((p: Post) => {
+      if (!p.FeaturedImage) {
+        return null
+      }
+
+      let url!: URL
+      try {
+        url = new URL(p.FeaturedImage)
+      } catch (err) {
+        console.log(err)
+        return null
+      }
+      return url
+    })
 }
 
 export const getPostLink = (slug: string) => {
