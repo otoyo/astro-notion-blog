@@ -16,9 +16,9 @@ export const fetchImageAsDataURI = async (url: string): Promise<string> => {
     res = await fetch(url, { signal: controller.signal }) as Response
   } catch (err) {
     if (err instanceof AbortError) {
-		  console.log('Image fetch request was aborted');
+      console.log('Image fetch request was aborted');
       return Promise.resolve('')
-	  }
+    }
   } finally {
     clearTimeout(timeout)
   }
@@ -58,6 +58,19 @@ export const buildURLToHTMLMap = async (urls: URL[]): Promise<{[key: string]: st
   return urls.reduce((acc: {[key: string]: string}, url, i) => {
     if (htmls[i]) {
       acc[url.toString()] = htmls[i]
+    }
+    return acc
+  }, {})
+}
+
+export const buildURLToImageMap = async (urls: URL[]): Promise<{[key: string]: string}> => {
+  const images: string[] = await Promise.all(urls.map(async (url: URL) => {
+    return fetchImageAsDataURI(url.toString())
+  }))
+
+  return urls.reduce((acc: {[key: string]: string}, url, i) => {
+    if (images[i]) {
+      acc[url.toString()] = images[i]
     }
     return acc
   }, {})
