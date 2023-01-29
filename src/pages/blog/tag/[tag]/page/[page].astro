@@ -5,6 +5,10 @@ import {
   getAllTags,
   getNumberOfPagesByTag,
 } from '../../../../../lib/notion/client.ts'
+import {
+  buildPostFeaturedImageURLs,
+  buildURLToImageMap,
+} from '../../../../../lib/blog-helpers.ts'
 import Layout from '../../../../../layouts/Layout.astro'
 import NoContents from '../../../../../components/NoContents.astro'
 import PostDate from '../../../../../components/PostDate.astro'
@@ -42,6 +46,9 @@ getPostsByTagAndPage(tag, parseInt(page, 10)),
   getAllTags(),
   getNumberOfPagesByTag(tag),
 ])
+
+const imageURLs = buildPostFeaturedImageURLs(posts).filter(url => url)
+const imageURLMap = await buildURLToImageMap(imageURLs)
 ---
 
 <Layout title={`Posts in ${tag} ${page}/${numberOfPages}`} path={`/blog/tag/${tag}/page/${page}`}>
@@ -58,7 +65,7 @@ getPostsByTagAndPage(tag, parseInt(page, 10)),
             <PostDate post={post} />
             <PostTags post={post} />
             <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
+            <PostFeaturedImage post={post} urlMap={imageURLMap} />
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />
           </div>
