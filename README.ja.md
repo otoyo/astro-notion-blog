@@ -89,6 +89,97 @@ yarn dev
 3. ブラウザで [http://localhost:3000](http://localhost:3000) を開きます
 4. 開発サーバーを停止するにはターミナルで `Ctrl+C` を押します。
 
+## ビルドの高速化(記事数が多い人向け)
+
+<details>
+  <summary>記事数が多い人向けにビルドを高速化する方法を説明します。</summary>
+
+  ### 追加の必要要件
+
+  - [Nx Cloud](https://nx.app/)
+
+  ### ステップ
+
+  1. 下記コマンドを実行し Nx Cloud のアクセストークンを生成します
+
+  ```bash
+  yarn install && yarn nx g @nrwl/nx-cloud:init
+  ```
+
+  2. プロジェクトルートにある `nx.json` を開き `accessToken` の値をメモします
+  3. 下記コマンドを実行して `nx.json` から `accessToken` を削除します
+
+  ```sh
+  git checkout -- nx.json
+  ```
+
+  4. ブラウザで [Nx Cloud](https://nx.app/) を開いてアカウントを作成しサインインします
+  5. "Connect a Workspace" を選択します
+
+  <img src="https://user-images.githubusercontent.com/1063435/215296989-296836ae-42f1-42d4-b238-696cbd261722.png" width="600">
+
+  6. "01 Check for Nx Cloud package" で "Yes, I'm using @nrwl/nx-cloud" を選択します
+
+  <img src="https://user-images.githubusercontent.com/1063435/215296991-313ebd38-252a-40d7-9ef2-80ff33347a96.png" width="480">
+
+  7. "03 Setup The Access Token" でメモした `accessToken` を入力し "Connect The Workspace" を選択します
+
+  <img src="https://user-images.githubusercontent.com/1063435/215296993-3e407498-9202-435e-bd9c-e385ae4a5152.png" width="480">
+
+  8. "View Your Workspace" を選択したら一度ターミナルに戻ります
+  9. `DATABASE_ID` が Cloudflare Pages のビルド環境と同じであることを確認します
+
+  ```sh
+  echo $DATABASE_ID
+  ```
+
+  異なる場合は同じ値を設定します。
+
+  ```sh
+  export DATABASE_ID=abc
+  ```
+
+  10. メモした `accessToken` を環境変数 `NX_CLOUD_ACCESS_TOKEN` に設定し、コマンドを実行してキャッシュを生成します
+
+  ```sh
+  export NX_CLOUD_ACCESS_TOKEN=<メモしたaccessToken>
+  yarn cache:fetch
+  ```
+
+  11. 再度コマンドを実行しキャッシュが生成されているか確認します(正常にキャッシュが生成されていると今回は実行が速くなります)
+    * キャッシュは Notion Page の `last_edited_time` を見て以降は自動で更新されるため、この操作は再度行う必要はありません
+
+  ```sh
+  yarn cache:fetch
+  ```
+
+  12. ブラウザで Nx Cloud の Workspace を開きキャッシュの結果が "Local Cache Hit" になっていることを確認します
+
+  <img src="https://user-images.githubusercontent.com/1063435/215297425-be6ce7cd-15be-46db-b7b0-278acde15970.png" width="480">
+
+  <img src="https://user-images.githubusercontent.com/1063435/215297426-c6292008-3268-4eac-8073-9484fbf0cae0.png" width="480">
+
+  13. [Cloudflare Pages](https://pages.cloudflare.com/) のダッシュボードからプロジェクトのビルド設定を開きます
+
+  <img src="https://user-images.githubusercontent.com/1063435/215303878-d674cf07-86cf-4df7-8ea7-ecd3c693de7d.png" width="480">
+
+  14. "Build command" を下記に変更して保存します
+
+  ```bash
+  npm run build:cached
+  ```
+
+  <img src="https://user-images.githubusercontent.com/1063435/215303883-819ba65b-1dfd-4213-b4be-0e796af8d352.png" width="480">
+
+  15. ブランチを GitHub に push してデプロイし、Nx Cloud でキャッシュの結果が "Remote Cache Hit" になっていることを確認します
+
+  <img src="https://user-images.githubusercontent.com/1063435/215297683-450ef3e5-2938-4a37-9e4b-e9ae04d75a11.png" width="480">
+
+  16. Cloudflare Pages で環境変数 `CACHE_CONCURRENCY` を `8` 等に設定するとさらにビルドが速くなります
+      * 必ず正しくキャッシュされていることを確認してから設定してください
+
+</details>
+
 ### その他の情報
 
 [wiki](https://github.com/otoyo/astro-notion-blog/wiki) をご覧ください。
