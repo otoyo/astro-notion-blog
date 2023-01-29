@@ -8,18 +8,23 @@ export interface Props {
 }
 
 const { block } = Astro.props
+
+let image = ''
+if (block.Image.External) {
+  image = block.Image.External.Url
+} else if (block.Image.File) {
+  image = await fetchImageAsDataURI(block.Image.File.Url)
+}
 ---
 
 <figure class="image">
   <div>
-    <img
-      src={
-        block.Image.External
-          ? block.Image.External.Url
-          : await fetchImageAsDataURI(block.Image.File.Url)
-      }
-      alt="image block"
-    />
+    {image && (
+      <img
+        src={image}
+        alt="image block"
+        />
+      )}
   </div>
   <Caption richTexts={block.Image.Caption} />
 </figure>

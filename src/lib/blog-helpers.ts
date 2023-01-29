@@ -7,7 +7,7 @@ import type {
   RichText,
 } from './interfaces'
 
-export const fetchImageAsDataURI = async (url: string): Promise<string | null> => {
+export const fetchImageAsDataURI = async (url: string): Promise<string> => {
   const controller = new AbortController()
   const timeout = setTimeout(() => { controller.abort() }, REQUEST_TIMEOUT_MS)
 
@@ -17,14 +17,14 @@ export const fetchImageAsDataURI = async (url: string): Promise<string | null> =
   } catch (err) {
     if (err instanceof AbortError) {
 		  console.log('Image fetch request was aborted');
-      return Promise.resolve(null)
+      return Promise.resolve('')
 	  }
   } finally {
     clearTimeout(timeout)
   }
 
   if (!res || !res.body) {
-    return Promise.resolve(null)
+    return Promise.resolve('')
   }
   const stream = res.body
 
