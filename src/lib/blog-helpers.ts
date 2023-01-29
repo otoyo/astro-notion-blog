@@ -26,13 +26,14 @@ export const fetchImageAsDataURI = async (url: string): Promise<string> => {
   if (!res || !res.body) {
     return Promise.resolve('')
   }
+  const contentType = res.headers.get('Content-Type')
   const stream = res.body
 
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = []
     stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)))
     stream.on('error', (err) => reject(err))
-    stream.on('end', () => resolve(`data:image/gif;base64,${Buffer.concat(chunks).toString('base64')}`))
+    stream.on('end', () => resolve(`data:${contentType};base64,${Buffer.concat(chunks).toString('base64')}`))
   })
 }
 
