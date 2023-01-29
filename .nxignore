@@ -1,0 +1,3 @@
+# Nx considers .gitignore, nx.json and .nxignore
+.gitignore
+nx.json
