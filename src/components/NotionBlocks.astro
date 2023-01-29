@@ -114,7 +114,7 @@ const bookmarkURLs = blocks
   })
   .filter((url: URL) => url && !isTweetURL(url))
 
-const urlMap = await buildURLToHTMLMap(bookmarkURLs)
+const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
 ---
 
 {blocks.map((block: interfaces.Block) => {
@@ -130,7 +130,7 @@ const urlMap = await buildURLToHTMLMap(bookmarkURLs)
     case 'table_of_contents':
       return <TableOfContents block={block} headings={headings} />
     case 'image':
-      return <Image block={block} />
+      return <Image block={block} urlMap={imageURLMap} />
     case 'video':
       return <Video block={block} />
     case 'code':
@@ -142,10 +142,10 @@ const urlMap = await buildURLToHTMLMap(bookmarkURLs)
     case 'callout':
       return <Callout block={block} headings={headings} />
     case 'embed':
-      return <Embed block={block} urlMap={urlMap} />
+      return <Embed block={block} urlMap={bookmarkURLMap} />
     case 'bookmark':
     case 'link_preview':
-    return <Bookmark block={block} urlMap={urlMap} />
+      return <Bookmark block={block} urlMap={bookmarkURLMap} />
     case 'divider':
       return <Divider />
     case 'table':
