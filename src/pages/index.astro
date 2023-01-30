@@ -5,7 +5,20 @@ import Layout from '../layouts/Layout.astro'
 <Layout>
   <div class="container">
     <main>
-      <p>test</p>
+      <h2>■このブログについて</h2>
+      <ul>
+        <li>びあまぐ <a href="https://twitter.com/imbeermug" target="_blank">@imbeermug</a> の個人ブログです。開発学習をはじめ、個人的な興味分野を記事にします。</li>
+        <li>このブログは astro-notion-blog で作成されています。</li>
+        <li>記載内容を参考にする場合、その正確性や安全性等はご自身でご確認ください。何らかの問題が発生した場合、管理人は一切の責任を負いません。</li>
+      </ul>
+
+      <h2>■管理人について</h2>
+      <ul>
+        <li>関東在住の20代後半フリーターです。</li>
+        <li>HTML/CSS のコーディングができます。SCSS を勉強中です。</li>
+        <li>JavaScript は基礎知識の学習を終えた程度には書けます。React や Node.js などの学習にも興味があります。</li>
+        <li>将来的に自分が欲しいと思ったWebアプリを自力で開発して公開できるようになるのが目標で、それに向けて2022年末ごろから学習を始めました。</li>
+      </ul>
     </main>
   </div>
 </Layout>
@@ -25,9 +38,13 @@ import Layout from '../layouts/Layout.astro'
   }
 
   .container h2 {
-    margin: 0 0 14px;
+    margin: 14px 0;
     font-size: 1.4rem;
     font-weight: 400;
+  }
+
+  .container h2:first-child {
+    margin-top: 0;
   }
 
   .container p {
