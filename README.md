@@ -132,7 +132,7 @@ yarn dev
   Set the same value if it's not same.
 
   ```sh
-  export DATABASE_ID=abc
+  export DATABASE_ID=<YOUR_DATABASE_ID>
   ```
 
   10. Set the value of `accessToken` which you noted before to an environment variable as `NX_CLOUD_ACCESS_TOKEN`, and run the following command to generate the caches

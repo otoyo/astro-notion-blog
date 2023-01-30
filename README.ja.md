@@ -136,7 +136,7 @@ yarn dev
   異なる場合は同じ値を設定します。
 
   ```sh
-  export DATABASE_ID=abc
+  export DATABASE_ID=<YOUR_DATABASE_ID>
   ```
 
   10. メモした `accessToken` を環境変数 `NX_CLOUD_ACCESS_TOKEN` に設定し、コマンドを実行してキャッシュを生成します
