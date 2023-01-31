@@ -51,6 +51,7 @@
       "_fetch-notion-blocks": {
         "inputs": [
           "!{projectRoot}/**/*",
+          "!{projectRoot}/**/.*",
           {
             "env": "DATABASE_ID"
           }
