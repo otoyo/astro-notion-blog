@@ -123,7 +123,19 @@ yarn dev
   <img src="https://user-images.githubusercontent.com/1063435/215296993-3e407498-9202-435e-bd9c-e385ae4a5152.png" width="480">
 
   8. Select "View Your Workspace" and go back to the terminal
-  9. Confirm `DATABASE_ID` is equivalent with the Cloudflare Pages building environment
+  9. Confirm `NOTION_API_SECRET` is set to an environment variable properly
+
+  ```sh
+  echo $NOTION_API_SECRET
+  ```
+
+  If not so, set your Notion API secret.
+
+  ```sh
+  export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
+  ```
+
+  10. Confirm `DATABASE_ID` environment variable is equivalent with the Cloudflare Pages building environment
 
   ```sh
   echo $DATABASE_ID
@@ -135,31 +147,37 @@ yarn dev
   export DATABASE_ID=<YOUR_DATABASE_ID>
   ```
 
-  10. Set the value of `accessToken` which you noted before to an environment variable as `NX_CLOUD_ACCESS_TOKEN`, and run the following command to generate the caches
+  11. Set the value of `accessToken` which you noted before to an environment variable as `NX_CLOUD_ACCESS_TOKEN`, and confirm it
 
   ```sh
-  export NX_CLOUD_ACCESS_TOKEN=<the value of accessToken>
+  export NX_CLOUD_ACCESS_TOKEN=<The value of accessToken>
+  echo $NX_CLOUD_ACCESS_TOKEN
+  ```
+
+  12. Run the following command to generate the caches
+
+  ```sh
   yarn cache:fetch
   ```
 
-  11. Run the command again to confirm whether the caches are generated (if the caches are generated properly, the command will be done faster than previous)
+  13. Run the command again to confirm whether the caches are generated (if the caches are generated properly, the command will be done faster than previous)
     * The caches will be updated automatically if `last_edited_time` of Notion Page are changed so you don't need to run the command after this confirmation
 
   ```sh
   yarn cache:fetch
   ```
 
-  12. Open Nx Cloud in a browser and confirm whether the result is "Local Cache Hit"
+  14. Open Nx Cloud in a browser and confirm whether the result is "Local Cache Hit"
 
   <img src="https://user-images.githubusercontent.com/1063435/215297425-be6ce7cd-15be-46db-b7b0-278acde15970.png" width="480">
 
   <img src="https://user-images.githubusercontent.com/1063435/215297426-c6292008-3268-4eac-8073-9484fbf0cae0.png" width="480">
 
-  13. Open [Cloudflare Pages](https://pages.cloudflare.com/) and go to the build settings
+  15. Open [Cloudflare Pages](https://pages.cloudflare.com/) and go to the build settings
 
   <img src="https://user-images.githubusercontent.com/1063435/215303878-d674cf07-86cf-4df7-8ea7-ecd3c693de7d.png" width="480">
 
-  14. Change "Build command" as the following and save
+  16. Change "Build command" as the following and save
 
   ```bash
   npm run build:cached
@@ -167,12 +185,9 @@ yarn dev
 
   <img src="https://user-images.githubusercontent.com/1063435/215303883-819ba65b-1dfd-4213-b4be-0e796af8d352.png" width="480">
 
-  15. Push the branch to GitHub to deploy, and go to Nx Cloud to confirm whether the result is "Remote Cache Hit"
+  17. Push the branch to GitHub to deploy, and go to Nx Cloud to confirm whether the result is "Remote Cache Hit"
 
   <img src="https://user-images.githubusercontent.com/1063435/215297683-450ef3e5-2938-4a37-9e4b-e9ae04d75a11.png" width="480">
-
-  16. To spped up more, set an environment variable `CACHE_CONCURRENCY` as `8` etc. in Cloudflare Pages
-      * Note that you must confirm whether the caches are set proparly beforehand
 
 </details>
 
