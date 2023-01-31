@@ -124,11 +124,11 @@ export async function getPostBySlug(slug: string): Promise<Post|null> {
   return allPosts.find(post => post.Slug === slug) || null
 }
 
-export async function getPostsByTag(tag: string, pageSize = 10): Promise<Post[]> {
-  if (!tag) return []
+export async function getPostsByTag(tagName: string, pageSize = 10): Promise<Post[]> {
+  if (!tagName) return []
 
   const allPosts = await getAllPosts()
-  return allPosts.filter(post => post.Tags.includes(tag)).slice(0, pageSize)
+  return allPosts.filter(post => post.Tags.find((tag) => tag.name === tagName)).slice(0, pageSize)
 }
 
 // page starts from 1 not 0
@@ -240,7 +240,7 @@ export async function getBlock(blockId: string): Promise<Block> {
 
 export async function getAllTags(): Promise<string[]> {
   const allPosts = await getAllPosts()
-  return [...new Set(allPosts.flatMap(post => post.Tags))].sort()
+  return [...new Set(allPosts.flatMap(post => post.Tags.map(tag => tag.name)).sort())]
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
@@ -571,7 +571,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
-    Tags: prop.Tags.multi_select ? prop.Tags.multi_select.map(opt => opt.name) : [],
+    Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
     Excerpt:
       prop.Excerpt.rich_text && prop.Excerpt.rich_text.length > 0
         ? prop.Excerpt.rich_text[0].plain_text

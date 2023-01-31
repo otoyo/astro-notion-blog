@@ -3,7 +3,7 @@ export interface Post {
   Title: string
   Slug: string
   Date: string
-  Tags: string[]
+  Tags: SelectProperty[]
   Excerpt: string
   FeaturedImage: string | null
   Rank: number
@@ -223,4 +223,10 @@ export interface Annotation {
 
 export interface Link {
   Url: string
+}
+
+export interface SelectProperty {
+  id: string;
+  name: string;
+  color: string;
 }
