@@ -43,18 +43,17 @@ const { heading, tags } = Astro.props
     position: relative;
     font-size: 1rem;
     padding: 0.4rem 0;
-    padding-left: 0.7rem;
     line-height: 1.2rem;
+
+    font-size: 0.9rem;
+    gap: 6px;
   }
-  .blog-tags-link ul li:before {
-    border-radius: 50%;
-    width: 5px;
-    height: 5px;
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0.9rem;
-    content: '';
-    background: #333;
+  .blog-tags-link ul li a {
+    min-width: 0;
+    border-radius: 3px;
+    padding: 2px 6px;
+    line-height: 1.2;
+    color: rgb(50, 48, 44);
+    background: rgba(227, 226, 224, 0.5);
   }
 </style>
