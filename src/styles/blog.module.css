@@ -9,7 +9,7 @@
 }
 
 main {
-  width: 60%;
+  width: 70%;
 }
 @media (max-width: 640px) {
   main {
@@ -32,7 +32,7 @@ main footer {
 }
 
 aside {
-  width: 35%;
+  width: 25%;
 }
 @media (max-width: 640px) {
   aside {
@@ -40,10 +40,16 @@ aside {
   }
 }
 
+.twoPosts {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .post {
   margin: 0 auto 40px;
 
-  width: 100%;
+  width: 48%;
   /* height: 300px; */
   background-color: #feffeb;
   background-image: repeating-linear-gradient(
@@ -58,6 +64,28 @@ aside {
     );
   padding: 20px;
   border-radius: 30px;
+}
+
+.postFlex {
+  background-color: white;
+  /* height: 200px; */
+  border-radius: 9999px;
+  padding: 50px;
+}
+.postFlex2 {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 200px;
+}
+.postReadFlex {
+  justify-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  background: #ffffff9e;
+}
+.postReadFlex > img {
+  margin-top: 1rem;
 }
 .post :global(h3) {
   margin: 0;

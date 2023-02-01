@@ -41,65 +41,39 @@ const imageURLMap = await buildURLToImageMap(imageURLs);
 <Layout title="Blog" path="/blog">
   <div className={styles.container}>
     <main>
-      {
-        posts.length === 0 ? (
-          <NoContents contents={posts} />
-        ) : (
-          posts.map((post) => (
-            <div className={styles.post} key={post.Slug}>
-              <div
-                style={{
-                  justifyContent: "start",
-                  display: "flex",
-                  flexWrap: "nowrap",
-                  backgroundColor: "white",
-                  height: "200px",
-                  borderRadius: "9999px",
-                  padding: "50px",
-                }}
-              >
-                <div
-                  style={{
-                    justifyContent: "center",
-                    display: "flex",
-                    flexWrap: "nowrap",
-                    minWidth: "200px",
-                  }}
-                >
-                  <div>
-                    <PostDate post={post} />
-                    <PostTags post={post} />
+      <div className={styles.twoPosts}>
+        {
+          posts.length === 0 ? (
+            <NoContents contents={posts} />
+          ) : (
+            posts.map((post) => (
+              <div className={styles.post} key={post.Slug}>
+                <div className={styles.postFlex}>
+                  <div className={styles.postFlex2}>
+                    <div>
+                      <PostDate post={post} />
+                      <PostTags post={post} />
+                    </div>
+                    <img src={onigiri} width={100} height={100} alt="onigiri" />
                   </div>
-                  <img src={onigiri} width={100} height={100} alt="onigiri" />
-                </div>
-                <div>
-                  <PostTitle post={post} />
-                  <PostFeaturedImage post={post} urlMap={imageURLMap} />
-                  <PostExcerpt post={post} />
-                </div>
-              </div>
-              <div
-                style={{
-                  justifyContent: "center",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  background: "#ffffff9e",
-                  margin: "20px 0 0",
-                }}
-              >
-                <img src={tako} width={80} height={80} alt="tako" />
-                <div>
-                  <ReadMoreLink post={post} />
-                </div>
-              </div>
-            </div>
-          ))
-        )
-      }
+                  <div>
+                    <PostTitle post={post} />
+                    <PostFeaturedImage post={post} urlMap={imageURLMap} />
+                    <PostExcerpt post={post} />
+                  </div>
 
-      <footer>
-        <Pagination currentPage={1} numberOfPages={numberOfPages} />
-      </footer>
+                  <div className={styles.postReadFlex}>
+                    <img src={tako} width={60} height={60} alt="tako" />
+                    <div>
+                      <ReadMoreLink post={post} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )
+        }
+      </div>
     </main>
 
     <aside>
@@ -108,4 +82,7 @@ const imageURLMap = await buildURLToImageMap(imageURLs);
       <TwitterTl />
     </aside>
   </div>
+  <footer>
+    <Pagination currentPage={1} numberOfPages={numberOfPages} />
+  </footer>
 </Layout>
