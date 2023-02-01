@@ -1,4 +1,5 @@
 ---
+import type { SelectProperty } from '../../../lib/interfaces.ts'
 import { NUMBER_OF_POSTS_PER_PAGE } from '../../../server-constants.ts'
 import {
   getPostsByTag,
@@ -21,7 +22,7 @@ import styles from '../../../styles/blog.module.css'
 
 export async function getStaticPaths() {
   const allTags = await getAllTags()
-  return allTags.map((tag: string) => ({ params: { tag: tag }}))
+  return allTags.map((tag: SelectProperty) => ({ params: { tag: tag.name }}))
 }
 
 const { tag } = Astro.params

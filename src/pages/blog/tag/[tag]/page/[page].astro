@@ -1,4 +1,5 @@
 ---
+import type { SelectProperty } from '../../../../../lib/interfaces.ts'
 import {
   getPostsByTagAndPage,
   getRankedPosts,
@@ -23,10 +24,10 @@ export async function getStaticPaths() {
 
   let params = []
 
-  await Promise.all(allTags.map((tag: string) => {
-    return getNumberOfPagesByTag(tag).then((numberOfPages: number) => {
+  await Promise.all(allTags.map((tag: SelectProperty) => {
+    return getNumberOfPagesByTag(tag.name).then((numberOfPages: number) => {
       for (let i = 2; i <= numberOfPages; i++) {
-        params.push({ params: { tag: tag, page: i.toString() }})
+        params.push({ params: { tag: tag.name, page: i.toString() }})
       }
     })
   }))

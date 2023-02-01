@@ -36,6 +36,7 @@ import type {
   RichText,
   Text,
   Annotation,
+  SelectProperty,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -238,9 +239,17 @@ export async function getBlock(blockId: string): Promise<Block> {
   return _buildBlock(res)
 }
 
-export async function getAllTags(): Promise<string[]> {
+export async function getAllTags(): Promise<SelectProperty[]> {
   const allPosts = await getAllPosts()
-  return [...new Set(allPosts.flatMap(post => post.Tags.map(tag => tag.name)).sort())]
+
+  const tagNames: string[] = []
+  return allPosts.flatMap(post => post.Tags).reduce((acc, tag) => {
+    if (!tagNames.includes(tag.name)) {
+      acc.push(tag)
+      tagNames.push(tag.name)
+    }
+    return acc
+  }, [] as SelectProperty[]).sort((a: SelectProperty, b: SelectProperty) => a.name.localeCompare(b.name))
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
