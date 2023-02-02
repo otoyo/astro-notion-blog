@@ -7,14 +7,19 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:cached": "npm run cache:fetch && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --ext .js,.ts,.astro src"
+    "lint": "eslint --ext .js,.ts,.astro src",
+    "cache:fetch": "node scripts/blog-contents-cache.cjs",
+    "cache:purge": "nx reset && rm -f tmp/*",
+    "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
     "@astrojs/react": "^1.2.2",
     "@astrojs/rss": "^2.0.0",
     "@notionhq/client": "^2.2.3",
+    "@supercharge/promise-pool": "^2.3.2",
     "astro": "^1.9.0",
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
@@ -27,6 +32,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@nrwl/nx-cloud": "^15.0.2",
     "@types/js-base64": "^3.3.1",
     "@types/metascraper": "^5.14.1",
     "@types/metascraper-description": "^5.14.1",
@@ -35,7 +41,28 @@
     "@types/node-fetch": "^2.6.2",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
+    "cli-progress": "^3.11.2",
     "eslint": "^8.31.0",
-    "eslint-plugin-astro": "^0.21.1"
+    "eslint-plugin-astro": "^0.21.1",
+    "nx": "15.5.3"
+  },
+  "nx": {
+    "targets": {
+      "_fetch-notion-blocks": {
+        "inputs": [
+          "!{projectRoot}/**/*",
+          "!{projectRoot}/**/.*",
+          {
+            "env": "DATABASE_ID"
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/tmp"
+        ]
+      }
+    },
+    "includedScripts": [
+      "_fetch-notion-blocks"
+    ]
   }
 }
