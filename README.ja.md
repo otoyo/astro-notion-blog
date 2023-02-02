@@ -177,11 +177,15 @@ yarn dev
 
   <img src="https://user-images.githubusercontent.com/1063435/215297426-c6292008-3268-4eac-8073-9484fbf0cae0.png" width="480">
 
-  15. [Cloudflare Pages](https://pages.cloudflare.com/) のダッシュボードからプロジェクトのビルド設定を開きます
+  15. [Cloudflare Pages](https://pages.cloudflare.com/) のダッシュボードから環境変数を開き、メモしたアクセストークンを `NX_CLOUD_ACCESS_TOKEN` として Production と Preview の両方に追加します
+
+  <img src="https://user-images.githubusercontent.com/1063435/216225421-a880846d-3683-478d-ad29-9e678a525d41.png" width="480">
+
+  16. ビルド設定を開きます
 
   <img src="https://user-images.githubusercontent.com/1063435/215303878-d674cf07-86cf-4df7-8ea7-ecd3c693de7d.png" width="480">
 
-  16. "Build command" を下記に変更して保存します
+  17. "Build command" を下記に変更して保存します
 
   ```bash
   npm run build:cached
@@ -189,7 +193,7 @@ yarn dev
 
   <img src="https://user-images.githubusercontent.com/1063435/215303883-819ba65b-1dfd-4213-b4be-0e796af8d352.png" width="480">
 
-  17. ブランチを GitHub に push してデプロイし、Nx Cloud でキャッシュの結果が "Remote Cache Hit" になっていることを確認します
+  18. ブランチを GitHub に push してデプロイし、Nx Cloud でキャッシュの結果が "Remote Cache Hit" になっていることを確認します
 
   <img src="https://user-images.githubusercontent.com/1063435/215297683-450ef3e5-2938-4a37-9e4b-e9ae04d75a11.png" width="480">
 

@@ -173,11 +173,15 @@ yarn dev
 
   <img src="https://user-images.githubusercontent.com/1063435/215297426-c6292008-3268-4eac-8073-9484fbf0cae0.png" width="480">
 
-  15. Open [Cloudflare Pages](https://pages.cloudflare.com/) and go to the build settings
+  15. Open [Cloudflare Pages](https://pages.cloudflare.com/) and go to "Environment variables", set the value of `accessToken` as `NX_CLOUD_ACCESS_TOKEN` into both Production and Preview
+
+  <img src="https://user-images.githubusercontent.com/1063435/216225421-a880846d-3683-478d-ad29-9e678a525d41.png" width="480">
+
+  16. Go to the build settings
 
   <img src="https://user-images.githubusercontent.com/1063435/215303878-d674cf07-86cf-4df7-8ea7-ecd3c693de7d.png" width="480">
 
-  16. Change "Build command" as the following and save
+  17. Change "Build command" as the following and save
 
   ```bash
   npm run build:cached
@@ -185,7 +189,7 @@ yarn dev
 
   <img src="https://user-images.githubusercontent.com/1063435/215303883-819ba65b-1dfd-4213-b4be-0e796af8d352.png" width="480">
 
-  17. Push the branch to GitHub to deploy, and go to Nx Cloud to confirm whether the result is "Remote Cache Hit"
+  18. Push the branch to GitHub to deploy, and go to Nx Cloud to confirm whether the result is "Remote Cache Hit"
 
   <img src="https://user-images.githubusercontent.com/1063435/215297683-450ef3e5-2938-4a37-9e4b-e9ae04d75a11.png" width="480">
 
