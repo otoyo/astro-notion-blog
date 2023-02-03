@@ -15,6 +15,14 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 - :hammer_and_wrench: ブログの見た目を**自由にカスタマイズ可能**
 - :white_check_mark: **Notion 公式API**を使っているため安心
 
+## スクリーンショット
+
+<img src="https://user-images.githubusercontent.com/1063435/216562042-818bc312-1941-4b5d-b281-15e0bcb6f153.png" width="480">
+
+## デモ
+
+[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)
+
 ## クイックスタート
 
 ### 必要なもの
@@ -58,10 +66,6 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 astro-notion-blog では新しい記事や変更を公開したいとき毎回デプロイが必要になります。  
 Cloudflare Pages のダッシュボードから手動でデプロイするか、GitHub Action のような CI を使って定時デプロイしてください。
 
-## デモ
-
-[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)  
-
 ## カスタマイズするには
 
 ### 追加の必要要件
@@ -96,6 +100,12 @@ yarn dev
 ## バグ報告 & 機能要望
 
 Issue を作成してください。日本語で大丈夫です。
+
+## :bird: Twitter コミュニティ
+
+コミュニティに参加して他のメンバーからサポートを受けたりサポートすることができます。
+
+- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
 
 ## 貢献
 

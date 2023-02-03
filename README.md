@@ -7,13 +7,21 @@ English | [日本語](README.ja.md)
 
 <img src="https://user-images.githubusercontent.com/1063435/213838069-c9654c32-ec9b-4e82-a3b5-2acbd665b16a.png" width="480">
 
-astro-notion-blog helps to create a blog you can writte with [Notion](https://www.notion.so/).  
+astro-notion-blog helps to create a blog you can write with [Notion](https://www.notion.so/).  
 The blog is generated statically by [Astro](https://astro.build/) so very fast.
 
 - :rocket: **Very fast** page view
 - :pencil: Can write a blog **with Notion**
 - :hammer_and_wrench: **Can fully customize** the site's appearance
 - :white_check_mark: Using **official Notion APIs**
+
+## Screenshots
+
+<img src="https://user-images.githubusercontent.com/1063435/216562042-818bc312-1941-4b5d-b281-15e0bcb6f153.png" width="480">
+
+## Demo
+
+[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)
 
 ## Quick Start
 
@@ -55,10 +63,6 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 Note that astro-notion-blog requires a deploy every time if you publish a new post or updates.  
 Deploy manually from the Cloudflare Pages dashboard or use a scheduled deploy using CI like GitHub Actions.
 
-## Demo
-
-[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)  
-
 ## How to customize
 
 ### Additional requirements
@@ -92,6 +96,12 @@ See [wiki](https://github.com/otoyo/astro-notion-blog/wiki).
 ## Bug reports & feature requests
 
 Please create an issue. **Both in English and in Japanese are OK.** :wink:
+
+## :bird: Twitter community
+
+You can support other members and/or can be supported by other members.
+
+- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
 
 ## Contribution
 
