@@ -93,6 +93,12 @@ See [wiki](https://github.com/otoyo/astro-notion-blog/wiki).
 
 Please create an issue. **Both in English and in Japanese are OK.** :wink:
 
+## :bird: Twitter community
+
+You can support other members and/or can be supported by other members.
+
+- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
+
 ## Contribution
 
 Pull requests are welcome.

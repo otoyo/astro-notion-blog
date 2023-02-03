@@ -97,6 +97,12 @@ yarn dev
 
 Issue を作成してください。日本語で大丈夫です。
 
+## :bird: Twitter コミュニティ
+
+コミュニティに参加して他のメンバーからサポートを受けたりサポートすることができます。
+
+- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
+
 ## 貢献
 
 Pull requests 歓迎です。
