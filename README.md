@@ -7,7 +7,7 @@ English | [日本語](README.ja.md)
 
 <img src="https://user-images.githubusercontent.com/1063435/213838069-c9654c32-ec9b-4e82-a3b5-2acbd665b16a.png" width="480">
 
-astro-notion-blog helps to create a blog you can writte with [Notion](https://www.notion.so/).  
+astro-notion-blog helps to create a blog you can write with [Notion](https://www.notion.so/).  
 The blog is generated statically by [Astro](https://astro.build/) so very fast.
 
 - :rocket: **Very fast** page view
