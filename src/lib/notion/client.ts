@@ -597,7 +597,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
     Excerpt:
       prop.Excerpt.rich_text && prop.Excerpt.rich_text.length > 0
-        ? prop.Excerpt.rich_text[0].plain_text
+        ? prop.Excerpt.rich_text.map(t => t.plain_text).join('')
         : '',
     FeaturedImage:
       prop.FeaturedImage.files && prop.FeaturedImage.files.length > 0 && prop.FeaturedImage.files[0].file
