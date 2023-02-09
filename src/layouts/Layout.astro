@@ -11,9 +11,10 @@ export interface Props {
   title: string
   desctiption: string
   path: string
+  ogImage: string
 }
 
-const { title = '', description = '', path = '/' } = Astro.props
+const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
 
 const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE
 const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION
@@ -40,11 +41,11 @@ const navItems = [
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
     <meta property="og:site_name" content={PUBLIC_SITE_TITLE} />
-    <meta property="og:image" content={siteOGImage} />
+    <meta property="og:image" content={ogImage || siteOGImage} />
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={siteOGImage} />
+    <meta name="twitter:image" content={ogImage || siteOGImage} />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
   </head>
   <body>
