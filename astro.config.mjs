@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import OGImageUploader from './src/integrations/og-image-uploader'
 
 
 const CUSTOM_DOMAIN = '' // <- Set your costom domain if you have. e.g. alpacat.com
@@ -23,4 +24,7 @@ const getSite = function() {
 // https://astro.build/config
 export default defineConfig({
   site: getSite(),
+  integrations: [
+    OGImageUploader(),
+  ],
 })

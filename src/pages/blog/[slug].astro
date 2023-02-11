@@ -9,6 +9,7 @@ import {
   getAllTags,
   getAllBlocksByBlockId,
 } from '../../lib/notion/client.ts'
+import { imageURLWithKey } from '../../lib/cloudinary/client.ts'
 import { getPostLink } from '../../lib/blog-helpers.ts'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
@@ -44,9 +45,14 @@ const [
   getAllTags(),
   getPostsByTag(post.Tags[0]?.name, 6),
 ])
+
+let ogImage = ''
+if (post.FeaturedImage) {
+  ogImage = imageURLWithKey(post.PageId)
+}
 ---
 
-<Layout title={post.Title} description={post.Excerpt} path={getPostLink(post.Slug)}>
+<Layout title={post.Title} description={post.Excerpt} path={getPostLink(post.Slug)} ogImage={ogImage}>
   <div className={styles.container}>
     <main>
       <div className={styles.post}>
