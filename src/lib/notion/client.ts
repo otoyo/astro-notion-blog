@@ -486,7 +486,8 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Type: blockObject.file.type,
           File: {
             External: {
-              Url: blockObject.file.file.url
+              Url: blockObject.file.file.url,
+              ExpiryTime: blockObject.file.file.expiry_time
             }
           }
         }

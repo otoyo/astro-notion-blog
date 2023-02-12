@@ -106,7 +106,9 @@ export interface File {
 
 export interface FileBlock {
   Type: string
-  File: File
+  File: {
+    External: File
+  }
 }
 
 export interface External {
