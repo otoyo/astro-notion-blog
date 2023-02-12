@@ -2,6 +2,7 @@ export interface Post {
   PageId: string
   Title: string
   Icon: Emoji
+  Cover: File | null
   Slug: string
   Date: string
   Tags: SelectProperty[]
