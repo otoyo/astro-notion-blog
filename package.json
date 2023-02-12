@@ -20,7 +20,7 @@
     "@astrojs/rss": "^2.0.0",
     "@notionhq/client": "^2.2.3",
     "@supercharge/promise-pool": "^2.3.2",
-    "astro": "^1.9.0",
+    "astro": "^2.0.10",
     "cloudinary": "^1.33.0",
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
@@ -28,6 +28,7 @@
     "metascraper-description": "^5.33.4",
     "metascraper-image": "^5.33.4",
     "metascraper-title": "^5.33.4",
+    "node-fetch": "^3.3.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
