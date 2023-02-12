@@ -58,15 +58,29 @@ const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javas
   .code {
     display: block;
     width: 100%;
+    background: rgb(247, 246, 243);
+    border-radius: var(--radius);
+  }
+  .code div {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .code button.copy {
+    display: block;
+    width: 4rem;
+    border: 0;
+    border-radius: var(--radius);
+    background-color: rgba(227, 226, 224, 0.5);
+    color: var(--fg);
+    line-height: 1.2rem;
+    cursor: pointer;
   }
   .code pre {
     display: block;
     overflow: auto;
-    padding: 2rem;
-    background: rgb(247, 246, 243);
+    padding: 0.8rem 2rem 2rem;
     font-size: 0.9rem;
     line-height: 1.2rem;
-    border-radius: var(--radius);
   }
   .code pre code {
     color: var(--fg);
