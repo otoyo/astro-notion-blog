@@ -122,11 +122,6 @@ interface Equation {
   expression: string
 }
 
-interface Cover {
-  type: string
-  external?: External
-}
-
 // Database object
 // https://developers.notion.com/reference/database
 interface DatabaseObject {
@@ -139,7 +134,7 @@ interface DatabaseObject {
   title: RichTextObject[]
   description: RichTextObject[]
   icon: FileObject | Emoji | null
-  cover: Cover
+  cover: FileObject
   properties: DatabaseProperties
   parent: Parent
   url: string
@@ -245,7 +240,7 @@ export interface PageObject {
   last_edited_by: UserObject
   archived: boolean
   icon: FileObject | Emoji | null
-  cover: Cover
+  cover: FileObject
   properties: PageProperties
   parent: Parent
   url: string
