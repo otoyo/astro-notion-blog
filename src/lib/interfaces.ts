@@ -35,7 +35,7 @@ export interface Block {
   Table?: Table
   ColumnList?: ColumnList
   TableOfContents?: TableOfContents
-  File?: File
+  FileBlock?: FileBlock
 }
 
 export interface Paragraph {
@@ -102,6 +102,11 @@ export interface Video {
 export interface File {
   Url: string
   ExpiryTime?: string
+}
+
+export interface FileBlock {
+  Type: string
+  File: File
 }
 
 export interface External {

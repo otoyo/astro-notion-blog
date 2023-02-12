@@ -38,7 +38,7 @@ import type {
   Text,
   Annotation,
   SelectProperty,
-  File,
+  FileBlock,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -232,6 +232,10 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
     } else if (block.Type === 'image' && block.Image && block.Image.File && block.Image.File.ExpiryTime) {
       if (Date.parse(block.Image.File.ExpiryTime) < Date.now()) {
         block.Image = (await getBlock(block.Id)).Image
+      }
+    } else if (block.Type === 'file' && block.FileBlock && block.FileBlock.File && block.FileBlock.File.ExpiryTime) {
+      if (Date.parse(block.FileBlock.File.ExpiryTime) < Date.now()) {
+        block.FileBlock = (await getBlock(block.Id)).FileBlock
       }
     }
   }
@@ -478,10 +482,15 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       break
     case 'file':
       if (blockObject.file?.file) {
-        const file: File = {
-          Url: blockObject.file.file.url,
+        const FileBlock: FileBlock = {
+          Type: blockObject.file.type,
+          File: {
+            External: {
+              Url: blockObject.file.file.url
+            }
+          }
         }
-        block.File = file
+        block.FileBlock = FileBlock
       }
       break
   }

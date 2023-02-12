@@ -9,8 +9,8 @@ const { block } = Astro.props
 let url: URL;
 let fileName: string = 'File';
 try {
-  url = new URL(block.File?.Url)
-  fileName = block.File?.Url.match(".+/(.+?)([\?#;].*)?$")[1];
+  url = new URL(block.FileBlock.File.External.Url)
+  fileName = block.FileBlock.File.External.Url.match(".+/(.+?)([\?#;].*)?$")[1];
 } catch (err) {
   console.error(err)
 }
