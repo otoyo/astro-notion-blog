@@ -1,6 +1,8 @@
 export interface Post {
   PageId: string
   Title: string
+  Icon: Emoji
+  Cover: File | null
   Slug: string
   Date: string
   Tags: SelectProperty[]
@@ -125,7 +127,7 @@ export interface Equation {
 
 export interface Callout {
   RichTexts: RichText[]
-  Icon: Icon
+  Icon: Emoji
   Color: string
   Children?: Block[]
 }
@@ -208,7 +210,7 @@ export interface Text {
   Link?: Link
 }
 
-export interface Icon {
+export interface Emoji {
   Emoji: string
 }
 
