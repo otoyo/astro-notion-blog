@@ -138,7 +138,7 @@ interface DatabaseObject {
   last_edited_by: UserObject
   title: RichTextObject[]
   description: RichTextObject[]
-  icon: FileObject|Emoji
+  icon: FileObject | Emoji | null
   cover: Cover
   properties: DatabaseProperties
   parent: Parent
@@ -244,7 +244,7 @@ export interface PageObject {
   last_edited_time: string
   last_edited_by: UserObject
   archived: boolean
-  icon: FileObject|Emoji
+  icon: FileObject | Emoji | null
   cover: Cover
   properties: PageProperties
   parent: Parent
