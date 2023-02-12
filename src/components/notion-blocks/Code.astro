@@ -31,6 +31,9 @@ const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javas
   {language === 'mermaid' ? (
       <pre class="mermaid">{code}</pre>
     ) : (
+      <div>
+        <button class="copy" data-code={code} data-done-text="Copied!">Copy</button>
+      </div>
       <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
     )}
     <Caption richTexts={block.Code.Caption} />
@@ -39,6 +42,16 @@ const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javas
 <script>
   import mermaid from 'mermaid'
   mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+</script>
+
+<script>
+  document.querySelectorAll('button.copy').forEach((button) => {
+    button.addEventListener('click', (ev) => {
+      navigator.clipboard.writeText(ev.target.getAttribute('data-code')).then(() => {
+        ev.target.innerText = ev.target.getAttribute('data-done-text');
+      });
+    });
+  });
 </script>
 
 <style>
