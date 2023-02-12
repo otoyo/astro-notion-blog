@@ -233,8 +233,8 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       if (Date.parse(block.Image.File.ExpiryTime) < Date.now()) {
         block.Image = (await getBlock(block.Id)).Image
       }
-    } else if (block.Type === 'file' && block.FileBlock && block.FileBlock.File && block.FileBlock.File.ExpiryTime) {
-      if (Date.parse(block.FileBlock.File.ExpiryTime) < Date.now()) {
+    } else if (block.Type === 'file' && block.FileBlock && block.FileBlock.File && block.FileBlock.File.External.ExpiryTime) {
+      if (Date.parse(block.FileBlock.File.External.ExpiryTime) < Date.now()) {
         block.FileBlock = (await getBlock(block.Id)).FileBlock
       }
     }

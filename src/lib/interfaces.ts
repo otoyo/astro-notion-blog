@@ -107,12 +107,13 @@ export interface File {
 export interface FileBlock {
   Type: string
   File: {
-    External: File
+    External: External
   }
 }
 
 export interface External {
   Url: string
+  ExpiryTime?: string
 }
 
 export interface Code {
