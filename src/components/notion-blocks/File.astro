@@ -1,0 +1,26 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+
+let url: URL;
+let fileName: string = 'File';
+try {
+  url = new URL(block.File?.Url)
+  fileName = block.File?.Url.match(".+/(.+?)([\?#;].*)?$")[1];
+} catch (err) {
+  console.error(err)
+}
+---
+
+<div class="file">
+  <div>
+    {url && (<p><a href={url} target="_blank">&#128229; {fileName}</a></p>)}
+  </div>
+</div>
+
+<style>
+</style>

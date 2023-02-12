@@ -35,6 +35,7 @@ export interface Block {
   Table?: Table
   ColumnList?: ColumnList
   TableOfContents?: TableOfContents
+  File?: File
 }
 
 export interface Paragraph {

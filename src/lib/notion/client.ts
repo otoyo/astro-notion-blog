@@ -38,6 +38,7 @@ import type {
   Text,
   Annotation,
   SelectProperty,
+  File,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -473,6 +474,14 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Color: blockObject.table_of_contents.color,
         }
         block.TableOfContents = tableOfContents
+      }
+      break
+    case 'file':
+      if (blockObject.file?.file) {
+        const file: File = {
+          Url: blockObject.file.file.url,
+        }
+        block.File = file
       }
       break
   }
