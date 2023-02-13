@@ -11,13 +11,15 @@ const { post } = Astro.props
 ---
 
 <div class="post-tags">
-  {post.Tags &&
-    post.Tags.length > 0 &&
-    post.Tags.map((tag: SelectProperty) => (
-      <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
-        {tag.name}
-      </a>
-    ))}
+  {
+    post.Tags &&
+      post.Tags.length > 0 &&
+      post.Tags.map((tag: SelectProperty) => (
+        <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+          {tag.name}
+        </a>
+      ))
+  }
 </div>
 
 <style>

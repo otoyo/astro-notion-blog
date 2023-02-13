@@ -22,23 +22,30 @@ export interface Props {
 
 const { block } = Astro.props
 
-const code = block.Code.RichTexts.map((richText: interfaces.RichText) => richText.Text.Content).join('')
+const code = block.Code.RichTexts.map(
+  (richText: interfaces.RichText) => richText.Text.Content
+).join('')
 const language = block.Code.Language.toLowerCase()
-const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javascript
+const grammer =
+  Prism.languages[language.toLowerCase()] || Prism.languages.javascript
 ---
 
 <div class="code">
-  {language === 'mermaid' ? (
+  {
+    language === 'mermaid' ? (
       <pre class="mermaid">{code}</pre>
     ) : (
-      <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
-    )}
-    <Caption richTexts={block.Code.Caption} />
+      <pre>
+        <code set:html={Prism.highlight(code, grammer, language)} />
+      </pre>
+    )
+  }
+  <Caption richTexts={block.Code.Caption} />
 </div>
 
 <script>
   import mermaid from 'mermaid'
-  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' })
 </script>
 
 <style>

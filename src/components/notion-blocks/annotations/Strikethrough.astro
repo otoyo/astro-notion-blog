@@ -8,4 +8,12 @@ export interface Props {
 const { richText } = Astro.props
 ---
 
-{richText.Annotation.Strikethrough ? <s><slot /></s> : <slot />}
+{
+  richText.Annotation.Strikethrough ? (
+    <s>
+      <slot />
+    </s>
+  ) : (
+    <slot />
+  )
+}

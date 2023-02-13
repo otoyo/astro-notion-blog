@@ -100,7 +100,8 @@ aside {
 .post table {
   margin: 1rem 0;
 }
-.post ul, .post ol {
+.post ul,
+.post ol {
   font-size: 1rem;
 }
 .post p code {

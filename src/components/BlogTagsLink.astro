@@ -14,17 +14,21 @@ const { heading, tags } = Astro.props
 
 <div class="blog-tags-link">
   <h3>{heading}</h3>
-  {tags.length === 0 ? (
+  {
+    tags.length === 0 ? (
       <NoContents contents={tags} />
     ) : (
       <ul>
         {tags.map((tag: SelectProperty) => (
           <li>
-            <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>{tag.name}</a>
+            <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+              {tag.name}
+            </a>
           </li>
         ))}
       </ul>
-    )}
+    )
+  }
 </div>
 
 <style>

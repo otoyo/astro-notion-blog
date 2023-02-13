@@ -17,12 +17,22 @@ const listTypes = ['1', 'a', 'i']
 ---
 
 <ol type={listTypes[level % 3]}>
-  {block.ListItems
-    .filter((b: interfaces.Block) => b.Type === 'numbered_list_item')
-    .map((b: interfaces.Block) => (
+  {
+    block.ListItems.filter(
+      (b: interfaces.Block) => b.Type === 'numbered_list_item'
+    ).map((b: interfaces.Block) => (
       <li class={snakeToKebab(b.NumberedListItem.Color)}>
-        {b.NumberedListItem.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
-        {b.HasChildren && <NotionBlocks blocks={b.NumberedListItem.Children} level={level + 1} headings={headings} />}
+        {b.NumberedListItem.RichTexts.map((richText: interfaces.RichText) => (
+          <RichText richText={richText} />
+        ))}
+        {b.HasChildren && (
+          <NotionBlocks
+            blocks={b.NumberedListItem.Children}
+            level={level + 1}
+            headings={headings}
+          />
+        )}
       </li>
-    ))}
+    ))
+  }
 </ol>

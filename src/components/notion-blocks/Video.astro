@@ -1,9 +1,6 @@
 ---
 import * as interfaces from '../../lib/interfaces.ts'
-import {
-  isYouTubeURL,
-  parseYouTubeVideoId,
-} from '../../lib/blog-helpers.ts'
+import { isYouTubeURL, parseYouTubeVideoId } from '../../lib/blog-helpers.ts'
 import Caption from './Caption.astro'
 
 export interface Props {
@@ -22,9 +19,17 @@ try {
 
 <div class="video">
   <div>
-    {isYouTubeURL(url) && (
-      <iframe src={`https://www.youtube.com/embed/${parseYouTubeVideoId(url)}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      )}
+    {
+      isYouTubeURL(url) && (
+        <iframe
+          src={`https://www.youtube.com/embed/${parseYouTubeVideoId(url)}`}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      )
+    }
   </div>
   <Caption richTexts={block.Video.Caption} />
 </div>

@@ -13,7 +13,8 @@ const { heading, posts } = Astro.props
 
 <div class="blog-posts-link">
   <h3>{heading}</h3>
-  {posts.length === 0 ? (
+  {
+    posts.length === 0 ? (
       <NoContents contents={posts} />
     ) : (
       <ul>
@@ -23,7 +24,8 @@ const { heading, posts } = Astro.props
           </li>
         ))}
       </ul>
-    )}
+    )
+  }
 </div>
 
 <style>

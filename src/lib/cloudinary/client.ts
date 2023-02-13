@@ -6,7 +6,11 @@ import {
 } from '../../server-constants'
 
 function existsConfig(): boolean {
-  return !!(CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET)
+  return !!(
+    CLOUDINARY_CLOUD_NAME &&
+    CLOUDINARY_API_KEY &&
+    CLOUDINARY_API_SECRET
+  )
 }
 
 if (existsConfig()) {
@@ -17,8 +21,10 @@ if (existsConfig()) {
   })
 }
 
-
-export async function uploadImageWithKey(url: string, key: string): Promise<string> {
+export async function uploadImageWithKey(
+  url: string,
+  key: string
+): Promise<string> {
   if (!existsConfig() || !url || !key) {
     return ''
   }

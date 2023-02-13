@@ -14,12 +14,21 @@ const { block, headings } = Astro.props
 ---
 
 <ul>
-  {block.ListItems
-    .filter((b: interfaces.Block) => b.Type === 'bulleted_list_item')
-    .map((b: interfaces.Block) => (
+  {
+    block.ListItems.filter(
+      (b: interfaces.Block) => b.Type === 'bulleted_list_item'
+    ).map((b: interfaces.Block) => (
       <li class={snakeToKebab(b.BulletedListItem.Color)}>
-        {b.BulletedListItem.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
-        {b.HasChildren && <NotionBlocks blocks={b.BulletedListItem.Children} headings={headings} />}
+        {b.BulletedListItem.RichTexts.map((richText: interfaces.RichText) => (
+          <RichText richText={richText} />
+        ))}
+        {b.HasChildren && (
+          <NotionBlocks
+            blocks={b.BulletedListItem.Children}
+            headings={headings}
+          />
+        )}
       </li>
-    ))}
+    ))
+  }
 </ul>

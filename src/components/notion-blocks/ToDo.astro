@@ -14,20 +14,28 @@ const { block, headings } = Astro.props
 ---
 
 <div class="to-do">
-  {block.ListItems
-    .filter((b: interfaces.Block) => b.Type === 'to_do')
-    .map((b: interfaces.Block) => (
-      <div class={snakeToKebab(b.ToDo.Color)}>
-        <input type="checkbox" checked={b.ToDo.Checked} disabled />
-        {b.ToDo.RichTexts.map((richText: interfaces.RichText) => {
-          if (b.ToDo.Checked) {
-            return <s><RichText richText={richText} /></s>
-          }
-          return <RichText richText={richText} />
-        })}
-        {b.HasChildren && <NotionBlocks blocks={b.ToDo.Children} headings={headings} />}
-      </div>
-    ))}
+  {
+    block.ListItems.filter((b: interfaces.Block) => b.Type === 'to_do').map(
+      (b: interfaces.Block) => (
+        <div class={snakeToKebab(b.ToDo.Color)}>
+          <input type="checkbox" checked={b.ToDo.Checked} disabled />
+          {b.ToDo.RichTexts.map((richText: interfaces.RichText) => {
+            if (b.ToDo.Checked) {
+              return (
+                <s>
+                  <RichText richText={richText} />
+                </s>
+              )
+            }
+            return <RichText richText={richText} />
+          })}
+          {b.HasChildren && (
+            <NotionBlocks blocks={b.ToDo.Children} headings={headings} />
+          )}
+        </div>
+      )
+    )
+  }
 </div>
 
 <style>

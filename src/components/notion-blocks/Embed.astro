@@ -19,15 +19,17 @@ try {
 }
 ---
 
-{url ?
-  isTweetURL(url) ? (
-    <div class="tweet-embed">
-      <TweetEmbed url={url} />
-    </div>
-  ) : (
-    <Bookmark block={block} urlMap={urlMap} />
-  )
- : null}
+{
+  url ? (
+    isTweetURL(url) ? (
+      <div class="tweet-embed">
+        <TweetEmbed url={url} />
+      </div>
+    ) : (
+      <Bookmark block={block} urlMap={urlMap} />
+    )
+  ) : null
+}
 
 <style>
   .tweet-embed {

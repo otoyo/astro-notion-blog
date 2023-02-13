@@ -8,12 +8,14 @@ export default (): AstroIntegration => ({
     'astro:build:start': async () => {
       const posts = await getAllPosts()
 
-      await Promise.all(posts.map(post => {
-        if (post.FeaturedImage) {
-          return uploadImageWithKey(post.FeaturedImage, post.PageId)
-        }
-        return Promise.resolve()
-      }))
+      await Promise.all(
+        posts.map((post) => {
+          if (post.FeaturedImage) {
+            return uploadImageWithKey(post.FeaturedImage, post.PageId)
+          }
+          return Promise.resolve()
+        })
+      )
     },
   },
 })

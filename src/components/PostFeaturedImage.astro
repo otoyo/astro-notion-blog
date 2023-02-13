@@ -14,11 +14,13 @@ if (post.FeaturedImage) {
 }
 ---
 
-{image && (
-  <div class="post-featured-image">
-    <img src={image} alt="post-featured-image" />
-  </div>
-  )}
+{
+  image && (
+    <div class="post-featured-image">
+      <img src={image} alt="post-featured-image" />
+    </div>
+  )
+}
 
 <style>
   .post-featured-image {

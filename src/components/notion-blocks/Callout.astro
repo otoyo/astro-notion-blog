@@ -15,8 +15,16 @@ const { block, headings } = Astro.props
 <div class={`callout ${snakeToKebab(block.Callout.Color)}`}>
   <div>{block.Callout.Icon.Emoji}</div>
   <div>
-    {block.Callout.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
-    {block.Callout.Children && <NotionBlocks blocks={block.Callout.Children} headings={headings} />}
+    {
+      block.Callout.RichTexts.map((richText: interfaces.RichText) => (
+        <RichText richText={richText} />
+      ))
+    }
+    {
+      block.Callout.Children && (
+        <NotionBlocks blocks={block.Callout.Children} headings={headings} />
+      )
+    }
   </div>
 </div>
 
