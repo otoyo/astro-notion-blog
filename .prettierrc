@@ -1,0 +1,12 @@
+{
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["*.ts", "*.astro"],
+      "options": {
+        "semi": false
+      }
+    }
+  ]
+}
