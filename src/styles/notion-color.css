@@ -1,28 +1,37 @@
-.gray, .gray:hover {
+.gray,
+.gray:hover {
   color: rgba(120, 119, 116, 1);
 }
-.brown, .brown:hover {
+.brown,
+.brown:hover {
   color: rgba(159, 107, 83, 1);
 }
-.orange, .orange:hover {
+.orange,
+.orange:hover {
   color: rgba(217, 115, 13, 1);
 }
-.yellow, .yellow:hover {
+.yellow,
+.yellow:hover {
   color: rgba(203, 145, 47, 1);
 }
-.green, .green:hover {
+.green,
+.green:hover {
   color: rgba(68, 131, 97, 1);
 }
-.blue, .blue:hover {
+.blue,
+.blue:hover {
   color: rgba(51, 126, 169, 1);
 }
-.purple, .purple:hover {
+.purple,
+.purple:hover {
   color: rgba(144, 101, 176, 1);
 }
-.pink, .pink:hover {
+.pink,
+.pink:hover {
   color: rgba(193, 76, 138, 1);
 }
-.red, .red:hover {
+.red,
+.red:hover {
   color: rgba(212, 76, 71, 1);
 }
 .gray-background {

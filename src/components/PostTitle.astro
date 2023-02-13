@@ -16,11 +16,7 @@ if (post.Icon.Emoji) {
 ---
 
 <h3 class="post-title">
-  {enableLink ? (
-    <a href={getPostLink(post.Slug)}>
-      {title}
-    </a>
-    ) : title}
+  {enableLink ? <a href={getPostLink(post.Slug)}>{title}</a> : title}
 </h3>
 
 <style>

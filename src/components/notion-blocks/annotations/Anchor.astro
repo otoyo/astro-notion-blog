@@ -8,4 +8,12 @@ export interface Props {
 const { richText } = Astro.props
 ---
 
-{richText.Href ? <a href={richText.Href}><slot /></a> : <slot />}
+{
+  richText.Href ? (
+    <a href={richText.Href}>
+      <slot />
+    </a>
+  ) : (
+    <slot />
+  )
+}

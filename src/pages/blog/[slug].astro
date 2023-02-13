@@ -22,7 +22,7 @@ import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
-  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug }}))
+  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug } }))
 }
 
 const { slug } = Astro.params
@@ -32,19 +32,14 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [
-  blocks,
-  rankedPosts,
-  recentPosts,
-  tags,
-  postsHavingSameTag,
-] = await Promise.all([
-  getAllBlocksByBlockId(post.PageId),
-  getRankedPosts(),
-  getPosts(5),
-  getAllTags(),
-  getPostsByTag(post.Tags[0]?.name, 6),
-])
+const [blocks, rankedPosts, recentPosts, tags, postsHavingSameTag] =
+  await Promise.all([
+    getAllBlocksByBlockId(post.PageId),
+    getRankedPosts(),
+    getPosts(5),
+    getAllTags(),
+    getPostsByTag(post.Tags[0]?.name, 6),
+  ])
 
 let ogImage = ''
 if (post.FeaturedImage) {
@@ -52,7 +47,12 @@ if (post.FeaturedImage) {
 }
 ---
 
-<Layout title={post.Title} description={post.Excerpt} path={getPostLink(post.Slug)} ogImage={ogImage}>
+<Layout
+  title={post.Title}
+  description={post.Excerpt}
+  path={getPostLink(post.Slug)}
+  ogImage={ogImage}
+>
   <div className={styles.container}>
     <main>
       <div className={styles.post}>
@@ -61,13 +61,17 @@ if (post.FeaturedImage) {
         <PostTitle post={post} enableLink={false} />
         <PostBody blocks={blocks} />
 
-        <footer>
-        </footer>
+        <footer></footer>
       </div>
     </main>
 
     <aside>
-      <BlogPostsLink heading="Posts in the same category" posts={postsHavingSameTag.filter((p: interfaces.Post) => p.Slug !== post.Slug)} />
+      <BlogPostsLink
+        heading="Posts in the same category"
+        posts={postsHavingSameTag.filter(
+          (p: interfaces.Post) => p.Slug !== post.Slug
+        )}
+      />
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />
       <BlogPostsLink heading="Latest posts" posts={recentPosts} />
       <BlogTagsLink heading="Categories" tags={tags} />

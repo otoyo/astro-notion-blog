@@ -19,12 +19,7 @@ if (block.Image.External) {
 
 <figure class="image">
   <div>
-    {image && (
-      <img
-        src={image}
-        alt="image block"
-        />
-      )}
+    {image && <img src={image} alt="image block" />}
   </div>
   <Caption richTexts={block.Image.Caption} />
 </figure>

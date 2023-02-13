@@ -228,7 +228,7 @@ export interface Link {
 }
 
 export interface SelectProperty {
-  id: string;
-  name: string;
-  color: string;
+  id: string
+  name: string
+  color: string
 }

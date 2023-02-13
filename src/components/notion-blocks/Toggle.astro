@@ -15,7 +15,11 @@ const { block, headings } = Astro.props
 
 <details class={`toggle ${snakeToKebab(block.Toggle.Color)}`}>
   <summary>
-    {block.Toggle.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
+    {
+      block.Toggle.RichTexts.map((richText: interfaces.RichText) => (
+        <RichText richText={richText} />
+      ))
+    }
   </summary>
   <div>
     <NotionBlocks blocks={block.Toggle.Children} headings={headings} />

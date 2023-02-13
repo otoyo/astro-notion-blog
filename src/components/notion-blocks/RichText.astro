@@ -23,13 +23,32 @@ const { richText } = Astro.props
         <Strikethrough richText={richText}>
           <Italic richText={richText}>
             <Bold richText={richText}>
-              {richText.Text && richText.Text.Content.split('\n').map((content: string, i: number) => {
-                if (i === 0) {
-                  return content
-                }
-                return <><br />{content}</>
-              })}
-              {richText.Equation && <span set:html={katex.renderToString(richText.Equation.Expression, { throwOnError: false })} />}
+              {
+                richText.Text &&
+                  richText.Text.Content.split('\n').map(
+                    (content: string, i: number) => {
+                      if (i === 0) {
+                        return content
+                      }
+                      return (
+                        <>
+                          <br />
+                          {content}
+                        </>
+                      )
+                    }
+                  )
+              }
+              {
+                richText.Equation && (
+                  <span
+                    set:html={katex.renderToString(
+                      richText.Equation.Expression,
+                      { throwOnError: false }
+                    )}
+                  />
+                )
+              }
             </Bold>
           </Italic>
         </Strikethrough>

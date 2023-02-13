@@ -9,7 +9,12 @@ export interface Props {
 const { block } = Astro.props
 ---
 
-<div class="equation" set:html={katex.renderToString(block.Equation.Expression, { throwOnError: false })} />
+<div
+  class="equation"
+  set:html={katex.renderToString(block.Equation.Expression, {
+    throwOnError: false,
+  })}
+/>
 
 <style>
   .equation {
