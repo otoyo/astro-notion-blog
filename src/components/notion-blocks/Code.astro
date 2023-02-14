@@ -43,9 +43,7 @@ const grammer =
               Copy
             </button>
           </div>
-          <pre>
-            <code set:html={Prism.highlight(code, grammer, language)} />
-          </pre>
+          <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
         </>
       )
     }
