@@ -33,6 +33,7 @@ const grammer =
 <div class="code">
   <div>
     {
+      /* prettier-ignore */
       language === 'mermaid' ? (
         <pre class="mermaid">{code}</pre>
       ) : (
@@ -42,9 +43,7 @@ const grammer =
               Copy
             </button>
           </div>
-          <pre>
-            <code set:html={Prism.highlight(code, grammer, language)} />
-          </pre>
+          <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
         </>
       )
     }
@@ -96,6 +95,9 @@ const grammer =
     padding: 0.8rem 2rem 2rem;
     font-size: 0.9rem;
     line-height: 1.2rem;
+  }
+  .code pre.mermaid {
+    padding: 2rem;
   }
   .code pre code {
     color: var(--fg);
