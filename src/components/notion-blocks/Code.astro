@@ -31,18 +31,24 @@ const grammer =
 ---
 
 <div class="code">
-  {
-    language === 'mermaid' ? (
-      <pre class="mermaid">{code}</pre>
-    ) : (
-      <div>
-        <button class="copy" data-code={code} data-done-text="Copied!">Copy</button>
-      </div>
-      <pre>
-        <code set:html={Prism.highlight(code, grammer, language)} />
-      </pre>
-    )
-  }
+  <div>
+    {
+      language === 'mermaid' ? (
+        <pre class="mermaid">{code}</pre>
+      ) : (
+        <>
+          <div>
+            <button class="copy" data-code={code} data-done-text="Copied!">
+              Copy
+            </button>
+          </div>
+          <pre>
+            <code set:html={Prism.highlight(code, grammer, language)} />
+          </pre>
+        </>
+      )
+    }
+  </div>
   <Caption richTexts={block.Code.Caption} />
 </div>
 
@@ -65,10 +71,12 @@ const grammer =
   .code {
     display: block;
     width: 100%;
+  }
+  .code > div {
     background: rgb(247, 246, 243);
     border-radius: var(--radius);
   }
-  .code div {
+  .code > div div {
     display: flex;
     justify-content: flex-end;
   }
@@ -93,5 +101,6 @@ const grammer =
     color: var(--fg);
     padding: 0;
     background: rgb(247, 246, 243) !important;
+    border-radius: 0;
   }
 </style>
