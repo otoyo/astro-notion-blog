@@ -1,0 +1,47 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getPostLink } from '../lib/blog-helpers.ts'
+
+export interface Props {
+  prevPost: Post
+  nextPost: Post
+}
+
+const { prevPost, nextPost } = Astro.props
+---
+
+<div class="post-relative-link">
+  <div>
+    {nextPost && <a href={getPostLink(nextPost.Slug)}>◀︎ {nextPost.Title}</a>}
+    {prevPost && <a href={getPostLink(prevPost.Slug)}>{prevPost.Title} ▶︎</a>}
+  </div>
+  <div>
+    <a href="/blog">▲ Return to list</a>
+  </div>
+</div>
+
+<style>
+  div.post-relative-link {
+  }
+  div.post-relative-link > div {
+    display: flex;
+  }
+  div.post-relative-link > div > a {
+    display: block;
+    flex: auto;
+    width: 50%;
+    padding: 0.6rem;
+    text-align: center;
+    line-height: 1.2rem;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 640px) {
+    div.post-relative-link > div {
+      display: block;
+    }
+    div.post-relative-link > div > a {
+      display: block;
+      width: 100%;
+    }
+  }
+</style>
