@@ -16,6 +16,7 @@ import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
 import PostTitle from '../../components/PostTitle.astro'
 import PostBody from '../../components/PostBody.astro'
+import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import styles from '../../styles/blog.module.css'
@@ -32,14 +33,19 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [blocks, rankedPosts, recentPosts, tags, postsHavingSameTag] =
+const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
   await Promise.all([
     getAllBlocksByBlockId(post.PageId),
+    getAllPosts(),
     getRankedPosts(),
     getPosts(5),
     getAllTags(),
     getPostsByTag(post.Tags[0]?.name, 6),
   ])
+
+const currentPostIndex = allPosts.findIndex(post => post.Slug === slug)
+const prevPost = allPosts[currentPostIndex + 1]
+const nextPost = allPosts[currentPostIndex - 1]
 
 let ogImage = ''
 if (post.FeaturedImage) {
@@ -61,7 +67,9 @@ if (post.FeaturedImage) {
         <PostTitle post={post} enableLink={false} />
         <PostBody blocks={blocks} />
 
-        <footer></footer>
+        <footer>
+          <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
+        </footer>
       </div>
     </main>
 
