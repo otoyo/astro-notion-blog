@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
 import OGImageUploader from './src/integrations/og-image-uploader';
 
-
 const getSite = function () {
   if (!process.env.CF_PAGES) {
     return new URL(BASE_PATH, 'http://localhost:3000').toString();
