@@ -12,11 +12,17 @@ const { prevPost, nextPost } = Astro.props
 
 <div class="post-relative-link">
   <div>
-    {nextPost && <a href={getPostLink(nextPost.Slug)}>◀︎ {nextPost.Title}</a>}
-    {prevPost && <a href={getPostLink(prevPost.Slug)}>{prevPost.Title} ▶︎</a>}
+    <div>
+      {nextPost && <a href={getPostLink(nextPost.Slug)}>◀︎ {nextPost.Title}</a>}
+    </div>
+    <div>
+      {prevPost && <a href={getPostLink(prevPost.Slug)}>{prevPost.Title} ▶︎</a>}
+    </div>
   </div>
   <div>
-    <a href="/blog">▲ Return to list</a>
+    <div>
+      <a href="/blog">▲ Return to list</a>
+    </div>
   </div>
 </div>
 
@@ -26,7 +32,7 @@ const { prevPost, nextPost } = Astro.props
   div.post-relative-link > div {
     display: flex;
   }
-  div.post-relative-link > div > a {
+  div.post-relative-link > div > div {
     display: block;
     flex: auto;
     width: 50%;
@@ -35,11 +41,13 @@ const { prevPost, nextPost } = Astro.props
     line-height: 1.2rem;
     font-size: 0.95rem;
   }
+  div.post-relative-link > div > div > a {
+  }
   @media (max-width: 640px) {
     div.post-relative-link > div {
       display: block;
     }
-    div.post-relative-link > div > a {
+    div.post-relative-link > div > div {
       display: block;
       width: 100%;
     }
