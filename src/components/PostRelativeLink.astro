@@ -1,6 +1,6 @@
 ---
 import { Post } from '../lib/interfaces.ts'
-import { getPostLink } from '../lib/blog-helpers.ts'
+import { getNavLink, getPostLink } from '../lib/blog-helpers.ts'
 
 export interface Props {
   prevPost: Post
@@ -21,7 +21,7 @@ const { prevPost, nextPost } = Astro.props
   </div>
   <div>
     <div>
-      <a href="/blog">▲ Return to list</a>
+      <a href={getNavLink('/blog')}>▲ Return to list</a>
     </div>
   </div>
 </div>
