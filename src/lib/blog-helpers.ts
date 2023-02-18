@@ -1,6 +1,7 @@
 import fetch, { Response, AbortError } from 'node-fetch'
-import { REQUEST_TIMEOUT_MS } from '../server-constants'
+import { BASE_PATH, REQUEST_TIMEOUT_MS } from '../server-constants'
 import type { Post, Heading1, Heading2, Heading3, RichText } from './interfaces'
+import { pathJoin } from './utils'
 
 export const fetchImageAsDataURI = async (url: string): Promise<string> => {
   const controller = new AbortController()
@@ -104,21 +105,32 @@ export const buildPostFeaturedImageURLs = (posts: Post[]): (URL | null)[] => {
   })
 }
 
+export const getNavLink = (nav: string) => {
+  if ((!nav || nav === '/') && BASE_PATH) {
+    return pathJoin(BASE_PATH, '') + '/'
+  }
+
+  return pathJoin(BASE_PATH, nav)
+}
+
 export const getPostLink = (slug: string) => {
-  return `/blog/${slug}`
+  return pathJoin(BASE_PATH, `/blog/${slug}`)
 }
 
 export const getTagLink = (tag: string) => {
-  return `/blog/tag/${encodeURIComponent(tag)}`
+  return pathJoin(BASE_PATH, `/blog/tag/${encodeURIComponent(tag)}`)
 }
 
 export const getPageLink = (page: number, tag: string) => {
   if (page === 1) {
-    return tag ? getTagLink(tag) : '/blog'
+    return tag ? getTagLink(tag) : pathJoin(BASE_PATH, '/blog')
   }
   return tag
-    ? `/blog/tag/${encodeURIComponent(tag)}/page/${page.toString()}`
-    : `/blog/page/${page.toString()}`
+    ? pathJoin(
+        BASE_PATH,
+        `/blog/tag/${encodeURIComponent(tag)}/page/${page.toString()}`
+      )
+    : pathJoin(BASE_PATH, `/blog/page/${page.toString()}`)
 }
 
 export const getDateStr = (date: string) => {

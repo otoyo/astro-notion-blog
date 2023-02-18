@@ -1,6 +1,8 @@
 export const NOTION_API_SECRET = process.env.NOTION_API_SECRET || ''
 export const DATABASE_ID = process.env.DATABASE_ID || ''
 
+export const BASE_PATH = process.env.BASE_PATH || '' // <- Set sub directory path if you want. e.g. /docs/
+
 export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || ''
 export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || ''
 export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || ''

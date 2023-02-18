@@ -4,6 +4,7 @@ import {
   PUBLIC_SITE_DESCRIPTION,
   PUBLIC_GA_TRACKING_ID,
 } from '../server-constants.ts'
+import { getNavLink } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 
@@ -57,14 +58,14 @@ const navItems = [
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <header class="header">
       <h1>
-        <a href="/">{PUBLIC_SITE_TITLE}</a>
+        <a href={getNavLink('/')}>{PUBLIC_SITE_TITLE}</a>
       </h1>
 
       <ul>
         {
           navItems.map(({ label, path: p }) => (
             <li key={label}>
-              <a href={p} class={p === path ? 'active' : null}>
+              <a href={getNavLink(p)} class={p === path ? 'active' : null}>
                 {label}
               </a>
             </li>
