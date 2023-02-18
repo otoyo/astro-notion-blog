@@ -1,6 +1,7 @@
 export const NOTION_API_SECRET = process.env.NOTION_API_SECRET || ''
 export const DATABASE_ID = process.env.DATABASE_ID || ''
 
+export const CUSTOM_DOMAIN = process.env.CUSTOM_DOMAIN || '' // <- Set your costom domain if you have. e.g. alpacat.com
 export const BASE_PATH = process.env.BASE_PATH || '' // <- Set sub directory path if you want. e.g. /docs/
 
 export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || ''
