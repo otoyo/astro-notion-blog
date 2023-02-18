@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config';
-import { BASE_PATH } from './src/server-constants';
+import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
 import OGImageUploader from './src/integrations/og-image-uploader';
-
-const CUSTOM_DOMAIN = ''; // <- Set your costom domain if you have. e.g. alpacat.com
 
 const getSite = function () {
   if (!process.env.CF_PAGES) {
