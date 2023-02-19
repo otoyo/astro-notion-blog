@@ -277,15 +277,6 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.Quote.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'callout' && block.Callout && block.HasChildren) {
       block.Callout.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (
-      block.Type === 'image' &&
-      block.Image &&
-      block.Image.File &&
-      block.Image.File.ExpiryTime
-    ) {
-      if (Date.parse(block.Image.File.ExpiryTime) < Date.now()) {
-        block.Image = (await getBlock(block.Id)).Image
-      }
     }
   }
 
