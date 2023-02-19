@@ -1,46 +1,88 @@
-import fetch, { Response, AbortError } from 'node-fetch'
+import fetch from 'node-fetch'
 import { BASE_PATH, REQUEST_TIMEOUT_MS } from '../server-constants'
-import type { Post, Heading1, Heading2, Heading3, RichText } from './interfaces'
+import type {
+  Block,
+  Heading1,
+  Heading2,
+  Heading3,
+  RichText,
+  Column,
+} from './interfaces'
 import { pathJoin } from './utils'
 
 export const imageFilePath = (url: URL): string => {
   return '/notion/' + url.pathname.split('/').slice(-2).join('/')
 }
 
-export const fetchImageAsDataURI = async (url: string): Promise<string> => {
-  const controller = new AbortController()
-  const timeout = setTimeout(() => {
-    controller.abort()
-  }, REQUEST_TIMEOUT_MS)
+export const extractTargetBlocks = (
+  blockType: string,
+  blocks: Block[]
+): Block[] => {
+  return blocks
+    .reduce((acc: Block[], block) => {
+      if (block.Type === blockType) {
+        acc.push(block)
+      }
 
-  let res!: Response
-  try {
-    res = (await fetch(url, { signal: controller.signal })) as Response
-  } catch (err) {
-    if (err instanceof AbortError) {
-      console.log('Image fetch request was aborted')
-      return Promise.resolve('')
-    }
-  } finally {
-    clearTimeout(timeout)
-  }
+      if (block.ColumnList && block.ColumnList.Columns) {
+        acc = acc.concat(
+          _extractTargetBlockFromColums(blockType, block.ColumnList.Columns)
+        )
+      } else if (block.BulletedListItem && block.BulletedListItem.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.BulletedListItem.Children)
+        )
+      } else if (block.NumberedListItem && block.NumberedListItem.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.NumberedListItem.Children)
+        )
+      } else if (block.ToDo && block.ToDo.Children) {
+        acc = acc.concat(extractTargetBlocks(blockType, block.ToDo.Children))
+      } else if (block.SyncedBlock && block.SyncedBlock.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.SyncedBlock.Children)
+        )
+      } else if (block.Toggle && block.Toggle.Children) {
+        acc = acc.concat(extractTargetBlocks(blockType, block.Toggle.Children))
+      } else if (block.Paragraph && block.Paragraph.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.Paragraph.Children)
+        )
+      } else if (block.Heading1 && block.Heading1.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.Heading1.Children)
+        )
+      } else if (block.Heading2 && block.Heading2.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.Heading2.Children)
+        )
+      } else if (block.Heading3 && block.Heading3.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.Heading3.Children)
+        )
+      } else if (block.Quote && block.Quote.Children) {
+        acc = acc.concat(extractTargetBlocks(blockType, block.Quote.Children))
+      } else if (block.Callout && block.Callout.Children) {
+        acc = acc.concat(extractTargetBlocks(blockType, block.Callout.Children))
+      }
 
-  if (!res || !res.body) {
-    return Promise.resolve('')
-  }
-  const contentType = res.headers.get('Content-Type')
-  const stream = res.body
+      return acc
+    }, [])
+    .flat()
+}
 
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = []
-    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)))
-    stream.on('error', (err) => reject(err))
-    stream.on('end', () =>
-      resolve(
-        `data:${contentType};base64,${Buffer.concat(chunks).toString('base64')}`
-      )
-    )
-  })
+const _extractTargetBlockFromColums = (
+  blockType: string,
+  columns: Column[]
+): Block[] => {
+  return columns
+    .reduce((acc: Block[], column) => {
+      if (column.Children) {
+        acc = acc.concat(extractTargetBlocks(blockType, column.Children))
+      }
+      return acc
+    }, [])
+    .flat()
 }
 
 export const buildURLToHTMLMap = async (
@@ -73,40 +115,6 @@ export const buildURLToHTMLMap = async (
     }
     return acc
   }, {})
-}
-
-export const buildURLToImageMap = async (
-  urls: URL[]
-): Promise<{ [key: string]: string }> => {
-  const images: string[] = await Promise.all(
-    urls.map(async (url: URL) => {
-      return fetchImageAsDataURI(url.toString())
-    })
-  )
-
-  return urls.reduce((acc: { [key: string]: string }, url, i) => {
-    if (images[i]) {
-      acc[url.toString()] = images[i]
-    }
-    return acc
-  }, {})
-}
-
-export const buildPostFeaturedImageURLs = (posts: Post[]): (URL | null)[] => {
-  return posts.map((p: Post) => {
-    if (!p.FeaturedImage) {
-      return null
-    }
-
-    let url!: URL
-    try {
-      url = new URL(p.FeaturedImage)
-    } catch (err) {
-      console.log(err)
-      return null
-    }
-    return url
-  })
 }
 
 export const getNavLink = (nav: string) => {
