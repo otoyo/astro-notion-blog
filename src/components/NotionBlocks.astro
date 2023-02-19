@@ -3,7 +3,6 @@ import * as interfaces from '../lib/interfaces.ts'
 import {
   isTweetURL,
   buildURLToHTMLMap,
-  buildURLToImageMap,
 } from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
@@ -92,22 +91,6 @@ if (isRoot) {
   )
 }
 
-const imageURLs = blocks
-  .filter(
-    (b: interfaces.Block) => b.Type === 'image' && b.Image && b.Image.File
-  )
-  .map((b: interfaces.Block) => {
-    let url: URL
-    try {
-      url = new URL(b.Image.File.Url)
-    } catch (err) {
-      console.log(err)
-    }
-    return url
-  })
-
-const imageURLMap = await buildURLToImageMap(imageURLs)
-
 const bookmarkURLs = blocks
   .filter((b: interfaces.Block) =>
     ['bookmark', 'link_preview', 'embed'].includes(b.Type)
@@ -142,7 +125,7 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
       case 'table_of_contents':
         return <TableOfContents block={block} headings={headings} />
       case 'image':
-        return <Image block={block} urlMap={imageURLMap} />
+        return <Image block={block} />
       case 'video':
         return <Video block={block} />
       case 'code':

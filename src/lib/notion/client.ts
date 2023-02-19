@@ -1,8 +1,12 @@
-import fs from 'node:fs'
+import fs, { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
+import fetch, { Response, AbortError } from 'node-fetch'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
   NUMBER_OF_POSTS_PER_PAGE,
+  REQUEST_TIMEOUT_MS,
 } from '../../server-constants'
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
@@ -39,7 +43,7 @@ import type {
   Annotation,
   SelectProperty,
   Emoji,
-  File,
+  FileObject,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -273,15 +277,6 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.Quote.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'callout' && block.Callout && block.HasChildren) {
       block.Callout.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (
-      block.Type === 'image' &&
-      block.Image &&
-      block.Image.File &&
-      block.Image.File.ExpiryTime
-    ) {
-      if (Date.parse(block.Image.File.ExpiryTime) < Date.now()) {
-        block.Image = (await getBlock(block.Id)).Image
-      }
     }
   }
 
@@ -315,6 +310,42 @@ export async function getAllTags(): Promise<SelectProperty[]> {
     .sort((a: SelectProperty, b: SelectProperty) =>
       a.name.localeCompare(b.name)
     )
+}
+
+export async function downloadFile(url: URL) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => {
+    controller.abort()
+  }, REQUEST_TIMEOUT_MS)
+
+  let res!: Response
+  try {
+    res = (await fetch(url.toString(), {
+      signal: controller.signal,
+    })) as Response
+  } catch (err) {
+    if (err instanceof AbortError) {
+      console.log('File fetch request was aborted')
+      return Promise.resolve()
+    }
+  } finally {
+    clearTimeout(timeout)
+  }
+
+  if (!res || !res.body) {
+    return Promise.resolve()
+  }
+
+  const dir = './public/notion/' + url.pathname.split('/').slice(-2)[0]
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+
+  const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
+  const filepath = `${dir}/${filename}`
+
+  const streamPipeline = promisify(pipeline)
+  return streamPipeline(res.body, createWriteStream(filepath))
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
@@ -679,13 +710,25 @@ function _buildPost(pageObject: responses.PageObject): Post {
   const icon = pageObject.icon as responses.Emoji
   const emoji: Emoji = { Emoji: icon?.emoji || '' }
 
-  const file: File = { Url: pageObject.cover?.external?.url || '' }
+  const cover: FileObject = { Url: pageObject.cover?.external?.url || '' }
+
+  let featuredImage: FileObject | null = null
+  if (
+    prop.FeaturedImage.files &&
+    prop.FeaturedImage.files.length > 0 &&
+    prop.FeaturedImage.files[0].file
+  ) {
+    featuredImage = {
+      Url: prop.FeaturedImage.files[0].file.url,
+      ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+    }
+  }
 
   const post: Post = {
     PageId: pageObject.id,
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
     Icon: emoji,
-    Cover: file,
+    Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
@@ -693,12 +736,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
       prop.Excerpt.rich_text && prop.Excerpt.rich_text.length > 0
         ? prop.Excerpt.rich_text.map((t) => t.plain_text).join('')
         : '',
-    FeaturedImage:
-      prop.FeaturedImage.files &&
-      prop.FeaturedImage.files.length > 0 &&
-      prop.FeaturedImage.files[0].file
-        ? prop.FeaturedImage.files[0].file.url
-        : null,
+    FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
   }
 

@@ -1,16 +1,20 @@
 ---
 import { Post } from '../lib/interfaces.ts'
+import { imageFilePath } from '../lib/blog-helpers'
 
 export interface Props {
   post: Post
-  urlMap: { [key: string]: string }
 }
 
-const { post, urlMap } = Astro.props
+const { post } = Astro.props
 
 let image = ''
-if (post.FeaturedImage) {
-  image = urlMap[post.FeaturedImage]
+if (post.FeaturedImage && post.FeaturedImage.Url) {
+  if (import.meta.env.DEV) {
+    image = post.FeaturedImage.Url
+  } else {
+    image = imageFilePath(new URL(post.FeaturedImage.Url))
+  }
 }
 ---
 

@@ -2,12 +2,12 @@ export interface Post {
   PageId: string
   Title: string
   Icon: Emoji
-  Cover: File | null
+  Cover: FileObject | null
   Slug: string
   Date: string
   Tags: SelectProperty[]
   Excerpt: string
-  FeaturedImage: string | null
+  FeaturedImage: FileObject | null
   Rank: number
 }
 
@@ -88,7 +88,7 @@ export interface ToDo {
 export interface Image {
   Caption: RichText[]
   Type: string
-  File?: File
+  File?: FileObject
   External?: External
   Width?: number
   Height?: number
@@ -100,7 +100,7 @@ export interface Video {
   External?: External
 }
 
-export interface File {
+export interface FileObject {
   Url: string
   ExpiryTime?: string
 }

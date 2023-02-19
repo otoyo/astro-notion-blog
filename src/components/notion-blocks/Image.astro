@@ -1,19 +1,19 @@
 ---
 import * as interfaces from '../../lib/notion/interfaces'
+import { imageFilePath } from '../../lib/blog-helpers'
 import Caption from './Caption.astro'
 
 export interface Props {
   block: interfaces.Block
-  urlMap: { [key: string]: string }
 }
 
-const { block, urlMap } = Astro.props
+const { block } = Astro.props
 
 let image = ''
 if (block.Image.External) {
   image = block.Image.External.Url
 } else if (block.Image.File) {
-  image = urlMap[block.Image.File.Url]
+  image = imageFilePath(new URL(block.Image.File.Url))
 }
 ---
 
