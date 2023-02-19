@@ -10,8 +10,8 @@ export default (): AstroIntegration => ({
 
       await Promise.all(
         posts.map((post) => {
-          if (post.FeaturedImage) {
-            return uploadImageWithKey(post.FeaturedImage, post.PageId)
+          if (post.FeaturedImage && post.FeaturedImage.Url) {
+            return uploadImageWithKey(post.FeaturedImage.Url, post.PageId)
           }
           return Promise.resolve()
         })

@@ -7,7 +7,7 @@ export interface Post {
   Date: string
   Tags: SelectProperty[]
   Excerpt: string
-  FeaturedImage: string | null
+  FeaturedImage: FileObject | null
   Rank: number
 }
 

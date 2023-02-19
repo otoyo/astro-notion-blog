@@ -679,13 +679,25 @@ function _buildPost(pageObject: responses.PageObject): Post {
   const icon = pageObject.icon as responses.Emoji
   const emoji: Emoji = { Emoji: icon?.emoji || '' }
 
-  const file: FileObject = { Url: pageObject.cover?.external?.url || '' }
+  const cover: FileObject = { Url: pageObject.cover?.external?.url || '' }
+
+  let featuredImage: FileObject | null = null
+  if (
+    prop.FeaturedImage.files &&
+    prop.FeaturedImage.files.length > 0 &&
+    prop.FeaturedImage.files[0].file
+  ) {
+    featuredImage = {
+      Url: prop.FeaturedImage.files[0].file.url,
+      ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+    }
+  }
 
   const post: Post = {
     PageId: pageObject.id,
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
     Icon: emoji,
-    Cover: file,
+    Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
@@ -693,12 +705,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
       prop.Excerpt.rich_text && prop.Excerpt.rich_text.length > 0
         ? prop.Excerpt.rich_text.map((t) => t.plain_text).join('')
         : '',
-    FeaturedImage:
-      prop.FeaturedImage.files &&
-      prop.FeaturedImage.files.length > 0 &&
-      prop.FeaturedImage.files[0].file
-        ? prop.FeaturedImage.files[0].file.url
-        : null,
+    FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
   }
 
