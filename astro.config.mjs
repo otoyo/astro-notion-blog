@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
 import OGImageUploader from './src/integrations/og-image-uploader';
+import FeaturedImageDownloader from './src/integrations/featured-image-downloader';
 
 const getSite = function () {
   if (!process.env.CF_PAGES) {
@@ -28,5 +29,5 @@ const getSite = function () {
 export default defineConfig({
   site: getSite(),
   base: BASE_PATH,
-  integrations: [OGImageUploader()],
+  integrations: [OGImageUploader(), FeaturedImageDownloader()],
 });
