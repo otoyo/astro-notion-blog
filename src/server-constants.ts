@@ -4,10 +4,6 @@ export const DATABASE_ID = process.env.DATABASE_ID || ''
 export const CUSTOM_DOMAIN = process.env.CUSTOM_DOMAIN || '' // <- Set your costom domain if you have. e.g. alpacat.com
 export const BASE_PATH = process.env.BASE_PATH || '' // <- Set sub directory path if you want. e.g. /docs/
 
-export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || ''
-export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || ''
-export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || ''
-
 export const PUBLIC_GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID
 export const NUMBER_OF_POSTS_PER_PAGE = 10
 export const REQUEST_TIMEOUT_MS = parseInt(
