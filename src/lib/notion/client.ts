@@ -39,7 +39,7 @@ import type {
   Annotation,
   SelectProperty,
   Emoji,
-  File,
+  FileObject,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -679,7 +679,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
   const icon = pageObject.icon as responses.Emoji
   const emoji: Emoji = { Emoji: icon?.emoji || '' }
 
-  const file: File = { Url: pageObject.cover?.external?.url || '' }
+  const file: FileObject = { Url: pageObject.cover?.external?.url || '' }
 
   const post: Post = {
     PageId: pageObject.id,
