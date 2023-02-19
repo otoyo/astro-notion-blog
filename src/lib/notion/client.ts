@@ -1,8 +1,12 @@
-import fs from 'node:fs'
+import fs, { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
+import fetch, { Response, AbortError } from 'node-fetch'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
   NUMBER_OF_POSTS_PER_PAGE,
+  REQUEST_TIMEOUT_MS,
 } from '../../server-constants'
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
@@ -315,6 +319,41 @@ export async function getAllTags(): Promise<SelectProperty[]> {
     .sort((a: SelectProperty, b: SelectProperty) =>
       a.name.localeCompare(b.name)
     )
+}
+
+export async function downloadFile(url: URL) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => {
+    controller.abort()
+  }, REQUEST_TIMEOUT_MS)
+
+  let res!: Response
+  try {
+    res = (await fetch(url.toString(), {
+      signal: controller.signal,
+    })) as Response
+  } catch (err) {
+    if (err instanceof AbortError) {
+      console.log('File fetch request was aborted')
+      return Promise.resolve()
+    }
+  } finally {
+    clearTimeout(timeout)
+  }
+
+  if (!res || !res.body) {
+    return Promise.resolve()
+  }
+
+  const dir = './public/notion/' + url.pathname.split('/').slice(-2)[0]
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+
+  const filepath = dir + '/' + url.pathname.split('/').slice(-1)[0]
+
+  const streamPipeline = promisify(pipeline)
+  return streamPipeline(res.body, createWriteStream(filepath))
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
