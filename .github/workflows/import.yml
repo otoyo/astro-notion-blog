@@ -1,0 +1,25 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  create-import-pr:
+    name: Create import PR
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Check existing PR
+        id: check_pr
+        run: |
+          echo "::set-output name=count::$(gh pr list -S 'Import otoyo/astro-notion-blog'in:title | wc -l)"
+
+      - name: Create import PR
+        if: ${{ steps.check_pr.outputs.count == 0 }}
+        run: |
+          git remote add root https://github.com/otoyo/astro-notion-blog.git
+          git fetch root
+          git checkout -b import-root-main root/main
+          gh pr create -B main -t 'Import otoyo/astro-notion-blog' -b '' -a ${{ github.actor }}
