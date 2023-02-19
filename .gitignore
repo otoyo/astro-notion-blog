@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 tmp/
 !tmp/.gitkeep
+
+public/notion/*
+!public/notion/.gitkeep
