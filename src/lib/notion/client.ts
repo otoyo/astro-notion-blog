@@ -341,7 +341,8 @@ export async function downloadFile(url: URL) {
     fs.mkdirSync(dir)
   }
 
-  const filepath = dir + '/' + url.pathname.split('/').slice(-1)[0]
+  const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
+  const filepath = `${dir}/${filename}`
 
   const streamPipeline = promisify(pipeline)
   return streamPipeline(res.body, createWriteStream(filepath))
