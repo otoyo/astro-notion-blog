@@ -25,6 +25,7 @@ import NumberedListItems from './notion-blocks/NumberedListItems.astro'
 import ToDo from './notion-blocks/ToDo.astro'
 import SyncedBlock from './notion-blocks/SyncedBlock.astro'
 import Toggle from './notion-blocks/Toggle.astro'
+import File from './notion-blocks/File.astro'
 
 export interface Props {
   blocks: interfaces.Block[]
@@ -159,6 +160,8 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
         return <SyncedBlock block={block} headings={headings} />
       case 'toggle':
         return <Toggle block={block} headings={headings} />
+      case 'file':
+        return <File block={block} />
     }
     return null
   })

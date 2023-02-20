@@ -10,7 +10,7 @@ import type {
 } from './interfaces'
 import { pathJoin } from './utils'
 
-export const imageFilePath = (url: URL): string => {
+export const filePath = (url: URL): string => {
   const [dir, filename] = url.pathname.split('/').slice(-2)
   return `/notion/${dir}/${filename}`
 }
