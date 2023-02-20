@@ -27,6 +27,7 @@ import type {
   Callout,
   Embed,
   Video,
+  File,
   Bookmark,
   LinkPreview,
   SyncedBlock,
@@ -461,6 +462,29 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           }
         }
         block.Image = image
+      }
+      break
+    case 'file':
+      if (blockObject.file) {
+        const file: File = {
+          Caption: blockObject.file.caption?.map(_buildRichText) || [],
+          Type: blockObject.file.type,
+        }
+        if (
+          blockObject.file.type === 'external' &&
+          blockObject.file.external
+        ) {
+          file.External = { Url: blockObject.file.external.url }
+        } else if (
+          blockObject.file.type === 'file' &&
+          blockObject.file.file
+        ) {
+          file.File = {
+            Url: blockObject.file.file.url,
+            ExpiryTime: blockObject.file.file.expiry_time,
+          }
+        }
+        block.File = file
       }
       break
     case 'code':
