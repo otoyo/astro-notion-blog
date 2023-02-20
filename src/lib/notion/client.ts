@@ -470,15 +470,9 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Caption: blockObject.file.caption?.map(_buildRichText) || [],
           Type: blockObject.file.type,
         }
-        if (
-          blockObject.file.type === 'external' &&
-          blockObject.file.external
-        ) {
+        if (blockObject.file.type === 'external' && blockObject.file.external) {
           file.External = { Url: blockObject.file.external.url }
-        } else if (
-          blockObject.file.type === 'file' &&
-          blockObject.file.file
-        ) {
+        } else if (blockObject.file.type === 'file' && blockObject.file.file) {
           file.File = {
             Url: blockObject.file.file.url,
             ExpiryTime: blockObject.file.file.expiry_time,
