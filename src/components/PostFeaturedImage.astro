@@ -1,6 +1,6 @@
 ---
 import { Post } from '../lib/interfaces.ts'
-import { imageFilePath } from '../lib/blog-helpers'
+import { filePath } from '../lib/blog-helpers'
 
 export interface Props {
   post: Post
@@ -13,7 +13,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   if (import.meta.env.DEV) {
     image = post.FeaturedImage.Url
   } else {
-    image = imageFilePath(new URL(post.FeaturedImage.Url))
+    image = filePath(new URL(post.FeaturedImage.Url))
   }
 }
 ---

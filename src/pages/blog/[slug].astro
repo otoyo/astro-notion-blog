@@ -11,7 +11,7 @@ import {
   getAllBlocksByBlockId,
   downloadFile,
 } from '../../lib/notion/client.ts'
-import { getPostLink, imageFilePath, extractTargetBlocks } from '../../lib/blog-helpers.ts'
+import { getPostLink, filePath, extractTargetBlocks } from '../../lib/blog-helpers.ts'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
@@ -85,7 +85,7 @@ const nextPost = allPosts[currentPostIndex - 1]
 
 let ogImage = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
-  ogImage = new URL(imageFilePath(new URL(post.FeaturedImage.Url)), Astro.site)
+  ogImage = new URL(filePath(new URL(post.FeaturedImage.Url)), Astro.site)
 }
 ---
 
