@@ -18,22 +18,30 @@ if (block.Image.External) {
 ---
 
 <figure class="image">
-  <div>
-    {image && (
-      <img
-        src={image}
-        alt="image block"
-        />
-      )}
-  </div>
-  <Caption richTexts={block.Image.Caption} />
+  {image && (
+    <div>
+      <div>
+        <img
+          src={image}
+          alt="image block"
+          />
+      </div>
+      <Caption richTexts={block.Image.Caption} />
+    </div>
+    )}
 </figure>
 
 <style>
   .image {
+    display: flex;
     margin: 0 auto;
   }
-  .image > div:first-child {
-    text-align: center;
+  .image > div {
+    margin: 0 auto;
+  }
+  .image > div > div {
+  }
+  .image > div > div > img {
+    display: block;
   }
 </style>
