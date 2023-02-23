@@ -3,6 +3,7 @@ import {
   PUBLIC_SITE_TITLE,
   PUBLIC_SITE_DESCRIPTION,
   PUBLIC_GA_TRACKING_ID,
+  ENABLE_LIGHTBOX,
 } from '../server-constants.ts'
 import { getNavLink } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
@@ -84,6 +85,8 @@ const navItems = [
         >
       </div>
     </footer>
+
+    {ENABLE_LIGHTBOX && <script src="/scripts/fslightbox.js"></script>}
   </body>
 </html>
 
