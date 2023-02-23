@@ -22,7 +22,9 @@ const id = buildHeadingId(block.Heading2)
         </a>
       </summary>
       <div>
-        <NotionBlocks blocks={block.Heading2.Children} headings={headings} />
+        {block.Heading2.Children && (
+          <NotionBlocks blocks={block.Heading2.Children} headings={headings} />
+        )}
       </div>
     </details>
   ) : (
