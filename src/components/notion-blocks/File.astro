@@ -21,10 +21,21 @@ const filename = url.pathname.split('/').slice(-1)[0]
 
 <div class="file">
   <div>
-    {url && (<p><a href={block.File.External ? url.String() : filePath(url)} target="_blank" rel="noopener noreferrer">&#128229; {filename}</a></p>)}
+    {
+      url && (
+        <p>
+          <a
+            href={block.File.External ? url.String() : filePath(url)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            &#128229; {filename}
+          </a>
+        </p>
+      )
+    }
   </div>
   <Caption richTexts={block.File.Caption} />
 </div>
 
-<style>
-</style>
+<style></style>

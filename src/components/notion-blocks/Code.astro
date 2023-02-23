@@ -59,11 +59,13 @@ const grammer =
 <script>
   document.querySelectorAll('button.copy').forEach((button) => {
     button.addEventListener('click', (ev) => {
-      navigator.clipboard.writeText(ev.target.getAttribute('data-code')).then(() => {
-        ev.target.innerText = ev.target.getAttribute('data-done-text');
-      });
-    });
-  });
+      navigator.clipboard
+        .writeText(ev.target.getAttribute('data-code'))
+        .then(() => {
+          ev.target.innerText = ev.target.getAttribute('data-done-text')
+        })
+    })
+  })
 </script>
 
 <style>

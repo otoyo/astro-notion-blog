@@ -19,20 +19,22 @@ if (block.Image.External) {
 ---
 
 <figure class="image">
-  {image && (
-    <div>
+  {
+    image && (
       <div>
-        {ENABLE_LIGHTBOX ? (
-          <a data-fslightbox href={image}>
+        <div>
+          {ENABLE_LIGHTBOX ? (
+            <a data-fslightbox href={image}>
+              <img src={image} alt="image block" />
+            </a>
+          ) : (
             <img src={image} alt="image block" />
-          </a>
-        ) : (
-          <img src={image} alt="image block" />
-        )}
+          )}
+        </div>
+        <Caption richTexts={block.Image.Caption} />
       </div>
-      <Caption richTexts={block.Image.Caption} />
-    </div>
-    )}
+    )
+  }
 </figure>
 
 <style>

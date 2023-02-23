@@ -11,7 +11,11 @@ import {
   getAllBlocksByBlockId,
   downloadFile,
 } from '../../lib/notion/client.ts'
-import { getPostLink, filePath, extractTargetBlocks } from '../../lib/blog-helpers.ts'
+import {
+  getPostLink,
+  filePath,
+  extractTargetBlocks,
+} from '../../lib/blog-helpers.ts'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
@@ -79,7 +83,7 @@ await Promise.all(
     .map((promise) => promise.then(downloadFile))
 )
 
-const currentPostIndex = allPosts.findIndex(post => post.Slug === slug)
+const currentPostIndex = allPosts.findIndex((post) => post.Slug === slug)
 const prevPost = allPosts[currentPostIndex + 1]
 const nextPost = allPosts[currentPostIndex - 1]
 
