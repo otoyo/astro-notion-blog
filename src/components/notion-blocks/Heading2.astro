@@ -17,7 +17,7 @@ const id = buildHeadingId(block.Heading2)
 {block.Heading2.IsToggleable ? (
     <details class="toggle">
       <summary>
-        <a href={`#${id}`} id={id}>{tag}
+        <a href={`#${id}`} id={id}>
           <h5>{block.Heading2.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h5>
         </a>
       </summary>
