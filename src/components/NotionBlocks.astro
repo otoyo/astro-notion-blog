@@ -1,10 +1,6 @@
 ---
 import * as interfaces from '../lib/interfaces.ts'
-import {
-  isTweetURL,
-  buildURLToHTMLMap,
-  buildURLToImageMap,
-} from '../lib/blog-helpers.ts'
+import { isTweetURL, buildURLToHTMLMap } from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
 import Heading2 from './notion-blocks/Heading2.astro'
@@ -26,6 +22,7 @@ import NumberedListItems from './notion-blocks/NumberedListItems.astro'
 import ToDo from './notion-blocks/ToDo.astro'
 import SyncedBlock from './notion-blocks/SyncedBlock.astro'
 import Toggle from './notion-blocks/Toggle.astro'
+import File from './notion-blocks/File.astro'
 
 export interface Props {
   blocks: interfaces.Block[]
@@ -34,73 +31,68 @@ export interface Props {
   headings: interfaces.Block[]
 }
 
-const { blocks: rawBlocks, isRoot = false, level = 1, headings: rawHeadings = [] } = Astro.props
+const {
+  blocks: rawBlocks,
+  isRoot = false,
+  level = 1,
+  headings: rawHeadings = [],
+} = Astro.props
 
-const blocks =
-  rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
-    const isBulletedListItem = block.Type === 'bulleted_list_item'
-    const isNumberedListItem = block.Type === 'numbered_list_item'
-    const isToDo = block.Type === 'to_do'
+const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
+  const isBulletedListItem = block.Type === 'bulleted_list_item'
+  const isNumberedListItem = block.Type === 'numbered_list_item'
+  const isToDo = block.Type === 'to_do'
 
-    if (!isBulletedListItem && !isNumberedListItem && !isToDo) return arr.concat(block)
+  if (!isBulletedListItem && !isNumberedListItem && !isToDo)
+    return arr.concat(block)
 
-    let listType = ''
-    if (isBulletedListItem) {
-      listType = 'bulleted_list'
-    } else if (isNumberedListItem) {
-      listType = 'numbered_list'
-    } else {
-      listType = 'to_do_list'
+  let listType = ''
+  if (isBulletedListItem) {
+    listType = 'bulleted_list'
+  } else if (isNumberedListItem) {
+    listType = 'numbered_list'
+  } else {
+    listType = 'to_do_list'
+  }
+
+  if (i === 0) {
+    const list: interfaces.List = {
+      Type: listType,
+      ListItems: [block],
     }
+    return arr.concat(list)
+  }
 
-    if (i === 0) {
-      const list: interfaces.List = {
-        Type: listType,
-        ListItems: [block],
-      }
-      return arr.concat(list)
+  const prevList = arr[arr.length - 1]
+
+  if (
+    (isBulletedListItem && prevList.Type !== 'bulleted_list') ||
+    (isNumberedListItem && prevList.Type !== 'numbered_list') ||
+    (isToDo && prevList.Type !== 'to_do_list')
+  ) {
+    const list: interfaces.List = {
+      Type: listType,
+      ListItems: [block],
     }
+    return arr.concat(list)
+  }
 
-    const prevList = arr[arr.length - 1]
+  prevList.ListItems.push(block)
 
-    if (
-      (isBulletedListItem && prevList.Type !== 'bulleted_list') ||
-      (isNumberedListItem && prevList.Type !== 'numbered_list') ||
-      (isToDo && prevList.Type !== 'to_do_list')
-    ) {
-      const list: interfaces.List = {
-        Type: listType,
-        ListItems: [block],
-      }
-      return arr.concat(list)
-    }
-
-    prevList.ListItems.push(block)
-
-    return arr
-  }, [])
+  return arr
+}, [])
 
 let headings = rawHeadings
 if (isRoot) {
-  headings = blocks.filter((b: interfaces.Block) => ['heading_1', 'heading_2', 'heading_3'].includes(b.Type))
+  headings = blocks.filter((b: interfaces.Block) =>
+    ['heading_1', 'heading_2', 'heading_3'].includes(b.Type)
+  )
 }
 
-const imageURLs = blocks
-  .filter((b: interfaces.Block) => b.Type === 'image' && b.Image && b.Image.File)
-  .map((b: interfaces.Block) => {
-    let url: URL
-    try {
-      url = new URL(b.Image.File.Url)
-    } catch (err) {
-      console.log(err)
-    }
-    return url
-  })
-
-const imageURLMap = await buildURLToImageMap(imageURLs)
-
 const bookmarkURLs = blocks
-  .filter((b: interfaces.Block) => ['bookmark', 'link_preview', 'embed'].includes(b.Type))
+  .filter((b: interfaces.Block) =>
+    ['bookmark', 'link_preview', 'embed'].includes(b.Type)
+  )
   .map((b: interfaces.Block) => {
     const urlString = (b.Bookmark || b.LinkPreview || b.Embed).Url
 
@@ -117,51 +109,57 @@ const bookmarkURLs = blocks
 const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
 ---
 
-{blocks.map((block: interfaces.Block) => {
-  switch (block.Type) {
-    case 'paragraph':
-      return <Paragraph block={block} headings={headings} />
-    case 'heading_1':
-      return <Heading1 block={block} headings={headings} />
-    case 'heading_2':
-      return <Heading2 block={block} headings={headings} />
-    case 'heading_3':
-      return <Heading3 block={block} headings={headings} />
-    case 'table_of_contents':
-      return <TableOfContents block={block} headings={headings} />
-    case 'image':
-      return <Image block={block} urlMap={imageURLMap} />
-    case 'video':
-      return <Video block={block} />
-    case 'code':
-      return <Code block={block} />
-    case 'quote':
-      return <Quote block={block} headings={headings} />
-    case 'equation':
-      return <Equation block={block} />
-    case 'callout':
-      return <Callout block={block} headings={headings} />
-    case 'embed':
-      return <Embed block={block} urlMap={bookmarkURLMap} />
-    case 'bookmark':
-    case 'link_preview':
-      return <Bookmark block={block} urlMap={bookmarkURLMap} />
-    case 'divider':
-      return <Divider />
-    case 'table':
-      return <Table block={block} />
-    case 'column_list':
-      return <ColumnList block={block} headings={headings} />
-    case 'bulleted_list':
-      return <BulletedListItems block={block} headings={headings} />
-    case 'numbered_list':
-      return <NumberedListItems block={block} level={level} headings={headings} />
-    case 'to_do_list':
-      return <ToDo block={block} headings={headings} />
-    case 'synced_block':
-      return <SyncedBlock block={block} headings={headings} />
-    case 'toggle':
-      return <Toggle block={block} headings={headings} />
-  }
-  return null
-  })}
+{
+  blocks.map((block: interfaces.Block) => {
+    switch (block.Type) {
+      case 'paragraph':
+        return <Paragraph block={block} headings={headings} />
+      case 'heading_1':
+        return <Heading1 block={block} headings={headings} />
+      case 'heading_2':
+        return <Heading2 block={block} headings={headings} />
+      case 'heading_3':
+        return <Heading3 block={block} headings={headings} />
+      case 'table_of_contents':
+        return <TableOfContents block={block} headings={headings} />
+      case 'image':
+        return <Image block={block} />
+      case 'video':
+        return <Video block={block} />
+      case 'code':
+        return <Code block={block} />
+      case 'quote':
+        return <Quote block={block} headings={headings} />
+      case 'equation':
+        return <Equation block={block} />
+      case 'callout':
+        return <Callout block={block} headings={headings} />
+      case 'embed':
+        return <Embed block={block} urlMap={bookmarkURLMap} />
+      case 'bookmark':
+      case 'link_preview':
+        return <Bookmark block={block} urlMap={bookmarkURLMap} />
+      case 'divider':
+        return <Divider />
+      case 'table':
+        return <Table block={block} />
+      case 'column_list':
+        return <ColumnList block={block} headings={headings} />
+      case 'bulleted_list':
+        return <BulletedListItems block={block} headings={headings} />
+      case 'numbered_list':
+        return (
+          <NumberedListItems block={block} level={level} headings={headings} />
+        )
+      case 'to_do_list':
+        return <ToDo block={block} headings={headings} />
+      case 'synced_block':
+        return <SyncedBlock block={block} headings={headings} />
+      case 'toggle':
+        return <Toggle block={block} headings={headings} />
+      case 'file':
+        return <File block={block} />
+    }
+    return null
+  })
+}

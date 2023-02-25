@@ -1,8 +1,5 @@
 import rss from '@astrojs/rss'
-import {
-  PUBLIC_SITE_TITLE,
-  PUBLIC_SITE_DESCRIPTION,
-} from '../server-constants'
+import { PUBLIC_SITE_TITLE, PUBLIC_SITE_DESCRIPTION } from '../server-constants'
 import { getAllPosts } from '../lib/notion/client'
 import { getPostLink } from '../lib/blog-helpers'
 

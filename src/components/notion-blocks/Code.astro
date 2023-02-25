@@ -22,23 +22,50 @@ export interface Props {
 
 const { block } = Astro.props
 
-const code = block.Code.RichTexts.map((richText: interfaces.RichText) => richText.Text.Content).join('')
+const code = block.Code.RichTexts.map(
+  (richText: interfaces.RichText) => richText.Text.Content
+).join('')
 const language = block.Code.Language.toLowerCase()
-const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javascript
+const grammer =
+  Prism.languages[language.toLowerCase()] || Prism.languages.javascript
 ---
 
 <div class="code">
-  {language === 'mermaid' ? (
-      <pre class="mermaid">{code}</pre>
-    ) : (
-      <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
-    )}
-    <Caption richTexts={block.Code.Caption} />
+  <div>
+    {
+      /* prettier-ignore */
+      language === 'mermaid' ? (
+        <pre class="mermaid">{code}</pre>
+      ) : (
+        <>
+          <div>
+            <button class="copy" data-code={code} data-done-text="Copied!">
+              Copy
+            </button>
+          </div>
+          <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
+        </>
+      )
+    }
+  </div>
+  <Caption richTexts={block.Code.Caption} />
 </div>
 
 <script>
   import mermaid from 'mermaid'
-  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' })
+</script>
+
+<script>
+  document.querySelectorAll('button.copy').forEach((button) => {
+    button.addEventListener('click', (ev) => {
+      navigator.clipboard
+        .writeText(ev.target.getAttribute('data-code'))
+        .then(() => {
+          ev.target.innerText = ev.target.getAttribute('data-done-text')
+        })
+    })
+  })
 </script>
 
 <style>
@@ -46,18 +73,38 @@ const grammer = Prism.languages[language.toLowerCase()] || Prism.languages.javas
     display: block;
     width: 100%;
   }
+  .code > div {
+    background: rgb(247, 246, 243);
+    border-radius: var(--radius);
+  }
+  .code > div div {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .code button.copy {
+    display: block;
+    width: 4rem;
+    border: 0;
+    border-radius: var(--radius);
+    background-color: rgba(227, 226, 224, 0.5);
+    color: var(--fg);
+    line-height: 1.2rem;
+    cursor: pointer;
+  }
   .code pre {
     display: block;
     overflow: auto;
-    padding: 2rem;
-    background: rgb(247, 246, 243);
+    padding: 0.8rem 2rem 2rem;
     font-size: 0.9rem;
     line-height: 1.2rem;
-    border-radius: var(--radius);
+  }
+  .code pre.mermaid {
+    padding: 2rem;
   }
   .code pre code {
     color: var(--fg);
     padding: 0;
     background: rgb(247, 246, 243) !important;
+    border-radius: 0;
   }
 </style>

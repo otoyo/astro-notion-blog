@@ -8,11 +8,11 @@ export interface Props {
 const { richTexts } = Astro.props
 ---
 
-{richTexts.length > 0 && richTexts[0].Text.Content && (
-    <div class="caption">
-      {richTexts[0].Text.Content}
-    </div>
-  )}
+{
+  richTexts.length > 0 && richTexts[0].Text.Content && (
+    <div class="caption">{richTexts[0].Text.Content}</div>
+  )
+}
 
 <style>
   .caption {

@@ -5,19 +5,27 @@ import '../styles/notion-color.css'
 
 export interface Props {
   post: Post
+  enableLink: boolean
 }
 
-const { post } = Astro.props
+const { post, enableLink = true } = Astro.props
 ---
 
 <div class="post-tags">
-  {post.Tags &&
-    post.Tags.length > 0 &&
-    post.Tags.map((tag: SelectProperty) => (
-      <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
-        {tag.name}
-      </a>
-    ))}
+  {
+    post.Tags &&
+      post.Tags.length > 0 &&
+      post.Tags.map((tag: SelectProperty) => {
+        if (enableLink) {
+          return (
+            <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+              {tag.name}
+            </a>
+          )
+        }
+        return <span class={`tag ${tag.color}`}>{tag.name}</span>
+      })
+  }
 </div>
 
 <style>
@@ -27,7 +35,8 @@ const { post } = Astro.props
     flex-wrap: wrap;
     gap: 6px;
   }
-  .post-tags a {
+  .post-tags a,
+  .post-tags span {
     display: flex;
     align-items: center;
     flex-shrink: 1;

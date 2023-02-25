@@ -7,10 +7,6 @@ import {
   getAllTags,
   getNumberOfPagesByTag,
 } from '../../../lib/notion/client.ts'
-import {
-  buildPostFeaturedImageURLs,
-  buildURLToImageMap,
-} from '../../../lib/blog-helpers.ts'
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
 import PostDate from '../../../components/PostDate.astro'
@@ -27,7 +23,7 @@ import '../../../styles/notion-color.css'
 
 export async function getStaticPaths() {
   const allTags = await getAllTags()
-  return allTags.map((tag: SelectProperty) => ({ params: { tag: tag.name }}))
+  return allTags.map((tag: SelectProperty) => ({ params: { tag: tag.name } }))
 }
 
 const { tag } = Astro.params
@@ -39,10 +35,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getNumberOfPagesByTag(tag),
 ])
 
-const currentTag = posts[0].Tags.find(t => t.name === tag)
-
-const imageURLs = buildPostFeaturedImageURLs(posts).filter(url => url)
-const imageURLMap = await buildURLToImageMap(imageURLs)
+const currentTag = posts[0].Tags.find((t) => t.name === tag)
 ---
 
 <Layout title={`Posts in ${tag}`} path={`/blog/tag/${tag}`}>
@@ -52,18 +45,22 @@ const imageURLMap = await buildURLToImageMap(imageURLs)
         <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
       </header>
 
-      {posts.length === 0 ? (
+      {
+        posts.length === 0 ? (
           <NoContents contents={posts} />
-        ) : posts.map(post => (
-          <div className={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} urlMap={imageURLMap} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))}
+        ) : (
+          posts.map((post) => (
+            <div className={styles.post} key={post.Slug}>
+              <PostDate post={post} />
+              <PostTags post={post} />
+              <PostTitle post={post} />
+              <PostFeaturedImage post={post} />
+              <PostExcerpt post={post} />
+              <ReadMoreLink post={post} />
+            </div>
+          ))
+        )
+      }
 
       <footer>
         <Pagination tag={tag} currentPage={1} numberOfPages={numberOfPages} />

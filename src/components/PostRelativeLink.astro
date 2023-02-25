@@ -1,0 +1,78 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getNavLink, getPostLink } from '../lib/blog-helpers.ts'
+import PostTags from './PostTags.astro'
+
+export interface Props {
+  prevPost: Post
+  nextPost: Post
+}
+
+const { prevPost, nextPost } = Astro.props
+---
+
+<div class="post-relative-link">
+  <div>
+    {
+      nextPost && (
+        <a href={getPostLink(nextPost.Slug)} class="colored">
+          <div>◀︎ Next</div>
+          <div>{nextPost.Title}</div>
+          <PostTags post={nextPost} enableLink={false} />
+        </a>
+      )
+    }
+  </div>
+  <div>
+    {
+      prevPost && (
+        <a href={getPostLink(prevPost.Slug)} class="colored">
+          <div>▶︎ Previous</div>
+          <div>{prevPost.Title}</div>
+          <PostTags post={prevPost} enableLink={false} />
+        </a>
+      )
+    }
+  </div>
+  <div>
+    <a href={getNavLink('/blog')} class="text">▲ Return to list</a>
+  </div>
+</div>
+
+<style>
+  div.post-relative-link {
+    margin-top: 1rem;
+  }
+  div.post-relative-link > div {
+    display: block;
+    margin-top: 0.6rem;
+  }
+  div.post-relative-link > div > a {
+    display: block;
+    text-align: center;
+    line-height: 1.2rem;
+    font-size: 0.95rem;
+  }
+  div.post-relative-link > div > a.text {
+    margin-top: 1rem;
+    padding: 0.5rem;
+  }
+  div.post-relative-link > div > a.colored {
+    padding: 1rem;
+    border-radius: var(--radius);
+    color: var(--fg);
+    background: rgba(227, 226, 224, 0.5);
+  }
+  div.post-relative-link > div > a.colored > div:first-child {
+    width: auto;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  div.post-relative-link > div > a.colored > div:nth-child(2) {
+    width: auto;
+    padding: 0 0 0.4rem;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+</style>

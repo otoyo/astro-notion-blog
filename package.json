@@ -1,7 +1,7 @@
 {
   "name": "astro-notion-blog",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint --ext .js,.ts,.astro src",
+    "format": "npx prettier --write .",
     "cache:fetch": "node scripts/blog-contents-cache.cjs",
     "cache:purge": "nx reset && rm -f tmp/*",
     "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
@@ -20,13 +21,14 @@
     "@astrojs/rss": "^2.0.0",
     "@notionhq/client": "^2.2.3",
     "@supercharge/promise-pool": "^2.3.2",
-    "astro": "^1.9.0",
+    "astro": "^2.0.10",
     "katex": "^0.16.4",
     "mermaid": "^9.3.0",
     "metascraper": "^5.33.4",
     "metascraper-description": "^5.33.4",
     "metascraper-image": "^5.33.4",
     "metascraper-title": "^5.33.4",
+    "node-fetch": "^3.3.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

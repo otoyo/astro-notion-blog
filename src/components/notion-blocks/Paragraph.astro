@@ -14,6 +14,14 @@ const { block, headings } = Astro.props
 ---
 
 <p class={snakeToKebab(block.Paragraph.Color)}>
-  {block.Paragraph.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}
-  {block.Paragraph.Children && <NotionBlocks blocks={block.Paragraph.Children} headings={headings} />}
+  {
+    block.Paragraph.RichTexts.map((richText: interfaces.RichText) => (
+      <RichText richText={richText} />
+    ))
+  }
+  {
+    block.Paragraph.Children && (
+      <NotionBlocks blocks={block.Paragraph.Children} headings={headings} />
+    )
+  }
 </p>

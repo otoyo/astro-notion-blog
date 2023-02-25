@@ -11,11 +11,13 @@ const { block, headings } = Astro.props
 ---
 
 <div class="column-list">
-  {block.ColumnList.Columns.map((column: interfaces.Column) => (
-    <div>
-      <NotionBlocks blocks={column.Children} headings={headings} />
-    </div>
-  ))}
+  {
+    block.ColumnList.Columns.map((column: interfaces.Column) => (
+      <div>
+        <NotionBlocks blocks={column.Children} headings={headings} />
+      </div>
+    ))
+  }
 </div>
 
 <style>

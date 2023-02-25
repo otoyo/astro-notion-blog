@@ -14,11 +14,16 @@ const { block, headings } = Astro.props
 const id = buildHeadingId(block.Heading1)
 ---
 
-{block.Heading1.IsToggleable ? (
+{
+  block.Heading1.IsToggleable ? (
     <details class="toggle">
       <summary>
         <a href={`#${id}`} id={id}>
-          <h4>{block.Heading1.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h4>
+          <h4>
+            {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+              <RichText richText={richText} />
+            ))}
+          </h4>
         </a>
       </summary>
       <div>
@@ -29,9 +34,14 @@ const id = buildHeadingId(block.Heading1)
     </details>
   ) : (
     <a href={`#${id}`} id={id}>
-      <h4>{block.Heading1.RichTexts.map((richText: interfaces.RichText) => <RichText richText={richText} />)}</h4>
+      <h4>
+        {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+          <RichText richText={richText} />
+        ))}
+      </h4>
     </a>
-  )}
+  )
+}
 
 <style>
   .toggle {
@@ -45,8 +55,7 @@ const id = buildHeadingId(block.Heading1)
     display: inline;
   }
 
-  .toggle > summary > a > h4
-  {
+  .toggle > summary > a > h4 {
     display: inline;
   }
 

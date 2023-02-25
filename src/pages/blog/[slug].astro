@@ -6,22 +6,29 @@ import {
   getRankedPosts,
   getPostBySlug,
   getPostsByTag,
+  getBlock,
   getAllTags,
   getAllBlocksByBlockId,
+  downloadFile,
 } from '../../lib/notion/client.ts'
-import { getPostLink } from '../../lib/blog-helpers.ts'
+import {
+  getPostLink,
+  filePath,
+  extractTargetBlocks,
+} from '../../lib/blog-helpers.ts'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
 import PostTitle from '../../components/PostTitle.astro'
 import PostBody from '../../components/PostBody.astro'
+import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
-  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug }}))
+  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug } }))
 }
 
 const { slug } = Astro.params
@@ -31,22 +38,67 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [
-  blocks,
-  rankedPosts,
-  recentPosts,
-  tags,
-  postsHavingSameTag,
-] = await Promise.all([
-  getAllBlocksByBlockId(post.PageId),
-  getRankedPosts(),
-  getPosts(5),
-  getAllTags(),
-  getPostsByTag(post.Tags[0]?.name, 6),
-])
+const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
+  await Promise.all([
+    getAllBlocksByBlockId(post.PageId),
+    getAllPosts(),
+    getRankedPosts(),
+    getPosts(5),
+    getAllTags(),
+    getPostsByTag(post.Tags[0]?.name, 6),
+  ])
+
+const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
+  .concat(extractTargetBlocks('file', blocks))
+  .filter((block) => {
+    if (!block) {
+      return false
+    }
+    const imageOrFile = block.Image || block.File
+    return imageOrFile && imageOrFile.File && imageOrFile.File.Url
+  })
+
+// Download files
+await Promise.all(
+  fileAtacchedBlocks
+    .map(async (block) => {
+      const expiryTime = (block.Image || block.File).File.ExpiryTime
+      if (Date.parse(expiryTime) > Date.now()) {
+        return Promise.resolve(block)
+      }
+      return getBlock(block.Id)
+    })
+    .map((promise) =>
+      promise.then((block) => {
+        let url!: URL
+        try {
+          url = new URL((block.Image || block.File).File.Url)
+        } catch (err) {
+          console.log('Invalid file URL')
+          return Promise.reject()
+        }
+        return Promise.resolve(url)
+      })
+    )
+    .map((promise) => promise.then(downloadFile))
+)
+
+const currentPostIndex = allPosts.findIndex((post) => post.Slug === slug)
+const prevPost = allPosts[currentPostIndex + 1]
+const nextPost = allPosts[currentPostIndex - 1]
+
+let ogImage = ''
+if (post.FeaturedImage && post.FeaturedImage.Url) {
+  ogImage = new URL(filePath(new URL(post.FeaturedImage.Url)), Astro.site)
+}
 ---
 
-<Layout title={post.Title} description={post.Excerpt} path={getPostLink(post.Slug)}>
+<Layout
+  title={post.Title}
+  description={post.Excerpt}
+  path={getPostLink(post.Slug)}
+  ogImage={ogImage}
+>
   <div className={styles.container}>
     <main>
       <div className={styles.post}>
@@ -54,14 +106,21 @@ const [
         <PostTags post={post} />
         <PostTitle post={post} enableLink={false} />
         <PostBody blocks={blocks} />
+        <PostTags post={post} />
 
         <footer>
+          <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
         </footer>
       </div>
     </main>
 
     <aside>
-      <BlogPostsLink heading="Posts in the same category" posts={postsHavingSameTag.filter((p: interfaces.Post) => p.Slug !== post.Slug)} />
+      <BlogPostsLink
+        heading="Posts in the same category"
+        posts={postsHavingSameTag.filter(
+          (p: interfaces.Post) => p.Slug !== post.Slug
+        )}
+      />
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />
       <BlogPostsLink heading="Latest posts" posts={recentPosts} />
       <BlogTagsLink heading="Categories" tags={tags} />

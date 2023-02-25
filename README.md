@@ -34,7 +34,7 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 ### Steps
 
 1. **Star this repo** :wink:
-    * It makes me motivative!
+   - It makes me motivative!
 2. Duplicate [the blog template](https://otoyo.notion.site/e2c5fa2e8660452988d6137ba57fd974?v=abe305cd8b3d467285e91a2a85f4d8de) into your Notion.
 3. Note the part of the page (database) URL `https://notion.so/your-account/<HERE>?v=xxxx` as `DATABASE_ID`
 
@@ -45,14 +45,14 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 4. [Create an integration](https://developers.notion.com/docs/create-a-notion-integration#step-1-create-an-integration) and note "Internal Integration Token" as `NOTION_API_SECRET`
 5. [Share a database with your integration](https://developers.notion.com/docs/create-a-notion-integration#step-2-share-a-database-with-your-integration) at the Notion database page
 6. Fork this repository into your account
-    * The Fork button is at the top of the page and the left of the Star
+   - The Fork button is at the top of the page and the left of the Star
 7. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and sign in
 8. Create new project with "Connect to Git" with your forked repository `<your-account>/astro-notion-blog`, then click "Begin setup"
 9. In "Build settings" section,
-    1. Select "Astro" as "Framework preset"
-    2. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
-        * `NODE_VERSION` is `v16.13.0` or higher
-        * [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
+   1. Select "Astro" as "Framework preset"
+   2. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
+      - `NODE_VERSION` is `v16.13.0` or higher
+      - [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
 
 <img src="https://user-images.githubusercontent.com/1063435/213967061-06f488fe-0b42-40a5-8f19-ac441f0168ff.png" width="400">
 

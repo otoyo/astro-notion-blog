@@ -6,7 +6,7 @@
 }
 
 .token.namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.string,
@@ -35,11 +35,11 @@
 }
 
 .token.prefix.inserted {
-  color: #690
+  color: #690;
 }
 
 .token.prefix.deleted {
-  color: #DD4A68;
+  color: #dd4a68;
 }
 
 .token.atrule,
@@ -51,7 +51,7 @@
 
 .token.function,
 .language-autohotkey .token.tag {
-  color: #DD4A68;
+  color: #dd4a68;
 }
 
 .token.tag,

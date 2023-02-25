@@ -8,14 +8,15 @@ export interface Props {
 }
 
 const { post, enableLink = true } = Astro.props
+
+let title = post.Title
+if (post.Icon.Emoji) {
+  title = `${post.Icon.Emoji} ${title}`
+}
 ---
 
 <h3 class="post-title">
-  {enableLink ? (
-    <a href={getPostLink(post.Slug)}>
-      {post.Title}
-    </a>
-  ) : post.Title}
+  {enableLink ? <a href={getPostLink(post.Slug)}>{title}</a> : title}
 </h3>
 
 <style>

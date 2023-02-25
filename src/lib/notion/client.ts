@@ -1,8 +1,12 @@
-import fs from 'node:fs'
+import fs, { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
+import fetch, { Response, AbortError } from 'node-fetch'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
   NUMBER_OF_POSTS_PER_PAGE,
+  REQUEST_TIMEOUT_MS,
 } from '../../server-constants'
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
@@ -23,6 +27,7 @@ import type {
   Callout,
   Embed,
   Video,
+  File,
   Bookmark,
   LinkPreview,
   SyncedBlock,
@@ -38,6 +43,8 @@ import type {
   Text,
   Annotation,
   SelectProperty,
+  Emoji,
+  FileObject,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -47,7 +54,6 @@ const client = new Client({
 })
 
 let cache: Post[] | null = null
-
 
 export async function getAllPosts(): Promise<Post[]> {
   if (cache !== null) {
@@ -83,8 +89,9 @@ export async function getAllPosts(): Promise<Post[]> {
 
   let results: responses.PageObject[] = []
   while (true) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res = await client.databases.query(params as any) as responses.QueryDatabaseResponse
+    const res = (await client.databases.query(
+      params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+    )) as responses.QueryDatabaseResponse
 
     results = results.concat(res.results)
 
@@ -96,8 +103,8 @@ export async function getAllPosts(): Promise<Post[]> {
   }
 
   cache = results
-    .filter(pageObject => _validPageObject(pageObject))
-    .map(pageObject => _buildPost(pageObject))
+    .filter((pageObject) => _validPageObject(pageObject))
+    .map((pageObject) => _buildPost(pageObject))
   return cache
 }
 
@@ -109,7 +116,7 @@ export async function getPosts(pageSize = 10): Promise<Post[]> {
 export async function getRankedPosts(pageSize = 10): Promise<Post[]> {
   const allPosts = await getAllPosts()
   return allPosts
-    .filter(post => !!post.Rank)
+    .filter((post) => !!post.Rank)
     .sort((a, b) => {
       if (a.Rank > b.Rank) {
         return -1
@@ -121,16 +128,21 @@ export async function getRankedPosts(pageSize = 10): Promise<Post[]> {
     .slice(0, pageSize)
 }
 
-export async function getPostBySlug(slug: string): Promise<Post|null> {
+export async function getPostBySlug(slug: string): Promise<Post | null> {
   const allPosts = await getAllPosts()
-  return allPosts.find(post => post.Slug === slug) || null
+  return allPosts.find((post) => post.Slug === slug) || null
 }
 
-export async function getPostsByTag(tagName: string, pageSize = 10): Promise<Post[]> {
+export async function getPostsByTag(
+  tagName: string,
+  pageSize = 10
+): Promise<Post[]> {
   if (!tagName) return []
 
   const allPosts = await getAllPosts()
-  return allPosts.filter(post => post.Tags.find((tag) => tag.name === tagName)).slice(0, pageSize)
+  return allPosts
+    .filter((post) => post.Tags.find((tag) => tag.name === tagName))
+    .slice(0, pageSize)
 }
 
 // page starts from 1 not 0
@@ -148,13 +160,18 @@ export async function getPostsByPage(page: number): Promise<Post[]> {
 }
 
 // page starts from 1 not 0
-export async function getPostsByTagAndPage(tagName: string, page: number): Promise<Post[]> {
+export async function getPostsByTagAndPage(
+  tagName: string,
+  page: number
+): Promise<Post[]> {
   if (page < 1) {
     return []
   }
 
   const allPosts = await getAllPosts()
-  const posts = allPosts.filter(post => post.Tags.find((tag) => tag.name === tagName))
+  const posts = allPosts.filter((post) =>
+    post.Tags.find((tag) => tag.name === tagName)
+  )
 
   const startIndex = (page - 1) * NUMBER_OF_POSTS_PER_PAGE
   const endIndex = startIndex + NUMBER_OF_POSTS_PER_PAGE
@@ -164,13 +181,21 @@ export async function getPostsByTagAndPage(tagName: string, page: number): Promi
 
 export async function getNumberOfPages(): Promise<number> {
   const allPosts = await getAllPosts()
-  return Math.floor(allPosts.length / NUMBER_OF_POSTS_PER_PAGE) + (allPosts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  return (
+    Math.floor(allPosts.length / NUMBER_OF_POSTS_PER_PAGE) +
+    (allPosts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  )
 }
 
 export async function getNumberOfPagesByTag(tagName: string): Promise<number> {
   const allPosts = await getAllPosts()
-  const posts = allPosts.filter(post => post.Tags.find((tag) => tag.name === tagName))
-  return Math.floor(posts.length / NUMBER_OF_POSTS_PER_PAGE) + (posts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  const posts = allPosts.filter((post) =>
+    post.Tags.find((tag) => tag.name === tagName)
+  )
+  return (
+    Math.floor(posts.length / NUMBER_OF_POSTS_PER_PAGE) +
+    (posts.length % NUMBER_OF_POSTS_PER_PAGE > 0 ? 1 : 0)
+  )
 }
 
 export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
@@ -184,8 +209,9 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
     }
 
     while (true) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+      const res = (await client.blocks.children.list(
+        params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      )) as responses.RetrieveBlockChildrenResponse
 
       results = results.concat(res.results)
 
@@ -197,7 +223,7 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
     }
   }
 
-  const allBlocks = results.map(blockObject => _buildBlock(blockObject))
+  const allBlocks = results.map((blockObject) => _buildBlock(blockObject))
 
   for (let i = 0; i < allBlocks.length; i++) {
     const block = allBlocks[i]
@@ -206,9 +232,17 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.Table.Rows = await _getTableRows(block.Id)
     } else if (block.Type === 'column_list' && block.ColumnList) {
       block.ColumnList.Columns = await _getColumns(block.Id)
-    } else if (block.Type === 'bulleted_list_item' && block.BulletedListItem && block.HasChildren) {
+    } else if (
+      block.Type === 'bulleted_list_item' &&
+      block.BulletedListItem &&
+      block.HasChildren
+    ) {
       block.BulletedListItem.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'numbered_list_item' && block.NumberedListItem && block.HasChildren) {
+    } else if (
+      block.Type === 'numbered_list_item' &&
+      block.NumberedListItem &&
+      block.HasChildren
+    ) {
       block.NumberedListItem.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'to_do' && block.ToDo && block.HasChildren) {
       block.ToDo.Children = await getAllBlocksByBlockId(block.Id)
@@ -216,22 +250,34 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.SyncedBlock.Children = await _getSyncedBlockChildren(block)
     } else if (block.Type === 'toggle' && block.Toggle) {
       block.Toggle.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'paragraph' && block.Paragraph && block.HasChildren) {
+    } else if (
+      block.Type === 'paragraph' &&
+      block.Paragraph &&
+      block.HasChildren
+    ) {
       block.Paragraph.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'heading_1' && block.Heading1 && block.HasChildren) {
+    } else if (
+      block.Type === 'heading_1' &&
+      block.Heading1 &&
+      block.HasChildren
+    ) {
       block.Heading1.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'heading_2' && block.Heading2 && block.HasChildren) {
+    } else if (
+      block.Type === 'heading_2' &&
+      block.Heading2 &&
+      block.HasChildren
+    ) {
       block.Heading2.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'heading_3' && block.Heading3 && block.HasChildren) {
+    } else if (
+      block.Type === 'heading_3' &&
+      block.Heading3 &&
+      block.HasChildren
+    ) {
       block.Heading3.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'quote' && block.Quote && block.HasChildren) {
       block.Quote.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'callout' && block.Callout && block.HasChildren) {
       block.Callout.Children = await getAllBlocksByBlockId(block.Id)
-    } else if (block.Type === 'image' && block.Image && block.Image.File && block.Image.File.ExpiryTime) {
-      if (Date.parse(block.Image.File.ExpiryTime) < Date.now()) {
-        block.Image = (await getBlock(block.Id)).Image
-      }
     }
   }
 
@@ -242,8 +288,9 @@ export async function getBlock(blockId: string): Promise<Block> {
   const params: requestParams.RetrieveBlock = {
     block_id: blockId,
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const res = await client.blocks.retrieve(params as any) as responses.RetrieveBlockResponse
+  const res = (await client.blocks.retrieve(
+    params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+  )) as responses.RetrieveBlockResponse
 
   return _buildBlock(res)
 }
@@ -252,13 +299,54 @@ export async function getAllTags(): Promise<SelectProperty[]> {
   const allPosts = await getAllPosts()
 
   const tagNames: string[] = []
-  return allPosts.flatMap(post => post.Tags).reduce((acc, tag) => {
-    if (!tagNames.includes(tag.name)) {
-      acc.push(tag)
-      tagNames.push(tag.name)
+  return allPosts
+    .flatMap((post) => post.Tags)
+    .reduce((acc, tag) => {
+      if (!tagNames.includes(tag.name)) {
+        acc.push(tag)
+        tagNames.push(tag.name)
+      }
+      return acc
+    }, [] as SelectProperty[])
+    .sort((a: SelectProperty, b: SelectProperty) =>
+      a.name.localeCompare(b.name)
+    )
+}
+
+export async function downloadFile(url: URL) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => {
+    controller.abort()
+  }, REQUEST_TIMEOUT_MS)
+
+  let res!: Response
+  try {
+    res = (await fetch(url.toString(), {
+      signal: controller.signal,
+    })) as Response
+  } catch (err) {
+    if (err instanceof AbortError) {
+      console.log('File fetch request was aborted')
+      return Promise.resolve()
     }
-    return acc
-  }, [] as SelectProperty[]).sort((a: SelectProperty, b: SelectProperty) => a.name.localeCompare(b.name))
+  } finally {
+    clearTimeout(timeout)
+  }
+
+  if (!res || !res.body) {
+    return Promise.resolve()
+  }
+
+  const dir = './public/notion/' + url.pathname.split('/').slice(-2)[0]
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+
+  const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
+  const filepath = `${dir}/${filename}`
+
+  const streamPipeline = promisify(pipeline)
+  return streamPipeline(res.body, createWriteStream(filepath))
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
@@ -311,7 +399,8 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'bulleted_list_item':
       if (blockObject.bulleted_list_item) {
         const bulletedListItem: BulletedListItem = {
-          RichTexts: blockObject.bulleted_list_item.rich_text.map(_buildRichText),
+          RichTexts:
+            blockObject.bulleted_list_item.rich_text.map(_buildRichText),
           Color: blockObject.bulleted_list_item.color,
         }
         block.BulletedListItem = bulletedListItem
@@ -320,7 +409,8 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'numbered_list_item':
       if (blockObject.numbered_list_item) {
         const numberedListItem: NumberedListItem = {
-          RichTexts: blockObject.numbered_list_item.rich_text.map(_buildRichText),
+          RichTexts:
+            blockObject.numbered_list_item.rich_text.map(_buildRichText),
           Color: blockObject.numbered_list_item.color,
         }
         block.NumberedListItem = numberedListItem
@@ -342,7 +432,10 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Caption: blockObject.video.caption?.map(_buildRichText) || [],
           Type: blockObject.video.type,
         }
-        if (blockObject.video.type === 'external' && blockObject.video.external) {
+        if (
+          blockObject.video.type === 'external' &&
+          blockObject.video.external
+        ) {
           video.External = { Url: blockObject.video.external.url }
         }
         block.Video = video
@@ -354,12 +447,38 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Caption: blockObject.image.caption?.map(_buildRichText) || [],
           Type: blockObject.image.type,
         }
-        if (blockObject.image.type === 'external' && blockObject.image.external) {
+        if (
+          blockObject.image.type === 'external' &&
+          blockObject.image.external
+        ) {
           image.External = { Url: blockObject.image.external.url }
-        } else if (blockObject.image.type === 'file' && blockObject.image.file) {
-          image.File = { Url: blockObject.image.file.url, ExpiryTime: blockObject.image.file.expiry_time }
+        } else if (
+          blockObject.image.type === 'file' &&
+          blockObject.image.file
+        ) {
+          image.File = {
+            Url: blockObject.image.file.url,
+            ExpiryTime: blockObject.image.file.expiry_time,
+          }
         }
         block.Image = image
+      }
+      break
+    case 'file':
+      if (blockObject.file) {
+        const file: File = {
+          Caption: blockObject.file.caption?.map(_buildRichText) || [],
+          Type: blockObject.file.type,
+        }
+        if (blockObject.file.type === 'external' && blockObject.file.external) {
+          file.External = { Url: blockObject.file.external.url }
+        } else if (blockObject.file.type === 'file' && blockObject.file.file) {
+          file.File = {
+            Url: blockObject.file.file.url,
+            ExpiryTime: blockObject.file.file.expiry_time,
+          }
+        }
+        block.File = file
       }
       break
     case 'code':
@@ -404,7 +523,10 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'synced_block':
       if (blockObject.synced_block) {
         let syncedFrom: SyncedFrom | null = null
-        if (blockObject.synced_block.synced_from && blockObject.synced_block.synced_from.block_id) {
+        if (
+          blockObject.synced_block.synced_from &&
+          blockObject.synced_block.synced_from.block_id
+        ) {
           syncedFrom = {
             BlockId: blockObject.synced_block.synced_from.block_id,
           }
@@ -491,8 +613,9 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
     }
 
     while (true) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+      const res = (await client.blocks.children.list(
+        params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      )) as responses.RetrieveBlockChildrenResponse
 
       results = results.concat(res.results)
 
@@ -504,16 +627,16 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
     }
   }
 
-  return results.map(blockObject => {
+  return results.map((blockObject) => {
     const tableRow: TableRow = {
       Id: blockObject.id,
       Type: blockObject.type,
       HasChildren: blockObject.has_children,
-      Cells: []
+      Cells: [],
     }
 
     if (blockObject.type === 'table_row' && blockObject.table_row) {
-      const cells: TableCell[] = blockObject.table_row.cells.map(cell => {
+      const cells: TableCell[] = blockObject.table_row.cells.map((cell) => {
         const tableCell: TableCell = {
           RichTexts: cell.map(_buildRichText),
         }
@@ -539,8 +662,9 @@ async function _getColumns(blockId: string): Promise<Column[]> {
     }
 
     while (true) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await client.blocks.children.list(params as any) as responses.RetrieveBlockChildrenResponse
+      const res = (await client.blocks.children.list(
+        params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      )) as responses.RetrieveBlockChildrenResponse
 
       results = results.concat(res.results)
 
@@ -552,23 +676,29 @@ async function _getColumns(blockId: string): Promise<Column[]> {
     }
   }
 
-  return await Promise.all(results.map(async blockObject => {
-    const children = await getAllBlocksByBlockId(blockObject.id)
+  return await Promise.all(
+    results.map(async (blockObject) => {
+      const children = await getAllBlocksByBlockId(blockObject.id)
 
-    const column: Column = {
-      Id: blockObject.id,
-      Type: blockObject.type,
-      HasChildren: blockObject.has_children,
-      Children: children,
-    }
+      const column: Column = {
+        Id: blockObject.id,
+        Type: blockObject.type,
+        HasChildren: blockObject.has_children,
+        Children: children,
+      }
 
-    return column
-  }))
+      return column
+    })
+  )
 }
 
 async function _getSyncedBlockChildren(block: Block): Promise<Block[]> {
   let originalBlock: Block = block
-  if (block.SyncedBlock && block.SyncedBlock.SyncedFrom && block.SyncedBlock.SyncedFrom.BlockId) {
+  if (
+    block.SyncedBlock &&
+    block.SyncedBlock.SyncedFrom &&
+    block.SyncedBlock.SyncedFrom.BlockId
+  ) {
     try {
       originalBlock = await getBlock(block.SyncedBlock.SyncedFrom.BlockId)
     } catch (err) {
@@ -584,8 +714,10 @@ async function _getSyncedBlockChildren(block: Block): Promise<Block[]> {
 function _validPageObject(pageObject: responses.PageObject): boolean {
   const prop = pageObject.properties
   return (
-    !!prop.Page.title && prop.Page.title.length > 0 &&
-    !!prop.Slug.rich_text && prop.Slug.rich_text.length > 0 &&
+    !!prop.Page.title &&
+    prop.Page.title.length > 0 &&
+    !!prop.Slug.rich_text &&
+    prop.Slug.rich_text.length > 0 &&
     !!prop.Date.date
   )
 }
@@ -593,20 +725,36 @@ function _validPageObject(pageObject: responses.PageObject): boolean {
 function _buildPost(pageObject: responses.PageObject): Post {
   const prop = pageObject.properties
 
+  const icon = pageObject.icon as responses.Emoji
+  const emoji: Emoji = { Emoji: icon?.emoji || '' }
+
+  const cover: FileObject = { Url: pageObject.cover?.external?.url || '' }
+
+  let featuredImage: FileObject | null = null
+  if (
+    prop.FeaturedImage.files &&
+    prop.FeaturedImage.files.length > 0 &&
+    prop.FeaturedImage.files[0].file
+  ) {
+    featuredImage = {
+      Url: prop.FeaturedImage.files[0].file.url,
+      ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+    }
+  }
+
   const post: Post = {
     PageId: pageObject.id,
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
+    Icon: emoji,
+    Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
     Excerpt:
       prop.Excerpt.rich_text && prop.Excerpt.rich_text.length > 0
-        ? prop.Excerpt.rich_text.map(t => t.plain_text).join('')
+        ? prop.Excerpt.rich_text.map((t) => t.plain_text).join('')
         : '',
-    FeaturedImage:
-      prop.FeaturedImage.files && prop.FeaturedImage.files.length > 0 && prop.FeaturedImage.files[0].file
-        ? prop.FeaturedImage.files[0].file.url
-        : null,
+    FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
   }
 

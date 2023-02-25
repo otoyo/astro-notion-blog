@@ -8,4 +8,12 @@ export interface Props {
 const { richText } = Astro.props
 ---
 
-{richText.Annotation.Underline ? <u><slot /></u> : <slot />}
+{
+  richText.Annotation.Underline ? (
+    <u>
+      <slot />
+    </u>
+  ) : (
+    <slot />
+  )
+}
