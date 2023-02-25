@@ -1,0 +1,42 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { getPostByPageId } from '../../lib/notion/client'
+import '../../styles/notion-color.css'
+
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+let post: interfaces.Post = null
+if (block.LinkToPage.Type === 'page_id') {
+  post = await getPostByPageId(block.LinkToPage.PageId)
+}
+---
+
+{
+  post && (
+    <p>
+      <a href={`${post.Slug}`}>
+        <span class="icon">{post.Icon.Emoji ? post.Icon.Emoji : '📄'}</span>
+        {post.Title}
+      </a>
+    </p>
+  )
+}
+
+<style>
+  .icon {
+    position: relative;
+  }
+
+  .icon::after {
+    content: '↖';
+    position: absolute;
+    bottom: -3px;
+    right: -4px;
+    transform: rotateY(180deg);
+    line-height: 1;
+    text-shadow: 0 0 2px #fff, 0 0 2px #fff;
+  }
+</style>

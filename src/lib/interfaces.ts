@@ -38,6 +38,7 @@ export interface Block {
   Table?: Table
   ColumnList?: ColumnList
   TableOfContents?: TableOfContents
+  LinkToPage?: LinkToPage
 }
 
 export interface Paragraph {
@@ -239,4 +240,9 @@ export interface SelectProperty {
   id: string
   name: string
   color: string
+}
+
+export interface LinkToPage {
+  Type: string
+  PageId: string
 }
