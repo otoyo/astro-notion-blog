@@ -19,7 +19,6 @@ const id = buildHeadingId(block.Heading2)
     <details class="toggle">
       <summary>
         <a href={`#${id}`} id={id}>
-          {tag}
           <h5>
             {block.Heading2.RichTexts.map((richText: interfaces.RichText) => (
               <RichText richText={richText} />
@@ -28,7 +27,9 @@ const id = buildHeadingId(block.Heading2)
         </a>
       </summary>
       <div>
-        <NotionBlocks blocks={block.Heading2.Children} headings={headings} />
+        {block.Heading2.Children && (
+          <NotionBlocks blocks={block.Heading2.Children} headings={headings} />
+        )}
       </div>
     </details>
   ) : (
