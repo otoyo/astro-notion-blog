@@ -207,7 +207,11 @@ export const parseYouTubeVideoId = (url: URL): string => {
 
     if (elements.length < 2) return ''
 
-    if (elements[1] === 'v' || elements[1] === 'embed' || elements[1] === 'live') {
+    if (
+      elements[1] === 'v' ||
+      elements[1] === 'embed' ||
+      elements[1] === 'live'
+    ) {
       return elements[2]
     }
   }
