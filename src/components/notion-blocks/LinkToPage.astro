@@ -17,7 +17,7 @@ if (block.LinkToPage.Type === 'page_id') {
 {
   post && (
     <p>
-      <a href={`${post.Slug}`}>
+      <a href={`${post.Slug}`} class="link">
         <span class="icon">{post.Icon.Emoji ? post.Icon.Emoji : '📄'}</span>
         {post.Title}
       </a>
@@ -26,6 +26,9 @@ if (block.LinkToPage.Type === 'page_id') {
 }
 
 <style>
+  .link {
+    font-weight: 600;
+  }
   .icon {
     position: relative;
   }
