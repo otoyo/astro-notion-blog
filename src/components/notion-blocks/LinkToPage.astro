@@ -15,7 +15,7 @@ if (block.LinkToPage.Type === 'page_id') {
 ---
 
 {
-  post && (
+  post ? (
     <p>
       <a href={`${post.Slug}`} class="link">
         <span class="icon">
@@ -23,6 +23,16 @@ if (block.LinkToPage.Type === 'page_id') {
           <img src={arrow} class="icon-link" alt="" />
         </span>
         <span class="text">{post.Title}</span>
+      </a>
+    </p>
+  ) : (
+    <p>
+      <a class="link">
+        <span class="icon">
+          🚫
+          <img src={arrow} class="icon-link" alt="" />
+        </span>
+        <span class="text">Post not found</span>
       </a>
     </p>
   )
