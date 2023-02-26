@@ -23,6 +23,7 @@ import ToDo from './notion-blocks/ToDo.astro'
 import SyncedBlock from './notion-blocks/SyncedBlock.astro'
 import Toggle from './notion-blocks/Toggle.astro'
 import File from './notion-blocks/File.astro'
+import LinkToPage from './notion-blocks/LinkToPage.astro'
 
 export interface Props {
   blocks: interfaces.Block[]
@@ -159,6 +160,8 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
         return <Toggle block={block} headings={headings} />
       case 'file':
         return <File block={block} />
+      case 'link_to_page':
+        return <LinkToPage block={block} />
     }
     return null
   })

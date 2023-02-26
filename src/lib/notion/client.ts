@@ -45,6 +45,7 @@ import type {
   SelectProperty,
   Emoji,
   FileObject,
+  LinkToPage,
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
@@ -131,6 +132,11 @@ export async function getRankedPosts(pageSize = 10): Promise<Post[]> {
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const allPosts = await getAllPosts()
   return allPosts.find((post) => post.Slug === slug) || null
+}
+
+export async function getPostByPageId(pageId: string): Promise<Post | null> {
+  const allPosts = await getAllPosts()
+  return allPosts.find((post) => post.PageId === pageId) || null
 }
 
 export async function getPostsByTag(
@@ -595,6 +601,15 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           Color: blockObject.table_of_contents.color,
         }
         block.TableOfContents = tableOfContents
+      }
+      break
+    case 'link_to_page':
+      if (blockObject.link_to_page && blockObject.link_to_page.page_id) {
+        const linkToPage: LinkToPage = {
+          Type: blockObject.link_to_page.type,
+          PageId: blockObject.link_to_page.page_id,
+        }
+        block.LinkToPage = linkToPage
       }
       break
   }

@@ -1,0 +1,61 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { getPostByPageId } from '../../lib/notion/client'
+import '../../styles/notion-color.css'
+import arrow from '../../images/icon-arrow-link.svg'
+export interface Props {
+  block: interfaces.Block
+}
+
+const { block } = Astro.props
+let post: interfaces.Post = null
+if (block.LinkToPage.Type === 'page_id') {
+  post = await getPostByPageId(block.LinkToPage.PageId)
+}
+---
+
+{
+  post ? (
+    <p>
+      <a href={`${post.Slug}`} class="link">
+        <span class="icon">
+          {post.Icon.Emoji ? post.Icon.Emoji : '📄'}
+          <img src={arrow} class="icon-link" alt="" />
+        </span>
+        <span class="text">{post.Title}</span>
+      </a>
+    </p>
+  ) : (
+    <p>
+      <a class="link">
+        <span class="icon">
+          🚫
+          <img src={arrow} class="icon-link" alt="" />
+        </span>
+        <span class="text">Post not found</span>
+      </a>
+    </p>
+  )
+}
+
+<style>
+  .link {
+    font-weight: 600;
+    display: flex;
+    gap: 4px;
+  }
+  .icon {
+    width: 1em;
+    height: fit-content;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .icon-link {
+    display: block;
+    position: absolute;
+    top: 1em;
+    right: 0;
+    width: 8px;
+    height: 8px;
+  }
+</style>
