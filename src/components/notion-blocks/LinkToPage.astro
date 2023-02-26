@@ -1,8 +1,10 @@
 ---
 import * as interfaces from '../../lib/interfaces.ts'
 import { getPostByPageId } from '../../lib/notion/client'
+import { getPostLink } from '../../lib/blog-helpers.ts'
 import '../../styles/notion-color.css'
 import arrow from '../../images/icon-arrow-link.svg'
+
 export interface Props {
   block: interfaces.Block
 }
@@ -17,7 +19,7 @@ if (block.LinkToPage.Type === 'page_id') {
 {
   post ? (
     <p>
-      <a href={`${post.Slug}`} class="link">
+      <a href={`${getPostLink(post.Slug)}`} class="link">
         <span class="icon">
           {post.Icon.Emoji ? post.Icon.Emoji : '📄'}
           <img src={arrow} class="icon-link" alt="" />
