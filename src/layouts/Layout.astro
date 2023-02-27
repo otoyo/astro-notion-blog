@@ -5,7 +5,10 @@ import {
   PUBLIC_GA_TRACKING_ID,
   ENABLE_LIGHTBOX,
 } from '../server-constants.ts'
-import { getNavLink } from '../lib/blog-helpers.ts'
+import {
+  getNavLink,
+  getStaticFilePath,
+} from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 
@@ -86,7 +89,7 @@ const navItems = [
       </div>
     </footer>
 
-    {ENABLE_LIGHTBOX && <script src="/scripts/fslightbox.js" />}
+    {ENABLE_LIGHTBOX && <script src={getStaticFilePath('/scripts/fslightbox.js')} />}
   </body>
 </html>
 
