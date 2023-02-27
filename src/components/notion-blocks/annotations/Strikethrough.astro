@@ -9,10 +9,9 @@ const { richText } = Astro.props
 ---
 
 {
+  /* prettier-ignore */
   richText.Annotation.Strikethrough ? (
-    <s>
-      <slot />
-    </s>
+    <s><slot /></s>
   ) : (
     <slot />
   )

@@ -11,10 +11,9 @@ const { richText } = Astro.props
 ---
 
 {
+  /* prettier-ignore */
   richText.Annotation.Color && richText.Annotation.Color !== 'default' ? (
-    <span class={snakeToKebab(richText.Annotation.Color)}>
-      <slot />
-    </span>
+    <span class={snakeToKebab(richText.Annotation.Color)}><slot /></span>
   ) : (
     <slot />
   )
