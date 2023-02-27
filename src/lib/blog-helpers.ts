@@ -118,6 +118,10 @@ export const buildURLToHTMLMap = async (
   }, {})
 }
 
+export const getStaticFilePath = (path: string): string => {
+  return pathJoin(BASE_PATH, path)
+}
+
 export const getNavLink = (nav: string) => {
   if ((!nav || nav === '/') && BASE_PATH) {
     return pathJoin(BASE_PATH, '') + '/'
