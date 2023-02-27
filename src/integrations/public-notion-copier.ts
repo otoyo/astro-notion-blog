@@ -11,7 +11,7 @@ export default (): AstroIntegration => ({
         fs.mkdirSync(outDir)
       }
 
-      execSync(`cp -r public/notion/* ${outDir} || true`)
+      execSync(`cp -n -r public/notion/* ${outDir} || true`)
     },
   },
 })
