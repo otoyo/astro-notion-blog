@@ -1,6 +1,6 @@
 // Query a database response
 // https://developers.notion.com/reference/post-database-query
-export interface QueryDatabaseResponse {
+export type QueryDatabaseResponse = {
   object: string
   results: PageObject[]
   next_cursor: null | string
@@ -11,17 +11,15 @@ export interface QueryDatabaseResponse {
 
 // Retrieve a database response
 // https://developers.notion.com/reference/retrieve-a-database
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RetrieveDatabaseResponse extends DatabaseObject {}
+export type RetrieveDatabaseResponse = DatabaseObject
 
 // Retrieve a block response
 // https://developers.notion.com/reference/retrieve-a-block
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RetrieveBlockResponse extends BlockObject {}
+export type RetrieveBlockResponse = BlockObject
 
 // Retrieve block children response
 // https://developers.notion.com/reference/get-block-children
-export interface RetrieveBlockChildrenResponse {
+export type RetrieveBlockChildrenResponse = {
   object: string
   results: BlockObject[]
   next_cursor: null | string
@@ -30,40 +28,40 @@ export interface RetrieveBlockChildrenResponse {
   block?: Record<string, never>
 }
 
-// common interfaces
-interface UserObject {
+// common types
+type UserObject = {
   object: string
   id: string
 }
 
-interface FileObject {
+type FileObject = {
   type: string
   name?: string
   external?: External
   file?: File
 }
 
-interface File {
+type File = {
   url: string
   expiry_time: string
 }
 
-interface External {
+type External = {
   url: string
 }
 
-export interface Emoji {
+export type Emoji = {
   type: string
   emoji: string
 }
 
-interface Parent {
+type Parent = {
   type: string
   database_id?: string
   page_id?: string
 }
 
-export interface RichTextObject {
+export type RichTextObject = {
   type: string
   plain_text: string
   annotations: Annotations
@@ -74,7 +72,7 @@ export interface RichTextObject {
   equation?: Equation
 }
 
-interface Annotations {
+type Annotations = {
   bold: boolean
   italic: boolean
   strikethrough: boolean
@@ -83,17 +81,17 @@ interface Annotations {
   color: string
 }
 
-interface Text {
+type Text = {
   content: string
   link?: Link
 }
 
-interface Link {
+type Link = {
   type: string
   url: string
 }
 
-interface Mention {
+type Mention = {
   type: string
 
   user?: UserObject
@@ -103,27 +101,27 @@ interface Mention {
   link_preview?: LinkPreview
 }
 
-interface Reference {
+type Reference = {
   id: string
 }
 
-interface DateProperty {
+type DateProperty = {
   start: string
   end?: null | string
   timezone?: null | string
 }
 
-interface LinkPreview {
+type LinkPreview = {
   url: string
 }
 
-interface Equation {
+type Equation = {
   expression: string
 }
 
 // Database object
 // https://developers.notion.com/reference/database
-interface DatabaseObject {
+type DatabaseObject = {
   object: string
   id: string
   created_time: string
@@ -141,11 +139,11 @@ interface DatabaseObject {
   is_inline: boolean
 }
 
-interface DatabaseProperties {
+type DatabaseProperties = {
   [key: string]: DatabaseProperty
 }
 
-interface DatabaseProperty {
+type DatabaseProperty = {
   id: string
   type: string
 
@@ -171,43 +169,43 @@ interface DatabaseProperty {
   last_edited_by?: Record<string, never>
 }
 
-interface NumberConfiguration {
+type NumberConfiguration = {
   format: string
 }
 
-interface SelectConfiguration {
+type SelectConfiguration = {
   options: SelectOptionObject[]
 }
 
-interface SelectOptionObject {
+type SelectOptionObject = {
   name: string
   id: string
   color: string
 }
 
-interface StatusConfiguration {
+type StatusConfiguration = {
   options: StatusOptionObject[]
   groups: StatusGroupObject[]
 }
 
-interface StatusOptionObject {
+type StatusOptionObject = {
   name: string
   id: string
   color: string
 }
 
-interface StatusGroupObject {
+type StatusGroupObject = {
   name: string
   id: string
   color: string
   option_ids: string[]
 }
 
-interface FormulaConfiguration {
+type FormulaConfiguration = {
   expression: string
 }
 
-interface RelationConfiguration {
+type RelationConfiguration = {
   database_id: string
   type: string
 
@@ -215,12 +213,12 @@ interface RelationConfiguration {
   dual_property?: DualPropertyRelationConfiguration
 }
 
-interface DualPropertyRelationConfiguration {
+type DualPropertyRelationConfiguration = {
   synced_property_name: string
   synced_property_id: string
 }
 
-interface RollupConfiguration {
+type RollupConfiguration = {
   relation_property_name: string
   relation_property_id: string
   rollup_property_name: string
@@ -230,7 +228,7 @@ interface RollupConfiguration {
 
 // Page object
 // https://developers.notion.com/reference/page
-export interface PageObject {
+export type PageObject = {
   object: string
   id: string
   created_time: string
@@ -245,11 +243,11 @@ export interface PageObject {
   url: string
 }
 
-interface PageProperties {
+type PageProperties = {
   [key: string]: PageProperty
 }
 
-interface PageProperty {
+type PageProperty = {
   id: string
   type: string
 
@@ -275,19 +273,19 @@ interface PageProperty {
   last_edited_by?: UserObject
 }
 
-interface SelectProperty {
+type SelectProperty = {
   id: string
   name: string
   color: string
 }
 
-interface StatusProperty {
+type StatusProperty = {
   id: string
   name: string
   color: string
 }
 
-interface FormulaProperty {
+type FormulaProperty = {
   type: string
 
   number?: number
@@ -296,11 +294,11 @@ interface FormulaProperty {
   date?: DateProperty
 }
 
-interface RelationProperty {
+type RelationProperty = {
   id: string
 }
 
-interface RollupProperty {
+type RollupProperty = {
   type: string
   function: string
 
@@ -312,7 +310,7 @@ interface RollupProperty {
 
 // Block object
 // https://developers.notion.com/reference/block
-export interface BlockObject {
+export type BlockObject = {
   object: string
   id: string
   created_time: string
@@ -355,109 +353,113 @@ export interface BlockObject {
   table_row?: TableRow
 }
 
-interface Paragraph {
+type Paragraph = {
   rich_text: RichTextObject[]
   color: string
   children?: BlockObject[]
 }
 
-interface Heading {
+type Heading = {
   rich_text: RichTextObject[]
   color: string
   is_toggleable: boolean
 }
 
-interface Callout {
+type Callout = {
   rich_text: RichTextObject[]
   icon: Emoji
   color: string
   children?: BlockObject[]
 }
 
-interface Quote {
+type Quote = {
   rich_text: RichTextObject[]
   color: string
   children?: BlockObject[]
 }
 
-interface ListItem {
+type ListItem = {
   rich_text: RichTextObject[]
   color: string
   children?: BlockObject[]
 }
 
-interface ToDo {
+type ToDo = {
   rich_text: RichTextObject[]
   checked: boolean
   color: string
   children?: BlockObject[]
 }
 
-interface Toggle {
+type Toggle = {
   rich_text: RichTextObject[]
   color: string
   children?: BlockObject[]
 }
 
-interface Code {
+type Code = {
   rich_text: RichTextObject[]
   caption?: RichTextObject[]
   language: string
 }
 
-interface ChildPage {
+type ChildPage = {
   title: string
 }
 
-interface ChildDatabase {
+type ChildDatabase = {
   title: string
 }
 
-interface Embed {
+type Embed = {
   url: string
 }
 
-interface FileBlock extends FileObject {
+type FileBlock = {
   caption?: RichTextObject[]
+  type: string
+  name?: string
+  external?: External
+  file?: File
 }
 
-interface Bookmark {
+type Bookmark = {
   url: string
   caption?: RichTextObject[]
 }
 
-interface TableOfContents {
+type TableOfContents = {
   color: string
 }
 
-interface Template {
+type Template = {
   rich_text: RichTextObject[]
   children?: BlockObject[]
 }
 
-interface LinkToPage {
+type LinkToPage = {
   type: string
   page_id?: string
   database_id?: string
 }
 
-interface SyncedBlock {
+type SyncedBlock = {
   synced_from: null | SyncedFrom
   children?: BlockObject[]
 }
 
-interface SyncedFrom {
+type SyncedFrom = {
   type: string
   block_id: string
 }
 
-interface Table {
+type Table = {
   table_width: number
   has_column_header: boolean
   has_row_header: boolean
   children?: BlockObject[]
 }
 
-interface TableRow {
+type TableRow = {
   cells: RichTextObject[][]
 }
