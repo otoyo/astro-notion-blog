@@ -1,14 +1,14 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { snakeToKebab } from '../../lib/style-helpers.ts'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 import '../../styles/notion-color.css'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
   level: number
-  headings: interfaces.Block[]
+  headings: entities.Block[]
 }
 
 const { block, level, headings } = Astro.props
@@ -19,10 +19,10 @@ const listTypes = ['1', 'a', 'i']
 <ol type={listTypes[level % 3]}>
   {
     block.ListItems.filter(
-      (b: interfaces.Block) => b.Type === 'numbered_list_item'
-    ).map((b: interfaces.Block) => (
+      (b: entities.Block) => b.Type === 'numbered_list_item'
+    ).map((b: entities.Block) => (
       <li class={snakeToKebab(b.NumberedListItem.Color)}>
-        {b.NumberedListItem.RichTexts.map((richText: interfaces.RichText) => (
+        {b.NumberedListItem.RichTexts.map((richText: entities.RichText) => (
           <RichText richText={richText} />
         ))}
         {b.HasChildren && (

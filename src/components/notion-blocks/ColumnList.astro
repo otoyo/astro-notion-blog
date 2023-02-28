@@ -1,10 +1,10 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import NotionBlocks from '../NotionBlocks.astro'
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: entities.Block
+  headings: entities.Block[]
 }
 
 const { block, headings } = Astro.props
@@ -12,7 +12,7 @@ const { block, headings } = Astro.props
 
 <div class="column-list">
   {
-    block.ColumnList.Columns.map((column: interfaces.Column) => (
+    block.ColumnList.Columns.map((column: entities.Column) => (
       <div>
         <NotionBlocks blocks={column.Children} headings={headings} />
       </div>

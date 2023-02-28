@@ -46,7 +46,7 @@ import type {
   Emoji,
   FileObject,
   LinkToPage,
-} from '../interfaces'
+} from '../entities'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client } from '@notionhq/client'
 

@@ -1,5 +1,5 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import {
   getPosts,
   getAllPosts,
@@ -28,7 +28,7 @@ import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
-  return posts.map((post: interfaces.Post) => ({ params: { slug: post.Slug } }))
+  return posts.map((post: entities.Post) => ({ params: { slug: post.Slug } }))
 }
 
 const { slug } = Astro.params
@@ -118,7 +118,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       <BlogPostsLink
         heading="Posts in the same category"
         posts={postsHavingSameTag.filter(
-          (p: interfaces.Post) => p.Slug !== post.Slug
+          (p: entities.Post) => p.Slug !== post.Slug
         )}
       />
       <BlogPostsLink heading="Recommended" posts={rankedPosts} />

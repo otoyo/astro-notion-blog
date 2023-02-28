@@ -7,7 +7,7 @@ import type {
   Heading3,
   RichText,
   Column,
-} from './interfaces'
+} from './entities'
 import { pathJoin } from './utils'
 
 export const filePath = (url: URL): string => {

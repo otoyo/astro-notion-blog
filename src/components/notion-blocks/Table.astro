@@ -1,9 +1,9 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import RichText from './RichText.astro'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
 }
 
 const { block } = Astro.props
@@ -13,16 +13,16 @@ const { block } = Astro.props
   <table>
     <tbody>
       {
-        block.Table.Rows.map((tableRow: interfaces.TableRow, j: number) => (
+        block.Table.Rows.map((tableRow: entities.TableRow, j: number) => (
           <tr>
-            {tableRow.Cells.map((cell: interfaces.TableCell, i: number) => {
+            {tableRow.Cells.map((cell: entities.TableCell, i: number) => {
               if (
                 (block.Table.HasRowHeader && i === 0) ||
                 (block.Table.HasColumnHeader && j === 0)
               ) {
                 return (
                   <th>
-                    {cell.RichTexts.map((richText: interfaces.RichText) => (
+                    {cell.RichTexts.map((richText: entities.RichText) => (
                       <RichText richText={richText} />
                     ))}
                   </th>
@@ -30,7 +30,7 @@ const { block } = Astro.props
               }
               return (
                 <td>
-                  {cell.RichTexts.map((richText: interfaces.RichText) => (
+                  {cell.RichTexts.map((richText: entities.RichText) => (
                     <RichText richText={richText} />
                   ))}
                 </td>

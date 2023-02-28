@@ -1,5 +1,5 @@
 ---
-import * as interfaces from '../lib/interfaces.ts'
+import * as entities from '../lib/entities.ts'
 import { isTweetURL, buildURLToHTMLMap } from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
@@ -26,10 +26,10 @@ import File from './notion-blocks/File.astro'
 import LinkToPage from './notion-blocks/LinkToPage.astro'
 
 export interface Props {
-  blocks: interfaces.Block[]
+  blocks: entities.Block[]
   isRoot: boolean
   level: number
-  headings: interfaces.Block[]
+  headings: entities.Block[]
 }
 
 const {
@@ -39,7 +39,7 @@ const {
   headings: rawHeadings = [],
 } = Astro.props
 
-const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
+const blocks = rawBlocks.reduce((arr, block: entities.Block, i: number) => {
   const isBulletedListItem = block.Type === 'bulleted_list_item'
   const isNumberedListItem = block.Type === 'numbered_list_item'
   const isToDo = block.Type === 'to_do'
@@ -57,7 +57,7 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
   }
 
   if (i === 0) {
-    const list: interfaces.List = {
+    const list: entities.List = {
       Type: listType,
       ListItems: [block],
     }
@@ -71,7 +71,7 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
     (isNumberedListItem && prevList.Type !== 'numbered_list') ||
     (isToDo && prevList.Type !== 'to_do_list')
   ) {
-    const list: interfaces.List = {
+    const list: entities.List = {
       Type: listType,
       ListItems: [block],
     }
@@ -85,16 +85,16 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
 
 let headings = rawHeadings
 if (isRoot) {
-  headings = blocks.filter((b: interfaces.Block) =>
+  headings = blocks.filter((b: entities.Block) =>
     ['heading_1', 'heading_2', 'heading_3'].includes(b.Type)
   )
 }
 
 const bookmarkURLs = blocks
-  .filter((b: interfaces.Block) =>
+  .filter((b: entities.Block) =>
     ['bookmark', 'link_preview', 'embed'].includes(b.Type)
   )
-  .map((b: interfaces.Block) => {
+  .map((b: entities.Block) => {
     const urlString = (b.Bookmark || b.LinkPreview || b.Embed).Url
 
     let url: URL
@@ -111,7 +111,7 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
 ---
 
 {
-  blocks.map((block: interfaces.Block) => {
+  blocks.map((block: entities.Block) => {
     switch (block.Type) {
       case 'paragraph':
         return <Paragraph block={block} headings={headings} />

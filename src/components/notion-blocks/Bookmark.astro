@@ -3,10 +3,10 @@ import createMetascraper from 'metascraper'
 import metascraperDescription from 'metascraper-description'
 import metascraperImage from 'metascraper-image'
 import metascraperTitle from 'metascraper-title'
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
   urlMap: { [key: string]: string }
 }
 

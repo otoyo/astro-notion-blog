@@ -1,12 +1,12 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { buildHeadingId } from '../../lib/blog-helpers.ts'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: entities.Block
+  headings: entities.Block[]
 }
 
 const { block, headings } = Astro.props
@@ -20,7 +20,7 @@ const id = buildHeadingId(block.Heading1)
       <summary>
         <a href={`#${id}`} id={id}>
           <h4>
-            {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+            {block.Heading1.RichTexts.map((richText: entities.RichText) => (
               <RichText richText={richText} />
             ))}
           </h4>
@@ -35,7 +35,7 @@ const id = buildHeadingId(block.Heading1)
   ) : (
     <a href={`#${id}`} id={id}>
       <h4>
-        {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+        {block.Heading1.RichTexts.map((richText: entities.RichText) => (
           <RichText richText={richText} />
         ))}
       </h4>

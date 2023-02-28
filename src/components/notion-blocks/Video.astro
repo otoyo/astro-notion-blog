@@ -1,10 +1,10 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { isYouTubeURL, parseYouTubeVideoId } from '../../lib/blog-helpers.ts'
 import Caption from './Caption.astro'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
 }
 
 const { block } = Astro.props

@@ -1,13 +1,13 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { snakeToKebab } from '../../lib/style-helpers.ts'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 import '../../styles/notion-color.css'
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: entities.Block
+  headings: entities.Block[]
 }
 
 const { block, headings } = Astro.props
@@ -15,11 +15,11 @@ const { block, headings } = Astro.props
 
 <div class="to-do">
   {
-    block.ListItems.filter((b: interfaces.Block) => b.Type === 'to_do').map(
-      (b: interfaces.Block) => (
+    block.ListItems.filter((b: entities.Block) => b.Type === 'to_do').map(
+      (b: entities.Block) => (
         <div class={snakeToKebab(b.ToDo.Color)}>
           <input type="checkbox" checked={b.ToDo.Checked} disabled />
-          {b.ToDo.RichTexts.map((richText: interfaces.RichText) => {
+          {b.ToDo.RichTexts.map((richText: entities.RichText) => {
             if (b.ToDo.Checked) {
               return (
                 <s>

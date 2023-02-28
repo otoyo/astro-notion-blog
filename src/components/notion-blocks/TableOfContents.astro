@@ -1,12 +1,12 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { buildHeadingId } from '../../lib/blog-helpers.ts'
 import { snakeToKebab } from '../../lib/style-helpers.ts'
 import '../../styles/notion-color.css'
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: entities.Block
+  headings: entities.Block[]
 }
 
 const { block, headings } = Astro.props
@@ -14,7 +14,7 @@ const { block, headings } = Astro.props
 
 <div class="table-of-contents">
   {
-    headings.map((headingBlock: interfaces.Block) => {
+    headings.map((headingBlock: entities.Block) => {
       const heading =
         headingBlock.Heading1 || headingBlock.Heading2 || headingBlock.Heading3
 
@@ -33,7 +33,7 @@ const { block, headings } = Astro.props
           )} ${indentClass}`}
         >
           {heading.RichTexts.map(
-            (richText: interfaces.RichText) => richText.PlainText
+            (richText: entities.RichText) => richText.PlainText
           ).join('')}
         </a>
       )

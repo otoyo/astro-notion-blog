@@ -1,13 +1,13 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { snakeToKebab } from '../../lib/style-helpers.ts'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 import '../../styles/notion-color.css'
 
 export interface Props {
-  block: interfaces.Block
-  headings: interfaces.Block[]
+  block: entities.Block
+  headings: entities.Block[]
 }
 
 const { block, headings } = Astro.props
@@ -16,10 +16,10 @@ const { block, headings } = Astro.props
 <ul>
   {
     block.ListItems.filter(
-      (b: interfaces.Block) => b.Type === 'bulleted_list_item'
-    ).map((b: interfaces.Block) => (
+      (b: entities.Block) => b.Type === 'bulleted_list_item'
+    ).map((b: entities.Block) => (
       <li class={snakeToKebab(b.BulletedListItem.Color)}>
-        {b.BulletedListItem.RichTexts.map((richText: interfaces.RichText) => (
+        {b.BulletedListItem.RichTexts.map((richText: entities.RichText) => (
           <RichText richText={richText} />
         ))}
         {b.HasChildren && (

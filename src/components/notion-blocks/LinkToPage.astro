@@ -1,16 +1,16 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { getPostByPageId } from '../../lib/notion/client'
 import { getPostLink } from '../../lib/blog-helpers.ts'
 import '../../styles/notion-color.css'
 import arrow from '../../images/icon-arrow-link.svg'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
 }
 
 const { block } = Astro.props
-let post: interfaces.Post = null
+let post: entities.Post = null
 if (block.LinkToPage.Type === 'page_id') {
   post = await getPostByPageId(block.LinkToPage.PageId)
 }

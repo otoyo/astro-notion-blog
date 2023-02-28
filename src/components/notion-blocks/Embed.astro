@@ -1,11 +1,11 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import * as entities from '../../lib/entities.ts'
 import { isTweetURL } from '../../lib/blog-helpers.ts'
 import Bookmark from './Bookmark.astro'
 import TweetEmbed from './TweetEmbed.astro'
 
 export interface Props {
-  block: interfaces.Block
+  block: entities.Block
   urlMap: { [key: string]: string }
 }
 
