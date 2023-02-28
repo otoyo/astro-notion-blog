@@ -516,11 +516,16 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       break
     case 'callout':
       if (blockObject.callout) {
+        let icon: FileObject | Emoji | null = null
+        if (blockObject.callout.icon.type === 'emoji' && 'emoji' in blockObject.callout.icon) {
+          icon = { Emoji: blockObject.callout.icon.emoji }
+        } else if (blockObject.callout.icon.type === 'external' && 'external' in blockObject.callout.icon) {
+          icon = { Url: blockObject.callout.icon.external?.url || '' }
+        }
+
         const callout: Callout = {
           RichTexts: blockObject.callout.rich_text.map(_buildRichText),
-          Icon: {
-            Emoji: blockObject.callout.icon.emoji,
-          },
+          Icon: icon,
           Color: blockObject.callout.color,
         }
         block.Callout = callout

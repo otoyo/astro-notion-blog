@@ -136,7 +136,7 @@ export interface Equation {
 
 export interface Callout {
   RichTexts: RichText[]
-  Icon: Emoji
+  Icon: FileObject | Emoji | null
   Color: string
   Children?: Block[]
 }
