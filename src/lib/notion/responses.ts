@@ -369,7 +369,7 @@ interface Heading {
 
 interface Callout {
   rich_text: RichTextObject[]
-  icon: Emoji
+  icon: FileObject | Emoji
   color: string
   children?: BlockObject[]
 }

@@ -463,6 +463,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           blockObject.image.file
         ) {
           image.File = {
+            Type: blockObject.image.type,
             Url: blockObject.image.file.url,
             ExpiryTime: blockObject.image.file.expiry_time,
           }
@@ -480,6 +481,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           file.External = { Url: blockObject.file.external.url }
         } else if (blockObject.file.type === 'file' && blockObject.file.file) {
           file.File = {
+            Type: blockObject.file.type,
             Url: blockObject.file.file.url,
             ExpiryTime: blockObject.file.file.expiry_time,
           }
@@ -516,11 +518,28 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       break
     case 'callout':
       if (blockObject.callout) {
+        let icon: FileObject | Emoji | null = null
+        if (
+          blockObject.callout.icon.type === 'emoji' &&
+          'emoji' in blockObject.callout.icon
+        ) {
+          icon = {
+            Type: blockObject.callout.icon.type,
+            Emoji: blockObject.callout.icon.emoji,
+          }
+        } else if (
+          blockObject.callout.icon.type === 'external' &&
+          'external' in blockObject.callout.icon
+        ) {
+          icon = {
+            Type: blockObject.callout.icon.type,
+            Url: blockObject.callout.icon.external?.url || '',
+          }
+        }
+
         const callout: Callout = {
           RichTexts: blockObject.callout.rich_text.map(_buildRichText),
-          Icon: {
-            Emoji: blockObject.callout.icon.emoji,
-          },
+          Icon: icon,
           Color: blockObject.callout.color,
         }
         block.Callout = callout
@@ -740,10 +759,31 @@ function _validPageObject(pageObject: responses.PageObject): boolean {
 function _buildPost(pageObject: responses.PageObject): Post {
   const prop = pageObject.properties
 
-  const icon = pageObject.icon as responses.Emoji
-  const emoji: Emoji = { Emoji: icon?.emoji || '' }
+  let icon: FileObject | Emoji | null = null
+  if (pageObject.icon) {
+    if (pageObject.icon.type === 'emoji' && 'emoji' in pageObject.icon) {
+      icon = {
+        Type: pageObject.icon.type,
+        Emoji: pageObject.icon.emoji,
+      }
+    } else if (
+      pageObject.icon.type === 'external' &&
+      'external' in pageObject.icon
+    ) {
+      icon = {
+        Type: pageObject.icon.type,
+        Url: pageObject.icon.external?.url || '',
+      }
+    }
+  }
 
-  const cover: FileObject = { Url: pageObject.cover?.external?.url || '' }
+  let cover: FileObject | null = null
+  if (pageObject.cover) {
+    cover = {
+      Type: pageObject.cover.type,
+      Url: pageObject.cover.external?.url || '',
+    }
+  }
 
   let featuredImage: FileObject | null = null
   if (
@@ -752,6 +792,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
     prop.FeaturedImage.files[0].file
   ) {
     featuredImage = {
+      Type: prop.FeaturedImage.type,
       Url: prop.FeaturedImage.files[0].file.url,
       ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
     }
@@ -760,7 +801,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
   const post: Post = {
     PageId: pageObject.id,
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
-    Icon: emoji,
+    Icon: icon,
     Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
