@@ -1,7 +1,7 @@
 export interface Post {
   PageId: string
   Title: string
-  Icon: Emoji
+  Icon: FileObject | Emoji | null
   Cover: FileObject | null
   Slug: string
   Date: string

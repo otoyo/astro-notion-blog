@@ -745,8 +745,14 @@ function _validPageObject(pageObject: responses.PageObject): boolean {
 function _buildPost(pageObject: responses.PageObject): Post {
   const prop = pageObject.properties
 
-  const icon = pageObject.icon as responses.Emoji
-  const emoji: Emoji = { Emoji: icon?.emoji || '' }
+  let icon: FileObject | Emoji | null = null
+  if (pageObject.icon) {
+    if (pageObject.icon.type === 'emoji' && 'emoji' in pageObject.icon) {
+      icon = { Emoji: pageObject.icon.emoji }
+    } else if (pageObject.icon.type === 'external' && 'external' in pageObject.icon) {
+      icon = { Url: pageObject.icon.external?.url || '' }
+    }
+  }
 
   const cover: FileObject = { Url: pageObject.cover?.external?.url || '' }
 
@@ -765,7 +771,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
   const post: Post = {
     PageId: pageObject.id,
     Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
-    Icon: emoji,
+    Icon: icon,
     Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
     Date: prop.Date.date ? prop.Date.date.start : '',

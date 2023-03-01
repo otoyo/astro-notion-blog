@@ -10,7 +10,7 @@ export interface Props {
 const { post, enableLink = true } = Astro.props
 
 let title = post.Title
-if (post.Icon.Emoji) {
+if (post.Icon?.Emoji) {
   title = `${post.Icon.Emoji} ${title}`
 }
 ---
