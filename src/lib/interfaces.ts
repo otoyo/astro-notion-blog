@@ -110,6 +110,7 @@ export interface File {
 }
 
 export interface FileObject {
+  Type: string
   Url: string
   ExpiryTime?: string
 }
@@ -220,6 +221,7 @@ export interface Text {
 }
 
 export interface Emoji {
+  Type: string
   Emoji: string
 }
 
