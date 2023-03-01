@@ -10,13 +10,44 @@ export interface Props {
 const { post, enableLink = true } = Astro.props
 
 let title = post.Title
-if (post.Icon?.Emoji) {
-  title = `${post.Icon.Emoji} ${title}`
-}
 ---
 
 <h3 class="post-title">
-  {enableLink ? <a href={getPostLink(post.Slug)}>{title}</a> : title}
+  {
+    enableLink ? (
+      <a href={getPostLink(post.Slug)}>
+        {post.Icon && post.Icon.Type === 'emoji' ? (
+          <>
+            <span>{post.Icon.Emoji}</span>
+            {title}
+          </>
+        ) : post.Icon && post.Icon.Type === 'external' ? (
+          <>
+            <img src={post.Icon.Url} />
+            {title}
+          </>
+        ) : (
+          title
+        )}
+      </a>
+    ) : (
+      <>
+        {post.Icon && post.Icon.Type === 'emoji' ? (
+          <>
+            <span>{post.Icon.Emoji}</span>
+            {title}
+          </>
+        ) : post.Icon && post.Icon.Type === 'external' ? (
+          <>
+            <img src={post.Icon.Url} />
+            {title}
+          </>
+        ) : (
+          title
+        )}
+      </>
+    )
+  }
 </h3>
 
 <style>
@@ -28,12 +59,36 @@ if (post.Icon?.Emoji) {
     font-size: 1.2rem;
     color: inherit;
   }
+  .post-title span,
+  .post-title img {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+  .post-title img {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .post-title a > img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
   @media (max-width: 640px) {
     .post-title {
       font-size: 1.2rem;
     }
     .post-title a {
       font-size: 1.15rem;
+    }
+    .post-title span,
+    .post-title img {
+    }
+    .post-title img {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    .post-title a > img {
+      width: 1.15rem;
+      height: 1.15rem;
     }
   }
 </style>
