@@ -519,12 +519,18 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'callout':
       if (blockObject.callout) {
         let icon: FileObject | Emoji | null = null
-        if (blockObject.callout.icon.type === 'emoji' && 'emoji' in blockObject.callout.icon) {
+        if (
+          blockObject.callout.icon.type === 'emoji' &&
+          'emoji' in blockObject.callout.icon
+        ) {
           icon = {
             Type: blockObject.callout.icon.type,
             Emoji: blockObject.callout.icon.emoji,
           }
-        } else if (blockObject.callout.icon.type === 'external' && 'external' in blockObject.callout.icon) {
+        } else if (
+          blockObject.callout.icon.type === 'external' &&
+          'external' in blockObject.callout.icon
+        ) {
           icon = {
             Type: blockObject.callout.icon.type,
             Url: blockObject.callout.icon.external?.url || '',
@@ -760,7 +766,10 @@ function _buildPost(pageObject: responses.PageObject): Post {
         Type: pageObject.icon.type,
         Emoji: pageObject.icon.emoji,
       }
-    } else if (pageObject.icon.type === 'external' && 'external' in pageObject.icon) {
+    } else if (
+      pageObject.icon.type === 'external' &&
+      'external' in pageObject.icon
+    ) {
       icon = {
         Type: pageObject.icon.type,
         Url: pageObject.icon.external?.url || '',
