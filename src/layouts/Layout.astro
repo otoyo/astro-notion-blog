@@ -64,6 +64,9 @@ const navItems = [
       <h1>
         <a href={getNavLink('/')}>{PUBLIC_SITE_TITLE}</a>
       </h1>
+      <div class="description">
+        {PUBLIC_SITE_DESCRIPTION}
+      </div>
 
       <ul>
         {
@@ -106,6 +109,10 @@ const navItems = [
   }
   .header h1 a {
     color: inherit;
+  }
+  .header div.description {
+    padding: 0.3rem 0 0.6rem;
+    font-size: 0.95rem;
   }
   .header ul {
     list-style: none;
