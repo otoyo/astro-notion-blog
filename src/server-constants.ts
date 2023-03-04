@@ -16,6 +16,8 @@ export const REQUEST_TIMEOUT_MS = parseInt(
 )
 export const ENABLE_LIGHTBOX = import.meta.env.ENABLE_LIGHTBOX
 
-export const PUBLIC_SITE_TITLE = 'astro-notion-blog'
+export const PUBLIC_SITE_TITLE =
+  import.meta.env.SITE_TITLE || 'astro-notion-blog'
 export const PUBLIC_SITE_DESCRIPTION =
+  import.meta.env.SITE_DESCRIPTION ||
   'astro-notion-blog is generated statically by Astro'
