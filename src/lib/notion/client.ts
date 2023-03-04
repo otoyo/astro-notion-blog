@@ -11,6 +11,7 @@ import {
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
 import type {
+  Database,
   Post,
   Block,
   Paragraph,
@@ -353,6 +354,50 @@ export async function downloadFile(url: URL) {
 
   const streamPipeline = promisify(pipeline)
   return streamPipeline(res.body, createWriteStream(filepath))
+}
+
+export async function getDatabase(): Promise<Database> {
+  const params: requestParams.RetrieveDatabase = {
+    database_id: DATABASE_ID,
+  }
+
+  const res = (await client.databases.retrieve(
+    params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+  )) as responses.RetrieveDatabaseResponse
+
+  let icon: FileObject | Emoji | null = null
+  if (res.icon) {
+    if (res.icon.type === 'emoji' && 'emoji' in res.icon) {
+      icon = {
+        Type: res.icon.type,
+        Emoji: res.icon.emoji,
+      }
+    } else if (res.icon.type === 'external' && 'external' in res.icon) {
+      icon = {
+        Type: res.icon.type,
+        Url: res.icon.external?.url || '',
+      }
+    }
+  }
+
+  let cover: FileObject | null = null
+  if (res.cover) {
+    cover = {
+      Type: res.cover.type,
+      Url: res.cover.external?.url || '',
+    }
+  }
+
+  const database: Database = {
+    Title: res.title.map((richText) => richText.plain_text).join(''),
+    Description: res.description
+      .map((richText) => richText.plain_text)
+      .join(''),
+    Icon: icon,
+    Cover: cover,
+  }
+
+  return database
 }
 
 function _buildBlock(blockObject: responses.BlockObject): Block {
