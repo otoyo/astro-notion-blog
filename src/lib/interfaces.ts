@@ -1,3 +1,10 @@
+export interface Database {
+  Title: string
+  Description: string
+  Icon: FileObject | Emoji | null
+  Cover: FileObject | null
+}
+
 export interface Post {
   PageId: string
   Title: string

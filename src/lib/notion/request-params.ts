@@ -6,6 +6,10 @@ export interface QueryDatabase {
   start_cursor?: string
 }
 
+export interface RetrieveDatabase {
+  database_id: string
+}
+
 export interface RetrieveBlock {
   block_id: string
 }
