@@ -21,7 +21,7 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 
 ## Demo
 
-[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)
+[https://astro-notion-blog.pages.dev](https://astro-notion-blog.pages.dev)
 
 ## Quick Start
 

@@ -1,11 +1,10 @@
 ---
-import type { SelectProperty } from '../../../lib/interfaces.ts'
-import { NUMBER_OF_POSTS_PER_PAGE } from '../../../server-constants.ts'
 import {
-  getPostsByTag,
+  getPostsByPage,
   getRankedPosts,
   getAllTags,
-  getNumberOfPagesByTag,
+  getNumberOfPages,
+  getPostsByPage,
 } from '../../../lib/notion/client.ts'
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
@@ -19,30 +18,32 @@ import Pagination from '../../../components/Pagination.astro'
 import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
 import styles from '../../../styles/blog.module.css'
-import '../../../styles/notion-color.css'
 
 export async function getStaticPaths() {
-  const allTags = await getAllTags()
-  return allTags.map((tag: SelectProperty) => ({ params: { tag: tag.name } }))
+  const numberOfPages = await getNumberOfPages()
+
+  let params = []
+  for (let i = 2; i <= numberOfPages; i++) {
+    params.push({ params: { page: i.toString() } })
+  }
+  return params
 }
 
-const { tag } = Astro.params
+const { page } = Astro.params
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
-  getPostsByTag(tag, NUMBER_OF_POSTS_PER_PAGE),
+  getPostsByPage(parseInt(page, 10)),
   getRankedPosts(),
   getAllTags(),
-  getNumberOfPagesByTag(tag),
+  getNumberOfPages(),
 ])
-
-const currentTag = posts[0].Tags.find((t) => t.name === tag)
 ---
 
-<Layout title={`Posts in ${tag}`} path={`/blog/tag/${tag}`}>
+<Layout title={`Posts ${page}/${numberOfPages}`} path={`/posts/page/${page}`}>
   <div className={styles.container}>
     <main>
       <header>
-        <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
+        <h2>{page}/{numberOfPages}</h2>
       </header>
 
       {
@@ -63,7 +64,10 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
       }
 
       <footer>
-        <Pagination tag={tag} currentPage={1} numberOfPages={numberOfPages} />
+        <Pagination
+          currentPage={parseInt(page, 10)}
+          numberOfPages={numberOfPages}
+        />
       </footer>
     </main>
 

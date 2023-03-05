@@ -21,7 +21,7 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 ## デモ
 
-[https://astro-notion-blog.pages.dev/blog](https://astro-notion-blog.pages.dev/blog)
+[https://astro-notion-blog.pages.dev](https://astro-notion-blog.pages.dev)
 
 ## クイックスタート
 
