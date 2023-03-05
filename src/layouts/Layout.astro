@@ -5,10 +5,7 @@ import {
   PUBLIC_GA_TRACKING_ID,
   ENABLE_LIGHTBOX,
 } from '../server-constants.ts'
-import {
-  getNavLink,
-  getStaticFilePath,
-} from '../lib/blog-helpers.ts'
+import { getNavLink, getStaticFilePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 
@@ -25,11 +22,6 @@ const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE
 const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION
 const siteURL = new URL(path, Astro.site).toString()
 const siteOGImage = new URL('/default-og-image.png', Astro.site)
-
-const navItems = [
-  { label: 'Home', path: '/' },
-  { label: 'Blog', path: '/blog' },
-]
 ---
 
 <!DOCTYPE html>
@@ -67,18 +59,6 @@ const navItems = [
       <div class="description">
         {PUBLIC_SITE_DESCRIPTION}
       </div>
-
-      <ul>
-        {
-          navItems.map(({ label, path: p }) => (
-            <li key={label}>
-              <a href={getNavLink(p)} class={p === path ? 'active' : null}>
-                {label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
     </header>
     <div class="container">
       <slot />
@@ -92,7 +72,11 @@ const navItems = [
       </div>
     </footer>
 
-    {ENABLE_LIGHTBOX && <script src={getStaticFilePath('/scripts/fslightbox.js')} />}
+    {
+      ENABLE_LIGHTBOX && (
+        <script src={getStaticFilePath('/scripts/fslightbox.js')} />
+      )
+    }
   </body>
 </html>
 
@@ -113,24 +97,6 @@ const navItems = [
   .header div.description {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
-  }
-  .header ul {
-    list-style: none;
-    margin: inherit;
-    padding: 0.5rem 0;
-    font-size: 1.1rem;
-  }
-  @media (max-width: 640px) {
-    .header ul {
-      font-size: 1rem;
-    }
-  }
-  .header ul li {
-    display: inline-block;
-    padding: 0 15px;
-  }
-  .header ul li :global(a.active) {
-    color: var(--accents-3);
   }
 
   .container {
