@@ -35,7 +35,7 @@ const { prevPost, nextPost } = Astro.props
     }
   </div>
   <div>
-    <a href={getNavLink('/')} class="text">▲ Return to top</a>
+    <a href={getNavLink('/')} class="text">↑Top</a>
   </div>
 </div>
 
@@ -56,6 +56,10 @@ const { prevPost, nextPost } = Astro.props
   div.post-relative-link > div > a.text {
     margin-top: 1rem;
     padding: 0.5rem;
+    color: inherit;
+    font-size: 1rem;
+    text-decoration: underline;
+    font-weight: 500;
   }
   div.post-relative-link > div > a.colored {
     padding: 1rem;
