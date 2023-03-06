@@ -20,7 +20,21 @@ const { heading, posts } = Astro.props
       <ul>
         {posts.map((post: Post) => (
           <li>
-            <a href={getPostLink(post.Slug)}>{post.Title}</a>
+            <a href={getPostLink(post.Slug)}>
+              {post.Icon && post.Icon.Type === 'emoji' ? (
+                <>
+                  <span>{post.Icon.Emoji}</span>
+                  {post.Title}
+                </>
+              ) : post.Icon && post.Icon.Type === 'external' ? (
+                <>
+                  <img src={post.Icon.Url} />
+                  {post.Title}
+                </>
+              ) : (
+                post.Title
+              )}
+            </a>
           </li>
         ))}
       </ul>
@@ -58,5 +72,15 @@ const { heading, posts } = Astro.props
   }
   .blog-posts-link ul li a:hover {
     background-color: #ddd;
+  }
+  .blog-posts-link ul li a span,
+  .blog-posts-link ul li a img {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+  .blog-posts-link ul li a img {
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: sub;
   }
 </style>
