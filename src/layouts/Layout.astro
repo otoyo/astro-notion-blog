@@ -1,10 +1,9 @@
 ---
 import {
-  PUBLIC_SITE_TITLE,
-  PUBLIC_SITE_DESCRIPTION,
   PUBLIC_GA_TRACKING_ID,
   ENABLE_LIGHTBOX,
 } from '../server-constants.ts'
+import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
@@ -18,8 +17,10 @@ export interface Props {
 
 const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
 
-const siteTitle = title ? `${title} - ${PUBLIC_SITE_TITLE}` : PUBLIC_SITE_TITLE
-const siteDescription = description ? description : PUBLIC_SITE_DESCRIPTION
+const database = await getDatabase()
+
+const siteTitle = title ? `${title} - ${database.Title}` : database.Title
+const siteDescription = description ? description : database.Description
 const siteURL = new URL(path, Astro.site).toString()
 const siteOGImage = new URL('/default-og-image.png', Astro.site)
 ---
@@ -37,7 +38,7 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
     <meta property="og:url" content={siteURL} />
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
-    <meta property="og:site_name" content={PUBLIC_SITE_TITLE} />
+    <meta property="og:site_name" content={database.Title} />
     <meta property="og:image" content={ogImage || siteOGImage} />
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={siteDescription} />
@@ -54,10 +55,10 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <header class="header">
       <h1>
-        <a href={getNavLink('/')}>{PUBLIC_SITE_TITLE}</a>
+        <a href={getNavLink('/')}>{database.Title}</a>
       </h1>
       <div class="description">
-        {PUBLIC_SITE_DESCRIPTION}
+        {database.Description}
       </div>
     </header>
     <div class="container">
