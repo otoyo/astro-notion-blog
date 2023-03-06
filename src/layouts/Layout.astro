@@ -1,7 +1,7 @@
 ---
 import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts'
 import { getDatabase } from '../lib/notion/client.ts'
-import { getNavLink, getStaticFilePath } from '../lib/blog-helpers.ts'
+import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 
@@ -20,6 +20,21 @@ const siteTitle = title ? `${title} - ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(path, Astro.site).toString()
 const siteOGImage = new URL('/default-og-image.png', Astro.site)
+
+let coverImageURL: string
+if (database.Cover) {
+  if (database.Cover.Type === 'external') {
+    coverImageURL = database.Cover.Url
+  } else if (database.Cover.Type === 'file') {
+    try {
+      coverImageURL = filePath(new URL(database.Cover.Url))
+    } catch (err) {
+      console.log('Invalid DB cover image URL')
+    }
+  }
+}
+
+const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
 <!DOCTYPE html>
@@ -52,31 +67,40 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
       <main>
-        <header>
-          <h1>
-            <a href={getNavLink('/')}>{database.Title}</a>
-          </h1>
-          <div class="description">
-            {database.Description}
-          </div>
-        </header>
+        {
+          coverImageURL && (
+            <div class="cover">
+              <img src={coverImageURL} />
+            </div>
+          )
+        }
 
-        <slot name="main" />
+        <div class="content">
+          <header>
+            <h1>
+              <a href={getNavLink('/')}>{database.Title}</a>
+            </h1>
+            <div class="description">
+              {database.Description}
+            </div>
+          </header>
 
-        <footer>
-          <div>
-            <span>Powered by</span>
-            <a href="https://github.com/otoyo/astro-notion-blog"
-              >astro-notion-blog</a
-            >
-          </div>
-        </footer>
+          <slot name="main" />
+
+          <footer>
+            <div>
+              <span>Powered by</span>
+              <a href="https://github.com/otoyo/astro-notion-blog"
+                >astro-notion-blog</a
+              >
+            </div>
+          </footer>
+        </div>
       </main>
 
       <aside>
         <slot name="aside" />
       </aside>
-      <slot />
     </div>
 
     {
@@ -87,7 +111,7 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
   </body>
 </html>
 
-<style>
+<style define:vars={{ asidePaddingTop }}>
   .container {
     display: flex;
     min-height: 100vh;
@@ -101,20 +125,18 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
   main {
     flex: 1;
     order: 2;
-    padding: 0 40px;
     justify-content: space-between;
   }
   @media (max-width: 640px) {
     main {
       order: 1;
-      padding: 0 18px;
     }
   }
 
   aside {
     order: 1;
     width: 300px;
-    padding: 100px 20px 20px;
+    padding: var(--asidePaddingTop) 20px 20px;
     background-color: #f4f4f4;
   }
   @media (max-width: 640px) {
@@ -122,6 +144,25 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
       order: 2;
       width: 100%;
       padding: 40px 20px 20px;
+    }
+  }
+
+  div.cover {
+  }
+  div.cover img {
+    display: block;
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+
+  div.content {
+    padding: 20px 40px;
+  }
+  @media (max-width: 640px) {
+    div.content {
+      padding: 0 18px;
     }
   }
 
