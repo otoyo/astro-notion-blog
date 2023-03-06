@@ -33,30 +33,30 @@ const { heading, posts } = Astro.props
   }
   .blog-posts-link h3 {
     margin: 0;
-    font-size: 1.1rem;
+    padding-left: 0.4rem;
+    color: #777;
+    font-size: 0.95rem;
   }
   .blog-posts-link ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
     margin-block-end: 1rem;
   }
   .blog-posts-link ul li {
-    position: relative;
-    font-size: 0.95rem;
-    padding: 0.4rem 0;
-    padding-left: 0.7rem;
-    line-height: 1.2rem;
   }
-  .blog-posts-link ul li:before {
-    border-radius: 50%;
-    width: 5px;
-    height: 5px;
+  .blog-posts-link ul li a {
     display: block;
-    position: absolute;
-    left: 0;
-    top: 0.9rem;
-    content: '';
-    background: #333;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.4rem;
+    line-height: 1.2rem;
+    color: inherit;
+    font-size: 0.95rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .blog-posts-link ul li a:hover {
+    background-color: #ddd;
   }
 </style>
