@@ -1,42 +1,14 @@
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-@media (max-width: 640px) {
-  .container {
-    display: block;
-  }
-}
-
-main {
-  width: 60%;
-}
-@media (max-width: 640px) {
-  main {
-    width: 100%;
-  }
-}
-main header {
+.main header {
   padding: 0 0 20px;
-  text-align: center;
 }
-main footer {
+.main footer {
   border-top: 1px dashed #888;
   margin: 0 auto;
   padding: 40px 0 0;
 }
 @media (max-width: 640px) {
-  main footer {
+  .main footer {
     margin: 0 auto 40px;
-  }
-}
-
-aside {
-  width: 35%;
-}
-@media (max-width: 640px) {
-  aside {
-    width: 100%;
   }
 }
 

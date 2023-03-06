@@ -50,14 +50,20 @@ for (let i = startPage; i <= endPage; i++) {
     width: 2.4rem;
     height: 3rem;
     margin: 0 0.4rem;
-    border: 1px solid var(--accents-1);
+    border-radius: var(--radius);
+    background: #f4f4f4;
     color: inherit;
     font-size: 0.85rem;
     text-align: center;
+    text-decoration: underline;
+    font-weight: 500;
     line-height: 3rem;
   }
+  .pagination a:hover:not(.inactive) {
+    background: #ddd;
+  }
   .pagination a.inactive {
-    border-color: #bbb;
     color: #999;
+    text-decoration: none;
   }
 </style>

@@ -28,33 +28,31 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 ---
 
 <Layout>
-  <div className={styles.container}>
-    <main>
-      {
-        posts.length === 0 ? (
-          <NoContents contents={posts} />
-        ) : (
-          posts.map((post) => (
-            <div className={styles.post} key={post.Slug}>
-              <PostDate post={post} />
-              <PostTags post={post} />
-              <PostTitle post={post} />
-              <PostFeaturedImage post={post} />
-              <PostExcerpt post={post} />
-              <ReadMoreLink post={post} />
-            </div>
-          ))
-        )
-      }
+  <div slot="main" class={styles.main}>
+    {
+      posts.length === 0 ? (
+        <NoContents contents={posts} />
+      ) : (
+        posts.map((post) => (
+          <div class={styles.post} key={post.Slug}>
+            <PostDate post={post} />
+            <PostTags post={post} />
+            <PostTitle post={post} />
+            <PostFeaturedImage post={post} />
+            <PostExcerpt post={post} />
+            <ReadMoreLink post={post} />
+          </div>
+        ))
+      )
+    }
 
-      <footer>
-        <Pagination currentPage={1} numberOfPages={numberOfPages} />
-      </footer>
-    </main>
+    <footer>
+      <Pagination currentPage={1} numberOfPages={numberOfPages} />
+    </footer>
+  </div>
 
-    <aside>
-      <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-      <BlogTagsLink heading="Categories" tags={tags} />
-    </aside>
+  <div slot="aside" class={styles.aside}>
+    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
+    <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
