@@ -53,25 +53,34 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
-    <header class="header">
-      <h1>
-        <a href={getNavLink('/')}>{database.Title}</a>
-      </h1>
-      <div class="description">
-        {database.Description}
-      </div>
-    </header>
     <div class="container">
+      <main>
+        <header>
+          <h1>
+            <a href={getNavLink('/')}>{database.Title}</a>
+          </h1>
+          <div class="description">
+            {database.Description}
+          </div>
+        </header>
+
+        <slot name="main" />
+
+        <footer>
+          <div>
+            <span>Powered by</span>
+            <a href="https://github.com/otoyo/astro-notion-blog"
+              >astro-notion-blog</a
+            >
+          </div>
+        </footer>
+      </main>
+
+      <aside>
+        <slot name="aside" />
+      </aside>
       <slot />
     </div>
-    <footer class="footer">
-      <div>
-        <span>Powered by</span>
-        <a href="https://github.com/otoyo/astro-notion-blog"
-          >astro-notion-blog</a
-        >
-      </div>
-    </footer>
 
     {
       ENABLE_LIGHTBOX && (
@@ -82,38 +91,76 @@ const siteOGImage = new URL('/default-og-image.png', Astro.site)
 </html>
 
 <style>
-  .header {
-    display: block;
-    padding: 15px 0;
-    text-align: center;
+  .container {
+    display: flex;
+    min-height: 100vh;
   }
-  .header h1 {
+  @media (max-width: 640px) {
+    .container {
+      display: block;
+    }
+  }
+
+  main {
+    flex: 1;
+    order: 2;
+    padding: 0 40px;
+    justify-content: space-between;
+  }
+  @media (max-width: 640px) {
+    main {
+      order: 1;
+      padding: 0 18px;
+    }
+  }
+
+  aside {
+    order: 1;
+    width: 300px;
+    padding: 100px 20px 20px;
+    background-color: #f4f4f4;
+  }
+  @media (max-width: 640px) {
+    aside {
+      order: 2;
+      width: 100%;
+      padding: 40px 20px 20px;
+    }
+  }
+
+  main header {
+    padding: 20px 0 20px;
+  }
+  main header h1 {
     padding: 0.5rem 0;
-    font-weight: 400;
+    font-weight: 700;
     color: #000;
   }
-  .header h1 a {
+  main header h1 a {
     color: inherit;
   }
-  .header div.description {
+  main header h1 a:hover {
+    color: inherit;
+  }
+  main header div.description {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
   }
 
-  .container {
-    width: 100%;
-    padding: 0 5%;
-  }
-
-  .footer {
-    margin: 40px 0 10px;
+  main footer {
+    margin: 30px 0 10px;
     text-align: center;
     font-size: 0.75rem;
   }
-  .footer span {
+  @media (max-width: 640px) {
+    main footer {
+      margin: 0 auto 30px;
+    }
+  }
+  main footer span {
     color: #777;
   }
-  .footer span a {
+  main footer span a {
     color: inherit;
   }
 </style>
