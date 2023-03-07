@@ -78,7 +78,21 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
         <div class="content">
           <header>
             <h1>
-              <a href={getNavLink('/')}>{database.Title}</a>
+              <a href={getNavLink('/')}>
+                {database.Icon && database.Icon.Type === 'emoji' ? (
+                  <>
+                    <span>{database.Icon.Emoji}</span>
+                    {database.Title}
+                  </>
+                ) : database.Icon && database.Icon.Type === 'external' ? (
+                  <>
+                    <img src={database.Icon.Url} />
+                    {database.Title}
+                  </>
+                ) : (
+                  database.Title
+                )}
+              </a>
             </h1>
             <div class="description">
               {database.Description}
@@ -170,16 +184,33 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     padding: 20px 0 20px;
   }
   main header h1 {
-    padding: 0.5rem 0;
     font-weight: 700;
-    color: #000;
+    color: #333;
   }
   main header h1 a {
+    display: block;
     color: inherit;
   }
   main header h1 a:hover {
     color: inherit;
   }
+  main header h1 a span,
+  main header h1 a img {
+    display: inline-block;
+    font-size: 1.1em;
+  }
+  main header h1 a span {
+    margin-right: 0.3em;
+    margin-left: -0.1rem;
+  }
+  main header h1 a img {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.2em;
+    margin-left: -0.3rem;
+    vertical-align: sub;
+  }
+
   main header div.description {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
