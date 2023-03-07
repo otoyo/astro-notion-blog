@@ -44,7 +44,24 @@ const id = buildHeadingId(block.Heading1)
 }
 
 <style>
+  h4 {
+    margin: 1.1em 0 0.3em;
+    color: var(--fg);
+    font-size: 1.8rem;
+  }
+  @media (max-width: 640px) {
+    h4 {
+      font-size: 1.3rem;
+    }
+  }
+
   .toggle {
+    margin: 2rem 0 0;
+  }
+  @media (max-width: 640px) {
+    .toggle {
+      margin: 1.4rem 0 0;
+    }
   }
 
   .toggle > summary {
