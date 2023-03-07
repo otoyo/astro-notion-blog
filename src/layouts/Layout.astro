@@ -79,19 +79,21 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
           <header>
             <h1>
               <a href={getNavLink('/')}>
-                {database.Icon && database.Icon.Type === 'emoji' ? (
-                  <>
-                    <span>{database.Icon.Emoji}</span>
-                    {database.Title}
-                  </>
-                ) : database.Icon && database.Icon.Type === 'external' ? (
-                  <>
-                    <img src={database.Icon.Url} />
-                    {database.Title}
-                  </>
-                ) : (
-                  database.Title
-                )}
+                {
+                  database.Icon && database.Icon.Type === 'emoji' ? (
+                    <>
+                      <span>{database.Icon.Emoji}</span>
+                      {database.Title}
+                    </>
+                  ) : database.Icon && database.Icon.Type === 'external' ? (
+                    <>
+                      <img src={database.Icon.Url} />
+                      {database.Title}
+                    </>
+                  ) : (
+                    database.Title
+                  )
+                }
               </a>
             </h1>
             <div class="description">
