@@ -23,19 +23,38 @@ const filename = url.pathname.split('/').slice(-1)[0]
   <div>
     {
       url && (
-        <p>
-          <a
-            href={block.File.External ? url.String() : filePath(url)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            &#128229; {filename}
-          </a>
-        </p>
+        <a
+          href={block.File.External ? url.String() : filePath(url)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="https://www.notion.so/icons/document_gray.svg" /> {filename}
+        </a>
       )
     }
   </div>
   <Caption richTexts={block.File.Caption} />
 </div>
 
-<style></style>
+<style>
+  .file {
+  }
+
+  .file a {
+    display: block;
+    padding: 0.5rem 0.2rem 0.4rem;
+    border-radius: var(--radius);
+    color: var(--fg);
+    font-weight: 500;
+    line-height: 1.4rem;
+  }
+  .file a:hover {
+    background-color: #eee;
+  }
+
+  .file a img {
+    width: 1.3rem;
+    height: 1.3rem;
+    vertical-align: sub;
+  }
+</style>
