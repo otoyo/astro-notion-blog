@@ -62,7 +62,13 @@ const grammer =
       navigator.clipboard
         .writeText(ev.target.getAttribute('data-code'))
         .then(() => {
+          const originalText = ev.target.innerText
+
           ev.target.innerText = ev.target.getAttribute('data-done-text')
+
+          setTimeout(() => {
+            ev.target.innerText = originalText
+          }, 3000)
         })
     })
   })
