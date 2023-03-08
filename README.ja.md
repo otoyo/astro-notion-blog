@@ -17,7 +17,7 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 ## スクリーンショット
 
-<img src="https://user-images.githubusercontent.com/1063435/216562042-818bc312-1941-4b5d-b281-15e0bcb6f153.png" width="480">
+<img src="https://user-images.githubusercontent.com/1063435/223610351-58d157cc-fe50-4ff3-be0c-5373bec07589.png" width="600">
 
 ## デモ
 
