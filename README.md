@@ -17,7 +17,7 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/1063435/216562042-818bc312-1941-4b5d-b281-15e0bcb6f153.png" width="480">
+<img src="https://user-images.githubusercontent.com/1063435/223610351-58d157cc-fe50-4ff3-be0c-5373bec07589.png" width="600">
 
 ## Demo
 
@@ -36,29 +36,33 @@ The blog is generated statically by [Astro](https://astro.build/) so very fast.
 1. **Star this repo** :wink:
    - It makes me motivative!
 2. Duplicate [the blog template](https://otoyo.notion.site/e2c5fa2e8660452988d6137ba57fd974?v=abe305cd8b3d467285e91a2a85f4d8de) into your Notion.
-3. Note the part of the page (database) URL `https://notion.so/your-account/<HERE>?v=xxxx` as `DATABASE_ID`
+3. Change the icon, the title, the description in the duplicated page(database)
+
+<img src="https://user-images.githubusercontent.com/1063435/223611374-86d7172c-9cda-477b-b8a3-dc724fa7ccf4.png" width="600">
+
+4. Note the part of the duplicated page (database) URL `https://notion.so/your-account/<HERE>?v=xxxx` as `DATABASE_ID`
 
 <img src="https://user-images.githubusercontent.com/1063435/213966685-3a2afed2-45c0-4ea5-8070-e634d8d648de.png" width="260">
 
 <img src="https://user-images.githubusercontent.com/1063435/213966888-c3f1f741-62ac-42f3-9af2-94ab375b5676.png" width="600">
 
-4. [Create an integration](https://developers.notion.com/docs/create-a-notion-integration#step-1-create-an-integration) and note "Internal Integration Token" as `NOTION_API_SECRET`
-5. [Share a database with your integration](https://developers.notion.com/docs/create-a-notion-integration#step-2-share-a-database-with-your-integration) at the Notion database page
-6. Fork this repository into your account
+5. [Create an integration](https://developers.notion.com/docs/create-a-notion-integration#step-1-create-an-integration) and note "Internal Integration Token" as `NOTION_API_SECRET`
+6. [Share a database with your integration](https://developers.notion.com/docs/create-a-notion-integration#step-2-share-a-database-with-your-integration) at the Notion database page
+7. Fork this repository into your account
    - The Fork button is at the top of the page and the left of the Star
-7. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and sign in
-8. Create new project with "Connect to Git" with your forked repository `<your-account>/astro-notion-blog`, then click "Begin setup"
-9. In "Build settings" section,
-   1. Select "Astro" as "Framework preset"
-   2. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
-      - `NODE_VERSION` is `v16.13.0` or higher
-      - [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
+8. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and sign in
+9. Create new project with "Connect to Git" with your forked repository `<your-account>/astro-notion-blog`, then click "Begin setup"
+10. In "Build settings" section,
+11. Select "Astro" as "Framework preset"
+12. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
+    - `NODE_VERSION` is `v16.13.0` or higher
+    - [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
 
 <img src="https://user-images.githubusercontent.com/1063435/213967061-06f488fe-0b42-40a5-8f19-ac441f0168ff.png" width="400">
 
 <img src="https://user-images.githubusercontent.com/1063435/213967200-6d497b44-f26f-4ad7-8cf9-1780cf5cd2e0.png" width="600">
 
-10. Click the "Save and Deploy" button, then your Notion Blog will be published after deploy
+11. Click the "Save and Deploy" button, then your Notion Blog will be published after deploy
 
 Note that astro-notion-blog requires a deploy every time if you publish a new post or updates.  
 Deploy manually from the Cloudflare Pages dashboard or use a scheduled deploy using CI like GitHub Actions.
