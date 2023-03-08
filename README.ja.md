@@ -56,10 +56,10 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 9. プロジェクトを "Connect to Git" を選んで作成し、先ほどフォークした `<your-account>/astro-notion-blog` リポジトリを選んで "Begin setup" をクリックします
 10. 「ビルドの設定」で、
-   1. 「フレームワーク プリセット」で Astro を選択します
-   2. 「環境変数(アドバンスド)」 を開き `NODE_VERSION`, `NOTION_API_SECRET`, `DATABASE_ID` の 3 つを設定します
-      - `NODE_VERSION` は `v16.13.0` かそれ以上を指定します
-      - 詳しくは [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) をご覧ください
+11. 「フレームワーク プリセット」で Astro を選択します
+12. 「環境変数(アドバンスド)」 を開き `NODE_VERSION`, `NOTION_API_SECRET`, `DATABASE_ID` の 3 つを設定します
+    - `NODE_VERSION` は `v16.13.0` かそれ以上を指定します
+    - 詳しくは [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) をご覧ください
 
 <img src="https://user-images.githubusercontent.com/1063435/213967111-72ea2ad1-ad3b-4629-8b65-7b25bc6ddb31.png" width="400">
 
