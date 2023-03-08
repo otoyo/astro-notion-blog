@@ -34,6 +34,15 @@ if (database.Cover) {
   }
 }
 
+let customIconURL: string
+if (database.Icon && database.Icon.Type === 'file') {
+  try {
+    customIconURL = filePath(new URL(database.Icon.Url))
+  } catch (err) {
+    console.log('Invalid DB custom icon URL')
+  }
+}
+
 const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
@@ -88,6 +97,11 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
                   ) : database.Icon && database.Icon.Type === 'external' ? (
                     <>
                       <img src={database.Icon.Url} />
+                      {database.Title}
+                    </>
+                  ) : database.Icon && database.Icon.Type === 'file' ? (
+                    <>
+                      <img src={customIconURL} class="custom-icon" />
                       {database.Title}
                     </>
                   ) : (
@@ -211,6 +225,9 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     margin-right: 0.2em;
     margin-left: -0.3rem;
     vertical-align: sub;
+  }
+  main header h1 a img.custom-icon {
+    border-radius: var(--radius);
   }
 
   main header div.description {

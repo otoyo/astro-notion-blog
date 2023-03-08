@@ -382,6 +382,11 @@ export async function getDatabase(): Promise<Database> {
         Type: res.icon.type,
         Url: res.icon.external?.url || '',
       }
+    } else if (res.icon.type === 'file' && 'file' in res.icon) {
+      icon = {
+        Type: res.icon.type,
+        Url: res.icon.file?.url || '',
+      }
     }
   }
 
