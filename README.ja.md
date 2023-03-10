@@ -80,11 +80,11 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 ### ステップ
 
-1. プロジェクトルートに `.env` ファイルを作成し下記のように環境変数を書き込みます
+1. 秘密情報を下記のように環境変数に設定します
 
 ```sh
-NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
-DATABASE_ID=<YOUR_DATABASE_ID>
+export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
+export DATABASE_ID=<YOUR_DATABASE_ID>
 ```
 
 2. 依存関係をインストールしローカルサーバーを起動します

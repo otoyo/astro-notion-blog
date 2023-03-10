@@ -76,11 +76,11 @@ Deploy manually from the Cloudflare Pages dashboard or use a scheduled deploy us
 
 ### Steps
 
-1. Create `.env` file under the project root and put your environment variables as follows:
+1. Set your secrets to environment variables as follows:
 
 ```sh
-NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
-DATABASE_ID=<YOUR_DATABASE_ID>
+export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
+export DATABASE_ID=<YOUR_DATABASE_ID>
 ```
 
 2. Install dependencies and start local server.
