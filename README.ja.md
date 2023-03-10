@@ -56,10 +56,10 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 9. プロジェクトを "Connect to Git" を選んで作成し、先ほどフォークした `<your-account>/astro-notion-blog` リポジトリを選んで "Begin setup" をクリックします
 10. 「ビルドの設定」で、
-11. 「フレームワーク プリセット」で Astro を選択します
-12. 「環境変数(アドバンスド)」 を開き `NODE_VERSION`, `NOTION_API_SECRET`, `DATABASE_ID` の 3 つを設定します
-    - `NODE_VERSION` は `v16.13.0` かそれ以上を指定します
-    - 詳しくは [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) をご覧ください
+    1. 「フレームワーク プリセット」で Astro を選択します
+    2. 「環境変数(アドバンスド)」 を開き `NODE_VERSION`, `NOTION_API_SECRET`, `DATABASE_ID` の 3 つを設定します
+       - `NODE_VERSION` は `v16.13.0` かそれ以上を指定します
+       - 詳しくは [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) をご覧ください
 
 <img src="https://user-images.githubusercontent.com/1063435/213967111-72ea2ad1-ad3b-4629-8b65-7b25bc6ddb31.png" width="400">
 
@@ -80,11 +80,11 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 ### ステップ
 
-1. プロジェクトルートに `.env` ファイルを作成し下記のように環境変数を書き込みます
+1. 下記コマンドを実行して秘密情報を環境変数に設定します
 
 ```sh
-NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
-DATABASE_ID=<YOUR_DATABASE_ID>
+export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
+export DATABASE_ID=<YOUR_DATABASE_ID>
 ```
 
 2. 依存関係をインストールしローカルサーバーを起動します
