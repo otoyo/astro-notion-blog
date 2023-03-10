@@ -80,7 +80,7 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 ### ステップ
 
-1. 秘密情報を下記のように環境変数に設定します
+1. 下記コマンドを実行して秘密情報を環境変数に設定します
 
 ```sh
 export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
