@@ -10,6 +10,7 @@ export interface Props {
 }
 
 const { block } = Astro.props
+
 let post: interfaces.Post = null
 if (block.LinkToPage.Type === 'page_id') {
   post = await getPostByPageId(block.LinkToPage.PageId)
@@ -19,12 +20,20 @@ if (block.LinkToPage.Type === 'page_id') {
 {
   post ? (
     <p>
-      <a href={`${getPostLink(post.Slug)}`} class="link">
-        <span class="icon">
-          {post.Icon.Emoji ? post.Icon.Emoji : '📄'}
-          <img src={arrow} class="icon-link" alt="" />
-        </span>
-        <span class="text">{post.Title}</span>
+      <a href={getPostLink(post.Slug)} class="link">
+        <>
+          <span class="icon">
+            {post.Icon && post.Icon.Type === 'emoji' ? (
+              post.Icon.Emoji
+            ) : post.Icon && post.Icon.Type === 'external' ? (
+              <img src={post.Icon.Url} class="notion-icon" />
+            ) : (
+              '📄'
+            )}
+            <img src={arrow} class="icon-link" alt="" />
+          </span>
+          {post.Title}
+        </>
       </a>
     </p>
   ) : (
@@ -41,17 +50,24 @@ if (block.LinkToPage.Type === 'page_id') {
 }
 
 <style>
-  .link {
+  a.link {
     font-weight: 600;
     display: flex;
     gap: 4px;
   }
-  .icon {
+  span.icon {
     height: fit-content;
     flex-shrink: 0;
     position: relative;
   }
-  .icon-link {
+  span.icon img.notion-icon {
+    width: 1.3em;
+    height: fit-content;
+    vertical-align: sub;
+    flex-shrink: 0;
+    position: relative;
+  }
+  span.icon img.icon-link {
     display: block;
     position: absolute;
     top: 1em;
