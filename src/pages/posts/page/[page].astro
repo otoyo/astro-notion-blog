@@ -19,6 +19,8 @@ import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
 import styles from '../../../styles/blog.module.css'
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const numberOfPages = await getNumberOfPages()
 
