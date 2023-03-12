@@ -1,7 +1,6 @@
 ---
 import { ENABLE_LIGHTBOX } from '../../server-constants.ts'
 import * as interfaces from '../../lib/notion/interfaces'
-import { filePath } from '../../lib/blog-helpers'
 import Caption from './Caption.astro'
 
 export interface Props {
@@ -11,10 +10,14 @@ export interface Props {
 const { block } = Astro.props
 
 let image = ''
+let expiryTime = ''
+let apiURL = ''
 if (block.Image.External) {
   image = block.Image.External.Url
 } else if (block.Image.File) {
-  image = filePath(new URL(block.Image.File.Url))
+  image = block.Image.File.Url
+  expiryTime = block.Image.File.ExpiryTime
+  apiURL = new URL(`/api/blocks/${block.Id}.json`, Astro.site)
 }
 ---
 
@@ -25,10 +28,20 @@ if (block.Image.External) {
         <div>
           {ENABLE_LIGHTBOX ? (
             <a data-fslightbox href={image} data-type="image">
-              <img src={image} alt="image block" />
+              <img
+                src={image}
+                alt="image block"
+                data-expiry-time={expiryTime}
+                data-api-url={apiURL}
+              />
             </a>
           ) : (
-            <img src={image} alt="image block" />
+            <img
+              src={image}
+              alt="image block"
+              data-expiry-time={expiryTime}
+              data-api-url={apiURL}
+            />
           )}
         </div>
         <Caption richTexts={block.Image.Caption} />
@@ -36,6 +49,34 @@ if (block.Image.External) {
     )
   }
 </figure>
+
+<script>
+  const elements = document.getElementsByTagName('img')
+  Array.from(elements).forEach(async (element) => {
+    const expiryTime = element.getAttribute('data-expiry-time')
+    if (!expiryTime || Date.parse(expiryTime) > Date.now()) {
+      return
+    }
+
+    const url = element.getAttribute('data-api-url')
+    if (!url) {
+      return
+    }
+
+    const res = await fetch(url)
+    const body = await res.text()
+    const block = JSON.parse(body)
+
+    element.setAttribute('src', block.Image.File.Url)
+
+    if (
+      element.parentNode.tagName === 'A' &&
+      element.parentNode.getAttribute('data-type') === 'image'
+    ) {
+      element.parentNode.setAttribute('href', block.Image.File.Url)
+    }
+  })
+</script>
 
 <style>
   .image {
