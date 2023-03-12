@@ -15,10 +15,7 @@ const getSite = function () {
     return new URL(BASE_PATH, `https://${CUSTOM_DOMAIN}`).toString();
   }
 
-  return new URL(
-    BASE_PATH,
-    `https://${process.env.VERCEL_URL}`
-  ).toString();
+  return new URL(BASE_PATH, `https://${process.env.VERCEL_URL}`).toString();
 };
 
 // https://astro.build/config
