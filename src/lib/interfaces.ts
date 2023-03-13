@@ -220,6 +220,7 @@ export interface RichText {
   PlainText: string
   Href?: string
   Equation?: Equation
+  Mention?: Mention
 }
 
 export interface Text {
@@ -254,4 +255,13 @@ export interface SelectProperty {
 export interface LinkToPage {
   Type: string
   PageId: string
+}
+
+export interface Mention {
+  Type: string
+  Page?: Reference
+}
+
+export interface Reference {
+  Id: string
 }
