@@ -1,78 +1,14 @@
 ---
 import * as interfaces from '../../lib/interfaces.ts'
-import { getPostByPageId } from '../../lib/notion/client'
-import { getPostLink } from '../../lib/blog-helpers.ts'
-import '../../styles/notion-color.css'
-import arrow from '../../images/icon-arrow-link.svg'
+import Mention from './Mention.astro'
 
 export interface Props {
   block: interfaces.Block
 }
 
 const { block } = Astro.props
-
-let post: interfaces.Post = null
-if (block.LinkToPage.Type === 'page_id') {
-  post = await getPostByPageId(block.LinkToPage.PageId)
-}
 ---
 
-{
-  post ? (
-    <p>
-      <a href={getPostLink(post.Slug)} class="link">
-        <>
-          <span class="icon">
-            {post.Icon && post.Icon.Type === 'emoji' ? (
-              post.Icon.Emoji
-            ) : post.Icon && post.Icon.Type === 'external' ? (
-              <img src={post.Icon.Url} class="notion-icon" />
-            ) : (
-              '📄'
-            )}
-            <img src={arrow} class="icon-link" alt="" />
-          </span>
-          {post.Title}
-        </>
-      </a>
-    </p>
-  ) : (
-    <p>
-      <a class="link">
-        <span class="icon">
-          🚫
-          <img src={arrow} class="icon-link" alt="" />
-        </span>
-        <span class="text">Post not found</span>
-      </a>
-    </p>
-  )
-}
-
-<style>
-  a.link {
-    font-weight: 600;
-    display: flex;
-    gap: 4px;
-  }
-  span.icon {
-    height: fit-content;
-    flex-shrink: 0;
-    position: relative;
-  }
-  span.icon img.notion-icon {
-    width: 1.3em;
-    height: fit-content;
-    vertical-align: sub;
-    flex-shrink: 0;
-    position: relative;
-  }
-  span.icon img.icon-link {
-    display: block;
-    position: absolute;
-    top: 1em;
-    right: 0;
-    width: 8px;
-    height: 8px;
-  }
-</style>
+<p>
+  <Mention pageId={block.LinkToPage.PageId} />
+</p>
