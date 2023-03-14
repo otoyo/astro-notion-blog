@@ -74,6 +74,7 @@ if (block.Image.External) {
       element.parentNode.getAttribute('data-type') === 'image'
     ) {
       element.parentNode.setAttribute('href', block.Image.File.Url)
+      refreshFsLightbox()
     }
   })
 </script>
