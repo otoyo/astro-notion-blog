@@ -21,30 +21,7 @@ const siteDescription = description ? description : database.Description
 const siteURL = new URL(path, Astro.site).toString()
 const siteOGImage = new URL('/default-og-image.png', Astro.site)
 const customIconURL = new URL('/profile.png', Astro.site)
-
-let coverImageURL: string
-if (database.Cover) {
-  if (database.Cover.Type === 'external') {
-    coverImageURL = database.Cover.Url
-  } else if (database.Cover.Type === 'file') {
-    try {
-      coverImageURL = filePath(new URL(database.Cover.Url))
-    } catch (err) {
-      console.log('Invalid DB cover image URL')
-    }
-  }
-}
-
-// let customIconURL: string
-// if (database.Icon && database.Icon.Type === 'file') {
-//   try {
-//     customIconURL = filePath(new URL(database.Icon.Url))
-//   } catch (err) {
-//     console.log('Invalid DB custom icon URL')
-//   }
-// }
-
-const asidePaddingTop = coverImageURL ? '200px' : '60px'
+const asidePaddingTop = '60px'
 ---
 
 <!DOCTYPE html>
@@ -82,9 +59,11 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
           <h1><a href={getNavLink('/')}>{database.Title}</a></h1>
           <div class="description">{database.Description}</div>
         </header>
+
         <div class="content">
           <slot name="main" />
         </div>
+
         <footer>
           <div>
             <span>@2023 <a href={getNavLink('/')}>office FITPlus</a></span>
@@ -131,7 +110,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     order: 2;
     width: 240px;
     padding: var(--asidePaddingTop) 20px 20px;
-    background-color: #f4f4f4;
+    background-color: #faf4f4;
   }
   @media (max-width: 640px) {
     aside {
@@ -230,11 +209,11 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     --gap: 1rem;
     --gap-double: 2rem;
 
-    --bg: #fff;
-    --fg: #333;
-    --accents-1: #666;
-    --accents-2: #666;
-    --accents-3: #666;
+    --bg: #fdf6f7;
+    --fg: #666;
+    --accents-1: #333;
+    --accents-2: #333;
+    --accents-3: #333;
     --geist-foreground: #000;
     --geist-success: #690;
 
