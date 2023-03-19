@@ -115,7 +115,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
   <div slot="aside" class="aside">
     <BlogPostsLink
-      heading="Posts in the same category"
+      heading="同カテゴリ記事"
       posts={postsHavingSameTag.filter(
         (p: interfaces.Post) => p.Slug !== post.Slug
       )}
@@ -123,7 +123,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     <!--
     <BlogPostsLink heading="Recommended" posts={rankedPosts} />
     <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <BlogTagsLink heading="カテゴリー" tags={tags} />
     -->
   </div>
 </Layout>

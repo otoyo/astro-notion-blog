@@ -20,7 +20,7 @@ const siteTitle = title ? `${title} - ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(path, Astro.site).toString()
 const siteOGImage = new URL('/default-og-image.png', Astro.site)
-const customIconURL = new URL('/profile.png', Astro.site)
+const customIconURL = new URL(database.Icon.Url, Astro.site).toString()
 const asidePaddingTop = '60px'
 ---
 
@@ -43,6 +43,12 @@ const asidePaddingTop = '60px'
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
@@ -110,7 +116,7 @@ const asidePaddingTop = '60px'
     order: 2;
     width: 240px;
     padding: var(--asidePaddingTop) 20px 20px;
-    background-color: #faf4f4;
+    background-color: #e1c0c4;
   }
   @media (max-width: 640px) {
     aside {
@@ -144,7 +150,8 @@ const asidePaddingTop = '60px'
     text-align: center;
   }
   main header h1 {
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 1.75rem;
     color: #333;
   }
   main header h1 a {
@@ -197,8 +204,8 @@ const asidePaddingTop = '60px'
     text-decoration: underline;
   }
   .custom-icon {
-    width: 200px;
-    height: 200px;
+    width: 120px;
+    height: 120px;
   }
 </style>
 
@@ -219,9 +226,9 @@ const asidePaddingTop = '60px'
 
     --radius: 4px;
 
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
+    --font-sans: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont,
+      'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+      'Droid Sans', 'Helvetica Neue', sans-serif;
     --font-mono: SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono',
       Courier, monospace;
   }
@@ -242,13 +249,11 @@ const asidePaddingTop = '60px'
     min-height: 100vh;
     background: var(--bg);
     color: var(--fg);
-    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Helvetica, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
-      'Hiragino Sans GB', メイリオ, Meiryo, 'Apple Color Emoji', Arial,
-      sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
-
-    /*background-image: radial-gradient(#ddd 1px, transparent 1px),
-      radial-gradient(#ddd 1px, transparent 1px);*/
+    font-family: 'M PLUS Rounded 1c', ui-sans-serif, -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Hiragino Sans',
+      'Hiragino Kaku Gothic ProN', 'Hiragino Sans GB', メイリオ, Meiryo,
+      'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+      'Segoe UI Symbol';
     background-position: 0 0, 25px 25px;
     background-attachment: fixed;
     background-size: 50px 50px;
@@ -284,7 +289,7 @@ const asidePaddingTop = '60px'
     margin: 0;
     color: var(--fg);
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   h2 {
@@ -301,9 +306,8 @@ const asidePaddingTop = '60px'
   }
 
   h3 {
-    color: var(--fg);
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   @media (max-width: 640px) {
@@ -322,21 +326,30 @@ const asidePaddingTop = '60px'
 
   ol {
     color: #222;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 0.9rem;
     line-height: 1.8rem;
+    list-style-type: decimal;
+  }
+  ol li::marker {
+    font-weight: 500;
+    color: var(--fg);
   }
   p,
   ul {
     color: #222;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1rem;
+    letter-spacing: 0.2px;
     line-height: 1.8rem;
   }
   ul,
   ol {
     margin: 0;
     padding-inline-start: 1.5rem;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
   }
   pre {
     margin: 0;
@@ -375,15 +388,27 @@ const asidePaddingTop = '60px'
   }
 
   table th {
-    font-weight: 600;
-    background-color: #f4f4f4;
+    font-weight: 500;
+    background-color: #e1c0c4;
+    color: #fff;
+    border: 1px solid #fff;
+    border-top-color: #d7b8b8;
+    border-bottom-color: #d7b8b8;
   }
-
+  table th:first-child {
+    border-left-color: #d7b8b8;
+  }
+  table th:last-child {
+    border-right-color: #d7b8b8;
+  }
   table td,
   table th {
     font-size: 0.9rem;
-    border: 1px solid #e4e4e4;
     padding: 0.5rem 1rem;
     line-height: 1.2rem;
+  }
+  table td {
+    border: 1px solid #d7b8b8;
+    background-color: #fff;
   }
 </style>

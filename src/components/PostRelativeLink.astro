@@ -16,8 +16,7 @@ const { prevPost, nextPost } = Astro.props
     {
       nextPost && (
         <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>◀︎ Next</div>
-          <div>{nextPost.Title}</div>
+          <div>◀︎ {nextPost.Title}</div>
           <PostTags post={nextPost} enableLink={false} />
         </a>
       )
@@ -27,8 +26,7 @@ const { prevPost, nextPost } = Astro.props
     {
       prevPost && (
         <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>▶︎ Previous</div>
-          <div>{prevPost.Title}</div>
+          <div>▶︎ {prevPost.Title}</div>
           <PostTags post={prevPost} enableLink={false} />
         </a>
       )
@@ -64,8 +62,8 @@ const { prevPost, nextPost } = Astro.props
   div.post-relative-link > div > a.colored {
     padding: 1rem;
     border-radius: var(--radius);
-    color: var(--fg);
-    background: rgba(227, 226, 224, 0.5);
+    color: #fff;
+    background: #e1c0c4;
   }
   div.post-relative-link > div > a.colored > div:first-child {
     width: auto;
@@ -77,6 +75,6 @@ const { prevPost, nextPost } = Astro.props
     padding: 0.2rem 0 0.4rem;
     text-align: left;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
   }
 </style>
