@@ -11,7 +11,6 @@ import NoContents from '../../../components/NoContents.astro'
 import PostDate from '../../../components/PostDate.astro'
 import PostTags from '../../../components/PostTags.astro'
 import PostTitle from '../../../components/PostTitle.astro'
-import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
 import PostExcerpt from '../../../components/PostExcerpt.astro'
 import ReadMoreLink from '../../../components/ReadMoreLink.astro'
 import Pagination from '../../../components/Pagination.astro'
@@ -54,7 +53,6 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
             <PostDate post={post} />
             <PostTags post={post} />
             <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />
           </div>
@@ -71,7 +69,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   </div>
 
   <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <!-- BlogPostsLink heading="Recommended" posts={rankedPosts} / -->
+    <BlogTagsLink heading="カテゴリー" tags={tags} />
   </div>
 </Layout>
