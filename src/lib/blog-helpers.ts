@@ -12,7 +12,7 @@ import { pathJoin } from './utils'
 
 export const filePath = (url: URL): string => {
   const [dir, filename] = url.pathname.split('/').slice(-2)
-  return `/notion/${dir}/${filename}`
+  return pathJoin(BASE_PATH, `/notion/${dir}/${filename}`)
 }
 
 export const extractTargetBlocks = (
