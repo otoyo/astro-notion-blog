@@ -47,7 +47,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="ja" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
@@ -97,7 +97,8 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
                   ) : database.Icon && database.Icon.Type === 'external' ? (
                     <>
                       <img src={database.Icon.Url} />
-                      {database.Title}
+                      <span class="title">{database.Title}</span>
+                      
                     </>
                   ) : database.Icon && database.Icon.Type === 'file' ? (
                     <>
@@ -142,6 +143,9 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
 </html>
 
 <style define:vars={{ asidePaddingTop }}>
+  .title {
+    color:aquamarine;
+  }
   .container {
     display: flex;
     min-height: 100vh;
