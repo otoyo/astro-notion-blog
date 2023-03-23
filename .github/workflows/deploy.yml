@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   schedule:
-    - cron: '0 8 * * 0' # 17:00(Mon) JST
+    - cron: '0 8 * * 1' # 17:00(Mon) JST
   workflow_dispatch:
 
 jobs:
