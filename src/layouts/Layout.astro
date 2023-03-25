@@ -39,14 +39,14 @@ if (database.Cover) {
   }
 }
 
-let customIconURL: string
-if (database.Icon && database.Icon.Type === 'file') {
-  try {
-    customIconURL = filePath(new URL(database.Icon.Url))
-  } catch (err) {
-    console.log('Invalid DB custom icon URL')
-  }
-}
+// let customIconURL: string
+// if (database.Icon && database.Icon.Type === 'file') {
+//   try {
+//     customIconURL = filePath(new URL(database.Icon.Url))
+//   } catch (err) {
+//     console.log('Invalid DB custom icon URL')
+//   }
+// }
 
 const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
