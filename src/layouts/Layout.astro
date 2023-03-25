@@ -18,10 +18,37 @@ const database = await getDatabase()
 
 const siteTitle = title ? `${title} - ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
-const siteURL = new URL(path, Astro.site).toString()
-const siteOGImage = new URL('/default-og-image.png', Astro.site)
+const siteURL = new URL(getNavLink(path), Astro.site).toString()
+const siteOGImage = new URL(
+  getStaticFilePath('/default-og-image.png'),
+  Astro.site
+)
 const customIconURL = new URL('/profile.png', Astro.site)
 const asidePaddingTop = '60px'
+
+let coverImageURL: string
+if (database.Cover) {
+  if (database.Cover.Type === 'external') {
+    coverImageURL = database.Cover.Url
+  } else if (database.Cover.Type === 'file') {
+    try {
+      coverImageURL = filePath(new URL(database.Cover.Url))
+    } catch (err) {
+      console.log('Invalid DB cover image URL')
+    }
+  }
+}
+
+// let customIconURL: string
+// if (database.Icon && database.Icon.Type === 'file') {
+//   try {
+//     customIconURL = filePath(new URL(database.Icon.Url))
+//   } catch (err) {
+//     console.log('Invalid DB custom icon URL')
+//   }
+// }
+
+const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
 <!DOCTYPE html>
