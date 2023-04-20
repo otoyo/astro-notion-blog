@@ -13,7 +13,7 @@ export interface Props {
 
 const { block, level, headings } = Astro.props
 
-const listTypes = ['1', 'a', 'i']
+const listTypes = ['i', '1', 'a']
 ---
 
 <ol type={listTypes[level % 3]}>
