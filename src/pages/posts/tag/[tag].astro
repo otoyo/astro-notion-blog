@@ -21,6 +21,8 @@ import BlogTagsLink from '../../../components/BlogTagsLink.astro'
 import styles from '../../../styles/blog.module.css'
 import '../../../styles/notion-color.css'
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const allTags = await getAllTags()
   return allTags.map((tag: SelectProperty) => ({ params: { tag: tag.name } }))
