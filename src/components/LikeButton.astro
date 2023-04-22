@@ -1,0 +1,41 @@
+---
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+<button class="like-button" data-slug={post.Slug}>❤️ 0</button>
+
+<style>
+  .like-button {
+    margin-top: 1rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const button = document.querySelector('.like-button')
+    const slug = button.dataset.slug
+    const url = `/api/likes.json?slug=${slug}`
+
+    const res = await fetch(url)
+    if (res.status !== 200) {
+      throw new Error('Failed to like get')
+    }
+
+    const { likes } = await res.json()
+    button.textContent = `❤️ ${likes}`
+
+    button.addEventListener('click', async () => {
+      const res = await fetch(url, { method: 'POST' })
+      if (res.status !== 200) {
+        throw new Error('Failed to like post')
+      }
+
+      const { likes } = await res.json()
+      button.textContent = `❤️ ${likes}`
+    })
+  })
+</script>
