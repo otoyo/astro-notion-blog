@@ -208,6 +208,27 @@ export async function getNumberOfPagesByTag(tagName: string): Promise<number> {
   )
 }
 
+export async function incrementLikes(post: Post): Promise<Post | null> {
+  const params: requestParams.UpdatePage = {
+    page_id: post.PageId,
+    properties: {
+      Like: {
+        number: (post.Like || 0) + 1,
+      },
+    },
+  }
+
+  const result: responses.PageObject = (await client.pages.update(
+    params as any // eslint-disable-line @typescript-eslint/no-explicit-any
+  )) as responses.UpdatePageResponse
+
+  if (!result) {
+    return null
+  }
+
+  return _buildPost(result)
+}
+
 export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
   let results: responses.BlockObject[] = []
 
