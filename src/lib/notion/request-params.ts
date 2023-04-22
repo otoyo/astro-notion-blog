@@ -20,6 +20,19 @@ export interface RetrieveBlockChildren {
   start_cursor?: string
 }
 
+export interface UpdatePage {
+  page_id: string
+  properties: PageProperties
+}
+
+interface PageProperties {
+  [key: string]: PageProperty
+}
+
+interface PageProperty {
+  number?: number
+}
+
 export interface PropertyFilterObject {
   property: string
 
