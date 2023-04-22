@@ -19,7 +19,8 @@
   "dependencies": {
     "@astrojs/react": "^1.2.2",
     "@astrojs/rss": "^2.0.0",
-    "@notionhq/client": "^2.2.3",
+    "@astrojs/vercel": "^3.2.4",
+    "@notionhq/client": "^2.2.4",
     "@supercharge/promise-pool": "^2.3.2",
     "astro": "^2.0.10",
     "katex": "^0.16.4",
