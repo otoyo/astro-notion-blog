@@ -870,6 +870,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
         : '',
     FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
+    Like: prop.Like.number ? prop.Like.number : 0,
   }
 
   return post
