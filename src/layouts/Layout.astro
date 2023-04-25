@@ -121,7 +121,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
             >
           </div>
           <p>FP資格を持つエンジニアです。仕事のメモを残す場所にしています。</p>
-          <a href="https://www.office-fitplus.com/contact/"
+          <a href="https://www.noway-form.com/ja/f/b760c0ae-68f6-4212-8d52-4a0b8d5f397e/"
             ><button>お仕事依頼はこちらから</button></a
           >
         </div>
@@ -141,7 +141,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     display: flex;
     min-height: 100vh;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 1199px) {
     .container {
       display: block;
     }
@@ -152,7 +152,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     order: 2;
     justify-content: space-between;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 1199px) {
     main {
       order: 1;
     }
@@ -164,7 +164,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     padding: var(--asidePaddingTop) 20px 20px;
     background-color: #e1c0c4;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 1199px) {
     aside {
       order: 2;
       width: 100%;
@@ -259,6 +259,11 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     font-size: 18px;
     margin: 0.5rem auto;
   }
+.sns_icon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
   .sns_icon a:hover {
     opacity: 0.7;
   }
@@ -473,6 +478,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     background-color: #fff;
   }
   button {
+    color: var(--accents-1);
     padding: 0.5rem;
     background-color: #fff;
     border: none;
