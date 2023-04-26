@@ -6,25 +6,29 @@ import FeaturedImageDownloader from './src/integrations/featured-image-downloade
 import PublicNotionCopier from './src/integrations/public-notion-copier';
 
 const getSite = function () {
-  if (!process.env.CF_PAGES) {
-    return new URL(BASE_PATH, 'http://localhost:3000').toString();
-  }
-
-  if (process.env.CF_PAGES_BRANCH !== 'main') {
-    return new URL(BASE_PATH, process.env.CF_PAGES_URL).toString();
-  }
-
   if (CUSTOM_DOMAIN) {
     return new URL(BASE_PATH, `https://${CUSTOM_DOMAIN}`).toString();
   }
 
-  return new URL(
-    BASE_PATH,
-    `https://${new URL(process.env.CF_PAGES_URL).host
-      .split('.')
-      .slice(1)
-      .join('.')}`
-  ).toString();
+  if (process.env.VERCEL && process.env.VERCEL_URL) {
+    return new URL(BASE_PATH, `https://${process.env.VERCEL_URL}`).toString();
+  }
+
+  if (process.env.CF_PAGES) {
+    if (process.env.CF_PAGES_BRANCH !== 'main') {
+      return new URL(BASE_PATH, process.env.CF_PAGES_URL).toString();
+    }
+
+    return new URL(
+      BASE_PATH,
+      `https://${new URL(process.env.CF_PAGES_URL).host
+        .split('.')
+        .slice(1)
+        .join('.')}`
+    ).toString();
+  }
+
+  return new URL(BASE_PATH, 'http://localhost:3000').toString();
 };
 
 // https://astro.build/config
