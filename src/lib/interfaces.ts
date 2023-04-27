@@ -16,6 +16,7 @@ export interface Post {
   Excerpt: string
   FeaturedImage: FileObject | null
   Rank: number
+  Like: number
 }
 
 export interface Block {

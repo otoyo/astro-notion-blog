@@ -2,6 +2,8 @@ import rss from '@astrojs/rss'
 import { getAllPosts, getDatabase } from '../lib/notion/client'
 import { getPostLink } from '../lib/blog-helpers'
 
+export const prerender = true
+
 export async function get() {
   const [posts, database] = await Promise.all([getAllPosts(), getDatabase()])
 
