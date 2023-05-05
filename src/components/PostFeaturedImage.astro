@@ -1,6 +1,7 @@
 ---
 import { Post } from '../lib/interfaces.ts'
 import { filePath } from '../lib/blog-helpers'
+import { getPostLink } from '../lib/blog-helpers.ts'
 
 export interface Props {
   post: Post
@@ -20,9 +21,9 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
 {
   image && (
-    <div class="post-featured-image">
+    <a href={getPostLink(post.Slug)} class="post-featured-image">
       <img src={image} alt="post-featured-image" />
-    </div>
+    </a>
   )
 }
 

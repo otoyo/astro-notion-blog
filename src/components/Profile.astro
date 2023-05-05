@@ -1,0 +1,38 @@
+---
+import { getStaticFilePath } from '../lib/blog-helpers.ts'
+const siteOGImage = getStaticFilePath('/default-og-image.png')
+---
+
+<div class="profile">
+  <img class="img" src={siteOGImage} alt="John" style="width:100%" />
+  <span class="title">暇人</span>
+  <a
+    class="twitter-follow-button"
+    href="https://twitter.com/gCNzbEjRdGJDoeD?ref_src=twsrc%5Etfw"
+    data-show-count="false">Follow @gCNzbEjRdGJDoeD</a
+  ><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"
+  ></script>
+</div>
+
+<style>
+  .profile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed grey;
+  }
+
+  .img {
+    border-radius: 50%;
+    height: 150px;
+    background-size: cover;
+  }
+
+  .title {
+    font-size: 0.8rem;
+    color: grey;
+  }
+</style>
