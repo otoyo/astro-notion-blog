@@ -19,20 +19,10 @@ const database = await getDatabase()
 const siteTitle = title ? `${title} - ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(getNavLink(path), Astro.site).toString()
-const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.site)
-
-let coverImageURL: string
-if (database.Cover) {
-  if (database.Cover.Type === 'external') {
-    coverImageURL = database.Cover.Url
-  } else if (database.Cover.Type === 'file') {
-    try {
-      coverImageURL = filePath(new URL(database.Cover.Url))
-    } catch (err) {
-      console.log('Invalid DB cover image URL')
-    }
-  }
-}
+const siteOGImage = new URL(
+  getStaticFilePath('/default-og-image.png'),
+  Astro.site
+)
 
 let customIconURL: string
 if (database.Icon && database.Icon.Type === 'file') {
@@ -42,12 +32,10 @@ if (database.Icon && database.Icon.Type === 'file') {
     console.log('Invalid DB custom icon URL')
   }
 }
-
-const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="ja" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
@@ -56,6 +44,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     <title>{siteTitle}</title>
     <meta name="description" content={siteDescription} />
     <link rel="canonical" href={siteURL} />
+    <link rel="icon" href={database.Icon.Url} />
     <meta property="og:url" content={siteURL} />
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
@@ -76,45 +65,36 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
       <main>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} />
-            </div>
-          )
-        }
-
+        <header>
+          <h1>
+            <a href={getNavLink('/')}>
+              {
+                database.Icon && database.Icon.Type === 'emoji' ? (
+                  <>
+                    <span>{database.Icon.Emoji}</span>
+                    {database.Title}
+                  </>
+                ) : database.Icon && database.Icon.Type === 'external' ? (
+                  <>
+                    <img src={database.Icon.Url} />
+                    {database.Title}
+                  </>
+                ) : database.Icon && database.Icon.Type === 'file' ? (
+                  <>
+                    <img src={customIconURL} class="custom-icon" />
+                    {database.Title}
+                  </>
+                ) : (
+                  database.Title
+                )
+              }
+            </a>
+          </h1>
+          <div class="description">
+            {database.Description}
+          </div>
+        </header>
         <div class="content">
-          <header>
-            <h1>
-              <a href={getNavLink('/')}>
-                {
-                  database.Icon && database.Icon.Type === 'emoji' ? (
-                    <>
-                      <span>{database.Icon.Emoji}</span>
-                      {database.Title}
-                    </>
-                  ) : database.Icon && database.Icon.Type === 'external' ? (
-                    <>
-                      <img src={database.Icon.Url} />
-                      {database.Title}
-                    </>
-                  ) : database.Icon && database.Icon.Type === 'file' ? (
-                    <>
-                      <img src={customIconURL} class="custom-icon" />
-                      {database.Title}
-                    </>
-                  ) : (
-                    database.Title
-                  )
-                }
-              </a>
-            </h1>
-            <div class="description">
-              {database.Description}
-            </div>
-          </header>
-
           <slot name="main" />
 
           <footer>
@@ -141,7 +121,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   </body>
 </html>
 
-<style define:vars={{ asidePaddingTop }}>
+<style>
   .container {
     display: flex;
     min-height: 100vh;
@@ -155,7 +135,6 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   main {
     flex: 1;
     order: 2;
-    justify-content: space-between;
   }
   @media (max-width: 640px) {
     main {
@@ -164,31 +143,21 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   }
 
   aside {
-    order: 1;
+    order: 2;
     width: 300px;
-    padding: var(--asidePaddingTop) 20px 20px;
+    padding: 50px 50px;
     background-color: #f4f4f4;
   }
   @media (max-width: 640px) {
     aside {
       order: 2;
       width: 100%;
-      padding: 40px 20px 20px;
+      padding: 30px 20px;
     }
   }
 
-  div.cover {
-  }
-  div.cover img {
-    display: block;
-    width: 100%;
-    height: 20vh;
-    object-fit: cover;
-    object-position: center 60%;
-  }
-
   div.content {
-    padding: 20px 40px;
+    padding: 20px 200px;
   }
   @media (max-width: 640px) {
     div.content {
@@ -197,7 +166,10 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   }
 
   main header {
-    padding: 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
   }
   main header h1 {
     font-weight: 700;
@@ -213,7 +185,8 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   main header h1 a span,
   main header h1 a img {
     display: inline-block;
-    font-size: 1.1em;
+    position: relative;
+    top: 1px;
   }
   main header h1 a span {
     margin-right: 0.3em;
