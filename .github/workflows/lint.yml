@@ -1,8 +1,9 @@
 name: Lint
 
 on:
-  push:
+  pull_request:
     branches:
+      - main
 
 permissions:
   checks: write
