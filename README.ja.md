@@ -63,7 +63,7 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 <img src="https://user-images.githubusercontent.com/1063435/213967111-72ea2ad1-ad3b-4629-8b65-7b25bc6ddb31.png" width="400">
 
-<img src="https://user-images.githubusercontent.com/1063435/213967331-a1de0810-a8b4-4fae-adba-110f3f4400cc.png" width="600">
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/17ecdc09-c0f8-4332-8b87-04f4b2ffafce" width="600">
 
 11. "Save and Deploy" をクリックし、デプロイが完了すると Notion Blog が見えるようになります
 
