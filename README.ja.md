@@ -76,7 +76,6 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 - Node.js v18 かそれ以上
 - Git
-- [Yarn](https://yarnpkg.com/getting-started)
 
 ### ステップ
 
@@ -90,8 +89,8 @@ export DATABASE_ID=<YOUR_DATABASE_ID>
 2. 依存関係をインストールしローカルサーバーを起動します
 
 ```sh
-yarn install
-yarn dev
+npm install
+npm run dev
 ```
 
 3. ブラウザで [http://localhost:3000](http://localhost:3000) を開きます

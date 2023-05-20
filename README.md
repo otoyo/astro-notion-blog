@@ -69,7 +69,6 @@ Please note that the astro-notion-blog requires manual deployment every time you
 ### Additional requirements
 
 - Node.js v18 or higher
-- [Yarn](https://yarnpkg.com/getting-started)
 
 ### Steps
 
@@ -83,8 +82,8 @@ export DATABASE_ID=<YOUR_DATABASE_ID>
 2. Install dependencies and start local server
 
 ```sh
-yarn install
-yarn dev
+npm install
+npm run dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser
