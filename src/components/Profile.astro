@@ -1,0 +1,63 @@
+---
+// export interface Props {
+//   heading: string
+// }
+
+// const { heading } = Astro.props
+---
+
+<div class="profile">
+    <!-- <h3>{heading}</h3> -->
+    <p style="text-align: left"><b><font size="5">aki_ito</font></b>
+      <br>ソフトウェアエンジニア
+    <p style="text-align: right">
+      <a href="https://twitter.com/ak_ito19"><img src="/tw_icon.jpg"width="25" height="25" alt="Twitter"></a>
+      &nbsp;
+      <a href="https://github.com/interh852"><img src="/github-mark.png"width="25" height="25" alt="GitHub"></a>
+      &nbsp;
+    </p>
+    <p style="text-align: center">----------------------------------------------</p>
+</div>
+
+<style>
+  .profile {
+  }
+  .profile h3 {
+    margin: 0;
+    padding-left: 0.4rem;
+    color: #777;
+    font-size: 0.95rem;
+  }
+  .profile ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0.4rem;
+    margin-block-end: 1rem;
+  }
+  .profile ul li {
+  }
+  .profile ul li a {
+    display: block;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.4rem;
+    line-height: 1.2rem;
+    color: inherit;
+    font-size: 0.95rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .profile ul li a:hover {
+    background-color: #ddd;
+  }
+  .profile ul li a span,
+  .profile ul li a img {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+  .profile ul li a img {
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: sub;
+  }
+</style>
