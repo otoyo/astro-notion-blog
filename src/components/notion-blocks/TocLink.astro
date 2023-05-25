@@ -1,0 +1,123 @@
+---
+import * as interfaces from "../../lib/interfaces.ts";
+import { buildHeadingId } from "../../lib/blog-helpers.ts";
+import { snakeToKebab } from "../../lib/style-helpers.ts";
+import "../../styles/notion-color.css";
+
+export interface Props {
+  blocks: interfaces.Block;
+}
+
+const buildHeadingId = (heading) =>
+  heading.RichTexts.map(
+    (richText: interfaces.RichText) => richText.Text.Content
+  )
+    .join()
+    .trim();
+
+const { blocks } = Astro.props;
+
+const istoc = blocks.filter(
+  (b: interfaces.Block) => b.Type === "table_of_contents"
+);
+const headings = blocks.filter(
+  (b: interfaces.Block) =>
+    b.Type === "heading_1" || b.Type === "heading_2" || b.Type === "heading_3"
+);
+
+if (istoc.length === 0) {
+  return;
+}
+---
+
+<nav class="toc-nav">
+  {
+    headings.map((headingBlock: interfaces.Block) => {
+      const heading =
+        headingBlock.Heading1 || headingBlock.Heading2 || headingBlock.Heading3;
+
+      let indentClass = "";
+      if (headingBlock.Type === "heading_2") {
+        indentClass = "indent-1";
+      } else if (headingBlock.Type === "heading_3") {
+        indentClass = "indent-2";
+      }
+
+      return (
+        <span>
+          <a href={`#${buildHeadingId(heading)}`}>
+            {heading.RichTexts.map(
+              (richText: interfaces.RichText) => richText.PlainText
+            ).join("")}
+          </a>
+        </span>
+      );
+    })
+  }
+</nav>
+
+<style>
+  .toc-nav {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+  }
+
+  .toc-nav > span.active > a {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .toc-nav > span > a {
+    display: block;
+    color: inherit;
+    line-height: 1.8rem;
+    font-size: 0.9rem;
+    text-decoration: underline;
+  }
+
+  .toc-nav > span > a:hover {
+    background: rgba(241, 241, 239, 1) !important;
+  }
+
+  .toc-nav > span > a.indent-1 {
+    padding-left: 1.5rem;
+  }
+
+  .toc-nav > span > a.indent-2 {
+    padding-left: 3rem;
+  }
+</style>
+
+<script is:inline>
+  //オプション
+  const options = {
+    //40% 見えてからコールバック関数を呼び出す
+    rootMargin: "-40% 0px",
+  };
+
+  // コールバック関数
+  const callback = (entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute("id");
+      if (entry.isIntersecting) {
+        document
+          .querySelector(`nav span a[href="#${id}"]`)
+          .parentElement.classList.add("active");
+      } else {
+        document
+          .querySelector(`nav span a[href="#${id}"]`)
+          .parentElement.classList.remove("active");
+      }
+    });
+  };
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(callback, options);
+
+    // 全ての`id`付きの`a`tag要素を抽出
+    document.querySelectorAll("a[id]").forEach((elem) => {
+      observer.observe(elem);
+    });
+  });
+</script>

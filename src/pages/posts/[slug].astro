@@ -26,6 +26,7 @@ import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import Profile from '../../components/Profile.astro'
 import styles from '../../styles/blog.module.css'
+import TocLink from '../../components/notion-blocks/TocLink.astro'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -116,6 +117,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
   <div slot="aside" class="aside">
     <Profile heading="プロフィール"/>
+    <TocLink blocks={blocks} />
     <BlogPostsLink
       heading="同じカテゴリ記事"
       posts={postsHavingSameTag.filter(
