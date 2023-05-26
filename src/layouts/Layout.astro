@@ -21,19 +21,6 @@ const siteDescription = description ? description : database.Description
 const siteURL = new URL(getNavLink(path), Astro.site).toString()
 const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.site)
 
-let coverImageURL: string
-if (database.Cover) {
-  if (database.Cover.Type === 'external') {
-    coverImageURL = database.Cover.Url
-  } else if (database.Cover.Type === 'file') {
-    try {
-      coverImageURL = filePath(new URL(database.Cover.Url))
-    } catch (err) {
-      console.log('Invalid DB cover image URL')
-    }
-  }
-}
-
 let customIconURL: string
 if (database.Icon && database.Icon.Type === 'file') {
   try {
@@ -43,11 +30,10 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 }
 
-const asidePaddingTop = coverImageURL ? '200px' : '60px'
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="jp" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
@@ -74,16 +60,9 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <slot name="header" />
     <div class="container">
       <main>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} />
-            </div>
-          )
-        }
-
         <div class="content">
           <header>
             <h1>
@@ -118,19 +97,10 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
           <slot name="main" />
 
           <footer>
-            <div>
-              <span>Powered by</span>
-              <a href="https://github.com/otoyo/astro-notion-blog"
-                >astro-notion-blog</a
-              >
-            </div>
+            <div></div>
           </footer>
         </div>
       </main>
-
-      <aside>
-        <slot name="aside" />
-      </aside>
     </div>
 
     {
@@ -141,10 +111,12 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   </body>
 </html>
 
-<style define:vars={{ asidePaddingTop }}>
+<style>
   .container {
     display: flex;
     min-height: 100vh;
+    max-width: 800px;
+    margin: 0 auto;
   }
   @media (max-width: 640px) {
     .container {
@@ -166,7 +138,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   aside {
     order: 1;
     width: 300px;
-    padding: var(--asidePaddingTop) 20px 20px;
+    padding: 60px 20px 20px;
     background-color: #f4f4f4;
   }
   @media (max-width: 640px) {
