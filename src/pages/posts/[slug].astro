@@ -24,7 +24,7 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
-import Profile from '../../components/Profile.astro'
+// import Profile from '../../components/Profile.astro'
 import styles from '../../styles/blog.module.css'
 import TocLink from '../../components/notion-blocks/TocLink.astro'
 
@@ -116,7 +116,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   </div>
 
   <div slot="aside" class="aside">
-    <Profile heading="プロフィール"/>
+    <!-- <Profile heading="プロフィール"/> -->
     <TocLink blocks={blocks} />
     <!-- <BlogPostsLink
       heading="同じカテゴリ記事"
