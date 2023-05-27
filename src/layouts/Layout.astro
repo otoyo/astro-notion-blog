@@ -5,7 +5,6 @@ import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import Header from '../components/Header.astro'
-import FooterCard from '../components/FooterCard.astro'
 
 
 export interface Props {
@@ -22,7 +21,7 @@ const database = await getDatabase()
 const siteTitle = title ? `${title} - ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(getNavLink(path), Astro.site).toString()
-const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.site)
+const siteOGImage = new URL(getStaticFilePath('/default-og-image.jpg'), Astro.site)
 
 ---
 
@@ -64,9 +63,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
         <div class="content">
           <slot name="main" />
           <footer>
-            <div>
-              <FooterCard />
-            </div>
+            <slot name="footer" />
           </footer>
         </div>
       </main>
@@ -349,6 +346,14 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   ol {
     margin: 0;
     padding-inline-start: 1.5rem;
+    background: #f9f9fa;
+    border: 1px solid rgba(235,236,237,0.3);
+    padding: 30px 30px 30px 50px;
+    border-radius: 8px;
+  }
+  li {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
   }
   pre {
     margin: 0;
@@ -369,8 +374,8 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   }
 
   code {
-    font-size: 0.9rem;
-    background: #f1f1f1;
+    font-size: 0.8rem;
+    background: #f9f9fa;
     color: #eb5757;
     padding: 0.25rem;
     border-radius: var(--radius);
@@ -388,7 +393,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
 
   table th {
     font-weight: 600;
-    background-color: #f4f4f4;
+    background-color: #f9f9fa;
   }
 
   table td,

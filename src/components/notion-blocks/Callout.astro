@@ -39,8 +39,8 @@ const { block, headings } = Astro.props
 <style>
   .callout {
     display: flex;
-    margin: 0.4rem auto;
-    padding: 16px 12px;
+    margin: 2rem auto;
+    padding: 24px ;
     width: 100%;
     font-size: 1rem;
     font-weight: 400;
@@ -48,15 +48,17 @@ const { block, headings } = Astro.props
     border-radius: 3px;
     border-width: 1px;
     border-style: solid;
-    border-color: transparent;
-    background: rgba(235, 236, 237, 0.6);
+    border-color: rgba(235, 236, 237, 0.3);
+    background: #f9f9fa;
   }
   .callout div {
     margin: 0;
     line-height: 1.5rem;
+    font-size: 0.9rem;
   }
   .callout div:first-child {
     margin-right: 0.7rem;
+    font-size: 1.3rem;
   }
   .callout div:first-child img {
     width: 1.2rem;

@@ -25,7 +25,10 @@ import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
+import PostCards from '../../components/PostCards.astro'
+import FooterCard from '../../components/FooterCard.astro'
 import styles from '../../styles/blog.module.css'
+
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -112,8 +115,16 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
+        <h2>関連する記事一覧</h2>
+        <PostCards posts={postsHavingSameTag.filter(
+          (p: interfaces.Post) => p.Slug !== post.Slug
+        )} />
       </footer>
     </div>
+  </div>
+
+  <div slot="footer">
+    <FooterCard />
   </div>
 
   <div slot="aside" class="aside">

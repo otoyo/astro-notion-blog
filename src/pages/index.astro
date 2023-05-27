@@ -16,6 +16,7 @@ import BlogTagsLink from '../components/BlogTagsLink.astro'
 import CoverImage from '../components/CoverImage.astro'
 import TopProfile from '../components/top/TopProfile.astro'
 import styles from '../styles/blog.module.css'
+import FooterCard from '../components/FooterCard.astro'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
@@ -47,6 +48,10 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
     <footer>
       <Pagination currentPage={1} numberOfPages={numberOfPages} />
     </footer>
+  </div>
+
+  <div slot="footer">
+    <FooterCard />
   </div>
 
   <div slot="aside" class={styles.aside}>
