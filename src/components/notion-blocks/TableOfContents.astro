@@ -42,7 +42,8 @@ const { block, headings } = Astro.props
 </div>
 
 <style>
-  .table-of-contents {
+  div.table-of-contents {
+    margin: 2rem 0;
   }
   .table-of-contents > a {
     display: block;
@@ -55,9 +56,9 @@ const { block, headings } = Astro.props
     background: rgba(241, 241, 239, 1) !important;
   }
   .table-of-contents > a.indent-1 {
-    padding-left: 1.5rem;
+    padding-left: 0rem;
   }
   .table-of-contents > a.indent-2 {
-    padding-left: 3rem;
+    padding-left: 1.5rem;
   }
 </style>

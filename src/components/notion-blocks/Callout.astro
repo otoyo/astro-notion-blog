@@ -63,3 +63,26 @@ const { block, headings } = Astro.props
     height: 1.2rem;
   }
 </style>
+
+
+<style>
+  .callout.green-background {
+      background: none !important;
+      padding: 0px !important;
+      align-items: center;
+  }
+  .callout.green-background div:first-child img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+  }
+
+  .callout.green-background div:nth-child(2) {
+    margin: 0px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+    margin-left: 0px;
+    font-size: 0.9rem;
+  }
+</style>

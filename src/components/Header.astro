@@ -14,7 +14,6 @@ if (database.Icon && database.Icon.Type === 'file') {
 ---
 
 <header>
-  <h1>
     <a href={getNavLink('/')}>
       {
         database.Icon && database.Icon.Type === 'emoji' ? (
@@ -37,7 +36,6 @@ if (database.Icon && database.Icon.Type === 'file') {
         )
       }
     </a>
-  </h1>
 </header>
 
 <style>
@@ -46,11 +44,11 @@ if (database.Icon && database.Icon.Type === 'file') {
     padding: 18px;
   }
 
-  header h1 {
+  header {
     width: 100%;
   }
 
-  header h1 a {
+  header a {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -59,7 +57,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     font-weight: normal;
   }
 
-  header h1 a img {
+  header a img {
     height: 30px;
     border-radius: 6px;
  }

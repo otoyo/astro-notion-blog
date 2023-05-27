@@ -1,6 +1,6 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
-import { snakeToKebab } from '../../lib/style-helpers.ts'
+import type * as interfaces from '../../lib/interfaces'
+import { snakeToKebab } from '../../lib/style-helpers'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 import '../../styles/notion-color.css'
@@ -28,8 +28,9 @@ const { block, headings } = Astro.props
 
 <style>
   p {
-    margin: 0.3rem 0;
-    font-size: 1rem;
-    min-height: 1.8rem;
+    margin: 2rem 0;
+    font-size: 0.98rem;
+    line-height: 2;
+    margin-bottom: 20px !important;
   }
 </style>
