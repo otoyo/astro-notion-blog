@@ -53,7 +53,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body ontouchstart="">
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <Header database={database} />
 
