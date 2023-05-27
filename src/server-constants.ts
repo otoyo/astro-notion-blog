@@ -9,7 +9,7 @@ export const BASE_PATH =
   import.meta.env.BASE_PATH || process.env.BASE_PATH || '' // <- Set sub directory path if you want. e.g. /docs/
 
 export const PUBLIC_GA_TRACKING_ID = import.meta.env.PUBLIC_GA_TRACKING_ID
-export const NUMBER_OF_POSTS_PER_PAGE = 10
+export const NUMBER_OF_POSTS_PER_PAGE = 6
 export const REQUEST_TIMEOUT_MS = parseInt(
   import.meta.env.REQUEST_TIMEOUT_MS || '10000',
   10

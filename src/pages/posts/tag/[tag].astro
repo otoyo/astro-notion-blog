@@ -1,23 +1,19 @@
 ---
-import type { SelectProperty } from '../../../lib/interfaces.ts'
-import { NUMBER_OF_POSTS_PER_PAGE } from '../../../server-constants.ts'
+import type { SelectProperty } from '../../../lib/interfaces'
+import { NUMBER_OF_POSTS_PER_PAGE } from '../../../server-constants'
 import {
   getPostsByTag,
   getRankedPosts,
   getAllTags,
   getNumberOfPagesByTag,
-} from '../../../lib/notion/client.ts'
+} from '../../../lib/notion/client'
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
-import PostDate from '../../../components/PostDate.astro'
-import PostTags from '../../../components/PostTags.astro'
-import PostTitle from '../../../components/PostTitle.astro'
-import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
-import PostExcerpt from '../../../components/PostExcerpt.astro'
-import ReadMoreLink from '../../../components/ReadMoreLink.astro'
+
 import Pagination from '../../../components/Pagination.astro'
 import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
+import PostCards from '../../../components/PostCards.astro'
 import styles from '../../../styles/blog.module.css'
 import '../../../styles/notion-color.css'
 
@@ -48,16 +44,7 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
-        posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))
+        <PostCards posts={posts} />
       )
     }
 

@@ -1,0 +1,42 @@
+---
+import {
+  getDatabase
+} from '../lib/notion/client'
+import { filePath } from '../lib/blog-helpers'
+
+
+const database = await getDatabase();
+let coverImageURL: string = "";
+if (database.Cover) {
+  if (database.Cover.Type === 'external') {
+    coverImageURL = database.Cover.Url
+  } else if (database.Cover.Type === 'file') {
+    try {
+      coverImageURL = filePath(new URL(database.Cover.Url))
+    } catch (err) {
+      console.log('Invalid DB cover image URL')
+    }
+  }
+}
+---
+
+{
+    coverImageURL && (
+      <div class="cover">
+        <img src={coverImageURL} />
+      </div>
+    )
+}
+
+<style>
+  .cover {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+  }
+  .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+</style>

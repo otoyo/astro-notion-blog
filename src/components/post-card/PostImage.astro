@@ -1,6 +1,6 @@
 ---
-import type { Post } from '../lib/interfaces'
-import { filePath } from '../lib/blog-helpers'
+import type { Post } from '../../lib/interfaces'
+import { filePath } from '../../lib/blog-helpers'
 
 export interface Props {
   post: Post
@@ -35,5 +35,12 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     max-width: 720px;
     margin: 0 auto;
     width: 100%;
+    object-fit: cover;
+    height: 150px;
+  }
+  @media (max-width: 768px) {
+    .post-featured-image img {
+        height: 120px;
+    }
   }
 </style>

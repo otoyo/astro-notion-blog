@@ -1,0 +1,30 @@
+---
+import type { Post } from '../lib/interfaces'
+
+import PostCard from './PostCard.astro'
+
+export interface Props {
+  posts: Array<Post>
+}
+
+const { posts } = Astro.props
+---
+
+<div class="post-cards">
+  {posts.map((post) => <PostCard post={post} />)}
+</div>
+
+<style>
+  .post-cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .post-cards {
+      gap: 10px;
+    }
+  }
+</style>

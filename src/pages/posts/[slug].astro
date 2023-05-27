@@ -1,5 +1,5 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
+import type * as interfaces from '../../lib/interfaces'
 import {
   getPosts,
   getAllPosts,
@@ -10,12 +10,12 @@ import {
   getAllTags,
   getAllBlocksByBlockId,
   downloadFile,
-} from '../../lib/notion/client.ts'
+} from '../../lib/notion/client'
 import {
   getPostLink,
   filePath,
   extractTargetBlocks,
-} from '../../lib/blog-helpers.ts'
+} from '../../lib/blog-helpers'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
@@ -24,6 +24,7 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
+import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
 import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
@@ -99,13 +100,15 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
+  <div slot="header">
+    <PostFeaturedImage post={post} />
+  </div>
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
+      <PostTitle post={post} enableLink={false} />
       <PostDate post={post} />
       <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
       <PostBody blocks={blocks} />
-      <PostTags post={post} />
 
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />

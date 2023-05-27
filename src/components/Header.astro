@@ -1,0 +1,65 @@
+---
+import { getNavLink, filePath } from '../lib/blog-helpers'
+const { database } = Astro.props
+
+
+let customIconURL: string = "";
+if (database.Icon && database.Icon.Type === 'file') {
+  try {
+    customIconURL = filePath(new URL(database.Icon.Url))
+  } catch (err) {
+    console.log('Invalid DB custom icon URL')
+  }
+}
+---
+
+<header>
+  <h1>
+    <a href={getNavLink('/')}>
+      {
+        database.Icon && database.Icon.Type === 'emoji' ? (
+          <>
+            <span>{database.Icon.Emoji}</span>
+            {database.Title}
+          </>
+        ) : database.Icon && database.Icon.Type === 'external' ? (
+          <>
+            <img src={database.Icon.Url} />
+            {database.Title}
+          </>
+        ) : database.Icon && database.Icon.Type === 'file' ? (
+          <>
+            <img src={customIconURL} class="custom-icon" />
+            {database.Title}
+          </>
+        ) : (
+          database.Title
+        )
+      }
+    </a>
+  </h1>
+</header>
+
+<style>
+  header {
+    display: flex;
+    padding: 18px;
+  }
+
+  header h1 {
+    width: 100%;
+  }
+
+  header h1 a {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 6px;
+    color: #333;
+    font-weight: normal;
+  }
+
+  header h1 a img {
+    height: 30px;
+ }
+</style>

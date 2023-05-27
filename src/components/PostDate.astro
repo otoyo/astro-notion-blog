@@ -1,6 +1,6 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { getDateStr } from '../lib/blog-helpers.ts'
+import type { Post } from '../lib/interfaces'
+import { getDateStr } from '../lib/blog-helpers'
 
 export interface Props {
   post: Post
@@ -16,6 +16,6 @@ const { post } = Astro.props
 <style>
   .post-date {
     padding: 0 0 0.3rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 </style>

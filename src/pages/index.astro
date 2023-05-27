@@ -1,24 +1,19 @@
 ---
-import { NUMBER_OF_POSTS_PER_PAGE } from '../server-constants.ts'
+import { NUMBER_OF_POSTS_PER_PAGE } from '../server-constants'
 import {
   getPosts,
   getRankedPosts,
   getAllTags,
   getNumberOfPages,
   getDatabase
-} from '../lib/notion/client.ts'
-import { filePath } from '../lib/blog-helpers.ts'
+} from '../lib/notion/client'
 import Layout from '../layouts/Layout.astro'
 import NoContents from '../components/NoContents.astro'
-import PostDate from '../components/PostDate.astro'
-import PostTags from '../components/PostTags.astro'
-import PostTitle from '../components/PostTitle.astro'
-import PostFeaturedImage from '../components/PostFeaturedImage.astro'
-import PostExcerpt from '../components/PostExcerpt.astro'
-import ReadMoreLink from '../components/ReadMoreLink.astro'
+import PostCards from '../components/PostCards.astro'
 import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
+import CoverImage from '../components/CoverImage.astro'
 import styles from '../styles/blog.module.css'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
@@ -28,58 +23,20 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getNumberOfPages(),
 ])
 
-const database = await getDatabase();
-let coverImageURL: string
-if (database.Cover) {
-  if (database.Cover.Type === 'external') {
-    coverImageURL = database.Cover.Url
-  } else if (database.Cover.Type === 'file') {
-    try {
-      coverImageURL = filePath(new URL(database.Cover.Url))
-    } catch (err) {
-      console.log('Invalid DB cover image URL')
-    }
-  }
-}
+
 ---
 
 <Layout title="トップページ" description="" path="/" ogImage="">
-    <div slot="header">
-        {
-            coverImageURL && (
-              <div class="cover">
-                <img src={coverImageURL} />
-              </div>
-            )
-        }
-    </div>
-    <style>
-        .cover {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-        }
-        .cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+  <div slot="header">
+    <CoverImage />
+  </div>
+
   <div slot="main" class={styles.main}>
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
-        posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))
+        <PostCards posts={posts} />
       )
     }
 

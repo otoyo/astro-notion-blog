@@ -1,0 +1,54 @@
+---
+import type { Post } from '../lib/interfaces'
+import { getPostLink } from '../lib/blog-helpers'
+
+import PostDate from './PostDate.astro'
+import PostImage from './post-card/PostImage.astro'
+
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+---
+
+{
+  post && (
+      <a href={getPostLink(post.Slug)} class="post-card" key={post.Slug}>
+        <PostImage post={post} />
+        <div class="post-card-description">
+          <PostDate post={post} />
+          <h3 class="post-title">{ post.Title }</h3>
+        </div>
+      </a>
+  )
+}
+
+<style>
+  .post-card {
+    max-width: 100%;
+    width: calc((100% - 32px) / 3);
+    box-shadow: 0 1px 19px 2px #0000000f;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .post-card h3 {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .post-card-description {
+    padding: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .post-card {
+      width: calc((100% - 10px) / 2);
+    }
+    .post-card h3 {
+      font-size: 12px;
+    }
+  }
+</style>
