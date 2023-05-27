@@ -14,39 +14,44 @@ const { prevPost, nextPost } = Astro.props
 <div class="post-relative-link">
   <div>
     {
-      nextPost && (
-        <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>◀︎ Next</div>
-          <div>{nextPost.Title}</div>
-          <PostTags post={nextPost} enableLink={false} />
+      prevPost && (
+        <a href={getPostLink(prevPost.Slug)} class="colored prev-post">
+          <div>◀︎ 前の記事</div>
+          <div>{prevPost.Title}</div>
         </a>
       )
     }
   </div>
   <div>
     {
-      prevPost && (
-        <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>▶︎ Previous</div>
-          <div>{prevPost.Title}</div>
-          <PostTags post={prevPost} enableLink={false} />
+      nextPost && (
+        <a href={getPostLink(nextPost.Slug)} class="colored next-post">
+          <div>次の記事 ▶︎</div>
+          <div>{nextPost.Title}</div>
         </a>
       )
     }
-  </div>
-  <div>
-    <a href={getNavLink('/')} class="text">↑Top</a>
   </div>
 </div>
 
 <style>
   div.post-relative-link {
     margin-top: 1rem;
+    display: flex;
+    gap: 10px;
   }
   div.post-relative-link > div {
+    width: calc(50% - 5px);
     display: block;
     margin-top: 0.6rem;
   }
+
+  .next-post {
+    display: flex !important;
+    flex-direction: column;
+    align-items: end;
+    height: 100%;
+}
   div.post-relative-link > div > a {
     display: block;
     text-align: center;

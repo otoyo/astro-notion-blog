@@ -135,19 +135,16 @@ export const getPostLink = (slug: string) => {
 }
 
 export const getTagLink = (tag: string) => {
-  return pathJoin(BASE_PATH, `/posts/tag/${encodeURIComponent(tag)}`)
+  return pathJoin(BASE_PATH, `/posts/tag/${encodeURIComponent(tag)}/1`)
 }
 
 export const getPageLink = (page: number, tag: string) => {
-  if (page === 1) {
-    return tag ? getTagLink(tag) : pathJoin(BASE_PATH, '/')
-  }
   return tag
     ? pathJoin(
         BASE_PATH,
-        `/posts/tag/${encodeURIComponent(tag)}/page/${page.toString()}`
+        `/posts/tag/${encodeURIComponent(tag)}/${page.toString()}`
       )
-    : pathJoin(BASE_PATH, `/posts/page/${page.toString()}`)
+    : pathJoin(BASE_PATH, `/posts/all/${page.toString()}`)
 }
 
 export const getDateStr = (date: string) => {

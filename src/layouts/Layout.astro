@@ -128,7 +128,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   }
   @media (max-width: 640px) {
     div.content {
-      padding: 0 18px;
+      padding: 18px;
     }
   }
 
@@ -280,8 +280,13 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
     color: var(--fg);
     line-height: 1.3;
     font-size: 1.2rem;
-    font-weight: normal;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(237 237 236);
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
   }
+
   h2 > span.tag {
     border-radius: 4px;
     padding: 3px 9px;

@@ -36,6 +36,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
+        <h2>記事一覧</h2>
         <PostCards posts={posts} />
       )
     }
