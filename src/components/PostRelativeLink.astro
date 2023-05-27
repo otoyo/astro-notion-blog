@@ -60,7 +60,8 @@ const { prevPost, nextPost } = Astro.props
     height: 100%;
   }
 
-  div.post-relative-link > div > a:hover {
+  div.post-relative-link > div > a:hover,
+  div.post-relative-link > div > a:active {
     background-color: var(--fg);
     color: white;
   }

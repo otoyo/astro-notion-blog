@@ -267,6 +267,20 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
     color: var(--accents-1);
   }
 
+  p a {
+    color: #007185 !important;
+    border-bottom: 1px solid #007185 !important;
+    opacity: .7;
+    padding-bottom: 2px;
+    font-weight: bold;
+    transition: 0.2s all;
+    text-decoration: none;
+  }
+  p a:hover {
+    opacity: 1;
+  }
+
+
   mark {
     padding: var(--gap-quarter);
     border-radius: var(--radius);
@@ -281,7 +295,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   }
 
   h2 {
-    margin: 0;
+    margin: 6rem 0 1rem !important;
     color: var(--fg);
     line-height: 1.3;
     font-size: 1.2rem;
@@ -295,11 +309,10 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   h2 > span.tag {
     border-radius: 4px;
     padding: 3px 9px;
-    background: rgba(227, 226, 224, 0.5);
   }
 
   h3 {
-    margin: 0;
+    margin: 4rem 0 1rem !important;
     color: var(--fg);
     font-size: 1.2rem;
     font-weight: 700;
@@ -380,9 +393,15 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
 
   table td,
   table th {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     border: 1px solid #e4e4e4;
     padding: 0.5rem 1rem;
     line-height: 1.2rem;
   }
+  @media (max-width: 640px) {
+    table td,
+    table th {
+      padding: 0.5rem;
+    }
+  }  
 </style>

@@ -1,6 +1,6 @@
 ---
-import * as interfaces from '../../lib/interfaces.ts'
-import { buildHeadingId } from '../../lib/blog-helpers.ts'
+import type * as interfaces from '../../lib/interfaces'
+import { buildHeadingId } from '../../lib/blog-helpers'
 import RichText from './RichText.astro'
 import NotionBlocks from '../NotionBlocks.astro'
 
@@ -45,7 +45,6 @@ const id = buildHeadingId(block.Heading2)
 
 <style>
   h2 {
-    margin: 6rem 0 1rem;
     color: var(--fg);
     font-size: 1.5rem;
   }

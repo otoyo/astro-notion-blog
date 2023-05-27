@@ -14,6 +14,7 @@ import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
 import CoverImage from '../components/CoverImage.astro'
+import TopProfile from '../components/top/TopProfile.astro'
 import styles from '../styles/blog.module.css'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
@@ -30,8 +31,10 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   <div slot="header">
     <CoverImage />
   </div>
-
+  
   <div slot="main" class={styles.main}>
+    <TopProfile />
+
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
