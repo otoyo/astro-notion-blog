@@ -31,6 +31,15 @@ const { post } = Astro.props
     box-shadow: 0 1px 19px 2px #0000000f;
     border-radius: 8px;
     overflow: hidden;
+    margin-top: 8px;
+    margin-bottom: -8px;
+    transition: 0.3s all;
+  }
+
+  .post-card:hover {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    box-shadow: 0 1px 19px 2px #0000002f;
   }
 
   .post-card h3 {

@@ -5,6 +5,8 @@ import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import Header from '../components/Header.astro'
+import FooterCard from '../components/FooterCard.astro'
+
 
 export interface Props {
   title: string
@@ -62,7 +64,9 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
         <div class="content">
           <slot name="main" />
           <footer>
-            <div></div>
+            <div>
+              <FooterCard />
+            </div>
           </footer>
         </div>
       </main>
@@ -316,14 +320,14 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   }
 
   ol {
-    color: #222;
+    color: #333;
     font-weight: 400;
     font-size: 0.9rem;
     line-height: 1.8rem;
   }
   p,
   ul {
-    color: #222;
+    color: #333;
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.8rem;
@@ -361,7 +365,7 @@ const siteOGImage = new URL(getStaticFilePath('/default-og-image.png'), Astro.si
   }
 
   table {
-    color: #222;
+    color: #333;
     border-collapse: collapse;
   }
 

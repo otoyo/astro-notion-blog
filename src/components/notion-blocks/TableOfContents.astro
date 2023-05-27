@@ -51,14 +51,21 @@ const { block, headings } = Astro.props
     font-size: 0.9rem;
     font-weight: 500;
     text-decoration: underline;
+    border-radius: 4px;
+    transition: 0.2s all;
   }
   .table-of-contents > a:hover {
     background: rgba(241, 241, 239, 1) !important;
   }
   .table-of-contents > a.indent-1 {
     padding-left: 0rem;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    margin-top: 8px;
   }
   .table-of-contents > a.indent-2 {
     padding-left: 1.5rem;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
 </style>
