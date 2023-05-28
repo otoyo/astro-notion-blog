@@ -1,17 +1,28 @@
 ---
 import type { RichText } from '../../../lib/interfaces'
+import { getPostByPageIdWithNoHyphen } from '../../../lib/notion/client'
+import { getPostLink } from '../../../lib/blog-helpers'
 
 export interface Props {
   richText: RichText
 }
 
 const { richText } = Astro.props
+
+var href = richText.Href
+if (richText.Href?.startsWith('/')) {
+  await getPostByPageIdWithNoHyphen(richText.Href.replace('/', '')).then((post) => {
+    if (post) {
+      href = getPostLink(post.Slug)
+    }
+  })
+}
 ---
 
 {
   /* prettier-ignore */
-  richText.Href ? (
-    <a href={richText.Href}><slot /></a>
+  href ? (
+    <a href={href}><slot /></a>
   ) : (
     <slot />
   )
@@ -21,7 +32,7 @@ const { richText } = Astro.props
   a {
     color: #007185 !important;
     border-bottom: 1px solid #007185 !important;
-    opacity: .7;
+    opacity: 0.7;
     padding-bottom: 2px;
     font-weight: bold;
     transition: 0.2s all;

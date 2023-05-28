@@ -140,6 +140,11 @@ export async function getPostByPageId(pageId: string): Promise<Post | null> {
   return allPosts.find((post) => post.PageId === pageId) || null
 }
 
+export async function getPostByPageIdWithNoHyphen(pageId: string): Promise<Post | null> {
+  const allPosts = await getAllPosts()
+  return allPosts.find((post) => post.PageId.replaceAll("-", "") === pageId) || null
+}
+
 export async function getPostsByTag(
   tagName: string,
   pageSize = 10
