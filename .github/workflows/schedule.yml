@@ -1,0 +1,19 @@
+name: Scheduled Deploy
+
+on:
+  schedule:
+    # Runs every day at 2 AM UTC
+    - cron:  '0 2 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Deploy to Cloudflare Pages
+      run: |
+        git commit --allow-empty -m "Scheduled deploy"
+        git push
