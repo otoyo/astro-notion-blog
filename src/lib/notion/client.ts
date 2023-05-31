@@ -856,7 +856,9 @@ function _buildPost(pageObject: responses.PageObject): Post {
 
   const post: Post = {
     PageId: pageObject.id,
-    Title: prop.Page.title ? prop.Page.title[0].plain_text : '',
+    Title: prop.Page.title
+      ? prop.Page.title.map((richText) => richText.plain_text).join('')
+      : '',
     Icon: icon,
     Cover: cover,
     Slug: prop.Slug.rich_text ? prop.Slug.rich_text[0].plain_text : '',
