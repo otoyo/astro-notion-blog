@@ -35,7 +35,7 @@ const { heading, tags } = Astro.props
   .blog-tags-link {
   }
   .blog-tags-link h3 {
-    margin: 0;
+    margin: 2rem 0 0; /* modified original all 0 */
     padding-left: 0.4rem;
     color: #777;
     font-size: 0.95rem;
@@ -45,6 +45,7 @@ const { heading, tags } = Astro.props
     padding: 0;
     margin-top: 0.3rem;
     margin-block-end: 1rem;
+    display: flex; /* added */
   }
   .blog-tags-link ul li {
     position: relative;
