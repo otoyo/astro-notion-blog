@@ -127,12 +127,12 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
           </footer>
         </div>
       </main>
-
+{/* removed
       <aside>
         <slot name="aside" />
       </aside>
     </div>
-
+*/}
     {
       ENABLE_LIGHTBOX && (
         <script src={getStaticFilePath('/scripts/fslightbox.js')} />
@@ -145,6 +145,8 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   .container {
     display: flex;
     min-height: 100vh;
+    max-width: 780px; /* added */
+    margin: 0 auto; /* added */
   }
   @media (max-width: 640px) {
     .container {
@@ -198,6 +200,9 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
 
   main header {
     padding: 20px 0 20px;
+    align: center;
+    border-bottom: dotted 0.5px #333; /* added */
+    margin-bottom: 2rem;  /* added */
   }
   main header h1 {
     font-weight: 700;

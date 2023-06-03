@@ -105,7 +105,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       <PostTags post={post} />
       <PostTitle post={post} enableLink={false} />
       <PostBody blocks={blocks} />
-      <PostTags post={post} />
+      {/*<PostTags post={post} /> removed */}
 
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
@@ -113,6 +113,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     </div>
   </div>
 
+  {/* removed
   <div slot="aside" class="aside">
     <BlogPostsLink
       heading="Posts in the same category"
@@ -124,4 +125,5 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     <BlogPostsLink heading="Latest posts" posts={recentPosts} />
     <BlogTagsLink heading="Categories" tags={tags} />
   </div>
+   */}
 </Layout>
