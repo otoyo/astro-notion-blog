@@ -1,5 +1,5 @@
 ---
-import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts'
+import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX, CUSTOM_COPYRIGHT } from '../server-constants.ts'
 import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
@@ -120,6 +120,10 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
               <a href="https://github.com/otoyo/astro-notion-blog"
                 >astro-notion-blog</a
               >
+            </div>
+            <div>
+              <span>Created by</span>
+              {CUSTOM_COPYRIGHT}
             </div>
 
           </footer>
