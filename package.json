@@ -19,6 +19,7 @@
   "dependencies": {
     "@astrojs/react": "^2.2.0",
     "@astrojs/rss": "^2.4.2",
+    "@astrojs/sitemap": "^1.1.0",
     "@notionhq/client": "^2.2.5",
     "@supercharge/promise-pool": "^2.4.0",
     "astro": "^2.5.6",
