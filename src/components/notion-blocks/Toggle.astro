@@ -13,7 +13,7 @@ export interface Props {
 const { block, headings } = Astro.props
 ---
 
-<details class={`toggle ${snakeToKebab(block.Toggle.Color)}`}>
+<details class={`toggle ${snakeToKebab(block.Toggle.Color)}`} open>
   <summary>
     {
       block.Toggle.RichTexts.map((richText: interfaces.RichText) => (
