@@ -41,6 +41,10 @@ export default defineConfig({
     CustomIconDownloader(),
     FeaturedImageDownloader(),
     PublicNotionCopier(),
-    sitemap(),
+    sitemap({
+      changefreq: 'daily',
+      priority: 0.8,
+      lastmod: new Date(),
+    }),
   ],
 });
