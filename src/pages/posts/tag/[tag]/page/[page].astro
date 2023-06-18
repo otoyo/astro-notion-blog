@@ -1,6 +1,7 @@
 ---
 import type { SelectProperty } from '../../../../../lib/interfaces.ts'
 import {
+  getAllPosts,
   getPostsByTagAndPage,
   getRankedPosts,
   getAllTags,
@@ -40,8 +41,9 @@ export async function getStaticPaths() {
 
 const { tag, page } = Astro.params
 
-const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
+const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByTagAndPage(tag, parseInt(page, 10)),
+  getAllPosts(),
   getRankedPosts(),
   getAllTags(),
   getNumberOfPagesByTag(tag),
@@ -90,27 +92,27 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
 
   <div slot="aside" class={styles.aside}>
     <BlogPostsLink heading="astro-notion-blog" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
       ))}
     />
     <BlogPostsLink heading="ゼロトラスト" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
       ))}
     />
     <BlogPostsLink heading="脱炭素" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
       ))}
     />
     <BlogPostsLink heading="Bash" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'Bash'
       ))}
     />
     <BlogPostsLink heading="CSharp" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
