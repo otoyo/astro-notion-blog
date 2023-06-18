@@ -38,7 +38,7 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
+const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag, postsHavingTag] =
   await Promise.all([
     getAllBlocksByBlockId(post.PageId),
     getAllPosts(),
@@ -46,6 +46,7 @@ const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
     getPosts(5),
     getAllTags(),
     getPostsByTag(post.Tags[0]?.name, 6),
+    getAllPosts(),
   ])
 
 const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
@@ -114,14 +115,39 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   </div>
 
   <div slot="aside" class="aside">
+    <BlogPostsLink heading="おすすめ" posts={rankedPosts} />
+    <BlogPostsLink heading="最新" posts={recentPosts} />
+    <BlogPostsLink heading="ゼロトラスト" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
+      ))}
+    />
+    <BlogPostsLink heading="astro-notion-blog" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
+      ))}
+    />
+    <BlogPostsLink heading="bash" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'Bash'
+      ))}
+    />
+    <BlogPostsLink heading="CSharp" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
+      ))}
+    />
+    <BlogPostsLink heading="脱炭素" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
+      ))}
+    />
+    <BlogTagsLink heading="カテゴリ" tags={tags} />
     <BlogPostsLink
-      heading="Posts in the same category"
+      heading="同カテゴリ"
       posts={postsHavingSameTag.filter(
         (p: interfaces.Post) => p.Slug !== post.Slug
       )}
     />
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
