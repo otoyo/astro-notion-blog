@@ -38,7 +38,7 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag, postsHavingTag] =
+const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
   await Promise.all([
     getAllBlocksByBlockId(post.PageId),
     getAllPosts(),
@@ -46,7 +46,6 @@ const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag, pos
     getPosts(5),
     getAllTags(),
     getPostsByTag(post.Tags[0]?.name, 6),
-    getAllPosts(),
   ])
 
 const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
@@ -115,31 +114,29 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   </div>
 
   <div slot="aside" class="aside">
-    <BlogPostsLink heading="おすすめ" posts={rankedPosts} />
-    <BlogPostsLink heading="最新" posts={recentPosts} />
-    <BlogPostsLink heading="ゼロトラスト" 
-      posts={postsHavingTag.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
-      ))}
-    />
     <BlogPostsLink heading="astro-notion-blog" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
       ))}
     />
-    <BlogPostsLink heading="bash" 
-      posts={postsHavingTag.filter(
+    <BlogPostsLink heading="ゼロトラスト" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
+      ))}
+    />
+    <BlogPostsLink heading="脱炭素" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
+      ))}
+    />
+    <BlogPostsLink heading="Bash" 
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'Bash'
       ))}
     />
     <BlogPostsLink heading="CSharp" 
-      posts={postsHavingTag.filter(
+      posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
-      ))}
-    />
-    <BlogPostsLink heading="脱炭素" 
-      posts={postsHavingTag.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
       ))}
     />
     <BlogTagsLink heading="カテゴリ" tags={tags} />
