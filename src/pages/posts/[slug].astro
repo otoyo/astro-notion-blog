@@ -115,19 +115,22 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   </div>
 
   <div slot="aside" class="aside">
-    <BlogPostsLink heading="おすすめ" posts={rankedPosts} />
-    <BlogPostsLink heading="最新" posts={recentPosts} />
-    <BlogPostsLink heading="ゼロトラスト" 
-      posts={postsHavingTag.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
-      ))}
-    />
     <BlogPostsLink heading="astro-notion-blog" 
       posts={postsHavingTag.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
       ))}
     />
-    <BlogPostsLink heading="bash" 
+    <BlogPostsLink heading="ゼロトラスト" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
+      ))}
+    />
+    <BlogPostsLink heading="脱炭素" 
+      posts={postsHavingTag.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
+      ))}
+    />
+    <BlogPostsLink heading="Bash" 
       posts={postsHavingTag.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'Bash'
       ))}
@@ -135,11 +138,6 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     <BlogPostsLink heading="CSharp" 
       posts={postsHavingTag.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
-      ))}
-    />
-    <BlogPostsLink heading="脱炭素" 
-      posts={postsHavingTag.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
       ))}
     />
     <BlogTagsLink heading="カテゴリ" tags={tags} />
