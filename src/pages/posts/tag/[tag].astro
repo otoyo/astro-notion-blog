@@ -41,17 +41,16 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
 ---
 
 <Layout title={`Posts in ${tag}`} path={`/posts/tag/${tag}`}>
-  <div slot="main" class={styles.main}>
-    <header>
-      <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
-    </header>
-
+  <header>
+    <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
+  </header>
+  <div style="display: flex; flex-wrap: wrap;"　slot="main" class={styles.main}>
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
         posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
+          <div style="flex: 50%; box-sizing: border-box; padding: 10px;" class={styles.post} key={post.Slug}>
             <PostDate post={post} />
             <PostTags post={post} />
             <PostTitle post={post} />
