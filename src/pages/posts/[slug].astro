@@ -124,6 +124,11 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
       ))}
     />
+    <BlogPostsLink heading="マイクロセグメンテーション" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'マイクロセグメンテーション'
+      ))}
+    />
     <BlogPostsLink heading="脱炭素" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
