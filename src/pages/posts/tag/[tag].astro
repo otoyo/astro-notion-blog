@@ -44,7 +44,7 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
   <header>
     <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
   </header>
-  <div style="display: flex; flex-wrap: wrap;"　slot="main" class={styles.main}>
+  <div style="display: flex; flex-wrap: wrap;" slot="main" class={styles.main}>
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
