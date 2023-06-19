@@ -66,6 +66,9 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
     <link
        rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
@@ -149,6 +152,7 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   .container {
     display: flex;
     min-height: 100vh;
+    width: 90%;
   }
   @media (max-width: 640px) {
     .container {
@@ -275,11 +279,8 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
 
     --radius: 3px;
 
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
-    --font-mono: SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono',
-      Courier, monospace;
+    --font-sans: 'M PLUS 1p', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
   }
 
   * {
