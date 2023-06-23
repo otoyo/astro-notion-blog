@@ -55,11 +55,13 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   </div>
 
   <div slot="aside" class={styles.aside}>
+    <ul><li><a href={getTagLink("astro-notion-blog")} class={`tag ${tag.color}`}>astro-notion-blog</a></li></ul>  
     <BlogPostsLink heading="astro-notion-blog" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
       ))}
     />
+    <ul><li><a href={getTagLink("ゼロトラスト")} class={`tag ${tag.color}`}>ゼロトラスト</a></li></ul>  
     <BlogPostsLink heading="ゼロトラスト" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
@@ -85,6 +87,8 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
+  </div>
+  <div slot="bside" class={styles.bside}>
     <BlogTagsLink heading="カテゴリ" tags={tags} />
   </div>
 </Layout>

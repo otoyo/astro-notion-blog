@@ -103,6 +103,8 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
+  </div>
+  <div slot="bside" class="bside">
     <BlogTagsLink heading="カテゴリ" tags={tags} />
   </div>
 </Layout>

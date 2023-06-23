@@ -144,12 +144,14 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
-    <BlogTagsLink heading="カテゴリ" tags={tags} />
+  </div>
+  <div slot="bside" class="bside">
     <BlogPostsLink
       heading="同カテゴリ"
       posts={postsHavingSameTag.filter(
         (p: interfaces.Post) => p.Slug !== post.Slug
       )}
     />
+    <BlogTagsLink heading="カテゴリ" tags={tags} />
   </div>
 </Layout>

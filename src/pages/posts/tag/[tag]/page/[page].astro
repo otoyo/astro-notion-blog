@@ -121,6 +121,8 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
+  </div>
+  <div slot="bside" class="bside">
     <BlogTagsLink heading="カテゴリ" tags={tags} />
   </div>
 </Layout>
