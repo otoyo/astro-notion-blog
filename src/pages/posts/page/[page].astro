@@ -73,11 +73,6 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   </div>
 
   <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="astro-notion-blog" 
-      posts={allPosts.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
-      ))}
-    />
     <BlogPostsLink heading="ゼロトラスト" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'ゼロトラスト'
@@ -88,11 +83,6 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'マイクロセグメンテーション'
       ))}
     />
-    <BlogPostsLink heading="脱炭素" 
-      posts={allPosts.filter(
-        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素'
-      ))}
-    />
     <BlogPostsLink heading="Bash" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'Bash'
@@ -101,6 +91,18 @@ const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
     <BlogPostsLink heading="CSharp" 
       posts={allPosts.filter(
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
+      ))}
+    />
+  </div>
+  <div slot="bside" class="bside">
+    <BlogPostsLink heading="脱炭素経営" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === '脱炭素経営'
+      ))}
+    />
+    <BlogPostsLink heading="astro-notion-blog" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
       ))}
     />
     <BlogTagsLink heading="カテゴリ" tags={tags} />

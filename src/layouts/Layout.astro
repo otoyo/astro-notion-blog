@@ -138,6 +138,9 @@ const asidePaddingTop = coverImageURL ? '20px' : '60px'
       <aside>
         <slot name="aside" />
       </aside>
+      <bside>
+        <slot name="bside" />
+      </bside>
     </div>
 
     {
@@ -152,7 +155,7 @@ const asidePaddingTop = coverImageURL ? '20px' : '60px'
   .container {
     display: flex;
     min-height: 100vh;
-    width: 90%;
+    width: 100%;
   }
   @media (max-width: 640px) {
     .container {
@@ -180,6 +183,20 @@ const asidePaddingTop = coverImageURL ? '20px' : '60px'
   @media (max-width: 640px) {
     aside {
       order: 2;
+      width: 100%;
+      padding: 40px 20px 20px;
+    }
+  }
+
+  bside {
+    order: 3;
+    width: 240px;
+    padding: var(--asidePaddingTop) 20px 20px;
+    background-color: #f4f4f4;
+  }
+  @media (max-width: 640px) {
+    bside {
+      order: 3;
       width: 100%;
       padding: 40px 20px 20px;
     }
@@ -388,6 +405,14 @@ const asidePaddingTop = coverImageURL ? '20px' : '60px'
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.8rem;
+  }
+  bside,
+  p,
+  ul {
+    color: #222;
+    font-weight: 400;
+    font-size: 0.7rem;
+    line-height: 1.0rem;
   }
   p,
   ul {
