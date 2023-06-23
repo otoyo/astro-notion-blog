@@ -12,7 +12,7 @@ const { heading, posts } = Astro.props
 ---
 
 <div class="blog-posts-link">
-  <h3><a string="color; white;"  href="/posts/tag/`{heading}`">{heading}</a></h3>
+  <h3><a string="color: white;" href={`/posts/tag/${heading}`}>{heading}</a></h3>
   {
     posts.length === 0 ? (
       <NoContents contents={posts} />
