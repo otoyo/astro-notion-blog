@@ -123,6 +123,13 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
         (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'CSharp'
       ))}
     />
+  </div>
+  <div slot="bside" class="bside">
+    <BlogPostsLink heading="astro-notion-blog" 
+      posts={allPosts.filter(
+        (p: interfaces.Post) => p.Tags.some(tag => tag.name === 'astro-notion-blog'
+      ))}
+    />
     <BlogTagsLink heading="カテゴリ" tags={tags} />
   </div>
 </Layout>
