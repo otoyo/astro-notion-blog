@@ -19,6 +19,8 @@ import ReadMoreLink from '../components/ReadMoreLink.astro'
 import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
+import { getTagLink } from '../lib/blog-helpers.ts'
+
 import styles from '../styles/blog.module.css'
 
 const [posts, allPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
