@@ -60,11 +60,11 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={siteDescription} />
     <meta property="og:site_name" content={database.Title} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImage || siteOGImage} />
     <meta name="twitter:title" content={siteTitle} />
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImage || siteOGImage} />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
