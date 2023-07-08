@@ -420,12 +420,14 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
   }
 
   table {
-    color: #222;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
     border-collapse: collapse;
   }
 
   table tr {
-    vertical-align: middle;
+    vertical-align: top;
   }
 
   table th {
@@ -438,6 +440,12 @@ const asidePaddingTop = coverImageURL ? '200px' : '60px'
     font-size: 0.9rem;
     border: 1px solid #e4e4e4;
     padding: 0.5rem 1rem;
+    text-align: left;
     line-height: 1.2rem;
+  }
+  table td::after {
+    content: '';
+    display: inline-block;
+    min-height: 0.9rem;
   }
 </style>
