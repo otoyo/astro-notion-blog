@@ -44,8 +44,9 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
   const isNumberedListItem = block.Type === 'numbered_list_item'
   const isToDo = block.Type === 'to_do'
 
-  if (!isBulletedListItem && !isNumberedListItem && !isToDo)
+  if (!isBulletedListItem && !isNumberedListItem && !isToDo) {
     return arr.concat(block)
+  }
 
   let listType = ''
   if (isBulletedListItem) {
