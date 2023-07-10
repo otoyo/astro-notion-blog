@@ -842,15 +842,18 @@ function _buildPost(pageObject: responses.PageObject): Post {
   }
 
   let featuredImage: FileObject | null = null
-  if (
-    prop.FeaturedImage.files &&
-    prop.FeaturedImage.files.length > 0 &&
-    prop.FeaturedImage.files[0].file
-  ) {
-    featuredImage = {
-      Type: prop.FeaturedImage.type,
-      Url: prop.FeaturedImage.files[0].file.url,
-      ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+  if (prop.FeaturedImage.files && prop.FeaturedImage.files.length > 0) {
+    if (prop.FeaturedImage.files[0].external) {
+      featuredImage = {
+        Type: prop.FeaturedImage.type,
+        Url: prop.FeaturedImage.files[0].external.url,
+      }
+    } else if (prop.FeaturedImage.files[0].file) {
+      featuredImage = {
+        Type: prop.FeaturedImage.type,
+        Url: prop.FeaturedImage.files[0].file.url,
+        ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+      }
     }
   }
 
