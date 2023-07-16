@@ -9,12 +9,12 @@ English | [日本語](README.ja.md)
 
 astro-notion-blog enables you to create a blog using [Notion](https://www.notion.so/) and generates it statically, resulting in lightning-fast page views.
 
-- :rocket: **Lightning-fast** page views
+- :rocket: **Blazing fast** page views
 - :pencil: With the ability to write blog content in **Notion**
 - :hammer_and_wrench: **Customize** your site's appearance to your liking
 - :white_check_mark: Take advantage of **the official Notion APIs**
 
-## Screenshots
+## :camera_flash: Screenshots
 
 ### PC
 
@@ -24,11 +24,11 @@ astro-notion-blog enables you to create a blog using [Notion](https://www.notion
 
 <img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bf1add06-1f1c-42ca-88c9-decb8c0dcf8f" width="600">
 
-## Demo
+## :globe_with_meridians: Demo
 
 [https://astro-notion-blog.pages.dev](https://astro-notion-blog.pages.dev)
 
-## Quick Start
+## :motor_scooter: Quick Start
 
 ### Requirements
 
@@ -70,7 +70,7 @@ astro-notion-blog enables you to create a blog using [Notion](https://www.notion
 
 Please note that the astro-notion-blog requires manual deployment every time you publish a new post or make updates. You can deploy manually from the Cloudflare Pages dashboard or set up a scheduled deploy using CI tools such as GitHub Actions.
 
-## How to customize
+## :hammer_and_pick: How to customize
 
 ### Additional requirements
 
@@ -99,19 +99,13 @@ npm run dev
 
 See [wiki](https://github.com/otoyo/astro-notion-blog/wiki).
 
-## Bug reports & feature requests
+## :lady_beetle: Bug reports & feature requests
 
 To report an issue, please create a new Issue. You can use **either English or Japanese** to describe the issue. :wink:
 
-## :bird: Twitter community
+## :two_hearts: Sponsorship
 
-In our community, you have the opportunity to both support and be supported by other members.
-
-- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
-
-## Contribution
-
-We welcome pull requests from anyone who wants to contribute to our project. Your contributions are greatly appreciated!
+If you like astro-notion-blog, sponsor me so that I can keep on developing software. Thank you.
 
 ---
 
