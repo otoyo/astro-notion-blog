@@ -17,7 +17,13 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 
 ## スクリーンショット
 
-<img src="https://user-images.githubusercontent.com/1063435/223610351-58d157cc-fe50-4ff3-be0c-5373bec07589.png" width="600">
+### PC
+
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/967bbc23-014c-427d-b6cd-02c41822fb45" width="600">
+
+### スマートフォン
+
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bf1add06-1f1c-42ca-88c9-decb8c0dcf8f" width="600">
 
 ## デモ
 
