@@ -114,6 +114,8 @@ Issue を作成してください。日本語で大丈夫です。
 
 astro-notion-blog を気に入っていただけましたら、ソフトウェアの開発を継続できるようにスポンサーになることを検討してください。
 
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
+
 ---
 
 astro-notion-blog は [otoyo/notion-blog](https://github.com/otoyo/notion-blog) をベースにしています。

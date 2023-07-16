@@ -107,6 +107,8 @@ To report an issue, please create a new Issue. You can use **either English or J
 
 If you like astro-notion-blog, sponsor me so that I can keep on developing software. Thank you.
 
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
+
 ---
 
 astro-notion-blog is based [otoyo/notion-blog](https://github.com/otoyo/notion-blog)
