@@ -22,7 +22,7 @@ astro-notion-blog enables you to create a blog using [Notion](https://www.notion
 
 ### Smartphone
 
-<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bf1add06-1f1c-42ca-88c9-decb8c0dcf8f" width="600">
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bf1add06-1f1c-42ca-88c9-decb8c0dcf8f" width="300">
 
 ## :globe_with_meridians: Demo
 
