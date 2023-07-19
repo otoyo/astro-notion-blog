@@ -18,47 +18,55 @@ const { richText } = Astro.props
 ---
 
 <Anchor richText={richText}>
-  <Code richText={richText}>
-    <Color richText={richText}>
-      <Underline richText={richText}>
-        <Strikethrough richText={richText}>
-          <Italic richText={richText}>
-            <Bold richText={richText}>
-              {
-                richText.Text &&
-                  richText.Text.Content.split('\n').map(
-                    (content: string, i: number) => {
-                      if (i === 0) {
-                        return content
-                      }
-                      return (
-                        <>
-                          <br />
-                          {content}
-                        </>
-                      )
+  {
+    (
+      <Code richText={richText}>
+        {
+          <Color richText={richText}>
+            {
+              <Underline richText={richText}>
+                {
+                  <Strikethrough richText={richText}>
+                    {
+                      <Italic richText={richText}>
+                        {
+                          <Bold richText={richText}>
+                            {richText.Text &&
+                              richText.Text.Content.split('\n').map(
+                                (content: string, i: number) => {
+                                  if (i === 0) {
+                                    return content
+                                  }
+                                  return (
+                                    <>
+                                      <br />
+                                      {content}
+                                    </>
+                                  )
+                                }
+                              )}
+                            {richText.Equation && (
+                              <span
+                                set:html={katex.renderToString(
+                                  richText.Equation.Expression,
+                                  { throwOnError: false }
+                                )}
+                              />
+                            )}
+                            {richText.Mention && richText.Mention.Page && (
+                              <Mention pageId={richText.Mention.Page.Id} />
+                            )}
+                          </Bold>
+                        }
+                      </Italic>
                     }
-                  )
-              }
-              {
-                richText.Equation && (
-                  <span
-                    set:html={katex.renderToString(
-                      richText.Equation.Expression,
-                      { throwOnError: false }
-                    )}
-                  />
-                )
-              }
-              {
-                richText.Mention && richText.Mention.Page && (
-                  <Mention pageId={richText.Mention.Page.Id} />
-                )
-              }
-            </Bold>
-          </Italic>
-        </Strikethrough>
-      </Underline>
-    </Color>
-  </Code>
+                  </Strikethrough>
+                }
+              </Underline>
+            }
+          </Color>
+        }
+      </Code>
+    )
+  }
 </Anchor>
