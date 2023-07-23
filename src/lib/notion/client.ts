@@ -1,5 +1,7 @@
 import fs, { createWriteStream } from 'node:fs'
+import axios, { AxiosResponse } from 'axios'
 import retry from 'async-retry'
+import ExifTransformer from 'exif-be-gone'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
@@ -373,19 +375,21 @@ export async function getAllTags(): Promise<SelectProperty[]> {
 }
 
 export async function downloadFile(url: URL) {
-  const signal = AbortSignal.timeout(REQUEST_TIMEOUT_MS)
-
-  let res!: Response
+  let res!: AxiosResponse
   try {
-    res = await fetch(url.toString(), { signal })
+    res = await axios({
+      method: 'get',
+      url: url.toString(),
+      timeout: REQUEST_TIMEOUT_MS,
+      responseType: 'stream',
+    })
   } catch (err) {
-    if (err instanceof AbortSignal) {
-      console.log('File fetch request was aborted')
-      return Promise.resolve()
-    }
+    console.log(err)
+    return Promise.resolve()
   }
 
-  if (!res || !res.body) {
+  if (!res || res.status != 200) {
+    console.log(res)
     return Promise.resolve()
   }
 
@@ -397,16 +401,8 @@ export async function downloadFile(url: URL) {
   const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
   const filepath = `${dir}/${filename}`
 
-  const reader = res.body.getReader()
   const writeStream = createWriteStream(filepath)
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) {
-      break
-    }
-    writeStream.write(value)
-  }
+  res.data.pipe(new ExifTransformer()).pipe(writeStream)
 }
 
 export async function getDatabase(): Promise<Database> {
