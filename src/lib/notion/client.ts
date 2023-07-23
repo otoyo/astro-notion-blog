@@ -1,6 +1,7 @@
 import fs, { createWriteStream } from 'node:fs'
 import axios, { AxiosResponse } from 'axios'
 import retry from 'async-retry'
+import ExifTransformer from 'exif-be-gone'
 import {
   NOTION_API_SECRET,
   DATABASE_ID,
@@ -401,7 +402,7 @@ export async function downloadFile(url: URL) {
   const filepath = `${dir}/${filename}`
 
   const writeStream = createWriteStream(filepath)
-  res.data.pipe(writeStream)
+  res.data.pipe(new ExifTransformer()).pipe(writeStream)
 }
 
 export async function getDatabase(): Promise<Database> {
