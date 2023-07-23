@@ -16,7 +16,7 @@ try {
   console.error(`Invalid file URL. error: ${err}`)
 }
 
-const filename = url.pathname.split('/').slice(-1)[0]
+const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
 ---
 
 <div class="file">
