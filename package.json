@@ -33,7 +33,8 @@
     "metascraper-title": "^5.34.4",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sharp": "^0.32.4"
   },
   "devDependencies": {
     "@nrwl/nx-cloud": "^15.0.2",
