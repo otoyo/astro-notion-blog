@@ -404,7 +404,13 @@ export async function downloadFile(url: URL) {
 
   const writeStream = createWriteStream(filepath)
   const rotate = sharp().rotate()
-  res.data.pipe(rotate).pipe(new ExifTransformer()).pipe(writeStream)
+
+  let stream = res.data
+
+  if (res.headers['content-type'] === 'image/jpeg') {
+    stream = stream.pipe(rotate)
+  }
+  stream.pipe(new ExifTransformer()).pipe(writeStream)
 }
 
 export async function getDatabase(): Promise<Database> {
