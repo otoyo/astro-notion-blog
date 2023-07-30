@@ -1,0 +1,2 @@
+#!/bin/sh
+DATABASE_ID=7e2039e9f72a42dab2dd1b63428c13e9 NOTION_API_SECRET=secret_gBtqm3dTKFaSriYWiBFvX7OSccS8jw4HBvVpllwIB92 yarn dev
