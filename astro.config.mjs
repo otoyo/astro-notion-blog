@@ -35,7 +35,7 @@ const getSite = function () {
 export default defineConfig({
   site: getSite(),
   base: BASE_PATH,
-  server: {port:3001},
+  server: { port: 3001 },
   integrations: [
     CoverImageDownloader(),
     CustomIconDownloader(),

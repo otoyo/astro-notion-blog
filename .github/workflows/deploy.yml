@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   schedule:
-    - cron: "0 21 * * *" # every day 06:00
+    - cron: '0 21 * * *' # every day 06:00
   workflow_dispatch:
 
 jobs:
