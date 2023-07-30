@@ -24,7 +24,7 @@ const [posts, tags, numberOfPages] = await Promise.all([
 ])
 ---
 
-<Layout>
+<Layout title="ブログ" path="/blog">
   <div slot="main" class={styles.main}>
     {
       posts.length === 0 ? (
