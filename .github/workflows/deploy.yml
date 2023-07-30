@@ -5,10 +5,30 @@ on:
   #  - cron: '5 23 * * 0' # 08:05(Mon) JST
   workflow_dispatch:
 
+env:
+  DATABASE_ID: ${{ vars.DATABASE_ID }}
+  NOTION_API_SECRET: ${{ vars.NOTION_API_SECRET }}
+  PUBLIC_GA_TRACKING_ID: ${{ vars.PUBLIC_GA_TRACKING_ID }}
+  ENABLE_LIGHTBOX: ${{ vars.ENABLE_LIGHTBOX }}
+
 jobs:
   curl:
     name: Kick deploy hook
     runs-on: ubuntu-latest
     steps:
-      - name: curl
-        run: curl -X POST '${{ secrets.DEPLOY_HOOK_URL }}'
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Install modules
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: Deploy to S3
+        run: aws s3 sync ./dist/ s3://${{ secrets.BUCKET_ID }}
+      - name: Create CloudFront invalidation
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION_ID }} --paths "/*"
