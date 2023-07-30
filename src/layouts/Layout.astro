@@ -117,6 +117,21 @@ if (database.Icon && database.Icon.Type === 'file') {
               <div class="description">
                 {database.Description}
               </div>
+              <ul>
+                <li>
+                  <a href="/"
+                    >🏠 <span class={path === '/' && 'inactive'}>ホーム</span
+                    ></a
+                  >
+                </li>
+                <li>
+                  <a href="/blog"
+                    >📝 <span class={path === '/blog' && 'inactive'}
+                      >ブログ</span
+                    ></a
+                  >
+                </li>
+              </ul>
             </header>
 
             <slot name="main" />
@@ -206,6 +221,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   main header {
     padding: 20px 0 20px;
+    margin-bottom: 40px; /* 広めに bottom を取る */
   }
   main header h1 {
     font-weight: 700;
@@ -242,6 +258,37 @@ if (database.Icon && database.Icon.Type === 'file') {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
   }
+
+  
+  /* ホーム・ブログ anchor */
+  main header ul {
+    display: flex;
+    justify-content: start;
+    padding: 0;
+    list-style: none;
+  }
+  main header ul li {
+    width: 8em;
+  }
+  @media (max-width: 640px) {
+    main header ul li {
+      width: 33%;
+    }
+  }
+  main header ul li a {
+    display: block;
+    color: var(--fg);
+    font-weight: 500;
+  }
+  main header ul li a span {
+    font-weight: 500;
+    text-decoration: underline;
+  }
+  main header ul li a span.inactive {
+    color: #999;
+    text-decoration: none;
+  }
+
 
   main footer {
     margin: 30px 0 10px;
