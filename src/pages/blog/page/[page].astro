@@ -39,7 +39,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 ])
 ---
 
-<Layout title={`Posts ${page}/${numberOfPages}`} path={`/posts/page/${page}`}>
+<Layout title={`Posts ${page}/${numberOfPages}`} path={`/blog/page/${page}`}>
   <div slot="main" class={styles.main}>
     <header>
       <h2>{page}/{numberOfPages}</h2>

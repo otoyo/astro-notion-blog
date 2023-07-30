@@ -28,13 +28,14 @@ const getSite = function () {
     ).toString();
   }
 
-  return new URL(BASE_PATH, 'http://localhost:3000').toString();
+  return new URL(BASE_PATH, 'http://localhost:3001').toString();
 };
 
 // https://astro.build/config
 export default defineConfig({
   site: getSite(),
   base: BASE_PATH,
+  server: {port:3001},
   integrations: [
     CoverImageDownloader(),
     CustomIconDownloader(),
