@@ -1,0 +1,65 @@
+---
+import { NUMBER_OF_POSTS_PER_PAGE } from '../../server-constants.ts'
+import { getAllTags } from '../../lib/notion/client.ts'
+import Layout from '../../layouts/Layout.astro'
+import NoContents from '../../components/NoContents.astro'
+import PostDate from '../../components/PostDate.astro'
+import PostTags from '../../components/PostTags.astro'
+import PostTitle from '../../components/PostTitle.astro'
+import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
+import PostExcerpt from '../../components/PostExcerpt.astro'
+import ReadMoreLink from '../../components/ReadMoreLink.astro'
+import Pagination from '../../components/Pagination.astro'
+import { getTagLink } from '../../lib/blog-helpers'
+import styles from '../../styles/blog.module.css'
+import '../../styles/notion-color.css'
+
+const [tags] = await Promise.all([getAllTags()])
+---
+
+<Layout title="ブログ" path="/blog">
+  <div slot="main" class={styles.main}>
+    <h2>タグ一覧</h2>
+    <div class="post-tags">
+      <ul>
+        {
+          tags.map((tag) => (
+            <>
+              <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+                {tag.name}
+              </a>
+            </>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  div h2 {
+    margin-bottom: 1rem;
+  }
+
+  .post-tags {
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .post-tags ul {
+    padding-left: 0px;
+  }
+  .post-tags a,
+  .post-tags span {
+    display: flex;
+    align-items: center;
+    flex-shrink: 1;
+    min-width: 0;
+    border-radius: 3px;
+    padding: 2px 6px;
+    line-height: 1.2;
+    color: rgb(50, 48, 44);
+    background: rgba(227, 226, 224, 0.5);
+  }
+</style>
