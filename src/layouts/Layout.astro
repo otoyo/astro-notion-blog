@@ -199,7 +199,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     order: 1;
     width: 220px;
     padding: 20px 20px;
-    background-color: #f4f4f4;
+    background-color: #393939;
   }
   @media (max-width: 640px) {
     aside {
@@ -236,8 +236,12 @@ if (database.Icon && database.Icon.Type === 'file') {
     color: #333;
   }
   main header h1 a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: x-large;
     color: inherit;
+    margin-bottom: 0.5rem;
   }
   main header h1 a:hover {
     color: inherit;
@@ -254,22 +258,17 @@ if (database.Icon && database.Icon.Type === 'file') {
   main header h1 a img {
     width: 1.2em;
     height: 1.2em;
-    margin-right: 0.2em;
-    margin-left: -0.3rem;
     vertical-align: sub;
   }
   main header h1 a img.custom-icon {
-    display: block;
-    width: 120px;
-    height: 120px;
-    margin: -120px 0 12px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius);
   }
   @media (max-width: 640px) {
     main header h1 a img.custom-icon {
-      width: 72px;
-      height: 72px;
-      margin: -66px 0 8px;
+      width: 40px;
+      height: 40px;
     }
   }
 
@@ -522,7 +521,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   main footer .moe-counter {
-    width: 180px;
+    width: 140px;
     margin-bottom: 0.5rem;
   }
 </style>
