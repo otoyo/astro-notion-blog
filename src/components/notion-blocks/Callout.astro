@@ -13,15 +13,17 @@ const { block, headings } = Astro.props
 ---
 
 <div class={`callout ${snakeToKebab(block.Callout.Color)}`}>
-  <div>
-    {
-      block.Callout.Icon.Type === 'emoji' ? (
-        block.Callout.Icon.Emoji
-      ) : block.Callout.Icon.Type === 'external' ? (
-        <img src={block.Callout.Icon.Url} />
-      ) : null
-    }
-  </div>
+  {
+    block.Callout.Icon && (
+      <div>
+        {block.Callout.Icon.Type === 'emoji' ? (
+          block.Callout.Icon.Emoji
+        ) : block.Callout.Icon.Type === 'external' ? (
+          <img src={block.Callout.Icon.Url} />
+        ) : null}
+      </div>
+    )
+  }
   <div>
     {
       block.Callout.RichTexts.map((richText: interfaces.RichText) => (
