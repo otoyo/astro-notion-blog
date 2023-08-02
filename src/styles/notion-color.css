@@ -62,43 +62,73 @@
   background: rgba(253, 235, 236, 1) !important;
 }
 
-.tag.light-gray {
-  color: rgb(28, 56, 41);
-  background: rgba(227, 226, 224, 0.5) !important;
+/*
+サイドバー Dark 化対応
+タグをすべて gray にする
+*/
+
+.tag.default {
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
+
 .tag.gray {
-  color: rgb(28, 56, 41);
-  background: rgb(227, 226, 224) !important;
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.brown {
-  color: rgb(28, 56, 41);
-  background: rgb(238, 224, 218) !important;
+
+.tag.brown
+/* .brown-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.orange {
-  color: rgb(28, 56, 41);
-  background: rgb(250, 222, 201) !important;
+
+.tag.orange
+/* .orange-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.yellow {
-  color: rgb(28, 56, 41);
-  background: rgb(253, 236, 200) !important;
+
+.tag.yellow
+/* .yellow-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.green {
-  color: rgb(28, 56, 41);
-  background: rgb(219, 237, 219) !important;
+
+.tag.green
+/* .green-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.blue {
-  color: rgb(28, 56, 41);
-  background: rgb(211, 229, 239) !important;
+
+.tag.blue
+/* .blue-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.purple {
-  color: rgb(28, 56, 41);
-  background: rgb(232, 222, 238) !important;
+
+.tag.purple
+/* .purple-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.pink {
-  color: rgb(28, 56, 41);
-  background: rgb(245, 224, 233) !important;
+
+.tag.pink
+/* .pink-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
-.tag.red {
-  color: rgb(28, 56, 41);
-  background: rgb(255, 226, 221) !important;
+
+.tag.red
+/* .red-background  */
+{
+  background: #5d5d5d !important;
+  color: #f7f7f7;
 }
