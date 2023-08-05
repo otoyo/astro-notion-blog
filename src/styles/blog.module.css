@@ -1,4 +1,4 @@
-.main header {
+/* .main header {
   padding: 0 0 20px;
 }
 .main footer {
@@ -14,6 +14,47 @@
 
 .post {
   margin: 0 auto 40px;
+}
+.post :global(h3) {
+  margin: 0;
+  color: var(--fg);
+}
+.post footer {
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 0;
+} */
+
+.main header {
+  padding: 0 0 20px;
+}
+@media screen and (min-width: 800px){
+  .main {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.main footer {
+  border-top: 1px dashed #888;
+  margin: 0 auto;
+  padding: 40px 0 0;
+}
+@media (max-width: 640px) {
+  .main footer {
+    margin: 0 auto 40px;
+  }
+}
+
+@media screen and (min-width: 800px){
+  .post {
+    width: 50%;
+    margin: 0 0 40px;
+  }
+}
+@media (max-width: 640px) {
+  .post {
+    margin: 0 auto 40px;
+  }
 }
 .post :global(h3) {
   margin: 0;
