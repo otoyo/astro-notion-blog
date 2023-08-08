@@ -100,7 +100,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   ogImage={ogImage}
 >
   <div slot="main" class={styles.main}>
-    <div class={styles.post}>
+    <div class:list={[styles.post, "articlepage-post"]}>
       <PostDate post={post} />
       <PostTags post={post} />
       <PostTitle post={post} enableLink={false} />
@@ -125,3 +125,9 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
+
+<style>
+  .articlepage-post {
+    width: 100%;
+  }
+</style>

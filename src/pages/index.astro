@@ -29,18 +29,18 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 
 <Layout>
   <div slot="main">
-    <div class={styles.listMain}>
+    <div class={styles.main}>
       {
         posts.length === 0 ? (
           <NoContents contents={posts} />
         ) : (
           posts.map((post) => (
-            <div class={styles.listPost} key={post.Slug}>
+            <div class={styles.post} key={post.Slug}>
               <PostDate post={post} />
               <PostTags post={post} />
               <PostTitle post={post} />
               <PostFeaturedImage post={post} />
-              <PostExcerpt post={post} />
+              <PostExcerpt post={post} class="excerpt-text" />
               <ReadMoreLink post={post} />
             </div>
           ))
@@ -58,3 +58,9 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
     <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
+
+<style>
+  .post-excerpt {
+    width: 100px;
+  }
+</style>

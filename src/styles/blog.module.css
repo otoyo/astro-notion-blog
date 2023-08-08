@@ -28,7 +28,7 @@
 .main header {
   padding: 0 0 20px;
 }
-@media screen and (min-width: 800px){
+@media screen and (min-width: 768px) {
   .main {
     display: flex;
     flex-wrap: wrap;
@@ -45,7 +45,7 @@
   }
 }
 
-@media screen and (min-width: 800px){
+@media screen and (min-width: 768px) {
   .post {
     width: 50%;
     margin: 0 0 40px;

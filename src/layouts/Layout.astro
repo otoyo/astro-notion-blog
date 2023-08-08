@@ -4,6 +4,7 @@ import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+import twitterSvgReference from '../images/twitter.svg';
 
 export interface Props {
   title: string
@@ -86,6 +87,11 @@ if (database.Cover) {
                   {database.Title}
                 </a>
               </h1>
+              <div class="sns-container">
+                <a href="https://twitter.com/meganeTsukudani" target="_blank">
+                  <img class="sns-icon" src={twitterSvgReference} alt="X" />
+                </a>
+              </div>
               <div class="description">
                 {database.Description}
               </div>
@@ -236,6 +242,12 @@ if (database.Cover) {
   main footer a {
     color: inherit;
     text-decoration: underline;
+  }
+  .sns-container {
+    margin: 5px 0;
+  }
+  .sns-icon {
+    width: 32px;
   }
 </style>
 
