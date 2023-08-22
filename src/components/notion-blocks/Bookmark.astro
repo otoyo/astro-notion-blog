@@ -28,7 +28,7 @@ try {
     url.hostname === 'www.amazon.co.jp' ||
     url.hostname === 'amzn.to'
   ) {
-    rules = [metascraperAmazon()]
+    rules = [metascraperDescription(), metascraperAmazon()]
   } else {
     rules = [metascraperDescription(), metascraperImage(), metascraperTitle()]
   }
