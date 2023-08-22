@@ -186,6 +186,35 @@ export const isTweetURL = (url: URL): boolean => {
   return /\/[^/]+\/status\/[\d]+/.test(url.pathname)
 }
 
+export const isTikTokURL = (url: URL): boolean => {
+  if (url.hostname !== 'tiktok.com' && url.hostname !== 'www.tiktok.com') {
+    return false
+  }
+  return /\/[^/]+\/video\/[\d]+/.test(url.pathname)
+}
+
+export const isInstagramURL = (url: URL): boolean => {
+  if (
+    url.hostname !== 'instagram.com' &&
+    url.hostname !== 'www.instagram.com'
+  ) {
+    return false
+  }
+  return /\/p\/[^/]+/.test(url.pathname)
+}
+
+export const isPinterestURL = (url: URL): boolean => {
+  if (
+    url.hostname !== 'pinterest.com' &&
+    url.hostname !== 'www.pinterest.com' &&
+    url.hostname !== 'pinterest.jp' &&
+    url.hostname !== 'www.pinterest.jp'
+  ) {
+    return false
+  }
+  return /\/pin\/[\d]+/.test(url.pathname)
+}
+
 export const isYouTubeURL = (url: URL): boolean => {
   if (['www.youtube.com', 'youtube.com', 'youtu.be'].includes(url.hostname)) {
     return true
