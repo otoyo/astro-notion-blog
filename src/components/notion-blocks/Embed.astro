@@ -1,8 +1,16 @@
 ---
 import * as interfaces from '../../lib/interfaces.ts'
-import { isTweetURL } from '../../lib/blog-helpers.ts'
+import {
+  isTweetURL,
+  isTikTokURL,
+  isInstagramURL,
+  isPinterestURL,
+} from '../../lib/blog-helpers.ts'
 import Bookmark from './Bookmark.astro'
 import TweetEmbed from './TweetEmbed.astro'
+import TikTokEmbed from './TikTokEmbed.astro'
+import InstagramEmbed from './InstagramEmbed.astro'
+import PinterestEmbed from './PinterestEmbed.astro'
 
 export interface Props {
   block: interfaces.Block
@@ -23,6 +31,12 @@ try {
   url ? (
     isTweetURL(url) ? (
       <TweetEmbed url={url} />
+    ) : isTikTokURL(url) ? (
+      <TikTokEmbed url={url} />
+    ) : isInstagramURL(url) ? (
+      <InstagramEmbed url={url} />
+    ) : isPinterestURL(url) ? (
+      <PinterestEmbed url={url} />
     ) : (
       <Bookmark block={block} urlMap={urlMap} />
     )
