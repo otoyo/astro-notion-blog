@@ -180,7 +180,10 @@ export const buildHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
 }
 
 export const isTweetURL = (url: URL): boolean => {
-  return /https:\/\/twitter.com\/[^/]+\/status\/[\d]+/.test(url.toString())
+  if (url.hostname !== 'twitter.com' && url.hostname !== 'www.twitter.com') {
+    return false
+  }
+  return /\/[^/]+\/status\/[\d]+/.test(url.pathname)
 }
 
 export const isYouTubeURL = (url: URL): boolean => {
