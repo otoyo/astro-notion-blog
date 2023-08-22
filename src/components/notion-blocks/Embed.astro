@@ -22,22 +22,9 @@ try {
 {
   url ? (
     isTweetURL(url) ? (
-      <div class="tweet-embed">
-        <TweetEmbed url={url} />
-      </div>
+      <TweetEmbed url={url} />
     ) : (
       <Bookmark block={block} urlMap={urlMap} />
     )
   ) : null
 }
-
-<style>
-  .tweet-embed {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-  }
-  .tweet-embed div:first-child div:first-child {
-    margin: auto;
-  }
-</style>
