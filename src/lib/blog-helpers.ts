@@ -180,7 +180,12 @@ export const buildHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
 }
 
 export const isTweetURL = (url: URL): boolean => {
-  if (url.hostname !== 'twitter.com' && url.hostname !== 'www.twitter.com') {
+  if (
+    url.hostname !== 'twitter.com' &&
+    url.hostname !== 'www.twitter.com' &&
+    url.hostname !== 'x.com' &&
+    url.hostname !== 'www.x.com'
+  ) {
     return false
   }
   return /\/[^/]+\/status\/[\d]+/.test(url.pathname)
