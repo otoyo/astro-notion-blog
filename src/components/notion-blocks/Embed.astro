@@ -1,8 +1,16 @@
 ---
 import * as interfaces from '../../lib/interfaces.ts'
-import { isTweetURL } from '../../lib/blog-helpers.ts'
+import {
+  isTweetURL,
+  isTikTokURL,
+  isInstagramURL,
+  isPinterestURL,
+} from '../../lib/blog-helpers.ts'
 import Bookmark from './Bookmark.astro'
 import TweetEmbed from './TweetEmbed.astro'
+import TikTokEmbed from './TikTokEmbed.astro'
+import InstagramEmbed from './InstagramEmbed.astro'
+import PinterestEmbed from './PinterestEmbed.astro'
 
 export interface Props {
   block: interfaces.Block
@@ -13,7 +21,7 @@ const { block, urlMap } = Astro.props
 
 let url: URL
 try {
-  url = block.Embed.Url
+  url = new URL(block.Embed.Url)
 } catch (err) {
   console.log(err)
 }
@@ -22,22 +30,15 @@ try {
 {
   url ? (
     isTweetURL(url) ? (
-      <div class="tweet-embed">
-        <TweetEmbed url={url} />
-      </div>
+      <TweetEmbed url={url} />
+    ) : isTikTokURL(url) ? (
+      <TikTokEmbed url={url} />
+    ) : isInstagramURL(url) ? (
+      <InstagramEmbed url={url} />
+    ) : isPinterestURL(url) ? (
+      <PinterestEmbed url={url} />
     ) : (
       <Bookmark block={block} urlMap={urlMap} />
     )
   ) : null
 }
-
-<style>
-  .tweet-embed {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-  }
-  .tweet-embed div:first-child div:first-child {
-    margin: auto;
-  }
-</style>

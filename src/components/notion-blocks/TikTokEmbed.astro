@@ -1,0 +1,46 @@
+---
+export interface Props {
+  url: string
+}
+const { url } = Astro.props
+const user = url.pathname.split('/')[1]
+const videoId = url.pathname.split('/')[3]
+---
+
+<blockquote
+  class="tiktok-embed"
+  cite={url.toString()}
+  data-video-id={videoId}
+  style="max-width: 605px;min-width: 325px;"
+>
+  <section>
+    <a
+      target="_blank"
+      title={user}
+      href="https://www.tiktok.com/{user}?refer=embed">{user}</a
+    ><a
+      title="foryoupage"
+      target="_blank"
+      href="https://www.tiktok.com/tag/foryoupage?refer=embed">#foryoupage</a
+    >
+    <a
+      title="petsoftiktok"
+      target="_blank"
+      href="https://www.tiktok.com/tag/petsoftiktok?refer=embed"
+      >#petsoftiktok</a
+    >
+    <a
+      title="aesthetic"
+      target="_blank"
+      href="https://www.tiktok.com/tag/aesthetic?refer=embed">#aesthetic</a
+    >
+    <a
+      target="_blank"
+      title="♬ original sound - tiff"
+      href="https://www.tiktok.com/music/original-sound-6689804660171082501?refer=embed"
+      >♬ original sound - tiff</a
+    >
+  </section>
+</blockquote>
+
+<script async src="https://www.tiktok.com/embed.js"></script>

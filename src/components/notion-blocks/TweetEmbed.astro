@@ -4,13 +4,20 @@ export interface Props {
 }
 
 const { url } = Astro.props
+
+const postURL =
+  url.hostname === 'x.com' || url.hostname === 'www.x.com'
+    ? new URL(url.pathname, 'https://twitter.com')
+    : url
 ---
 
-<blockquote class="twitter-tweet">
-  <a href={url}></a>
-</blockquote>
+<div class="tweet-embed">
+  <blockquote class="twitter-tweet">
+    <a href={postURL}></a>
+  </blockquote>
+</div>
 
-<script is:inline>
+<script>
   window.twttr = (function (d, s, id) {
     var js,
       fjs = d.getElementsByTagName(s)[0],
@@ -29,3 +36,14 @@ const { url } = Astro.props
     return t
   })(document, 'script', 'twitter-wjs')
 </script>
+
+<style>
+  .tweet-embed {
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+  }
+  .tweet-embed div:first-child div:first-child {
+    margin: auto;
+  }
+</style>
