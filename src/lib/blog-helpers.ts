@@ -220,6 +220,29 @@ export const isPinterestURL = (url: URL): boolean => {
   return /\/pin\/[\d]+/.test(url.pathname)
 }
 
+export const isShortAmazonURL = (url: URL): boolean => {
+  if (url.hostname === 'amzn.to' || url.hostname === 'www.amzn.to') {
+    return true
+  }
+  return false
+}
+
+export const isFullAmazonURL = (url: URL): boolean => {
+  if (
+    url.hostname === 'amazon.com' ||
+    url.hostname === 'www.amazon.com' ||
+    url.hostname === 'amazon.co.jp' ||
+    url.hostname === 'www.amazon.co.jp'
+  ) {
+    return true
+  }
+  return false
+}
+
+export const isAmazonURL = (url: URL): boolean => {
+  return isShortAmazonURL(url) || isFullAmazonURL(url)
+}
+
 export const isYouTubeURL = (url: URL): boolean => {
   if (['www.youtube.com', 'youtube.com', 'youtu.be'].includes(url.hostname)) {
     return true
