@@ -80,7 +80,7 @@ if (database.Icon && database.Icon.Type === 'file') {
         {
           coverImageURL && (
             <div class="cover">
-              <img src={coverImageURL} />
+              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
             </div>
           )
         }
@@ -100,12 +100,16 @@ if (database.Icon && database.Icon.Type === 'file') {
                       </>
                     ) : database.Icon && database.Icon.Type === 'external' ? (
                       <>
-                        <img src={database.Icon.Url} />
+                        <img src={database.Icon.Url} alt="Site icon image" />
                         {database.Title}
                       </>
                     ) : database.Icon && database.Icon.Type === 'file' ? (
                       <>
-                        <img src={customIconURL} class="custom-icon" />
+                        <img
+                          src={customIconURL}
+                          class="custom-icon"
+                          alt="Site icon image"
+                        />
                         {database.Title}
                       </>
                     ) : (
@@ -348,37 +352,9 @@ if (database.Icon && database.Icon.Type === 'file') {
     font-weight: 700;
   }
 
-  h2 {
-    margin: 0;
-    color: var(--fg);
-    line-height: 1.3;
-    font-size: 1.2rem;
-    font-weight: normal;
-  }
-  h2 > span.tag {
-    border-radius: 4px;
-    padding: 3px 9px;
-    background: rgba(227, 226, 224, 0.5);
-  }
-
-  h3 {
-    margin: 0;
-    color: var(--fg);
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-
   @media (max-width: 640px) {
     h1 {
       font-size: 1.6rem;
-    }
-
-    h2 {
-      font-size: 1.15rem;
-    }
-
-    h3 {
-      font-size: 1.15rem;
     }
   }
 

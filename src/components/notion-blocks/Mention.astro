@@ -25,11 +25,15 @@ if (pageId) {
           {post.Icon && post.Icon.Type === 'emoji' ? (
             post.Icon.Emoji
           ) : post.Icon && post.Icon.Type === 'external' ? (
-            <img src={post.Icon.Url} class="notion-icon" />
+            <img
+              src={post.Icon.Url}
+              class="notion-icon"
+              alt="Post title icon in a page link"
+            />
           ) : (
             '📄'
           )}
-          <img src={arrow} class="icon-link" alt="" />
+          <img src={arrow} class="icon-link" alt="Arrow icon of a page link" />
         </span>
         <span class="text">{post.Title}</span>
       </>
@@ -38,7 +42,7 @@ if (pageId) {
     <a class="link">
       <span class="icon">
         🚫
-        <img src={arrow} class="icon-link" alt="" />
+        <img src={arrow} class="icon-link" alt="Arrow icon of a page link" />
       </span>
       <span class="text not-found">Post not found</span>
     </a>
