@@ -31,7 +31,10 @@ const { heading, posts } = Astro.props
                 </>
               ) : post.Icon && post.Icon.Type === 'external' ? (
                 <>
-                  <img src={post.Icon.Url} />
+                  <img
+                    src={post.Icon.Url}
+                    alt="Post title icon in a link list"
+                  />
                   {post.Title}
                 </>
               ) : (

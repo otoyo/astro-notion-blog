@@ -80,7 +80,7 @@ if (database.Icon && database.Icon.Type === 'file') {
         {
           coverImageURL && (
             <div class="cover">
-              <img src={coverImageURL} />
+              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
             </div>
           )
         }
@@ -100,12 +100,16 @@ if (database.Icon && database.Icon.Type === 'file') {
                       </>
                     ) : database.Icon && database.Icon.Type === 'external' ? (
                       <>
-                        <img src={database.Icon.Url} />
+                        <img src={database.Icon.Url} alt="Site icon image" />
                         {database.Title}
                       </>
                     ) : database.Icon && database.Icon.Type === 'file' ? (
                       <>
-                        <img src={customIconURL} class="custom-icon" />
+                        <img
+                          src={customIconURL}
+                          class="custom-icon"
+                          alt="Site icon image"
+                        />
                         {database.Title}
                       </>
                     ) : (

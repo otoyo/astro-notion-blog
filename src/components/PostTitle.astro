@@ -23,7 +23,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} />
+            <img src={post.Icon.Url} alt="Post title icon" />
             {title}
           </>
         ) : (
@@ -39,7 +39,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} />
+            <img src={post.Icon.Url} alt="Post title icon" />
             {title}
           </>
         ) : (
