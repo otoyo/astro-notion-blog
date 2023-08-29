@@ -19,7 +19,7 @@ const { block, headings } = Astro.props
         {block.Callout.Icon.Type === 'emoji' ? (
           block.Callout.Icon.Emoji
         ) : block.Callout.Icon.Type === 'external' ? (
-          <img src={block.Callout.Icon.Url} />
+          <img src={block.Callout.Icon.Url} alt="Icon in a callout block" />
         ) : null}
       </div>
     )

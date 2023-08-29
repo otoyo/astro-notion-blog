@@ -28,7 +28,11 @@ const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="https://www.notion.so/icons/document_gray.svg" /> {filename}
+          <img
+            src="https://www.notion.so/icons/document_gray.svg"
+            alt="File icon in a file block"
+          />{' '}
+          {filename}
         </a>
       )
     }

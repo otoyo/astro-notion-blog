@@ -12,7 +12,7 @@ const { post, enableLink = true } = Astro.props
 let title = post.Title
 ---
 
-<h3 class="post-title">
+<h2 class="post-title">
   {
     enableLink ? (
       <a href={getPostLink(post.Slug)}>
@@ -23,7 +23,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} />
+            <img src={post.Icon.Url} alt="Post title icon" />
             {title}
           </>
         ) : (
@@ -39,7 +39,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} />
+            <img src={post.Icon.Url} alt="Post title icon" />
             {title}
           </>
         ) : (
@@ -48,10 +48,11 @@ let title = post.Title
       </>
     )
   }
-</h3>
+</h2>
 
 <style>
   .post-title {
+    margin: 0;
     padding: 0.2rem 0;
     font-size: 2rem;
     font-weight: 700;
