@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+    Tailwind colors listed here: https://tailwindcss.com/docs/customizing-colors
+    
+    Why colors are written in rgb format (255 255 255) instead of hex (#ffffff)
+    https://tailwindcss.com/docs/customizing-colors#using-css-variables 
+*/
+@layer base {
+
+    /* light theme */
+    .theme-bubblegum {
+        /* Custom #8AE6FB */
+        --color-primary-blue: 138 230 251;
+        /* Tailwind lime-300 #bef264 */
+        --color-primary-green: 190 242 100;
+        /* Custom #FFDE69 */
+        --color-primary-yellow: 255 222 105;
+
+        /* Custom #3e3355 */
+        --color-text-body: 62 51 85;
+        /* Custom #3e3355 */
+        --color-text-heading: 62 51 85;
+        /* Custom #3e3355 */
+        --color-text-bold: 62 51 85;
+        /* Tailwind slate-500 #64748b */
+        --color-text-muted: 100 116 139;
+        /* Tailwind cyan-500 #06b6d4 */
+        --color-text-link: 6 182 212;
+        /* black */
+        --color-text-code: 0 0 0;
+        /* black */
+        --color-text-selection: 0 0 0;
+
+        /* white */
+        --color-bg-body: 255 255 255;
+        /* tailwind amber-100 #fef3c7 */
+        --color-bg-code: 254 243 199;
+        /* tailwind lime-200 #d9f99d */
+        --color-bg-selection: 217 249 157;
+
+        /* tailwind orange-100 #ffedd5 */
+        --color-border-code: 255 237 213;
+    }
+
+    /* dark theme */
+    .theme-bubblegum.dark {
+        /* Tailwind blue-500 #3b82f6 */
+        --color-primary-blue: 59 130 246;
+        /* Tailwind lime-300 #bef264 */
+        --color-primary-green: 190 242 100;
+        /* Custom #FFDE69 */
+        --color-primary-yellow: 255 222 105;
+
+        /* tailwind slate-300 */
+        --color-text-body: 203 213 225;
+        /* white */
+        --color-text-heading: 255 255 255;
+        /* white */
+        --color-text-bold: 255 255 255;
+        /* tailwind slate-400 #94a3b8 */
+        --color-text-muted: 148 163 184;
+        /* Tailwind blue-400 #60a5fa */
+        --color-text-link: 96 165 250;
+        /* black */
+        --color-text-code: 255 255 255;
+        /* black */
+        --color-text-selection: 0 0 0;
+
+        /* Tailwind slate-900 #0f172a */
+        --color-bg-body: 15 23 42;
+        /* Tailwind sky-500 #0ea5e9 */
+        --color-bg-code: 14 165 233;
+        /* Tailwind lime-200 #d9f99d */
+        --color-bg-selection: 217 249 157;
+
+        /* Tailwind yellow-100 #fef9c3 */
+        --color-border-code: 254 243 199;
+    }
+
+    :root {
+        font-family: theme('fontFamily.body');
+        background-color: theme('colors.bg.body');
+        color: theme('colors.text.body');
+        /* base font-size 1px larger for better visibility */
+        font-size: 1.125em;
+        line-height: 1.85;
+        scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: theme('fontFamily.heading');
+    }
+}
+
+@layer components {
+
+    /* ------ GLOBAL STYLES - START ------ */
+    strong {
+        font-weight: 600;
+        color: theme('colors.text.bold');
+    }
+
+    mark {
+        background-color: theme('colors.bg.selection');
+        color: theme('colors.text.selection');
+    }
+
+    /* 
+        if you want an anchor tag to not have this style, 
+        just add a class `unset` to it. 
+    */
+    a:not(.unset) {
+        text-decoration: none;
+        background-repeat: no-repeat;
+        background-size: 100% 1.5px;
+        background-position: 0 100%;
+        background-image:
+            linear-gradient(to right, theme('colors.text.link'), theme('colors.text.link'));
+    }
+
+    a:not(.unset):hover {
+        color: theme('colors.text.link');
+    }
+
+    code:not(pre code):not(.unset) {
+        background-color: theme('colors.bg.code');
+        color: theme('colors.text.code');
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        font-weight: 600;
+        border: 1px solid theme('colors.border.code');
+        margin-bottom: 1.25em;
+    }
+
+    html.dark code:not(pre code) {
+        background-color: rgb(var(--color-bg-code) / 0.15);
+        border-color: rgb(var(--color-border-code) / 0.15);
+    }
+
+    ul:not(.unset):not(:where([class~="prose"] *)) {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    ul:not(:where([class~="prose"] *))>li {
+        position: relative;
+        padding-left: 1.375rem;
+    }
+
+    ul:not(.unset):not(:where([class~="prose"] *))>li::before {
+        position: absolute;
+        left: 0;
+        content: "»";
+        color: rgb(var(--color-text-muted));
+    }
+
+    ol:not(.unset):not(:where([class~="prose"] *)) {
+        padding-left: 1.125rem;
+    }
+
+    ol:not(.unset):not(:where([class~="prose"] *))>li::marker {
+        color: rgb(var(--color-text-muted))
+    }
+
+    ul:not(.unset):not(:where([class~="prose"] *))>li,
+    ol:not(.unset):not(:where([class~="prose"] *))>li {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    ::selection {
+        background: theme('colors.bg.selection');
+        color: theme('colors.text.selection');
+    }
+
+    /* ------ GLOBAL STYLES - END ------ */
+
+    /* ------ REUSABLE UTILS - START ------ */
+    .animated-link {
+        position: relative;
+        box-decoration-break: clone;
+        text-decoration: none;
+    }
+
+    .animated-link:hover:after {
+        transform: translateZ(0) scale(1);
+    }
+
+    .animated-link:after {
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        content: "";
+        height: 2px;
+        position: absolute;
+        transform: translateZ(0) scaleX(0);
+        transform-origin: left center;
+        transition: all .150s ease-in-out;
+        background-image: linear-gradient(to right, theme('colors.text.link'), theme('colors.text.link'));
+    }
+
+    .animated-link.show:after {
+        transform: translateZ(0) scale(1);
+    }
+
+    /* ------ REUSABLE UTILS - END ------ */
+}
