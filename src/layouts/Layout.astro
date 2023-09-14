@@ -78,9 +78,8 @@ if (database.Icon && database.Icon.Type === 'file') {
   <body class="w-full mx-auto min-h-screen">
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <Header />    
-    <main id="main">
-      <slot name="main" />
-    </main>
+    <slot name="main" />
+
     <footer>
               <div>
                 <span>Powered by</span>
