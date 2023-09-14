@@ -99,18 +99,22 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot="main" class={styles.main}>
-    <div class={styles.post}>
+  <div slot="main" class="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+    <div class="max-w-2xl">
+      <PostTitle post={post} enableLink={false} />
+      <div class={styles.post}>
       <PostDate post={post} />
       <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
+      
       <PostBody blocks={blocks} />
       <PostTags post={post} />
 
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
       </footer>
+      </div>
     </div>
+    
   </div>
 
   <div slot="aside" class="aside">

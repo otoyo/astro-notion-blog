@@ -1,21 +1,22 @@
 ---
 // source https://tailblocks.cc/
+import { getNavLink } from '../lib/blog-helpers.ts'
 ---
 <div id="header" class="bg-[#fde047] font-heading">
   <div class="mx-4 sm:mx-0">
-  <div class="w-full mx-auto md:max-w-5xl flex flex-wrap p-4 flex-col md:flex-row items-center bg-white drop-shadow-xl my-8 rounded-2xl border border-zinc-200 ">
-    <a class="flex font-semibold items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+  <div class="w-full mx-auto lg:max-w-screen-lg flex flex-wrap py-2 px-4 flex-col md:flex-row items-center bg-white drop-shadow-xl my-8 rounded-2xl border border-zinc-200">
+    <a href={getNavLink('/')} class="flex font-semibold items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-[#fde047] rounded-full" viewBox="0 0 24 24">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
-      <span class="ml-3 text-xl">Tailblocks</span>
+      <span class="ml-3 text-xl">Diskusi Pajak</span>
     </a>
-    <nav class="hidden md:ml-auto md:mr-auto md:flex flex-wrap items-center text-base justify-center">
+    <!-- <nav class="hidden md:ml-auto md:mr-auto md:flex flex-wrap items-center text-base justify-center">
       <a class="mr-5 hover:text-gray-900">First Link</a>
       <a class="mr-5 hover:text-gray-900">Second Link</a>
       <a class="mr-5 hover:text-gray-900">Third Link</a>
       <a class="mr-5 hover:text-gray-900">Fourth Link</a>
-    </nav>
+    </nav> -->
     
   </div>
 </div>

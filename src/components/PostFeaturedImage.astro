@@ -20,19 +20,8 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
 {
   image && (
-    <div class="post-featured-image">
-      <img src={image} alt="Featured image of the post" />
+    <div class="rounded-lg border border-zinc-200 h-40 overflow-hidden">
+      <img alt="content" class="object-cover object-center h-full w-full hover:scale-125 transition delay-300 duration-300 ease-in-out" src={image}>
     </div>
   )
 }
-
-<style>
-  .post-featured-image {
-    padding: 0.6rem 0 0.2rem;
-  }
-  .post-featured-image img {
-    display: block;
-    max-width: 100%;
-    max-height: 20rem;
-  }
-</style>
