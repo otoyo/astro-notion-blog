@@ -24,7 +24,9 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
+import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
 import styles from '../../styles/blog.module.css'
+import PostExcerpt from '../../components/PostExcerpt.astro'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -99,21 +101,26 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot="main" class={styles.main}>
-    <div class={styles.post}>
-      <PostDate post={post} />
-      <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
-      <PostBody blocks={blocks} />
-      <PostTags post={post} />
+  <div slot="main" class="w-full max-w-5xl px-4 pt-6 lg:pt-10 pb-12 mx-auto">
+    
+      <div class="mb-16">
+        <PostFeaturedImage post={post} />
+        <div class="max-w-xl"><PostTitle post={post} enableLink={false} />
+        <PostExcerpt post={post} />
+        <PostTags post={post} /></div>
+      </div>
+      <div class="w-full max-w-2xl mx-auto">
+        
+        <PostBody blocks={blocks} />
 
-      <footer>
-        <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
-      </footer>
-    </div>
+        
+      </div>
+    <footer>
+          <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
+        </footer>
   </div>
-
-  <div slot="aside" class="aside">
+  
+  <!-- <div slot="aside" class="aside">
     <BlogPostsLink
       heading="Posts in the same category"
       posts={postsHavingSameTag.filter(
@@ -123,5 +130,5 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     <BlogPostsLink heading="Recommended" posts={rankedPosts} />
     <BlogPostsLink heading="Latest posts" posts={recentPosts} />
     <BlogTagsLink heading="Categories" tags={tags} />
-  </div>
+  </div> -->
 </Layout>
