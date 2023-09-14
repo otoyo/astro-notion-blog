@@ -4,6 +4,8 @@ import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+// Import the global.css file here so that it is included on
+import '../styles/global.css';
 
 export interface Props {
   title: string
@@ -72,6 +74,9 @@ if (database.Icon && database.Icon.Type === 'file') {
       integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
       crossorigin="anonymous"
     />
+    <!-- HTML in your document's head -->
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
@@ -91,7 +96,7 @@ if (database.Icon && database.Icon.Type === 'file') {
           <div class="content">
             <header>
               <h1>
-                <a href={getNavLink('/')}>
+                <a href={getNavLink('/')} class="text-6xl lg:text-7xl">
                   {
                     database.Icon && database.Icon.Type === 'emoji' ? (
                       <>

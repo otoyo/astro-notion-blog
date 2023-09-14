@@ -113,23 +113,6 @@
         color: theme('colors.text.selection');
     }
 
-    /* 
-        if you want an anchor tag to not have this style, 
-        just add a class `unset` to it. 
-    */
-    a:not(.unset) {
-        text-decoration: none;
-        background-repeat: no-repeat;
-        background-size: 100% 1.5px;
-        background-position: 0 100%;
-        background-image:
-            linear-gradient(to right, theme('colors.text.link'), theme('colors.text.link'));
-    }
-
-    a:not(.unset):hover {
-        color: theme('colors.text.link');
-    }
-
     code:not(pre code):not(.unset) {
         background-color: theme('colors.bg.code');
         color: theme('colors.text.code');
