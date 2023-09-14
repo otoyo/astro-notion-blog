@@ -11,8 +11,16 @@ const { post, enableLink = true } = Astro.props
 
 let title = post.Title
 ---
-
-<h2 class="text-lg font-semibold text-heading mt-5 leading-tighter">
+{
+  enableLink ? (    
+      <h2 class="text-xl font-semibold text-heading mt-5 leading-tighter">
       <a href={getPostLink(post.Slug)}>{title}</a>   
-</h2>
-
+      </h2>
+  ) : (
+    <>
+    <h2 class="text-xl font-semibold text-heading mt-5 leading-tighter">
+      {title}
+    </h2>
+    </>
+  )
+}
