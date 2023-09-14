@@ -28,7 +28,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 ---
 
 <Layout>
-  <div slot="main" class={styles.main}>
+  <div slot="main" class="bg-zinc-900">
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
