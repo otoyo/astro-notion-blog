@@ -15,6 +15,7 @@ import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
 import styles from '../styles/blog.module.css'
+import { getPostLink } from '../lib/blog-helpers.ts'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
@@ -27,9 +28,15 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 <Layout>
   <div slot="main">
     <div class="mx-4 sm:mx-0">
-
+<div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
+            <img class="w-full object-cover rounded-xl" src="/desktop.svg" alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram">
+          </div>
       <section>
         <div class="w-full mx-auto md:max-w-5xl px-5 py-24">
+          <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
+            <h1 class="sm:w-2/5 text-zinc-900 font-medium title-font text-2xl mb-2 sm:mb-0">Artikel</h1>
+            <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 pl-0"></p>
+          </div>
              <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
             
             <!-- card -->
@@ -38,13 +45,14 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
                 <NoContents contents={posts} />
               ) : (
                 posts.map((post) => (
-            <div class="p-4 md:w-1/3 sm:mb-0 mb-6" key={post.Slug}>
-              <PostFeaturedImage post={post} />
-              <PostTitle post={post} />
-              <PostExcerpt post={post} />
-              
-            </div>
-            ))
+                <a href={getPostLink(post.Slug)} class="group">
+                  <div class="p-4 md:w-1/3 sm:mb-0 mb-6" key={post.Slug}>
+                      <PostFeaturedImage post={post} />
+                      <PostTitle post={post} />
+                      <PostExcerpt post={post} />                             
+                  </div>                
+                </a>
+              ))
               )
             }
             <!-- end card  -->

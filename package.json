@@ -52,7 +52,8 @@
     "cli-progress": "^3.12.0",
     "eslint": "^8.41.0",
     "eslint-plugin-astro": "^0.27.0",
-    "nx": "15.5.3"
+    "nx": "15.5.3",
+    "postcss-nesting": "^12.0.1"
   },
   "nx": {
     "targets": {

@@ -17,7 +17,7 @@ const { prevPost, nextPost } = Astro.props
   <!-- Grid -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Card -->
-      <h3 class="font-semibold">Before you go! <span class="block text-sm font-medium mt-3 w-[30ch]">To stay in the know with Microsoft Design, follow us on Twitter and Instagram, or join our Windows or Office Insider program. And if you are interested in working with us at Microsoft, head over to aka.ms/DesignCareers.</span></h3>
+      <h3 class="font-semibold">Before you go! <span class="block text-sm font-medium mt-3 w-[30ch]">Untuk bergabung bersama kami silakan ikuti kami di <a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" target="_blank" class="text-blue-500">Telegram</a> dan <a href="https://facebook.com/diskusipajak" target="_blank" class="text-blue-500">Facebook</a>. <br class="mt-2" />atau jika anda tertarik dengan grup khusus bisa mendaftar <a href={getNavLink('/posts/fitur-berlangganan-yang-disediakan-diskusipajak')} target="_blank" class="text-blue-500">disini</a>. </span></h3>
       
 
     <!-- End Card -->
@@ -26,7 +26,7 @@ const { prevPost, nextPost } = Astro.props
     {
       prevPost && (
         <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>▶︎ Previous</div>
+          <div>◀︎ Previous</div>
           <div>{prevPost.Title}</div>
           <PostTags post={prevPost} enableLink={false} />
         </a>
@@ -38,7 +38,7 @@ const { prevPost, nextPost } = Astro.props
     {
       nextPost && (
         <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>◀︎ Next</div>
+          <div>▶︎ Next</div>
           <div>{nextPost.Title}</div>
           <PostTags post={nextPost} enableLink={false} />
         </a>
