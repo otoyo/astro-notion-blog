@@ -17,15 +17,11 @@ import {
   extractTargetBlocks,
 } from '../../lib/blog-helpers.ts'
 import Layout from '../../layouts/Layout.astro'
-import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
 import PostTitle from '../../components/PostTitle.astro'
 import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
-import BlogPostsLink from '../../components/BlogPostsLink.astro'
-import BlogTagsLink from '../../components/BlogTagsLink.astro'
-import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
-import styles from '../../styles/blog.module.css'
+import PostBigImage from '../../components/PostBigImage.astro'
 import PostExcerpt from '../../components/PostExcerpt.astro'
 
 export async function getStaticPaths() {
@@ -104,7 +100,8 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   <div slot="main" class="w-full max-w-5xl px-4 pt-6 lg:pt-10 pb-12 mx-auto">
     
       <div class="mb-16">
-        <PostFeaturedImage post={post} />
+        
+        <PostBigImage post={post}/>
         <div class="max-w-xl"><PostTitle post={post} enableLink={false} />
         <PostExcerpt post={post} />
         <PostTags post={post} /></div>
