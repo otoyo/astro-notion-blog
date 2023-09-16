@@ -1,27 +1,31 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { filePath } from '../lib/blog-helpers'
+import { Post } from "../lib/interfaces.ts";
+import { filePath } from "../lib/blog-helpers.ts";
 
 export interface Props {
-  post: Post
+  post: Post;
 }
 
-const { post = true } = Astro.props
+const { post = true } = Astro.props;
 
-let image = ''
+let image = "";
 if (post.FeaturedImage && post.FeaturedImage.Url) {
   if (import.meta.env.DEV) {
-    image = post.FeaturedImage.Url
+    image = post.FeaturedImage.Url;
   } else {
-    image = filePath(new URL(post.FeaturedImage.Url))
+    image = filePath(new URL(post.FeaturedImage.Url));
   }
 }
 ---
 
 {
   image && (
-    <div class="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
-      <img alt="content" class="w-full h-full absolute top-0 left-0 object-cover hover:scale-105 transition-transform duration-500 ease-in-out rounded-xl" src={image}>
+    <div class="relative pt-[50%] sm:pt-[70%] outline outline-zinc-100 rounded-xl overflow-hidden">
+      <img
+        alt="content"
+        class="w-full h-full absolute top-0 left-0 object-cover hover:scale-105 transition-transform duration-500 ease-in-out rounded-xl "
+        src={image}
+      />
     </div>
   )
 }

@@ -1,27 +1,31 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { filePath } from '../lib/blog-helpers'
+import { Post } from "../lib/interfaces.ts";
+import { filePath } from "../lib/blog-helpers";
 
 export interface Props {
-  post: Post
+  post: Post;
 }
 
-const { post = true } = Astro.props
+const { post = true } = Astro.props;
 
-let image = ''
+let image = "";
 if (post.FeaturedImage && post.FeaturedImage.Url) {
   if (import.meta.env.DEV) {
-    image = post.FeaturedImage.Url
+    image = post.FeaturedImage.Url;
   } else {
-    image = filePath(new URL(post.FeaturedImage.Url))
+    image = filePath(new URL(post.FeaturedImage.Url));
   }
 }
 ---
 
 {
   image && (
-  <div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
-            <img class="w-full object-cover rounded-xl" src={image} alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram">
-          </div>
+    <div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
+      <img
+        class="w-full object-cover md:rounded-xl"
+        src={image}
+        alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram"
+      />
+    </div>
   )
 }

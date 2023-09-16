@@ -1,9 +1,9 @@
-import rss from '@astrojs/rss'
-import { getAllPosts, getDatabase } from '../lib/notion/client'
-import { getPostLink } from '../lib/blog-helpers'
+import rss from "@astrojs/rss";
+import { getAllPosts, getDatabase } from "../lib/notion/client";
+import { getPostLink } from "../lib/blog-helpers";
 
 export async function get() {
-  const [posts, database] = await Promise.all([getAllPosts(), getDatabase()])
+  const [posts, database] = await Promise.all([getAllPosts(), getDatabase()]);
 
   return rss({
     title: database.Title,
@@ -15,5 +15,5 @@ export async function get() {
       description: post.Excerpt,
       pubDate: new Date(post.Date),
     })),
-  })
+  });
 }

@@ -1,17 +1,17 @@
-import fs from 'node:fs'
-import { execSync } from 'child_process'
-import type { AstroIntegration } from 'astro'
+import fs from "node:fs";
+import { execSync } from "child_process";
+import type { AstroIntegration } from "astro";
 
 export default (): AstroIntegration => ({
-  name: 'public-notion-copier',
+  name: "public-notion-copier",
   hooks: {
-    'astro:build:done': async ({ dir }) => {
-      const outDir = new URL('notion', dir.href).pathname
+    "astro:build:done": async ({ dir }) => {
+      const outDir = new URL("notion", dir.href).pathname;
       if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir)
+        fs.mkdirSync(outDir);
       }
 
-      execSync(`cp -n -r public/notion/* ${outDir} || true`)
+      execSync(`cp -n -r public/notion/* ${outDir} || true`);
     },
   },
-})
+});

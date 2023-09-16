@@ -1,25 +1,41 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { getNavLink, getPostLink } from '../lib/blog-helpers.ts'
-import PostTags from './PostTags.astro'
+import { Post } from "../lib/interfaces.ts";
+import { getNavLink, getPostLink } from "../lib/blog-helpers.ts";
+import PostTags from "./PostTags.astro";
 
 export interface Props {
-  prevPost: Post
-  nextPost: Post
+  prevPost: Post;
+  nextPost: Post;
 }
 
-const { prevPost, nextPost } = Astro.props
+const { prevPost, nextPost } = Astro.props;
 ---
+
 <!-- Card Blog -->
 <div class="w-full max-w-[] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
- 
-
   <!-- Grid -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Card -->
-      <h3 class="font-semibold">Before you go! <span class="block text-sm font-medium mt-3 w-[30ch]">Untuk bergabung bersama kami silakan ikuti kami di <a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" target="_blank" class="text-blue-500">Telegram</a> dan <a href="https://facebook.com/diskusipajak" target="_blank" class="text-blue-500">Facebook</a>. <br class="mt-2" />atau jika anda tertarik dengan grup khusus bisa mendaftar <a href={getNavLink('/posts/fitur-berlangganan-yang-disediakan-diskusipajak')} target="_blank" class="text-blue-500">disini</a>. </span></h3>
-      
-
+    <h3 class="font-semibold">
+      Before you go! <span class="block text-sm font-medium mt-3 w-[30ch]"
+        >Untuk bergabung bersama kami silakan ikuti kami di <a
+          href="https://t.me/addlist/HXeQGfBQr9ZjNzA1"
+          target="_blank"
+          class="text-blue-500">Telegram</a
+        > dan <a
+          href="https://facebook.com/diskusipajak"
+          target="_blank"
+          class="text-blue-500">Facebook</a
+        >. <br class="mt-2" />atau jika anda tertarik dengan grup khusus bisa
+        mendaftar <a
+          href={getNavLink(
+            "/posts/fitur-berlangganan-yang-disediakan-diskusipajak",
+          )}
+          target="_blank"
+          class="text-blue-500">disini</a
+        >.
+      </span>
+    </h3>
     <!-- End Card -->
 
     <!-- Card -->
@@ -49,4 +65,3 @@ const { prevPost, nextPost } = Astro.props
   <!-- End Grid -->
 </div>
 <!-- End Card Blog -->
-

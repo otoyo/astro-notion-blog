@@ -12,7 +12,7 @@ import NoContents from '../../../components/NoContents.astro'
 import PostDate from '../../../components/PostDate.astro'
 import PostTags from '../../../components/PostTags.astro'
 import PostTitle from '../../../components/PostTitle.astro'
-import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
+import PostFeaturedImage from '../../../components/PostFeaturedImage.ts.tsx'
 import PostExcerpt from '../../../components/PostExcerpt.astro'
 import ReadMoreLink from '../../../components/ReadMoreLink.astro'
 import Pagination from '../../../components/Pagination.astro'
@@ -107,3 +107,4 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
     background: var(--tag-bg-light-gray);
   }
 </style>
+../../../components/PostFeaturedImage.ts/index.ts

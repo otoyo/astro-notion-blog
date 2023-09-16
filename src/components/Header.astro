@@ -1,38 +1,78 @@
 ---
 // source https://tailblocks.cc/
-import { getNavLink } from '../lib/blog-helpers.ts'
+import { getNavLink } from "../lib/blog-helpers.ts";
 ---
+
 <div id="header" slot="header">
-  <div class="w-full mx-auto lg:max-w-screen-lg px-5 py-8 flex items-center sm:flex-row flex-col">
-    <a href={getNavLink('/')} class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-zinc-900 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-      <span class="ml-3 text-xl">Diskusi Pajak</span>
+  <div
+    class="w-full mx-auto lg:max-w-screen-lg px-5 py-8 flex items-center sm:flex-row flex-col"
+  >
+    <a
+      href={getNavLink("/")}
+      class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
+    >
+      <img
+        src="/logo-diskusi-pajak.png"
+        class="w-10 h-10 rounded-full outline outline-zinc-200 drop-shadow-xl"
+        alt="logo diskusi pajak"
+      />
+      <span class="ml-3 text-xl font-semibold tracking-tigher"
+        >Diskusi Pajak</span
+      >
     </a>
-    <p class="text-sm text-zinc-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-900 sm:py-2 sm:mt-0 mt-4">
-      <a href="https://t.me/lesssummer" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@lesssummer</a>
+    <p
+      class="text-sm text-zinc-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-900 sm:py-2 sm:mt-0 mt-4"
+    >
+      <a
+        href="https://t.me/lesssummer"
+        class="text-gray-600 ml-1"
+        rel="noopener noreferrer"
+        target="_blank">@lesssummer</a
+      >
     </p>
-    <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-      <a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" target="_blank" class="text-zinc-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+    <span
+      class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+    >
+      <a
+        href="https://t.me/addlist/HXeQGfBQr9ZjNzA1"
+        target="_blank"
+        class="text-zinc-700"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>
         </svg>
       </a>
-      <a href="https://facebook.com/diskusipajak" target="_blank" class="ml-3 text-zinc-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+      <a
+        href="https://facebook.com/diskusipajak"
+        target="_blank"
+        class="ml-3 text-zinc-700"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"
+          ></path>
         </svg>
       </a>
-      <!-- <a class="ml-3 text-zinc-700">
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-        </svg>
-      </a> -->
-      
     </span>
   </div>
 </div>
