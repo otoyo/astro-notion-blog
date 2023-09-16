@@ -12,9 +12,7 @@ import PostTitle from "../components/PostTitle.astro";
 import PostFeaturedImage from "../components/PostFeaturedImage.astro";
 import PostExcerpt from "../components/PostExcerpt.astro";
 import Pagination from "../components/Pagination.astro";
-import BlogPostsLink from "../components/BlogPostsLink.astro";
-import BlogTagsLink from "../components/BlogTagsLink.astro";
-import styles from "../styles/blog.module.css";
+
 import { getPostLink } from "../lib/blog-helpers.ts";
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([

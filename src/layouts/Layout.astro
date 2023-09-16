@@ -1,59 +1,59 @@
 ---
-import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts'
-import { getDatabase } from '../lib/notion/client.ts'
-import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
-import '../styles/syntax-coloring.css'
-import GoogleAnalytics from '../components/GoogleAnalytics.astro'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-
+import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from "../server-constants.ts";
+import { getDatabase } from "../lib/notion/client.ts";
+import {
+  getNavLink,
+  getStaticFilePath,
+  filePath,
+} from "../lib/blog-helpers.ts";
+import "../styles/syntax-coloring.css";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 // Import the global.css file here so that it is included on
-import '../styles/global.css';
+import "../styles/global.css";
 
 export interface Props {
-  title: string
-  description: string
-  path: string
-  ogImage: string
+  title: string;
+  description: string;
+  path: string;
+  ogImage: string;
 }
 
-const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
+const { title = "", description = "", path = "/", ogImage = "" } = Astro.props;
 
-const database = await getDatabase()
+const database = await getDatabase();
 
-const siteTitle = title ? `${title} - ${database.Title}` : database.Title
-const siteDescription = description ? description : database.Description
-const siteURL = new URL(getNavLink(path), Astro.site).toString()
-const siteOGImage = new URL(
-  getStaticFilePath('/og-image.webp'),
-  Astro.site
-)
+const siteTitle = title ? `${title} - ${database.Title}` : database.Title;
+const siteDescription = description ? description : database.Description;
+const siteURL = new URL(getNavLink(path), Astro.site).toString();
+const siteOGImage = new URL(getStaticFilePath("/og-image.webp"), Astro.site);
 
-let coverImageURL: string
+let coverImageURL: string;
 if (database.Cover) {
-  if (database.Cover.Type === 'external') {
-    coverImageURL = database.Cover.Url
-  } else if (database.Cover.Type === 'file') {
+  if (database.Cover.Type === "external") {
+    coverImageURL = database.Cover.Url;
+  } else if (database.Cover.Type === "file") {
     try {
-      coverImageURL = filePath(new URL(database.Cover.Url))
+      coverImageURL = filePath(new URL(database.Cover.Url));
     } catch (err) {
-      console.log('Invalid DB cover image URL')
+      console.log("Invalid DB cover image URL");
     }
   }
 }
 
-let customIconURL: string
-if (database.Icon && database.Icon.Type === 'file') {
+let customIconURL: string;
+if (database.Icon && database.Icon.Type === "file") {
   try {
-    customIconURL = filePath(new URL(database.Icon.Url))
+    customIconURL = filePath(new URL(database.Icon.Url));
   } catch (err) {
-    console.log('Invalid DB custom icon URL')
+    console.log("Invalid DB custom icon URL");
   }
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="theme-bubblegum" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -72,39 +72,41 @@ if (database.Icon && database.Icon.Type === 'file') {
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
-    
+
     <!-- HTML in your document's head -->
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <!-- splitbee -->
+    <script async src="https://cdn.splitbee.io/sb.js"></script>
   </head>
+  
   <body class="w-full mx-auto min-h-screen">
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
-    <Header />    
+    <Header />
     <slot name="main" />
 
-
-      <Footer />
+    <Footer />
     <!-- <aside>
       <slot name="aside" />
     </aside> -->
-
   </body>
 </html>
 
 <style>
   body {
-        display: grid;
-        grid-template-areas:
-          "header"
-          "main"
-          "footer"
-          "aside";
-        grid-template-rows: autofit minmax(0, 1fr) 5rem;
-        grid-template-columns: minmax(0, 1fr);
-      }
-      main {
-        grid-area: main;
-      }
+    display: grid;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer"
+      "aside";
+    grid-template-rows: autofit minmax(0, 1fr) 5rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  main {
+    grid-area: main;
+  }
 </style>
 
 <style is:global>
@@ -223,7 +225,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     line-height: 1.2rem;
   }
   table td::after {
-    content: '';
+    content: "";
     display: inline-block;
     min-height: 0.9rem;
   }
