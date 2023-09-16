@@ -1,53 +1,53 @@
 ---
-import type { SelectProperty } from '../../../../../lib/interfaces.ts'
+import type { SelectProperty } from "../../../../../lib/interfaces.ts";
 import {
   getPostsByTagAndPage,
   getRankedPosts,
   getAllTags,
   getNumberOfPagesByTag,
-} from '../../../../../lib/notion/client.ts'
-import Layout from '../../../../../layouts/Layout.astro'
-import NoContents from '../../../../../components/NoContents.astro'
-import PostDate from '../../../../../components/PostDate.astro'
-import PostTags from '../../../../../components/PostTags.astro'
-import PostTitle from '../../../../../components/PostTitle.astro'
-import PostFeaturedImage from '../../../../../components/PostFeaturedImage.ts.tsx'
-import PostExcerpt from '../../../../../components/PostExcerpt.astro'
-import ReadMoreLink from '../../../../../components/ReadMoreLink.astro'
-import Pagination from '../../../../../components/Pagination.astro'
-import BlogPostsLink from '../../../../../components/BlogPostsLink.astro'
-import BlogTagsLink from '../../../../../components/BlogTagsLink.astro'
-import styles from '../../../../../styles/blog.module.css'
-import '../../../../../styles/notion-color.css'
+} from "../../../../../lib/notion/client.ts";
+import Layout from "../../../../../layouts/Layout.astro";
+import NoContents from "../../../../../components/NoContents.astro";
+import PostDate from "../../../../../components/PostDate.astro";
+import PostTags from "../../../../../components/PostTags.astro";
+import PostTitle from "../../../../../components/PostTitle.astro";
+import PostFeaturedImage from "../../../../../components/PostFeaturedImage.astro";
+import PostExcerpt from "../../../../../components/PostExcerpt.astro";
+import ReadMoreLink from "../../../../../components/ReadMoreLink.astro";
+import Pagination from "../../../../../components/Pagination.astro";
+import BlogPostsLink from "../../../../../components/BlogPostsLink.astro";
+import BlogTagsLink from "../../../../../components/BlogTagsLink.astro";
+import styles from "../../../../../styles/blog.module.css";
+import "../../../../../styles/notion-color.css";
 
 export async function getStaticPaths() {
-  const allTags = await getAllTags()
+  const allTags = await getAllTags();
 
-  let params = []
+  let params = [];
 
   await Promise.all(
     allTags.map((tag: SelectProperty) => {
       return getNumberOfPagesByTag(tag.name).then((numberOfPages: number) => {
         for (let i = 2; i <= numberOfPages; i++) {
-          params.push({ params: { tag: tag.name, page: i.toString() } })
+          params.push({ params: { tag: tag.name, page: i.toString() } });
         }
-      })
-    })
-  )
+      });
+    }),
+  );
 
-  return params
+  return params;
 }
 
-const { tag, page } = Astro.params
+const { tag, page } = Astro.params;
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByTagAndPage(tag, parseInt(page, 10)),
   getRankedPosts(),
   getAllTags(),
   getNumberOfPagesByTag(tag),
-])
+]);
 
-const currentTag = posts[0].Tags.find((t) => t.name === tag)
+const currentTag = posts[0].Tags.find((t) => t.name === tag);
 ---
 
 <Layout
@@ -112,4 +112,3 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
     background: var(--tag-bg-light-gray);
   }
 </style>
-../../../../../components/PostFeaturedImage.ts/index.ts
