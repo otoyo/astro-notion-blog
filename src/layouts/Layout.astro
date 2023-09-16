@@ -1,232 +1,229 @@
 ---
-import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from "../server-constants.ts";
-import { getDatabase } from "../lib/notion/client.ts";
-import {
-  getNavLink,
-  getStaticFilePath,
-  filePath,
-} from "../lib/blog-helpers.ts";
-import "../styles/syntax-coloring.css";
-import GoogleAnalytics from "../components/GoogleAnalytics.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts';
+import { getDatabase } from '../lib/notion/client.ts';
+import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts';
+import '../styles/syntax-coloring.css';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 // Import the global.css file here so that it is included on
-import "../styles/global.css";
+import '../styles/global.css';
 
 export interface Props {
-  title: string;
-  description: string;
-  path: string;
-  ogImage: string;
+	title: string;
+	description: string;
+	path: string;
+	ogImage: string;
 }
 
-const { title = "", description = "", path = "/", ogImage = "" } = Astro.props;
+const { title = '', description = '', path = '/', ogImage = '' } = Astro.props;
 
 const database = await getDatabase();
 
 const siteTitle = title ? `${title} - ${database.Title}` : database.Title;
 const siteDescription = description ? description : database.Description;
 const siteURL = new URL(getNavLink(path), Astro.site).toString();
-const siteOGImage = new URL(getStaticFilePath("/og-image.webp"), Astro.site);
+const siteOGImage = new URL(getStaticFilePath('/og-image.webp'), Astro.site);
 
 let coverImageURL: string;
 if (database.Cover) {
-  if (database.Cover.Type === "external") {
-    coverImageURL = database.Cover.Url;
-  } else if (database.Cover.Type === "file") {
-    try {
-      coverImageURL = filePath(new URL(database.Cover.Url));
-    } catch (err) {
-      console.log("Invalid DB cover image URL");
-    }
-  }
+	if (database.Cover.Type === 'external') {
+		coverImageURL = database.Cover.Url;
+	} else if (database.Cover.Type === 'file') {
+		try {
+			coverImageURL = filePath(new URL(database.Cover.Url));
+		} catch (err) {
+			console.log('Invalid DB cover image URL');
+		}
+	}
 }
 
 let customIconURL: string;
-if (database.Icon && database.Icon.Type === "file") {
-  try {
-    customIconURL = filePath(new URL(database.Icon.Url));
-  } catch (err) {
-    console.log("Invalid DB custom icon URL");
-  }
+if (database.Icon && database.Icon.Type === 'file') {
+	try {
+		customIconURL = filePath(new URL(database.Icon.Url));
+	} catch (err) {
+		console.log('Invalid DB custom icon URL');
+	}
 }
 ---
 
 <!doctype html>
 <html lang="en" class="theme-bubblegum" prefix="og: https://ogp.me/ns#">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="max-image-preview:large" />
-    <meta charset="UTF-8" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{siteTitle}</title>
-    <meta name="description" content={siteDescription} />
-    <link rel="canonical" href={siteURL} />
-    <meta property="og:url" content={siteURL} />
-    <meta property="og:title" content={siteTitle} />
-    <meta property="og:description" content={siteDescription} />
-    <meta property="og:site_name" content={database.Title} />
-    <meta property="og:image" content={ogImage || siteOGImage} />
-    <meta name="twitter:title" content={siteTitle} />
-    <meta name="twitter:description" content={siteDescription} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage || siteOGImage} />
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="max-image-preview:large" />
+		<meta charset="UTF-8" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{siteTitle}</title>
+		<meta name="description" content={siteDescription} />
+		<link rel="canonical" href={siteURL} />
+		<meta property="og:url" content={siteURL} />
+		<meta property="og:title" content={siteTitle} />
+		<meta property="og:description" content={siteDescription} />
+		<meta property="og:site_name" content={database.Title} />
+		<meta property="og:image" content={ogImage || siteOGImage} />
+		<meta name="twitter:title" content={siteTitle} />
+		<meta name="twitter:description" content={siteDescription} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={ogImage || siteOGImage} />
 
-    <!-- HTML in your document's head -->
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+		<!-- HTML in your document's head -->
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
-    <!-- splitbee -->
-    <script async src="https://cdn.splitbee.io/sb.js"></script>
-  </head>
-  
-  <body class="w-full mx-auto min-h-screen">
-    <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
-    <Header />
-    <slot name="main" />
+		<!-- splitbee -->
+		<script async src="https://cdn.splitbee.io/sb.js"></script>
+	</head>
 
-    <Footer />
-    <!-- <aside>
+	<body class="w-full mx-auto min-h-screen">
+		<GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+		<Header />
+		<slot name="main" />
+
+		<Footer />
+		<!-- <aside>
       <slot name="aside" />
     </aside> -->
-  </body>
+		<script is:inline src="./node_modules/preline/dist/preline.js"></script>
+	</body>
 </html>
 
 <style>
-  body {
-    display: grid;
-    grid-template-areas:
-      "header"
-      "main"
-      "footer"
-      "aside";
-    grid-template-rows: autofit minmax(0, 1fr) 5rem;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  main {
-    grid-area: main;
-  }
+	body {
+		display: grid;
+		grid-template-areas:
+			'header'
+			'main'
+			'footer'
+			'aside';
+		grid-template-rows: autofit minmax(0, 1fr) 5rem;
+		grid-template-columns: minmax(0, 1fr);
+	}
+	main {
+		grid-area: main;
+	}
 </style>
 
 <style is:global>
-  * {
-    box-sizing: border-box;
-    word-break: break-word;
-  }
+	* {
+		box-sizing: border-box;
+		word-break: break-word;
+	}
 
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-  }
-  figure {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #999;
-    line-height: 1.8rem;
-  }
+	html,
+	body {
+		padding: 0;
+		margin: 0;
+		font-size: 16px;
+	}
+	figure {
+		margin: 0;
+		font-size: 0.85rem;
+		color: #999;
+		line-height: 1.8rem;
+	}
 
-  a {
-    color: var(--accents-1);
-    text-decoration: none;
-  }
-  a:hover {
-    color: var(--accents-1);
-  }
+	a {
+		color: var(--accents-1);
+		text-decoration: none;
+	}
+	a:hover {
+		color: var(--accents-1);
+	}
 
-  mark {
-    padding: var(--gap-quarter);
-    border-radius: var(--radius);
-    background: rgba(247, 212, 255, 0.8);
-  }
+	mark {
+		padding: var(--gap-quarter);
+		border-radius: var(--radius);
+		background: rgba(247, 212, 255, 0.8);
+	}
 
-  h1 {
-    margin: 0;
-    color: var(--fg);
-    font-size: 2rem;
-    font-weight: 700;
-  }
+	h1 {
+		margin: 0;
+		color: var(--fg);
+		font-size: 2rem;
+		font-weight: 700;
+	}
 
-  @media (max-width: 640px) {
-    h1 {
-      font-size: 1.6rem;
-    }
-  }
+	@media (max-width: 640px) {
+		h1 {
+			font-size: 1.6rem;
+		}
+	}
 
-  ol {
-    color: #222;
-    font-weight: 400;
-    font-size: 0.9rem;
-    line-height: 1.8rem;
-  }
-  p,
-  ul {
-    color: #222;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.8rem;
-  }
-  ul,
-  ol {
-    margin: 0;
-    padding-inline-start: 1.5rem;
-  }
-  pre {
-    margin: 0;
-    white-space: pre;
-    tab-size: 2;
-  }
-  pre :global(code) {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+	ol {
+		color: #222;
+		font-weight: 400;
+		font-size: 0.9rem;
+		line-height: 1.8rem;
+	}
+	p,
+	ul {
+		color: #222;
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 1.8rem;
+	}
+	ul,
+	ol {
+		margin: 0;
+		padding-inline-start: 1.5rem;
+	}
+	pre {
+		margin: 0;
+		white-space: pre;
+		tab-size: 2;
+	}
+	pre :global(code) {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
 
-  hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    margin: 0.3rem 0;
-    background-color: #333;
-  }
+	hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		margin: 0.3rem 0;
+		background-color: #333;
+	}
 
-  code {
-    font-size: 0.9rem;
-    background: rgba(135, 131, 120, 0.15);
-    color: #eb5757;
-    padding: 0.25rem;
-    border-radius: var(--radius);
-    font-family: var(--font-mono);
-  }
+	code {
+		font-size: 0.9rem;
+		background: rgba(135, 131, 120, 0.15);
+		color: #eb5757;
+		padding: 0.25rem;
+		border-radius: var(--radius);
+		font-family: var(--font-mono);
+	}
 
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-collapse: collapse;
-  }
+	table {
+		display: block;
+		overflow-x: auto;
+		white-space: nowrap;
+		border-collapse: collapse;
+	}
 
-  table tr {
-    vertical-align: top;
-  }
+	table tr {
+		vertical-align: top;
+	}
 
-  table th {
-    font-weight: 600;
-    background-color: #f4f4f4;
-  }
+	table th {
+		font-weight: 600;
+		background-color: #f4f4f4;
+	}
 
-  table td,
-  table th {
-    font-size: 0.9rem;
-    border: 1px solid #e4e4e4;
-    padding: 0.5rem 1rem;
-    text-align: left;
-    line-height: 1.2rem;
-  }
-  table td::after {
-    content: "";
-    display: inline-block;
-    min-height: 0.9rem;
-  }
+	table td,
+	table th {
+		font-size: 0.9rem;
+		border: 1px solid #e4e4e4;
+		padding: 0.5rem 1rem;
+		text-align: left;
+		line-height: 1.2rem;
+	}
+	table td::after {
+		content: '';
+		display: inline-block;
+		min-height: 0.9rem;
+	}
 </style>

@@ -53,6 +53,9 @@ dependencies:
   node-fetch:
     specifier: ^3.3.2
     version: 3.3.2
+  preline:
+    specifier: ^1.9.0
+    version: 1.9.0
   prismjs:
     specifier: ^1.29.0
     version: 1.29.0
@@ -1078,6 +1081,10 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.2
     dev: true
+
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
 
   /@supercharge/promise-pool@2.4.0:
     resolution: {integrity: sha512-O9CMipBlq5OObdt1uKJGIzm9cdjpPWfj+a+Zw9EgWKxaMNHKC7EU7X9taj3H0EGQNLOSq2jAcOa3EzxlfHsD6w==}
@@ -5094,6 +5101,12 @@ packages:
       find-yarn-workspace-root2: 1.2.16
       path-exists: 4.0.0
       which-pm: 2.0.0
+    dev: false
+
+  /preline@1.9.0:
+    resolution: {integrity: sha512-zvOexsDBood9gBAQYSwz7iY8TaomtRD0/qxvCnJl3caq5pif6frl8Oe4b4DsxHHD3Clzl4I5RmVKTq9XjMvNJA==}
+    dependencies:
+      '@popperjs/core': 2.11.8
     dev: false
 
   /prelude-ls@1.2.1:

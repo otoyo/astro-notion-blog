@@ -1,76 +1,59 @@
 ---
-import { NUMBER_OF_POSTS_PER_PAGE } from "../server-constants.ts";
-import {
-  getPosts,
-  getRankedPosts,
-  getAllTags,
-  getNumberOfPages,
-} from "../lib/notion/client.ts";
-import Layout from "../layouts/Layout.astro";
-import NoContents from "../components/NoContents.astro";
-import PostTitle from "../components/PostTitle.astro";
-import PostFeaturedImage from "../components/PostFeaturedImage.astro";
-import PostExcerpt from "../components/PostExcerpt.astro";
-import Pagination from "../components/Pagination.astro";
-
-import { getPostLink } from "../lib/blog-helpers.ts";
-
-const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
-  getPosts(NUMBER_OF_POSTS_PER_PAGE),
-  getRankedPosts(),
-  getAllTags(),
-  getNumberOfPages(),
-]);
+import Layout from '../layouts/Layout.astro';
+import FeaturedNav from '../components/FeaturedNav.astro';
+import FeaturedStats from '../components/FeaturedStats.astro';
+import Testimonial from '../components/Testimonial.astro';
 ---
 
 <Layout>
-  <div slot="main">
-    <div class="mx-4 sm:mx-0">
-      <div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
-        <img
-          class="w-full object-cover rounded-xl"
-          src="/desktop.svg"
-          alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram"
-        />
-      </div>
-      <section>
-        <div class="w-full mx-auto md:max-w-5xl px-5 py-24">
-          <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-8">
-            <h1
-              class="sm:w-2/5 text-zinc-900 font-medium title-font text-2xl mb-2 sm:mb-0"
-            >
-              Artikel
-            </h1>
-          </div>
-          <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-            <!-- card -->
-            {
-              posts.length === 0 ? (
-                <NoContents contents={posts} />
-              ) : (
-                posts.map((post) => (
-                  <a href={getPostLink(post.Slug)} class="group">
-                    <div class="p-4 md:w-1/3 sm:mb-0 mb-6" key={post.Slug}>
-                      <PostFeaturedImage post={post} />
-                      <PostTitle post={post} />
-                      <PostExcerpt post={post} />
-                    </div>
-                  </a>
-                ))
-              )
-            }
-            <!-- end card  -->
-          </div>
-        </div>
-      </section>
-    </div>
+	<div slot="main">
+		<div class="mx-4 sm:mx-0">
+			<div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
+				<img
+					class="w-full object-cover rounded-xl"
+					src="/desktop.svg"
+					alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram"
+				/>
+			</div>
+			<FeaturedNav />
+			<FeaturedStats />
+      <Testimonial />
+			<!-- <section>
+				<div class="w-full mx-auto md:max-w-5xl px-5 py-24">
+					<div class="flex flex-wrap sm:flex-row flex-col py-6 mb-8">
+						<h1 class="sm:w-2/5 text-zinc-900 font-medium title-font text-2xl mb-2 sm:mb-0">
+							Artikel
+						</h1>
+					</div>
+					<div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+						
+						{
+							posts.length === 0 ? (
+								<NoContents contents={posts} />
+							) : (
+								posts.map((post) => (
+									<a href={getPostLink(post.Slug)} class="group">
+										<div class="p-4 md:w-1/3 sm:mb-0 mb-6" key={post.Slug}>
+											<PostFeaturedImage post={post} />
+											<PostTitle post={post} />
+											<PostExcerpt post={post} />
+										</div>
+									</a>
+								))
+							)
+						}
 
-    <footer>
-      <Pagination currentPage={1} numberOfPages={numberOfPages} />
-    </footer>
-  </div>
+					</div>
+				</div>
+			</section> -->
+		</div>
 
-  <!-- <div slot="aside" class={styles.aside}>
+		<!-- <footer>
+			<Pagination currentPage={1} numberOfPages={numberOfPages} />
+		</footer> -->
+	</div>
+
+	<!-- <div slot="aside" class={styles.aside}>
     <BlogPostsLink heading="Recommended" posts={rankedPosts} />
     <BlogTagsLink heading="Categories" tags={tags} />
   </div> -->
