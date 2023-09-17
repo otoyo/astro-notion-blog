@@ -1,6 +1,8 @@
 {
-  "name": "",
-  "short_name": "",
+  "short_name": "Diskusi Pajak",
+  "name": "Diskusi Pajak",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -15,5 +17,6 @@
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "description": "Diskusi Pajak | Diskusi perpajakan pertama dan terbesar di Indonesia"
 }

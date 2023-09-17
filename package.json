@@ -19,6 +19,7 @@
   "dependencies": {
     "@astrojs/rss": "^2.4.2",
     "@astrojs/tailwind": "^5.0.0",
+    "@astrojs/vercel": "^5.0.0",
     "@notionhq/client": "^2.2.5",
     "@supercharge/promise-pool": "^2.4.0",
     "@types/js-base64": "3.0.0",

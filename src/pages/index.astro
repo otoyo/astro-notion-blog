@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import FeaturedNav from '../components/FeaturedNav.astro';
 import FeaturedStats from '../components/FeaturedStats.astro';
 import Testimonial from '../components/Testimonial.astro';
+import FeaturedGeneral from '../components/FeaturedGeneral.astro';
+import ClickToAction from '../components/ClickToAction.astro';
 ---
 
 <Layout>
@@ -11,13 +13,15 @@ import Testimonial from '../components/Testimonial.astro';
 			<div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
 				<img
 					class="w-full object-cover rounded-xl"
-					src="/desktop.svg"
+					src="/telegram.svg"
 					alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram"
 				/>
 			</div>
 			<FeaturedNav />
 			<FeaturedStats />
 			<Testimonial />
+			<FeaturedGeneral />
+			<ClickToAction />
 		</div>
 	</div>
 </Layout>
