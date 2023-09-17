@@ -4,9 +4,9 @@
       "remotePatterns": [
         {
           "protocol": "https",
-          "hostname": "example.com",
+          "hostname": "diskusipajak.store",
           "port": "",
-          "pathname": "/account123/**"
+          "pathname": "/**"
         }
       ],
       "minimumCacheTTL": 60,
