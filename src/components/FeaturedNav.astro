@@ -1,5 +1,7 @@
 ---
 // Component Script (JavaScript)
+import { Image } from 'astro:assets';
+import telegram from '../images/telegram-diskusi-pajak.jpg?url'
 ---
 
 <!-- Features -->
@@ -71,7 +73,7 @@
             <!-- Tab Content -->
             <div>
               <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
-                <img class="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2] outline outline-zinc-200" src="/telegram-diskusi-pajak.jpg" alt="Image Description">
+                <Image width={780} height={837} class="shadow-2xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2] outline outline-zinc-200" src={telegram} alt="gambar grup dan channel yang tersedia di telegram diskusi perpajakan yang disediakan secara gratis dengan anggota lebih dari 34.000">
               </div>
   
               <!-- <div id="tabs-with-card-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-2">

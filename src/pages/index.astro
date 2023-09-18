@@ -5,15 +5,20 @@ import FeaturedStats from '../components/FeaturedStats.astro';
 import Testimonial from '../components/Testimonial.astro';
 import FeaturedGeneral from '../components/FeaturedGeneral.astro';
 import ClickToAction from '../components/ClickToAction.astro';
+import { Image } from 'astro:assets';
+import telegram from '../images/telegram.jpg?url';
 ---
 
 <Layout>
 	<div slot="main">
 		<div class="mx-4 sm:mx-0">
 			<div class="aspect-w-16 aspect-h-7 max-w-7xl mx-auto">
-				<img
+				<Image
+					width={1024}
+					height={350}
+					quality="high"
 					class="w-full object-cover rounded-xl"
-					src="/telegram.svg"
+					src={telegram}
 					alt="Gambar Feature aplikasi yang digunakan dalam diskusi perpajakan sharepoint teams telegram"
 				/>
 			</div>
