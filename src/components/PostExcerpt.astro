@@ -7,4 +7,18 @@ export interface Props {
 
 const { post } = Astro.props
 ---
-<p class="text-base text-zinc-500 leading-snug mt-2">{post.Excerpt ? post.Excerpt : ''}</p>
+
+<div class="post-excerpt balance">
+  <p>{post.Excerpt ? post.Excerpt : ''}</p>
+</div>
+
+<style>
+  .post-excerpt {
+    padding: 0.2rem 0;
+    font-size: 1rem;
+  }
+
+  .post-excerpt p {
+    margin: 0;
+  }
+</style>

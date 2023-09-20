@@ -26,5 +26,3 @@ tmp/
 
 public/notion/*
 !public/notion/.gitkeep
-
-.vercel

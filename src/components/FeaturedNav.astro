@@ -1,65 +1,52 @@
 ---
-// Component Script (JavaScript)
 import { Image } from 'astro:assets';
-import telegram from '../images/telegram-diskusi-pajak.jpg?url'
+import telegram from '../images/featured-nav.jpg?url'
 ---
-
 <!-- Features -->
 <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <div class="relative p-6 md:p-16">
       <!-- Grid -->
       <div class="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
         <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
-          <h2 class="text-2xl text-gray-800 font-bold sm:text-3xl dark:text-gray-200">
+          <h2 class="text-2xl text-zinc-800 font-bold sm:text-3xl balance">
             Grup dan Channel yang tersedia
           </h2>
   
           <!-- Tab Navs -->
           <nav class="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist">
-            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700 active" id="tabs-with-card-item-1" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
+            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-zinc-200 p-4 md:p-5 rounded-xl active" id="tabs-with-card-item-1" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
               <span class="flex">
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>
-               </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-zinc-800" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
+                  </svg>
                 <span class="grow ml-6">
-                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200">Diskusi Pajak</span>
-                  <span class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200">Use Diskusi Pajak secara umum, khusus pembahasan pajak dikelola pemerintah pusat</span>
+                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-zinc-800">Diskusi Pajak</span>
+                  <span class="block mt-1 text-zinc-800 balance">Diskusi Pajak secara umum, pembahasan pajak yang dikelola pemerintah pusat</span>
                 </span>
               </span>
             </button>
   
-            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700" id="tabs-with-card-item-2" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
+            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-zinc-200 p-4 md:p-5 rounded-xl" id="tabs-with-card-item-2" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
               <span class="flex">
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M17.8 20l-12 -1.5c-1 -.1 -1.8 -.9 -1.8 -1.9v-9.2c0 -1 .8 -1.8 1.8 -1.9l12 -1.5c1.2 -.1 2.2 .8 2.2 1.9v12.1c0 1.2 -1.1 2.1 -2.2 1.9z"></path>
-                  <path d="M12 5l0 14"></path>
-                  <path d="M4 12l16 0"></path>
-               </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-zinc-800"viewBox="0 0 16 16">
+                    <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
+                    <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  </svg>
                 <span class="grow ml-6">
-                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200">Aplikasi eBukpot eFaktur eReg eForm</span>
-                  <span class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200">Pembahasan seputar aplikasi pendukung pelaporan dan layanan perpajakan</span>
+                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-zinc-800 balance">Aplikasi eBukpot eFaktur eReg eForm</span>
+                  <span class="block mt-1 text-zinc-800 balance">Pembahasan seputar aplikasi pendukung pelaporan dan layanan perpajakan</span>
                 </span>
               </span>
             </button>
   
-            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-slate-900 dark:hover:bg-gray-700" id="tabs-with-card-item-3" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
+            <button type="button" class="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-left hover:bg-zinc-200 p-4 md:p-5 rounded-xl" id="tabs-with-card-item-3" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
               <span class="flex">
-                
-               <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M3 7h10v10h-10z"></path>
-                <path d="M6 10h4"></path>
-                <path d="M8 10v4"></path>
-                <path d="M8.104 17c.47 2.274 2.483 4 4.896 4a5 5 0 0 0 5 -5v-7h-5"></path>
-                <path d="M18 18a4 4 0 0 0 4 -4v-5h-4"></path>
-                <path d="M13.003 8.83a3 3 0 1 0 -1.833 -1.833"></path>
-                <path d="M15.83 8.36a2.5 2.5 0 1 0 .594 -4.117"></path>
-             </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="flex-shrink-0 mt-2 h-6 w-6 md:w-7 md:h-7 hs-tab-active:text-blue-600 text-zinc-800" viewBox="0 0 16 16">
+                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+                  </svg>
                 <span class="grow ml-6">
-                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-blue-500 dark:text-gray-200">Diskusi Bendahara</span>
-                  <span class="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-gray-200">Penerimaan bendahara cukup signifikan untuk setiap KPP, mari kita bahas khusus disini</span>
+                  <span class="block text-lg font-semibold hs-tab-active:text-blue-600 text-zinc-800 balance">Diskusi Bendahara</span>
+                  <span class="block mt-1 text-zinc-800 balance">Penerimaan bendahara cukup signifikan untuk setiap KPP, mari kita bahas khusus disini.</span>
                 </span>
               </span>
             </button>
@@ -68,27 +55,21 @@ import telegram from '../images/telegram-diskusi-pajak.jpg?url'
         </div>
         <!-- End Col -->
   
-        <div class="hidden md:block lg:col-span-6">
+        <div class="lg:col-span-6">
           <div class="relative">
             <!-- Tab Content -->
             <div>
               <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
-                <Image width={780} height={837} class="shadow-2xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2] outline outline-zinc-200" src={telegram} alt="gambar grup dan channel yang tersedia di telegram diskusi perpajakan yang disediakan secara gratis dengan anggota lebih dari 34.000">
+                <Image class="shadow-xl shadow-zinc-200 rounded-xl" src={telegram} alt="Image Description" width={971} height={893}>
               </div>
   
-              <!-- <div id="tabs-with-card-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-2">
-                <img class="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2] outline outline-zinc-200" src="/sharepoint.jpg" alt="Image Description">
-              </div>
-  
-              <div id="tabs-with-card-3" class="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-3">
-                <img class="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/[.2] outline outline-zinc-200" src="/teams.jpg" alt="Image Description">
-              </div> -->
+              
             </div>
             <!-- End Tab Content -->
   
             <!-- SVG Element -->
             <div class="hidden absolute top-0 right-0 translate-x-20 md:block lg:translate-x-20">
-              <svg class="w-16 h-auto text-amber-500" width="121" height="135" viewBox="0 0 121 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-16 h-auto text-orange-500" width="121" height="135" viewBox="0 0 121 135" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 16.4754C11.7688 27.4499 21.2452 57.3224 5 89.0164" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
                 <path d="M33.6761 112.104C44.6984 98.1239 74.2618 57.6776 83.4821 5" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
                 <path d="M50.5525 130C68.2064 127.495 110.731 117.541 116 78.0874" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
@@ -103,7 +84,7 @@ import telegram from '../images/telegram-diskusi-pajak.jpg?url'
   
       <!-- Background Color -->
       <div class="absolute inset-0 grid grid-cols-12 w-full h-full">
-        <div class="col-span-full lg:col-span-7 lg:col-start-6 bg-gray-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full dark:bg-white/[.075]"></div>
+        <div class="col-span-full lg:col-span-7 lg:col-start-6 bg-zinc-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full"></div>
       </div>
       <!-- End Background Color -->
     </div>

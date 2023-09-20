@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../images/logo.png?url'
+import { getNavLink } from '../lib/blog-helpers.ts'
+---
+
+<div class="">
+	<div class="max-w-5xl w-full px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+		<a href={getNavLink('/')} class="flex font-medium items-center md:justify-start justify-center ">
+			<Image
+				class="inline-block h-[2.375rem] w-[2.375rem] rounded-full outline outline-zinc-200 shadow"
+				src={logo} width={120} height={120}				alt="logo diskusi pajak"
+			/>
+			<span class="ml-3 text-xl">Diskusi Pajak</span>
+		</a>
+		<p
+			class="text-sm text-zinc-900 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-zinc-900 sm:py-2 sm:mt-0 mt-4"
+		>
+		
+			<a
+				href="https://t.me/lesssummer"
+				class="text-zinc-600 ml-1"
+				rel="noopener noreferrer"
+				target="_blank">@lesssummer</a
+			>
+		</p>
+		<span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+			<a href="https://www.facebook.com/diskusipajak" class="text-zinc-900">
+				<svg
+					fill="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					class="w-5 h-5"
+					viewBox="0 0 24 24"
+				>
+					<path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+				</svg>
+			</a>
+			
+			<a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" class="ml-3 text-zinc-900">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>
+       </svg>
+			</a>
+			
+		</span>
+	</div>
+</div>

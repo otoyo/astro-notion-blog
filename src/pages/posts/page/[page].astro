@@ -4,38 +4,39 @@ import {
   getRankedPosts,
   getAllTags,
   getNumberOfPages,
-} from "../../../lib/notion/client.ts";
-import Layout from "../../../layouts/Layout.astro";
-import NoContents from "../../../components/NoContents.astro";
-import PostDate from "../../../components/PostDate.astro";
-import PostTags from "../../../components/PostTags.astro";
-import PostTitle from "../../../components/PostTitle.astro";
-import PostFeaturedImage from "../../../components/PostFeaturedImage.astro";
-import PostExcerpt from "../../../components/PostExcerpt.astro";
-import ReadMoreLink from "../../../components/ReadMoreLink.astro";
-import Pagination from "../../../components/Pagination.astro";
-import BlogPostsLink from "../../../components/BlogPostsLink.astro";
-import BlogTagsLink from "../../../components/BlogTagsLink.astro";
-import styles from "../../../styles/blog.module.css";
+  getPostsByPage,
+} from '../../../lib/notion/client.ts'
+import Layout from '../../../layouts/Layout.astro'
+import NoContents from '../../../components/NoContents.astro'
+import PostDate from '../../../components/PostDate.astro'
+import PostTags from '../../../components/PostTags.astro'
+import PostTitle from '../../../components/PostTitle.astro'
+import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
+import PostExcerpt from '../../../components/PostExcerpt.astro'
+import ReadMoreLink from '../../../components/ReadMoreLink.astro'
+import Pagination from '../../../components/Pagination.astro'
+import BlogPostsLink from '../../../components/BlogPostsLink.astro'
+import BlogTagsLink from '../../../components/BlogTagsLink.astro'
+import styles from '../../../styles/blog.module.css'
 
 export async function getStaticPaths() {
-  const numberOfPages = await getNumberOfPages();
+  const numberOfPages = await getNumberOfPages()
 
-  let params = [];
+  let params = []
   for (let i = 2; i <= numberOfPages; i++) {
-    params.push({ params: { page: i.toString() } });
+    params.push({ params: { page: i.toString() } })
   }
-  return params;
+  return params
 }
 
-const { page } = Astro.params;
+const { page } = Astro.params
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByPage(parseInt(page, 10)),
   getRankedPosts(),
   getAllTags(),
   getNumberOfPages(),
-]);
+])
 ---
 
 <Layout title={`Posts ${page}/${numberOfPages}`} path={`/posts/page/${page}`}>

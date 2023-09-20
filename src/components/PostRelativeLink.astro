@@ -1,67 +1,82 @@
 ---
-import { Post } from "../lib/interfaces.ts";
-import { getNavLink, getPostLink } from "../lib/blog-helpers.ts";
-import PostTags from "./PostTags.astro";
+import { Post } from '../lib/interfaces.ts'
+import { getNavLink, getPostLink } from '../lib/blog-helpers.ts'
+import PostTags from './PostTags.astro'
 
 export interface Props {
-  prevPost: Post;
-  nextPost: Post;
+  prevPost: Post
+  nextPost: Post
 }
 
-const { prevPost, nextPost } = Astro.props;
+const { prevPost, nextPost } = Astro.props
 ---
 
-<!-- Card Blog -->
-<div class="w-full max-w-[] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-  <!-- Grid -->
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Card -->
-    <h3 class="font-semibold">
-      Before you go! <span class="block text-sm font-medium mt-3 w-[30ch]"
-        >Untuk bergabung bersama kami silakan ikuti kami di <a
-          href="https://t.me/addlist/HXeQGfBQr9ZjNzA1"
-          target="_blank"
-          class="text-blue-500">Telegram</a
-        > dan <a
-          href="https://facebook.com/diskusipajak"
-          target="_blank"
-          class="text-blue-500">Facebook</a
-        >. <br class="mt-2" />atau jika anda tertarik dengan grup khusus bisa
-        mendaftar <a
-          href={getNavLink(
-            "/posts/fitur-berlangganan-yang-disediakan-diskusipajak",
-          )}
-          target="_blank"
-          class="text-blue-500">disini</a
-        >.
-      </span>
-    </h3>
-    <!-- End Card -->
-
-    <!-- Card -->
-    {
-      prevPost && (
-        <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>◀︎ Previous</div>
-          <div>{prevPost.Title}</div>
-          <PostTags post={prevPost} enableLink={false} />
-        </a>
-      )
-    }
-    <!-- End Card -->
-
-    <!-- Card -->
+<div class="post-relative-link">
+  <div>
     {
       nextPost && (
         <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>▶︎ Next</div>
+          <div>◀︎ Next</div>
           <div>{nextPost.Title}</div>
           <PostTags post={nextPost} enableLink={false} />
         </a>
       )
     }
-    <!-- End Card -->
   </div>
-  <!-- End Grid -->
+  <div>
+    {
+      prevPost && (
+        <a href={getPostLink(prevPost.Slug)} class="colored">
+          <div>▶︎ Previous</div>
+          <div>{prevPost.Title}</div>
+          <PostTags post={prevPost} enableLink={false} />
+        </a>
+      )
+    }
+  </div>
+  <div>
+    <a href={getNavLink('/')} class="text">↑Top</a>
+  </div>
 </div>
-<!-- End Card Blog -->
+
+<style>
+  div.post-relative-link {
+    margin-top: 1rem;
+  }
+  div.post-relative-link > div {
+    display: block;
+    margin-top: 0.6rem;
+  }
+  div.post-relative-link > div > a {
+    display: block;
+    text-align: center;
+    line-height: 1.2rem;
+    font-size: 0.95rem;
+  }
+  div.post-relative-link > div > a.text {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    color: inherit;
+    font-size: 1rem;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  div.post-relative-link > div > a.colored {
+    padding: 1rem;
+    border-radius: var(--radius);
+    color: var(--fg);
+    background: rgba(227, 226, 224, 0.5);
+  }
+  div.post-relative-link > div > a.colored > div:first-child {
+    width: auto;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  div.post-relative-link > div > a.colored > div:nth-child(2) {
+    width: auto;
+    padding: 0.2rem 0 0.4rem;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+</style>

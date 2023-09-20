@@ -1,6 +1,6 @@
-const fs = require("fs");
-const { setTimeout } = require("timers/promises");
-const { Client } = require("@notionhq/client");
+const fs = require('fs');
+const { setTimeout } = require('timers/promises');
+const { Client } = require('@notionhq/client');
 
 const notion = new Client({ auth: process.env.NOTION_API_SECRET });
 
@@ -33,14 +33,14 @@ const retrieveAndWriteBlockChildren = async (blockId) => {
       break;
     }
 
-    params["start_cursor"] = res.next_cursor;
+    params['start_cursor'] = res.next_cursor;
   }
 
   fs.writeFileSync(`tmp/${blockId}.json`, JSON.stringify(results));
 
   results.forEach(async (block) => {
     if (
-      block.type === "synced_block" &&
+      block.type === 'synced_block' &&
       block.synced_block.synced_from &&
       block.synced_block.synced_from.block_id
     ) {
@@ -48,7 +48,7 @@ const retrieveAndWriteBlockChildren = async (blockId) => {
         await retrieveAndWriteBlock(block.synced_block.synced_from.block_id);
       } catch (err) {
         console.log(
-          `Could not retrieve the original synced_block. error: ${err}`,
+          `Could not retrieve the original synced_block. error: ${err}`
         );
         throw err;
       }

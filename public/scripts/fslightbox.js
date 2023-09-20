@@ -1,10 +1,10 @@
 !(function (e, t) {
-  if ("object" == typeof exports && "object" == typeof module)
+  if ('object' == typeof exports && 'object' == typeof module)
     module.exports = t();
-  else if ("function" == typeof define && define.amd) define([], t);
+  else if ('function' == typeof define && define.amd) define([], t);
   else {
     var n = t();
-    for (var o in n) ("object" == typeof exports ? exports : e)[o] = n[o];
+    for (var o in n) ('object' == typeof exports ? exports : e)[o] = n[o];
   }
 })(window, function () {
   return (function (e) {
@@ -21,19 +21,19 @@
         n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: o });
       }),
       (n.r = function (e) {
-        "undefined" != typeof Symbol &&
+        'undefined' != typeof Symbol &&
           Symbol.toStringTag &&
-          Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
-          Object.defineProperty(e, "__esModule", { value: !0 });
+          Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
+          Object.defineProperty(e, '__esModule', { value: !0 });
       }),
       (n.t = function (e, t) {
         if ((1 & t && (e = n(e)), 8 & t)) return e;
-        if (4 & t && "object" == typeof e && e && e.__esModule) return e;
+        if (4 & t && 'object' == typeof e && e && e.__esModule) return e;
         var o = Object.create(null);
         if (
           (n.r(o),
-          Object.defineProperty(o, "default", { enumerable: !0, value: e }),
-          2 & t && "string" != typeof e)
+          Object.defineProperty(o, 'default', { enumerable: !0, value: e }),
+          2 & t && 'string' != typeof e)
         )
           for (var i in e)
             n.d(
@@ -41,7 +41,7 @@
               i,
               function (t) {
                 return e[t];
-              }.bind(null, i),
+              }.bind(null, i)
             );
         return o;
       }),
@@ -54,48 +54,48 @@
             : function () {
                 return e;
               };
-        return n.d(t, "a", t), t;
+        return n.d(t, 'a', t), t;
       }),
       (n.o = function (e, t) {
         return Object.prototype.hasOwnProperty.call(e, t);
       }),
-      (n.p = ""),
+      (n.p = ''),
       n((n.s = 0))
     );
   })([
     function (e, t, n) {
-      "use strict";
+      'use strict';
       n.r(t);
       var o,
-        i = "fslightbox-",
-        r = "".concat(i, "styles"),
-        s = "".concat(i, "cursor-grabbing"),
-        a = "".concat(i, "full-dimension"),
-        c = "".concat(i, "flex-centered"),
-        l = "".concat(i, "open"),
-        u = "".concat(i, "transform-transition"),
-        d = "".concat(i, "absoluted"),
-        f = "".concat(i, "slide-btn"),
-        p = "".concat(f, "-container"),
-        h = "".concat(i, "fade-in"),
-        m = "".concat(i, "fade-out"),
-        g = h + "-strong",
-        v = m + "-strong",
-        b = "".concat(i, "opacity-"),
-        x = "".concat(b, "1"),
-        y = "".concat(i, "source");
+        i = 'fslightbox-',
+        r = ''.concat(i, 'styles'),
+        s = ''.concat(i, 'cursor-grabbing'),
+        a = ''.concat(i, 'full-dimension'),
+        c = ''.concat(i, 'flex-centered'),
+        l = ''.concat(i, 'open'),
+        u = ''.concat(i, 'transform-transition'),
+        d = ''.concat(i, 'absoluted'),
+        f = ''.concat(i, 'slide-btn'),
+        p = ''.concat(f, '-container'),
+        h = ''.concat(i, 'fade-in'),
+        m = ''.concat(i, 'fade-out'),
+        g = h + '-strong',
+        v = m + '-strong',
+        b = ''.concat(i, 'opacity-'),
+        x = ''.concat(b, '1'),
+        y = ''.concat(i, 'source');
       function w(e) {
         return (w =
-          "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
+          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function (e) {
                 return typeof e;
               }
             : function (e) {
                 return e &&
-                  "function" == typeof Symbol &&
+                  'function' == typeof Symbol &&
                   e.constructor === Symbol &&
                   e !== Symbol.prototype
-                  ? "symbol"
+                  ? 'symbol'
                   : typeof e;
               })(e);
       }
@@ -134,13 +134,13 @@
                   return -1 === i || 0 === i || 1 === i;
                 });
       }
-      "object" ===
-        ("undefined" == typeof document ? "undefined" : w(document)) &&
-        (((o = document.createElement("style")).className = r),
+      'object' ===
+        ('undefined' == typeof document ? 'undefined' : w(document)) &&
+        (((o = document.createElement('style')).className = r),
         o.appendChild(
           document.createTextNode(
-            ".fslightbox-absoluted{position:absolute;top:0;left:0}.fslightbox-fade-in{animation:fslightbox-fade-in .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out{animation:fslightbox-fade-out .3s ease}.fslightbox-fade-in-strong{animation:fslightbox-fade-in-strong .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out-strong{animation:fslightbox-fade-out-strong .3s ease}@keyframes fslightbox-fade-in{from{opacity:.65}to{opacity:1}}@keyframes fslightbox-fade-out{from{opacity:.35}to{opacity:0}}@keyframes fslightbox-fade-in-strong{from{opacity:.3}to{opacity:1}}@keyframes fslightbox-fade-out-strong{from{opacity:1}to{opacity:0}}.fslightbox-cursor-grabbing{cursor:grabbing}.fslightbox-full-dimension{width:100%;height:100%}.fslightbox-open{overflow:hidden;height:100%}.fslightbox-flex-centered{display:flex;justify-content:center;align-items:center}.fslightbox-opacity-0{opacity:0!important}.fslightbox-opacity-1{opacity:1!important}.fslightbox-scrollbarfix{padding-right:17px}.fslightbox-transform-transition{transition:transform .3s}.fslightbox-container{font-family:Arial,sans-serif;position:fixed;top:0;left:0;background:linear-gradient(rgba(30,30,30,.9),#000 1810%);touch-action:pinch-zoom;z-index:1000000000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.fslightbox-container *{box-sizing:border-box}.fslightbox-svg-path{transition:fill .15s ease;fill:#ddd}.fslightbox-nav{height:45px;width:100%;position:absolute;top:0;left:0}.fslightbox-slide-number-container{display:flex;justify-content:center;align-items:center;position:relative;height:100%;font-size:15px;color:#d7d7d7;z-index:0;max-width:55px;text-align:left}.fslightbox-slide-number-container .fslightbox-flex-centered{height:100%}.fslightbox-slash{display:block;margin:0 5px;width:1px;height:12px;transform:rotate(15deg);background:#fff}.fslightbox-toolbar{position:absolute;z-index:3;right:0;top:0;height:100%;display:flex;background:rgba(35,35,35,.65)}.fslightbox-toolbar-button{height:100%;width:45px;cursor:pointer}.fslightbox-toolbar-button:hover .fslightbox-svg-path{fill:#fff}.fslightbox-slide-btn-container{display:flex;align-items:center;padding:12px 12px 12px 6px;position:absolute;top:50%;cursor:pointer;z-index:3;transform:translateY(-50%)}@media (min-width:476px){.fslightbox-slide-btn-container{padding:22px 22px 22px 6px}}@media (min-width:768px){.fslightbox-slide-btn-container{padding:30px 30px 30px 6px}}.fslightbox-slide-btn-container:hover .fslightbox-svg-path{fill:#f1f1f1}.fslightbox-slide-btn{padding:9px;font-size:26px;background:rgba(35,35,35,.65)}@media (min-width:768px){.fslightbox-slide-btn{padding:10px}}@media (min-width:1600px){.fslightbox-slide-btn{padding:11px}}.fslightbox-slide-btn-container-previous{left:0}@media (max-width:475.99px){.fslightbox-slide-btn-container-previous{padding-left:3px}}.fslightbox-slide-btn-container-next{right:0;padding-left:12px;padding-right:3px}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-left:22px}}@media (min-width:768px){.fslightbox-slide-btn-container-next{padding-left:30px}}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-right:6px}}.fslightbox-down-event-detector{position:absolute;z-index:1}.fslightbox-slide-swiping-hoverer{z-index:4}.fslightbox-invalid-file-wrapper{font-size:22px;color:#eaebeb;margin:auto}.fslightbox-video{object-fit:cover}.fslightbox-youtube-iframe{border:0}.fslightboxl{display:block;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:67px;height:67px}.fslightboxl div{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:6px;border:5px solid;border-color:#999 transparent transparent transparent;border-radius:50%;animation:fslightboxl 1.2s cubic-bezier(.5,0,.5,1) infinite}.fslightboxl div:nth-child(1){animation-delay:-.45s}.fslightboxl div:nth-child(2){animation-delay:-.3s}.fslightboxl div:nth-child(3){animation-delay:-.15s}@keyframes fslightboxl{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.fslightbox-source{position:relative;z-index:2;opacity:0}",
-          ),
+            '.fslightbox-absoluted{position:absolute;top:0;left:0}.fslightbox-fade-in{animation:fslightbox-fade-in .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out{animation:fslightbox-fade-out .3s ease}.fslightbox-fade-in-strong{animation:fslightbox-fade-in-strong .3s cubic-bezier(0,0,.7,1)}.fslightbox-fade-out-strong{animation:fslightbox-fade-out-strong .3s ease}@keyframes fslightbox-fade-in{from{opacity:.65}to{opacity:1}}@keyframes fslightbox-fade-out{from{opacity:.35}to{opacity:0}}@keyframes fslightbox-fade-in-strong{from{opacity:.3}to{opacity:1}}@keyframes fslightbox-fade-out-strong{from{opacity:1}to{opacity:0}}.fslightbox-cursor-grabbing{cursor:grabbing}.fslightbox-full-dimension{width:100%;height:100%}.fslightbox-open{overflow:hidden;height:100%}.fslightbox-flex-centered{display:flex;justify-content:center;align-items:center}.fslightbox-opacity-0{opacity:0!important}.fslightbox-opacity-1{opacity:1!important}.fslightbox-scrollbarfix{padding-right:17px}.fslightbox-transform-transition{transition:transform .3s}.fslightbox-container{font-family:Arial,sans-serif;position:fixed;top:0;left:0;background:linear-gradient(rgba(30,30,30,.9),#000 1810%);touch-action:pinch-zoom;z-index:1000000000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.fslightbox-container *{box-sizing:border-box}.fslightbox-svg-path{transition:fill .15s ease;fill:#ddd}.fslightbox-nav{height:45px;width:100%;position:absolute;top:0;left:0}.fslightbox-slide-number-container{display:flex;justify-content:center;align-items:center;position:relative;height:100%;font-size:15px;color:#d7d7d7;z-index:0;max-width:55px;text-align:left}.fslightbox-slide-number-container .fslightbox-flex-centered{height:100%}.fslightbox-slash{display:block;margin:0 5px;width:1px;height:12px;transform:rotate(15deg);background:#fff}.fslightbox-toolbar{position:absolute;z-index:3;right:0;top:0;height:100%;display:flex;background:rgba(35,35,35,.65)}.fslightbox-toolbar-button{height:100%;width:45px;cursor:pointer}.fslightbox-toolbar-button:hover .fslightbox-svg-path{fill:#fff}.fslightbox-slide-btn-container{display:flex;align-items:center;padding:12px 12px 12px 6px;position:absolute;top:50%;cursor:pointer;z-index:3;transform:translateY(-50%)}@media (min-width:476px){.fslightbox-slide-btn-container{padding:22px 22px 22px 6px}}@media (min-width:768px){.fslightbox-slide-btn-container{padding:30px 30px 30px 6px}}.fslightbox-slide-btn-container:hover .fslightbox-svg-path{fill:#f1f1f1}.fslightbox-slide-btn{padding:9px;font-size:26px;background:rgba(35,35,35,.65)}@media (min-width:768px){.fslightbox-slide-btn{padding:10px}}@media (min-width:1600px){.fslightbox-slide-btn{padding:11px}}.fslightbox-slide-btn-container-previous{left:0}@media (max-width:475.99px){.fslightbox-slide-btn-container-previous{padding-left:3px}}.fslightbox-slide-btn-container-next{right:0;padding-left:12px;padding-right:3px}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-left:22px}}@media (min-width:768px){.fslightbox-slide-btn-container-next{padding-left:30px}}@media (min-width:476px){.fslightbox-slide-btn-container-next{padding-right:6px}}.fslightbox-down-event-detector{position:absolute;z-index:1}.fslightbox-slide-swiping-hoverer{z-index:4}.fslightbox-invalid-file-wrapper{font-size:22px;color:#eaebeb;margin:auto}.fslightbox-video{object-fit:cover}.fslightbox-youtube-iframe{border:0}.fslightboxl{display:block;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:67px;height:67px}.fslightboxl div{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:6px;border:5px solid;border-color:#999 transparent transparent transparent;border-radius:50%;animation:fslightboxl 1.2s cubic-bezier(.5,0,.5,1) infinite}.fslightboxl div:nth-child(1){animation-delay:-.45s}.fslightboxl div:nth-child(2){animation-delay:-.3s}.fslightboxl div:nth-child(3){animation-delay:-.15s}@keyframes fslightboxl{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.fslightbox-source{position:relative;z-index:2;opacity:0}'
+          )
         ),
         document.head.appendChild(o));
       function L(e) {
@@ -154,13 +154,13 @@
           (this.handleReceivedSourceTypeForUrl = function (e, n) {
             if (
               !1 === i[n] &&
-              (o--, "invalid" !== e ? (i[n] = e) : delete i[n], 0 === o)
+              (o--, 'invalid' !== e ? (i[n] = e) : delete i[n], 0 === o)
             ) {
               !(function (e, t) {
                 for (var n in t) e[n] = t[n];
               })(t, i);
               try {
-                localStorage.setItem("fslightbox-types", JSON.stringify(t));
+                localStorage.setItem('fslightbox-types', JSON.stringify(t));
               } catch (e) {}
             }
           });
@@ -172,7 +172,7 @@
             (this.handleReceivedSourceTypeForUrl = function () {});
         else {
           try {
-            t = JSON.parse(localStorage.getItem("fslightbox-types"));
+            t = JSON.parse(localStorage.getItem('fslightbox-types'));
           } catch (e) {}
           t || ((t = {}), (this.getSourceTypeFromLocalStorageByUrl = r));
         }
@@ -188,7 +188,7 @@
           (a = o > i.maxSourceHeight ? i.maxSourceHeight : o), c();
         };
         var c = function () {
-          (r[t].style.width = a * s + "px"), (r[t].style.height = a + "px");
+          (r[t].style.width = a * s + 'px'), (r[t].style.height = a + 'px');
         };
       }
       function C(e, t) {
@@ -250,8 +250,8 @@
       function F(e, t, n) {
         var o = e.elements.sources,
           i = e.props.customClasses,
-          r = i[t] ? i[t] : "";
-        o[t].className = n + " " + r;
+          r = i[t] ? i[t] : '';
+        o[t].className = n + ' ' + r;
       }
       function I(e, t) {
         var n = e.elements.sources,
@@ -264,7 +264,7 @@
           i = o.sources,
           r = o.sourceAnimationWrappers,
           s = e.props.sources;
-        (i[t] = document.createElement("img")),
+        (i[t] = document.createElement('img')),
           F(e, t, y),
           (i[t].src = s[t]),
           (i[t].onload = n[t].handleImageLoad),
@@ -279,7 +279,7 @@
           s = e.props,
           a = s.sources,
           c = s.videosPosters;
-        (i[t] = document.createElement("video")),
+        (i[t] = document.createElement('video')),
           F(e, t, y),
           (i[t].src = a[t]),
           (i[t].onloadedmetadata = function (e) {
@@ -288,7 +288,7 @@
           (i[t].controls = !0),
           I(e, t),
           c[t] && (i[t].poster = c[t]);
-        var l = document.createElement("source");
+        var l = document.createElement('source');
         (l.src = a[t]),
           i[t].appendChild(l),
           setTimeout(n[t].handleNotMetaDatedVideoLoad, 3e3),
@@ -300,18 +300,18 @@
           r = o.sources,
           s = o.sourceAnimationWrappers,
           a = e.props.sources;
-        (r[t] = document.createElement("iframe")),
-          F(e, t, "".concat(y, " ").concat(i, "youtube-iframe"));
+        (r[t] = document.createElement('iframe')),
+          F(e, t, ''.concat(y, ' ').concat(i, 'youtube-iframe'));
         var c = a[t],
-          l = c.split("?")[1];
-        (r[t].src = "https://www.youtube.com/embed/"
+          l = c.split('?')[1];
+        (r[t].src = 'https://www.youtube.com/embed/'
           .concat(
             c.match(
-              /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
+              /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
             )[2],
-            "?",
+            '?'
           )
-          .concat(l || "")),
+          .concat(l || '')),
           (r[t].allowFullscreen = !0),
           I(e, t),
           s[t].appendChild(r[t]),
@@ -324,7 +324,7 @@
           r = o.sourceAnimationWrappers,
           s = e.props.sources;
         (i[t] = s[t]),
-          F(e, t, "".concat(i[t].className, " ").concat(y)),
+          F(e, t, ''.concat(i[t].className, ' ').concat(y)),
           r[t].appendChild(i[t]),
           n[t].handleCustomLoad();
       }
@@ -333,9 +333,9 @@
           o = n.sources,
           r = n.sourceAnimationWrappers;
         e.props.sources;
-        (o[t] = document.createElement("div")),
-          (o[t].className = "".concat(i, "invalid-file-wrapper ").concat(c)),
-          (o[t].innerHTML = "Invalid source"),
+        (o[t] = document.createElement('div')),
+          (o[t].className = ''.concat(i, 'invalid-file-wrapper ').concat(c)),
+          (o[t].innerHTML = 'Invalid source'),
           r[t].classList.add(g),
           r[t].removeChild(r[t].firstChild),
           r[t].appendChild(o[t]);
@@ -348,17 +348,17 @@
           r = e.resolve;
         this.runActionsForSourceTypeAndIndex = function (t, s) {
           var a;
-          switch (("invalid" !== t && (n[s] = r(E, [s])), t)) {
-            case "image":
+          switch (('invalid' !== t && (n[s] = r(E, [s])), t)) {
+            case 'image':
               a = T;
               break;
-            case "video":
+            case 'video':
               a = N;
               break;
-            case "youtube":
+            case 'youtube':
               a = z;
               break;
-            case "custom":
+            case 'custom':
               a = P;
               break;
             default:
@@ -376,14 +376,14 @@
           n,
           o = {
             isUrlYoutubeOne: function (e) {
-              var t = document.createElement("a");
+              var t = document.createElement('a');
               return (
                 (t.href = e),
-                "www.youtube.com" === t.hostname || "youtu.be" === t.hostname
+                'www.youtube.com' === t.hostname || 'youtu.be' === t.hostname
               );
             },
             getTypeFromResponseContentType: function (e) {
-              return e.slice(0, e.indexOf("/"));
+              return e.slice(0, e.indexOf('/'));
             },
           };
         function i() {
@@ -392,30 +392,30 @@
               var e;
               switch (
                 o.getTypeFromResponseContentType(
-                  n.getResponseHeader("content-type"),
+                  n.getResponseHeader('content-type')
                 )
               ) {
-                case "image":
-                  e = "image";
+                case 'image':
+                  e = 'image';
                   break;
-                case "video":
-                  e = "video";
+                case 'video':
+                  e = 'video';
                   break;
                 default:
-                  e = "invalid";
+                  e = 'invalid';
               }
               (n.onreadystatechange = null), n.abort(), t(e);
             }
-          } else t("invalid");
+          } else t('invalid');
         }
         (this.setUrlToCheck = function (t) {
           e = t;
         }),
           (this.getSourceType = function (r) {
-            if (o.isUrlYoutubeOne(e)) return r("youtube");
+            if (o.isUrlYoutubeOne(e)) return r('youtube');
             (t = r),
               ((n = new XMLHttpRequest()).onreadystatechange = i),
-              n.open("GET", e, !0),
+              n.open('GET', e, !0),
               n.send();
           });
       }
@@ -445,19 +445,19 @@
           r = o.sourceWrappersContainer,
           s = e.props,
           l = 0,
-          f = document.createElement("div");
+          f = document.createElement('div');
         function p(e) {
-          (f.style.transform = "translateX(".concat(e + l, "px)")), (l = 0);
+          (f.style.transform = 'translateX('.concat(e + l, 'px)')), (l = 0);
         }
         function h() {
           return (1 + s.slideDistance) * innerWidth;
         }
-        (f.className = "".concat(d, " ").concat(a, " ").concat(c)),
+        (f.className = ''.concat(d, ' ').concat(a, ' ').concat(c)),
           (f.s = function () {
-            f.style.display = "flex";
+            f.style.display = 'flex';
           }),
           (f.h = function () {
-            f.style.display = "none";
+            f.style.display = 'none';
           }),
           (f.a = function () {
             f.classList.add(u);
@@ -466,7 +466,7 @@
             f.classList.remove(u);
           }),
           (f.n = function () {
-            f.style.removeProperty("transform");
+            f.style.removeProperty('transform');
           }),
           (f.v = function (e) {
             return (l = e), f;
@@ -487,107 +487,107 @@
             var n = e.elements,
               o = n.smw,
               i = n.sourceAnimationWrappers,
-              r = document.createElement("div"),
-              s = document.createElement("div");
-            s.className = "fslightboxl";
+              r = document.createElement('div'),
+              s = document.createElement('div');
+            s.className = 'fslightboxl';
             for (var a = 0; a < 3; a++) {
-              var c = document.createElement("div");
+              var c = document.createElement('div');
               s.appendChild(c);
             }
             r.appendChild(s), o[t].appendChild(r), (i[t] = r);
           })(e, t);
       }
       function O(e, t, n, o) {
-        var r = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        r.setAttributeNS(null, "width", t),
-          r.setAttributeNS(null, "height", t),
-          r.setAttributeNS(null, "viewBox", n);
-        var s = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        var r = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        r.setAttributeNS(null, 'width', t),
+          r.setAttributeNS(null, 'height', t),
+          r.setAttributeNS(null, 'viewBox', n);
+        var s = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         return (
-          s.setAttributeNS(null, "class", "".concat(i, "svg-path")),
-          s.setAttributeNS(null, "d", o),
+          s.setAttributeNS(null, 'class', ''.concat(i, 'svg-path')),
+          s.setAttributeNS(null, 'd', o),
           r.appendChild(s),
           e.appendChild(r),
           r
         );
       }
       function M(e, t) {
-        var n = document.createElement("div");
+        var n = document.createElement('div');
         return (
-          (n.className = "".concat(i, "toolbar-button ").concat(c)),
+          (n.className = ''.concat(i, 'toolbar-button ').concat(c)),
           (n.title = t),
           e.appendChild(n),
           n
         );
       }
       function j(e, t) {
-        var n = document.createElement("div");
-        (n.className = "".concat(i, "toolbar")),
+        var n = document.createElement('div');
+        (n.className = ''.concat(i, 'toolbar')),
           t.appendChild(n),
           (function (e, t) {
             var n = e.componentsServices,
               o = e.data,
               i = e.fs,
               r =
-                "M4.5 11H3v4h4v-1.5H4.5V11zM3 7h1.5V4.5H7V3H3v4zm10.5 6.5H11V15h4v-4h-1.5v2.5zM11 3v1.5h2.5V7H15V3h-4z",
+                'M4.5 11H3v4h4v-1.5H4.5V11zM3 7h1.5V4.5H7V3H3v4zm10.5 6.5H11V15h4v-4h-1.5v2.5zM11 3v1.5h2.5V7H15V3h-4z',
               s = M(t);
-            s.title = "Enter fullscreen";
-            var a = O(s, "20px", "0 0 18 18", r);
+            s.title = 'Enter fullscreen';
+            var a = O(s, '20px', '0 0 18 18', r);
             (n.ofs = function () {
               (o.ifs = !0),
-                (s.title = "Exit fullscreen"),
-                a.setAttributeNS(null, "width", "24px"),
-                a.setAttributeNS(null, "height", "24px"),
-                a.setAttributeNS(null, "viewBox", "0 0 950 1024"),
+                (s.title = 'Exit fullscreen'),
+                a.setAttributeNS(null, 'width', '24px'),
+                a.setAttributeNS(null, 'height', '24px'),
+                a.setAttributeNS(null, 'viewBox', '0 0 950 1024'),
                 a.firstChild.setAttributeNS(
                   null,
-                  "d",
-                  "M682 342h128v84h-212v-212h84v128zM598 810v-212h212v84h-128v128h-84zM342 342v-128h84v212h-212v-84h128zM214 682v-84h212v212h-84v-128h-128z",
+                  'd',
+                  'M682 342h128v84h-212v-212h84v128zM598 810v-212h212v84h-128v128h-84zM342 342v-128h84v212h-212v-84h128zM214 682v-84h212v212h-84v-128h-128z'
                 );
             }),
               (n.xfs = function () {
                 (o.ifs = !1),
-                  (s.title = "Enter fullscreen"),
-                  a.setAttributeNS(null, "width", "20px"),
-                  a.setAttributeNS(null, "height", "20px"),
-                  a.setAttributeNS(null, "viewBox", "0 0 18 18"),
-                  a.firstChild.setAttributeNS(null, "d", r);
+                  (s.title = 'Enter fullscreen'),
+                  a.setAttributeNS(null, 'width', '20px'),
+                  a.setAttributeNS(null, 'height', '20px'),
+                  a.setAttributeNS(null, 'viewBox', '0 0 18 18'),
+                  a.firstChild.setAttributeNS(null, 'd', r);
               }),
               (s.onclick = i.t);
           })(e, n),
           (function (e, t) {
-            var n = M(t, "Close");
+            var n = M(t, 'Close');
             (n.onclick = e.core.lightboxCloser.closeLightbox),
               O(
                 n,
-                "20px",
-                "0 0 24 24",
-                "M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z",
+                '20px',
+                '0 0 24 24',
+                'M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z'
               );
           })(e, n);
       }
       function X(e) {
         var t = e.props.sources,
           n = e.elements.container,
-          o = document.createElement("div");
-        (o.className = "".concat(i, "nav")),
+          o = document.createElement('div');
+        (o.className = ''.concat(i, 'nav')),
           n.appendChild(o),
           j(e, o),
           t.length > 1 &&
             (function (e, t) {
               var n = e.componentsServices,
                 o = e.props.sources,
-                r = (e.stageIndexes, document.createElement("div"));
-              r.className = "".concat(i, "slide-number-container");
-              var s = document.createElement("div");
+                r = (e.stageIndexes, document.createElement('div'));
+              r.className = ''.concat(i, 'slide-number-container');
+              var s = document.createElement('div');
               s.className = c;
-              var a = document.createElement("span");
+              var a = document.createElement('span');
               n.setSlideNumber = function (e) {
                 return (a.innerHTML = e);
               };
-              var l = document.createElement("span");
-              l.className = "".concat(i, "slash");
-              var u = document.createElement("div");
+              var l = document.createElement('span');
+              l.className = ''.concat(i, 'slash');
+              var u = document.createElement('div');
               (u.innerHTML = o.length),
                 r.appendChild(s),
                 s.appendChild(a),
@@ -595,21 +595,21 @@
                 s.appendChild(u),
                 t.appendChild(r),
                 setTimeout(function () {
-                  s.offsetWidth > 55 && (r.style.justifyContent = "flex-start");
+                  s.offsetWidth > 55 && (r.style.justifyContent = 'flex-start');
                 });
             })(e, o);
       }
       function B(e, t, n, o) {
         var i = e.elements.container,
           r = n.charAt(0).toUpperCase() + n.slice(1),
-          s = document.createElement("div");
-        (s.className = "".concat(p, " ").concat(p, "-").concat(n)),
-          (s.title = "".concat(r, " slide")),
+          s = document.createElement('div');
+        (s.className = ''.concat(p, ' ').concat(p, '-').concat(n)),
+          (s.title = ''.concat(r, ' slide')),
           (s.onclick = t),
           (function (e, t) {
-            var n = document.createElement("div");
-            (n.className = "".concat(f, " ").concat(c)),
-              O(n, "20px", "0 0 20 20", t),
+            var n = document.createElement('div');
+            (n.className = ''.concat(f, ' ').concat(c)),
+              O(n, '20px', '0 0 20 20', t),
               e.appendChild(n);
           })(s, o),
           i.appendChild(s);
@@ -621,16 +621,16 @@
           i = e.fs;
         this.listener = function (e) {
           switch (e.key) {
-            case "Escape":
+            case 'Escape':
               n.closeLightbox();
               break;
-            case "ArrowLeft":
+            case 'ArrowLeft':
               o.changeToPrevious();
               break;
-            case "ArrowRight":
+            case 'ArrowRight':
               o.changeToNext();
               break;
-            case "F11":
+            case 'F11':
               e.preventDefault(), i.t();
           }
         };
@@ -652,10 +652,10 @@
             (n.swipedX = e.screenX - n.downScreenX);
           var l = o.previous,
             u = o.next;
-          i(o.current, "z"),
+          i(o.current, 'z'),
             void 0 !== l && n.swipedX > 0
-              ? i(l, "ne")
-              : void 0 !== u && n.swipedX < 0 && i(u, "p");
+              ? i(l, 'ne')
+              : void 0 !== u && n.swipedX < 0 && i(u, 'p');
         };
       }
       function V(e) {
@@ -685,24 +685,24 @@
         }
         (this.runPositiveSwipedXActions = function () {
           var e = o.previous;
-          if (void 0 === e) r("z");
+          if (void 0 === e) r('z');
           else {
-            r("p");
+            r('p');
             var n = o.next;
             t.changeTo(e);
             var a = o.previous;
-            i.d(a), i.b(n), r("z"), s(a, "ne");
+            i.d(a), i.b(n), r('z'), s(a, 'ne');
           }
         }),
           (this.runNegativeSwipedXActions = function () {
             var e = o.next;
-            if (void 0 === e) r("z");
+            if (void 0 === e) r('z');
             else {
-              r("ne");
+              r('ne');
               var n = o.previous;
               t.changeTo(e);
               var a = o.next;
-              i.d(a), i.b(n), r("z"), s(a, "p");
+              i.d(a), i.b(n), r('z'), s(a, 'p');
             }
           });
       }
@@ -762,7 +762,7 @@
                   document.documentElement.classList.remove(l),
                   r.removeRecompense(),
                   document.body.removeChild(a.container),
-                  o.dispatch("onClose");
+                  o.dispatch('onClose');
               }, 270);
           });
       }
@@ -782,10 +782,10 @@
               n = e.data,
               o = e.fs,
               i = [
-                "fullscreenchange",
-                "webkitfullscreenchange",
-                "mozfullscreenchange",
-                "MSFullscreenChange",
+                'fullscreenchange',
+                'webkitfullscreenchange',
+                'mozfullscreenchange',
+                'MSFullscreenChange',
               ];
             function r(e) {
               for (var t = 0; t < i.length; t++) document[e](i[t], s);
@@ -823,10 +823,10 @@
                 n.ifs ? o.x() : o.o();
               }),
               (o.l = function () {
-                r("addEventListener");
+                r('addEventListener');
               }),
               (o.q = function () {
-                r("removeEventListener");
+                r('removeEventListener');
               });
           })(e),
           (function (e) {
@@ -839,17 +839,17 @@
               a = r(V),
               c = r(G);
             (n.attachListeners = function () {
-              document.addEventListener("pointermove", a.listener),
-                document.addEventListener("pointerup", c.listener),
-                addEventListener("resize", o.runActions),
-                document.addEventListener("keydown", s.listener),
+              document.addEventListener('pointermove', a.listener),
+                document.addEventListener('pointerup', c.listener),
+                addEventListener('resize', o.runActions),
+                document.addEventListener('keydown', s.listener),
                 i.l();
             }),
               (n.removeListeners = function () {
-                document.removeEventListener("pointermove", a.listener),
-                  document.removeEventListener("pointerup", c.listener),
-                  removeEventListener("resize", o.runActions),
-                  document.removeEventListener("keydown", s.listener),
+                document.removeEventListener('pointermove', a.listener),
+                  document.removeEventListener('pointerup', c.listener),
+                  removeEventListener('resize', o.runActions),
+                  document.removeEventListener('keydown', s.listener),
                   i.q();
               });
           })(e),
@@ -865,17 +865,17 @@
               n = e.core.scrollbarRecompensor;
             function o() {
               document.body.offsetHeight > innerHeight &&
-                (document.body.style.marginRight = t.scrollbarWidth + "px");
+                (document.body.style.marginRight = t.scrollbarWidth + 'px');
             }
             (n.addRecompense = function () {
-              "complete" === document.readyState
+              'complete' === document.readyState
                 ? o()
-                : addEventListener("load", function () {
+                : addEventListener('load', function () {
                     o(), (n.addRecompense = o);
                   });
             }),
               (n.removeRecompense = function () {
-                document.body.style.removeProperty("margin-right");
+                document.body.style.removeProperty('margin-right');
               });
           })(e),
           (function (e) {
@@ -953,7 +953,7 @@
               r = e.sourcePointerProps,
               s = e.stageIndexes;
             t.listener = function (e) {
-              "VIDEO" !== e.target.tagName && e.preventDefault(),
+              'VIDEO' !== e.target.tagName && e.preventDefault(),
                 (r.isPointering = !0),
                 (r.downScreenX = e.screenX),
                 (r.swipedX = 0);
@@ -1037,14 +1037,14 @@
           var t, n;
           (p.i = !0),
             (p.scrollbarWidth = (function () {
-              var e = document.createElement("div"),
+              var e = document.createElement('div'),
                 t = e.style,
-                n = document.createElement("div");
-              (t.visibility = "hidden"),
-                (t.width = "100px"),
-                (t.msOverflowStyle = "scrollbar"),
-                (t.overflow = "scroll"),
-                (n.style.width = "100%"),
+                n = document.createElement('div');
+              (t.visibility = 'hidden'),
+                (t.width = '100px'),
+                (t.msOverflowStyle = 'scrollbar'),
+                (t.overflow = 'scroll'),
+                (n.style.width = '100%'),
                 document.body.appendChild(e);
               var o = e.offsetWidth;
               e.appendChild(n);
@@ -1052,17 +1052,17 @@
               return document.body.removeChild(e), o - i;
             })()),
             Q(e),
-            (h.container = document.createElement("div")),
-            (h.container.className = ""
-              .concat(i, "container ")
-              .concat(a, " ")
+            (h.container = document.createElement('div')),
+            (h.container.className = ''
+              .concat(i, 'container ')
+              .concat(a, ' ')
               .concat(g)),
             (function (e) {
               var t = e.elements;
-              (t.slideSwipingHoverer = document.createElement("div")),
-                (t.slideSwipingHoverer.className = ""
-                  .concat(i, "slide-swiping-hoverer ")
-                  .concat(a, " ")
+              (t.slideSwipingHoverer = document.createElement('div')),
+                (t.slideSwipingHoverer.className = ''
+                  .concat(i, 'slide-swiping-hoverer ')
+                  .concat(a, ' ')
                   .concat(d));
             })(e),
             X(e),
@@ -1070,10 +1070,10 @@
               var t = e.core.sourcesPointerDown,
                 n = e.elements,
                 o = e.props.sources,
-                i = document.createElement("div");
-              (i.className = "".concat(d, " ").concat(a)),
+                i = document.createElement('div');
+              (i.className = ''.concat(d, ' ').concat(a)),
                 n.container.appendChild(i),
-                i.addEventListener("pointerdown", t.listener),
+                i.addEventListener('pointerdown', t.listener),
                 (n.sourceWrappersContainer = i);
               for (var r = 0; r < o.length; r++) D(e, r);
             })(e),
@@ -1082,14 +1082,14 @@
               B(
                 t,
                 n.changeToPrevious,
-                "previous",
-                "M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0L1.21,9.403C1.194,9.417,1.174,9.421,1.158,9.437c-0.181,0.181-0.242,0.425-0.209,0.66c0.005,0.038,0.012,0.071,0.022,0.109c0.028,0.098,0.075,0.188,0.142,0.271c0.021,0.026,0.021,0.061,0.045,0.085c0.015,0.016,0.034,0.02,0.05,0.033l5.484,5.483c0.306,0.307,0.801,0.307,1.107,0c0.306-0.305,0.306-0.801,0-1.105l-4.184-4.185h14.656c0.436,0,0.788-0.353,0.788-0.788S18.707,9.212,18.271,9.212z",
+                'previous',
+                'M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0L1.21,9.403C1.194,9.417,1.174,9.421,1.158,9.437c-0.181,0.181-0.242,0.425-0.209,0.66c0.005,0.038,0.012,0.071,0.022,0.109c0.028,0.098,0.075,0.188,0.142,0.271c0.021,0.026,0.021,0.061,0.045,0.085c0.015,0.016,0.034,0.02,0.05,0.033l5.484,5.483c0.306,0.307,0.801,0.307,1.107,0c0.306-0.305,0.306-0.801,0-1.105l-4.184-4.185h14.656c0.436,0,0.788-0.353,0.788-0.788S18.707,9.212,18.271,9.212z'
               ),
               B(
                 t,
                 n.changeToNext,
-                "next",
-                "M1.729,9.212h14.656l-4.184-4.184c-0.307-0.306-0.307-0.801,0-1.107c0.305-0.306,0.801-0.306,1.106,0l5.481,5.482c0.018,0.014,0.037,0.019,0.053,0.034c0.181,0.181,0.242,0.425,0.209,0.66c-0.004,0.038-0.012,0.071-0.021,0.109c-0.028,0.098-0.075,0.188-0.143,0.271c-0.021,0.026-0.021,0.061-0.045,0.085c-0.015,0.016-0.034,0.02-0.051,0.033l-5.483,5.483c-0.306,0.307-0.802,0.307-1.106,0c-0.307-0.305-0.307-0.801,0-1.105l4.184-4.185H1.729c-0.436,0-0.788-0.353-0.788-0.788S1.293,9.212,1.729,9.212z",
+                'next',
+                'M1.729,9.212h14.656l-4.184-4.184c-0.307-0.306-0.307-0.801,0-1.107c0.305-0.306,0.801-0.306,1.106,0l5.481,5.482c0.018,0.014,0.037,0.019,0.053,0.034c0.181,0.181,0.242,0.425,0.209,0.66c-0.004,0.038-0.012,0.071-0.021,0.109c-0.028,0.098-0.075,0.188-0.143,0.271c-0.021,0.026-0.021,0.061-0.045,0.085c-0.015,0.016-0.034,0.02-0.051,0.033l-5.483,5.483c-0.306,0.307-0.802,0.307-1.106,0c-0.307-0.305-0.307-0.801,0-1.105l4.184-4.185H1.729c-0.436,0-0.788-0.353-0.788-0.788S1.293,9.212,1.729,9.212z'
               )),
             (function (e) {
               for (
@@ -1102,7 +1102,7 @@
                 s < t.length;
                 s++
               )
-                if ("string" == typeof t[s]) {
+                if ('string' == typeof t[s]) {
                   var a = r.getTypeSetByClientForIndex(s);
                   if (a) i.runActionsForSourceTypeAndIndex(a, s);
                   else {
@@ -1111,9 +1111,9 @@
                       ? i.runActionsForSourceTypeAndIndex(c, s)
                       : r.retrieveTypeWithXhrForIndex(s);
                   }
-                } else i.runActionsForSourceTypeAndIndex("custom", s);
+                } else i.runActionsForSourceTypeAndIndex('custom', s);
             })(e),
-            o.dispatch("onInit");
+            o.dispatch('onInit');
         }
         e.open = function () {
           var n =
@@ -1127,7 +1127,7 @@
             p.i || S(e),
             u.updateStageIndexes(),
             p.i
-              ? (v.c(), v.a(), v.b(i), v.b(a), v.b(d), o.dispatch("onShow"))
+              ? (v.c(), v.a(), v.b(i), v.b(a), v.b(d), o.dispatch('onShow'))
               : b(),
             c.displaySourcesWhichShouldBeDisplayed(),
             t.setSlideNumber(n + 1),
@@ -1137,7 +1137,7 @@
             r.attachListeners(),
             f.runActions(),
             h.smw[m.current].n(),
-            o.dispatch("onOpen");
+            o.dispatch('onOpen');
         };
       }
       function ee(e, t, n) {
@@ -1151,13 +1151,13 @@
             }).apply(null, arguments);
       }
       function te() {
-        if ("undefined" == typeof Reflect || !Reflect.construct) return !1;
+        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
         if (Reflect.construct.sham) return !1;
-        if ("function" == typeof Proxy) return !0;
+        if ('function' == typeof Proxy) return !0;
         try {
           return (
             Boolean.prototype.valueOf.call(
-              Reflect.construct(Boolean, [], function () {}),
+              Reflect.construct(Boolean, [], function () {})
             ),
             !0
           );
@@ -1179,26 +1179,26 @@
           })(e) ||
           (function (e) {
             if (
-              ("undefined" != typeof Symbol && null != e[Symbol.iterator]) ||
-              null != e["@@iterator"]
+              ('undefined' != typeof Symbol && null != e[Symbol.iterator]) ||
+              null != e['@@iterator']
             )
               return Array.from(e);
           })(e) ||
           (function (e, t) {
             if (!e) return;
-            if ("string" == typeof e) return ie(e, t);
+            if ('string' == typeof e) return ie(e, t);
             var n = Object.prototype.toString.call(e).slice(8, -1);
-            "Object" === n && e.constructor && (n = e.constructor.name);
-            if ("Map" === n || "Set" === n) return Array.from(e);
+            'Object' === n && e.constructor && (n = e.constructor.name);
+            if ('Map' === n || 'Set' === n) return Array.from(e);
             if (
-              "Arguments" === n ||
+              'Arguments' === n ||
               /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
             )
               return ie(e, t);
           })(e) ||
           (function () {
             throw new TypeError(
-              "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.",
+              'Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
             );
           })()
         );
@@ -1210,27 +1210,27 @@
       }
       function re() {
         for (
-          var e = document.getElementsByTagName("a"),
+          var e = document.getElementsByTagName('a'),
             t = function (t) {
-              if (!e[t].hasAttribute("data-fslightbox")) return "continue";
-              var n = e[t].hasAttribute("data-href")
-                ? e[t].getAttribute("data-href")
-                : e[t].getAttribute("href");
+              if (!e[t].hasAttribute('data-fslightbox')) return 'continue';
+              var n = e[t].hasAttribute('data-href')
+                ? e[t].getAttribute('data-href')
+                : e[t].getAttribute('href');
               if (!n)
                 return (
                   console.warn(
-                    'The "data-fslightbox" attribute was set without the "href" attribute.',
+                    'The "data-fslightbox" attribute was set without the "href" attribute.'
                   ),
-                  "continue"
+                  'continue'
                 );
-              var o = e[t].getAttribute("data-fslightbox");
+              var o = e[t].getAttribute('data-fslightbox');
               fsLightboxInstances[o] ||
                 (fsLightboxInstances[o] = new FsLightbox());
               var i = null;
-              "#" === n.charAt(0)
+              '#' === n.charAt(0)
                 ? (i = document
                     .getElementById(n.substring(1))
-                    .cloneNode(!0)).removeAttribute("id")
+                    .cloneNode(!0)).removeAttribute('id')
                 : (i = n),
                 fsLightboxInstances[o].props.sources.push(i),
                 fsLightboxInstances[o].elements.a.push(e[t]);
@@ -1238,19 +1238,19 @@
               (e[t].onclick = function (e) {
                 e.preventDefault(), fsLightboxInstances[o].open(r);
               }),
-                d("types", "data-type"),
-                d("videosPosters", "data-video-poster"),
-                d("customClasses", "data-class"),
-                d("customClasses", "data-custom-class");
+                d('types', 'data-type'),
+                d('videosPosters', 'data-video-poster'),
+                d('customClasses', 'data-class'),
+                d('customClasses', 'data-custom-class');
               for (
                 var s = [
-                    "href",
-                    "data-fslightbox",
-                    "data-href",
-                    "data-type",
-                    "data-video-poster",
-                    "data-class",
-                    "data-custom-class",
+                    'href',
+                    'data-fslightbox',
+                    'data-href',
+                    'data-type',
+                    'data-video-poster',
+                    'data-class',
+                    'data-custom-class',
                   ],
                   a = e[t].attributes,
                   c = fsLightboxInstances[o].props.customAttributes,
@@ -1260,7 +1260,7 @@
               )
                 if (
                   -1 === s.indexOf(a[l].name) &&
-                  "data-" === a[l].name.substr(0, 5)
+                  'data-' === a[l].name.substr(0, 5)
                 ) {
                   c[r] || (c[r] = {});
                   var u = a[l].name.substr(5);
