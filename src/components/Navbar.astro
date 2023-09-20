@@ -4,28 +4,32 @@ import logo from '../images/logo.png?url'
 import { getNavLink } from '../lib/blog-helpers.ts'
 ---
 
-<div class="">
-	<div class="max-w-5xl w-full px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+<div class="mb-10">
+	<div class="max-w-5xl w-full py-4 mx-auto flex items-center sm:flex-row flex-col">
 		<a href={getNavLink('/')} class="flex font-medium items-center md:justify-start justify-center ">
 			<Image
-				class="inline-block h-[2.375rem] w-[2.375rem] rounded-full outline outline-zinc-200 shadow"
-				src={logo} width={120} height={120}				alt="logo diskusi pajak"
+				class="inline-block h-[2.1rem] w-[2.1rem] rounded-full outline outline-zinc-200 shadow"
+				src={logo} width={90} height={90} alt="logo diskusi pajak"
 			/>
-			<span class="ml-3 text-xl">Diskusi Pajak</span>
+			<span class="ml-3 text-lg font-heading font-semibold tracking-tighter">Diskusi Pajak</span>
 		</a>
+		<svg width="3" height="21" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="ml-4"><path d="M2.74 20.707H.846v-20H2.74v20Z"></path></svg>
 		<p
-			class="text-sm text-zinc-900 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-zinc-900 sm:py-2 sm:mt-0 mt-4"
+			class="text-sm sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4 flex font-semibold font-heading"
 		>
-		
+		<a
+				href={getNavLink('/posts/fitur-berlangganan')}
+				class="decoration-2 hover:underline decoration-pink-500"
+				rel="noopener noreferrer">Fitur Langganan</a
+			>
 			<a
-				href="https://t.me/lesssummer"
-				class="text-zinc-600 ml-1"
-				rel="noopener noreferrer"
-				target="_blank">@lesssummer</a
+				href={getNavLink('/posts/tag/How-to')}
+				class="ml-6 decoration-2 hover:underline decoration-indigo-500"
+				rel="noopener noreferrer">How-to</a
 			>
 		</p>
 		<span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-			<a href="https://www.facebook.com/diskusipajak" class="text-zinc-900">
+			<a href="https://www.facebook.com/diskusipajak" class="text-zinc-900" target="_blank">
 				<svg
 					fill="currentColor"
 					stroke-linecap="round"
@@ -38,7 +42,7 @@ import { getNavLink } from '../lib/blog-helpers.ts'
 				</svg>
 			</a>
 			
-			<a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" class="ml-3 text-zinc-900">
+			<a href="https://t.me/addlist/HXeQGfBQr9ZjNzA1" class="ml-3 text-zinc-900" target="_blank">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>

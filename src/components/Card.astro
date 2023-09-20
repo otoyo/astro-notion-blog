@@ -22,7 +22,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 }
 ---
 
-  <a class="group relative block" href="#">
+  <a class="group relative block" href={getPostLink(post.Slug)}>
     {image && (<div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:w-full before:h-full before:bg-gradient-to-t before:from-gray-900/[.7] before:z-[1]">
         <img class="w-full h-full absolute top-0 left-0 object-cover" src={image} alt="Image Description">
       </div>
