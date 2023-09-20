@@ -17,7 +17,7 @@ import PostDate from '../../components/PostDate.astro';
 import PostTags from '../../components/PostTags.astro';
 import PostTitle from '../../components/PostTitle.astro';
 import PostBody from '../../components/PostBody.astro';
-import PostExcerpt from "../../components/PostExcerpt.astro";
+import PostExcerpt from '../../components/PostExcerpt.astro';
 import BlogPostsLink from '../../components/BlogPostsLink.astro';
 import BlogTagsLink from '../../components/BlogTagsLink.astro';
 import styles from '../../styles/blog.module.css';
@@ -97,16 +97,16 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 >
 	<div slot="main" class="w-full max-w-5xl px-4 pb-12 mx-auto">
 		<div class="mb-16">
-      <PostBigImage post={post} />
-      <div class="max-w-xl">
-        <PostTitle post={post} enableLink={false} />
-        <PostExcerpt post={post} />
-        <div class="mt-4"><PostTags post={post} /></div>
-      </div>
-    </div>
-    <div class="w-full max-w-2xl mx-auto">
-      <PostBody blocks={blocks} />
-    </div>
+			<PostBigImage post={post} />
+			<div class="max-w-xl">
+				<PostTitle post={post} enableLink={false} />
+				<PostExcerpt post={post} />
+				<div class="mt-4"><PostTags post={post} /></div>
+			</div>
+		</div>
+		<div class="w-full max-w-2xl mx-auto">
+			<PostBody blocks={blocks} />
+		</div>
 	</div>
 
 	<div slot="aside" class="aside">

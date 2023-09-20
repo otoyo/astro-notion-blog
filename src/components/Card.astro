@@ -1,0 +1,43 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { getPostLink, filePath } from '../lib/blog-helpers.ts'
+import PostTags from '../components/PostTags.astro'
+
+
+export interface Props {
+  post: Post
+  enableLink: boolean
+}
+
+const { post, enableLink = true } = Astro.props
+
+
+let image = ''
+if (post.FeaturedImage && post.FeaturedImage.Url) {
+  if (import.meta.env.DEV) {
+    image = post.FeaturedImage.Url
+  } else {
+    image = filePath(new URL(post.FeaturedImage.Url))
+  }
+}
+---
+
+  <a class="group relative block" href="#">
+    {image && (<div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:w-full before:h-full before:bg-gradient-to-t before:from-gray-900/[.7] before:z-[1]">
+        <img class="w-full h-full absolute top-0 left-0 object-cover" src={image} alt="Image Description">
+      </div>
+      )
+}
+
+      
+      <div class="absolute bottom-0 inset-x-0 z-10">
+        <div class="flex flex-col h-full p-4 sm:p-6">
+          <h3 class="text-lg sm:text-3xl font-semibold text-white group-hover:text-white/[.8] balance">
+            {post.Title}
+          </h3>
+          <p class="mt-2 text-white/[.8] hidden">
+            {post.Excerpt ? post.Excerpt : ''}
+          </p>
+        </div>
+      </div>
+    </a>
