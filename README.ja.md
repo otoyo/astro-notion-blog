@@ -81,7 +81,7 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 ### 追加の必要要件
 
-- Node.js v18 かそれ以上
+- Node.js v18.14.1 かそれ以上
 - Git
 
 ### ステップ
@@ -100,7 +100,7 @@ npm install
 npm run dev
 ```
 
-3. ブラウザで [http://localhost:3000](http://localhost:3000) を開きます
+3. ブラウザで [http://localhost:4321](http://localhost:4321) を開きます
 4. 開発サーバーを停止するにはターミナルで `Ctrl+C` を押します。
 
 ### その他の情報
