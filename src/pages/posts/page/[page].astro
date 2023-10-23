@@ -9,6 +9,7 @@ import {
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
 import PostDate from '../../../components/PostDate.astro'
+import UpdatePostDate from '../../../components/PostUpdatedDate.astro.jsx'
 import PostTags from '../../../components/PostTags.astro'
 import PostTitle from '../../../components/PostTitle.astro'
 import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
@@ -51,9 +52,10 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
       ) : (
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
+            <PostTitle post={post} />
             <PostDate post={post} />
             <PostTags post={post} />
-            <PostTitle post={post} />
+            <PostUpdatedDate post={post} />
             <PostFeaturedImage post={post} />
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />

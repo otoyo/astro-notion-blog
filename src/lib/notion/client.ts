@@ -84,6 +84,12 @@ export async function getAllPosts(): Promise<Post[]> {
             on_or_before: new Date().toISOString(),
           },
         },
+        {
+          property: 'UpdatedDate',
+          date: {
+            on_or_before: new Date().toISOString(),
+          },
+        },
       ],
     },
     sorts: [
@@ -981,6 +987,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
         : '',
     FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
+    UpdatedDate: prop.UpdatedDate.date ? prop.UpdatedDate.date.start : '',
   }
 
   return post

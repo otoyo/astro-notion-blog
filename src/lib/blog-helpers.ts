@@ -165,6 +165,26 @@ export const getDateStr = (date: string) => {
   const y = dt.getFullYear()
   const m = ('00' + (dt.getMonth() + 1)).slice(-2)
   const d = ('00' + dt.getDate()).slice(-2)
+  console.log(y + '-' + m + '-' + d)
+  return y + '-' + m + '-' + d
+}
+
+export const getUpdatedDateStr = (UpdatedDate: string) => {
+  const dt = new Date(UpdatedDate)
+
+  if (UpdatedDate.indexOf('T') !== -1) {
+    // Consider timezone
+    const elements = UpdatedDate.split('T')[1].split(/([+-])/)
+    if (elements.length > 1) {
+      const diff = parseInt(`${elements[1]}${elements[2]}`, 10)
+      dt.setHours(dt.getHours() + diff)
+    }
+  }
+
+  const y = dt.getFullYear()
+  const m = ('00' + (dt.getMonth() + 1)).slice(-2)
+  const d = ('00' + dt.getDate()).slice(-2)
+  console.log(y + '-' + m + '-' + d)
   return y + '-' + m + '-' + d
 }
 
