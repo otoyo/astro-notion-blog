@@ -22,12 +22,6 @@ const getAllPages = async () => {
             on_or_before: new Date().toISOString(),
           },
         },
-        {
-          property: 'UpdatedDate',
-          date: {
-            on_or_before: new Date().toISOString(),
-          },
-        },
       ],
     },
   };

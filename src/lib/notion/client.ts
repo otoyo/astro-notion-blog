@@ -84,12 +84,6 @@ export async function getAllPosts(): Promise<Post[]> {
             on_or_before: new Date().toISOString(),
           },
         },
-        {
-          property: 'UpdatedDate',
-          date: {
-            on_or_before: new Date().toISOString(),
-          },
-        },
       ],
     },
     sorts: [
