@@ -48,7 +48,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="ja" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
@@ -80,7 +80,38 @@ if (database.Icon && database.Icon.Type === 'file') {
         {
           coverImageURL && (
             <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
+              <!--<img src={coverImageURL} alt="Site cover image" loading="lazy" />-->
+                  <h1>
+                    <a href={getNavLink('/')}>
+                      {
+                        database.Icon && database.Icon.Type === 'emoji' ? (
+                          <>
+                            <span>{database.Icon.Emoji}</span>
+                            {database.Title}
+                          </>
+                        ) : database.Icon && database.Icon.Type === 'external' ? (
+                          <>
+                            <img src={database.Icon.Url} alt="Site icon image" />
+                            {database.Title}
+                          </>
+                        ) : database.Icon && database.Icon.Type === 'file' ? (
+                          <>
+                            <img
+                              src={customIconURL}
+                              class="custom-icon"
+                              alt="Site icon image"
+                            />
+                            {database.Title}
+                          </>
+                        ) : (
+                          database.Title
+                        )
+                      }
+                    </a>
+                  </h1>
+                    <div class="description">
+                      {database.Description}
+                    </div>
             </div>
           )
         }
@@ -89,39 +120,6 @@ if (database.Icon && database.Icon.Type === 'file') {
       <div>
         <main>
           <div class="content">
-            <header>
-              <h1>
-                <a href={getNavLink('/')}>
-                  {
-                    database.Icon && database.Icon.Type === 'emoji' ? (
-                      <>
-                        <span>{database.Icon.Emoji}</span>
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'external' ? (
-                      <>
-                        <img src={database.Icon.Url} alt="Site icon image" />
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'file' ? (
-                      <>
-                        <img
-                          src={customIconURL}
-                          class="custom-icon"
-                          alt="Site icon image"
-                        />
-                        {database.Title}
-                      </>
-                    ) : (
-                      database.Title
-                    )
-                  }
-                </a>
-              </h1>
-              <div class="description">
-                {database.Description}
-              </div>
-            </header>
 
             <slot name="main" />
 
@@ -151,7 +149,12 @@ if (database.Icon && database.Icon.Type === 'file') {
 </html>
 
 <style>
+
+
   .container {
+    max-width: 1280px;
+    margin-left:auto;
+    margin-right:auto;
     min-height: 100vh;
   }
 
@@ -167,7 +170,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   main {
     flex: 1;
-    order: 2;
+    order: 1;
     justify-content: space-between;
   }
   @media (max-width: 640px) {
@@ -177,7 +180,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   aside {
-    order: 1;
+    order: 2;
     width: 300px;
     padding: 20px 20px;
     background-color: #f4f4f4;
@@ -190,6 +193,12 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   div.cover {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom:solid;
   }
   div.cover img {
     display: block;
@@ -198,7 +207,6 @@ if (database.Icon && database.Icon.Type === 'file') {
     object-fit: cover;
     object-position: center 60%;
   }
-
   div.content {
     padding: 20px 40px;
   }

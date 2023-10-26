@@ -1,6 +1,7 @@
 ---
 import { Post } from '../lib/interfaces.ts'
 import { getDateStr } from '../lib/blog-helpers.ts'
+import { getUpdatedDateStr } from '../lib/blog-helpers.js'
 
 export interface Props {
   post: Post
@@ -10,12 +11,29 @@ const { post } = Astro.props
 ---
 
 <div class="post-date">
+  <img src="/src/images/blog-creation.png">
   {post.Date ? getDateStr(post.Date) : ''}
+  {post.UpdatedDate && (
+    <div>
+      <img class="updateddate" src="/src/images/updated.png">
+      {post.UpdatedDate ? getUpdatedDateStr(post.UpdatedDate) : ''}
+    </div>
+  )}
 </div>
 
 <style>
   .post-date {
+    margin-left: 0.9rem;
     padding: 0 0 0.3rem;
     font-size: 0.9rem;
+    display:flex;
+    align-items: center;
+  }
+  .updateddate{
+    margin-left: 0.9rem;
+  }
+  img {
+    width: 0.9rem;
+    height: 0.9rem;
   }
 </style>
