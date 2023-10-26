@@ -120,8 +120,6 @@ if (database.Icon && database.Icon.Type === 'file') {
       <div>
         <main>
           <div class="content">
-            <header>
-            </header>
 
             <slot name="main" />
 
@@ -200,6 +198,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-bottom:solid;
   }
   div.cover img {
     display: block;

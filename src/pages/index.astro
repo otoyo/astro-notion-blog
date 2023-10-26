@@ -9,7 +9,6 @@ import {
 import Layout from '../layouts/Layout.astro'
 import NoContents from '../components/NoContents.astro'
 import PostDate from '../components/PostDate.astro'
-import PostUpdatedDate from '../components/PostUpdatedDate.astro'
 import PostTags from '../components/PostTags.astro'
 import PostTitle from '../components/PostTitle.astro'
 import PostFeaturedImage from '../components/PostFeaturedImage.astro'
@@ -38,7 +37,6 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
           <div class={styles.post} key={post.Slug}>
             <PostTitle post={post} />
             <PostDate post={post} />
-            <PostUpdatedDate post={post} />
             <PostTags post={post} />
             <PostFeaturedImage post={post} />
             <PostExcerpt post={post} />
