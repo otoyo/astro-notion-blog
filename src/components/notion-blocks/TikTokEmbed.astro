@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  url: string
+  url: URL
 }
 const { url } = Astro.props
 const user = url.pathname.split('/')[1]
