@@ -220,6 +220,13 @@ export const isPinterestURL = (url: URL): boolean => {
   return /\/pin\/[\d]+/.test(url.pathname)
 }
 
+export const isCodePenURL = (url: URL): boolean => {
+  if (url.hostname !== 'codepen.io' && url.hostname !== 'www.codepen.io') {
+    return false
+  }
+  return /\/[^/]+\/pen\/[^/]+/.test(url.pathname)
+}
+
 export const isShortAmazonURL = (url: URL): boolean => {
   if (url.hostname === 'amzn.to' || url.hostname === 'www.amzn.to') {
     return true
