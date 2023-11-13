@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon'
+---
+
+<button class="search-button open-search-modal" type="button"><Icon name="octicon:search-24" /><span>Search</span></button>
+
+<style>
+  .search-button {
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.4rem;
+    font-size: 0.95rem;
+  }
+  .search-button:hover {
+    cursor: pointer;
+    background-color: #ddd;
+  }
+  .search-button svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.2rem;
+  }
+  [astro-icon="octicon:search-24"] {
+    color: var(--fg);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function handleKeydown(event) {
+      if (event.keyCode === 75 && event.metaKey) {
+        // Ctrl+K or Cmd+K
+        document.querySelector('.open-search-modal').click()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeydown)
+  })
+</script>
