@@ -4,6 +4,8 @@ import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+import SearchModal from '../components/SearchModal.astro'
+import SearchButton from '../components/SearchButton.astro'
 
 export interface Props {
   title: string
@@ -137,11 +139,13 @@ if (database.Icon && database.Icon.Type === 'file') {
         </main>
 
         <aside>
+          <SearchButton />
           <slot name="aside" />
         </aside>
       </div>
     </div>
 
+    <SearchModal />
     {
       ENABLE_LIGHTBOX && (
         <script src={getStaticFilePath('/scripts/fslightbox.js')} />

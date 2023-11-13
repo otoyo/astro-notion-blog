@@ -1,0 +1,288 @@
+---
+---
+
+<div class="search-modal-container">
+  <div class="overlay"></div>
+
+  <div class="search-modal">
+    <div class="search-prompt">
+      <input type="text" placeholder="Search..." />
+    </div>
+    <div class="search-result">
+      <ul>
+        <li class="selected">
+          <a href="#">
+            <div class="search-result-title"></div>
+            <div class="search-result-description"></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  div.search-modal-container {
+    display: none;
+  }
+
+  div.overlay {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  div.search-modal {
+    z-index: 100;
+    position: fixed;
+    top: 100px;
+    left: 20%;
+    width: 60%;
+    border-radius: 6px;
+    background-color: var(--bg);
+  }
+  @media (max-width: 640px) {
+    div.search-modal {
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  div.search-prompt {
+    margin: 6px 0;
+    padding: 0 6px;
+  }
+  div.search-prompt input {
+    width: 100%;
+    border: 0px solid transparent;
+    padding: 0.4rem;
+    background-color: var(--input-bg);
+    color: var(--fg);
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  div.search-result {
+    border-top: 1px solid var(--hr-border);
+  }
+  div.search-result ul {
+    list-style: none;
+    margin: 0.3rem;
+    padding: 0;
+  }
+  div.search-result ul > :global(li) {
+  }
+  div.search-result ul > :global(li > a) {
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius);
+  }
+  div.search-result ul > :global(li.selected > a) {
+    background-color: rgba(241, 241, 239, 1);
+  }
+
+  div.search-result :global(div.search-result-title) {
+    padding: 0.1rem 0;
+    color: var(--fg);
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+    font-weight: bold;
+  }
+  div.search-result :global(div.search-result-description) {
+    margin: 0 0 0.1rem;
+    color: var(--fg);
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    let feedItems = []
+    let fetched = false
+
+    async function openModal() {
+      document.querySelector('.search-modal-container').style.display = 'block'
+      document.querySelector('.search-prompt input').focus()
+
+      if (!fetched) {
+        await fetchRSS()
+      }
+      searchAndRender()
+    }
+
+    function closeModal() {
+      document.querySelector('.search-modal-container').style.display = 'none'
+    }
+
+    function handleKeydown(event) {
+      if (event.keyCode === 13) {
+        // Enter
+        select()
+      } else if (event.keyCode === 27) {
+        // ESC
+        closeModal()
+      } else if (event.keyCode === 38) {
+        // Up
+        selectUp(event)
+      } else if (event.keyCode === 40) {
+        // Down
+        selectDown(event)
+      } else {
+        searchAndRender()
+      }
+    }
+
+    function select() {
+      const a = document.querySelector('.search-result ul > li.selected a')
+      a.click()
+    }
+
+    function selectFirst() {
+      const li = document.querySelector('.search-result ul > li:first-child')
+      if (li) {
+        li.classList.add('selected')
+      }
+    }
+
+    function selectUp(event) {
+      event.preventDefault()
+
+      const ul = document.querySelector('.search-result ul')
+      const selected = ul.querySelector('.selected')
+      if (selected) {
+        selected.classList.remove('selected')
+
+        if (selected.previousElementSibling) {
+          selected.previousElementSibling.classList.add('selected')
+        } else {
+          ul.lastElementChild.classList.add('selected')
+        }
+      } else {
+        ul.lastElementChild.classList.add('selected')
+      }
+    }
+
+    function selectDown(event) {
+      event.preventDefault()
+
+      const ul = document.querySelector('.search-result ul')
+      const selected = ul.querySelector('.selected')
+      if (selected) {
+        selected.classList.remove('selected')
+
+        if (selected.nextElementSibling) {
+          selected.nextElementSibling.classList.add('selected')
+        } else {
+          ul.firstElementChild.classList.add('selected')
+        }
+      } else {
+        ul.firstElementChild.classList.add('selected')
+      }
+    }
+
+    function handleMouseover(event) {
+      Array.from(event.target.closest('ul').children).forEach((element) => {
+        element.classList.remove('selected')
+      })
+      event.target.closest('li').classList.add('selected')
+    }
+
+    function searchAndRender() {
+      const text = document.querySelector('.search-prompt input').value.trim()
+
+      if (text !== '') {
+        const results = search(text)
+        renderResults(results)
+      } else {
+        renderResults(feedItems)
+      }
+
+      selectFirst()
+    }
+
+    function search(query) {
+      const results = []
+      feedItems.forEach((item) => {
+        if (item.title.includes(query) || item?.description?.includes(query)) {
+          results.push(item)
+        }
+      })
+      return results
+    }
+
+    function renderResults(results) {
+      const ul = document.querySelector('.search-result ul')
+      ul.innerHTML = ''
+
+      results.forEach((item) => {
+        const li = document.createElement('li')
+        const a = document.createElement('a')
+        const title = document.createElement('div')
+        const description = document.createElement('div')
+
+        title.classList.add('search-result-title')
+        title.textContent = item.title
+        description.classList.add('search-result-description')
+        description.textContent = item.description
+        a.href = item.link
+
+        li.addEventListener('mouseover', handleMouseover)
+
+        a.appendChild(title)
+        a.appendChild(description)
+        li.appendChild(a)
+        ul.appendChild(li)
+      })
+    }
+
+    async function fetchRSS() {
+      const url = new URL(location.href)
+      const port = url.port ? `:${url.port}` : ''
+
+      const res = await fetch(
+        `${url.protocol}//${url.hostname}${port}/feed`
+      )
+      if (res.status !== 200) {
+        console.log(res.status)
+        throw new Error('Failed to fetch RSS feed')
+      }
+
+      const body = await res.text()
+
+      const parser = new DOMParser()
+      const xml = parser.parseFromString(body, 'text/xml')
+
+      Array.from(xml.getElementsByTagName('item')).forEach((item) => {
+        const title = item.getElementsByTagName('title')[0].textContent
+        const link = item.getElementsByTagName('link')[0].textContent
+        const description =
+          item.getElementsByTagName('description')[0]?.textContent
+        const pubDate = item.getElementsByTagName('pubDate')[0].textContent
+
+        feedItems.push({
+          title,
+          link,
+          description,
+          pubDate,
+        })
+      })
+
+      fetched = true
+    }
+
+    Array.from(document.getElementsByClassName('open-search-modal')).forEach(
+      (element) => {
+        element.addEventListener('click', openModal)
+      }
+    )
+    document
+      .getElementsByClassName('overlay')[0]
+      .addEventListener('click', closeModal)
+    document.addEventListener('keydown', handleKeydown)
+  })
+</script>
