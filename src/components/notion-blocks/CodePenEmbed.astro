@@ -7,20 +7,22 @@ const user = url.pathname.split('/')[1]
 const id = url.pathname.split('/')[3]
 ---
 
-<div class="codepen-embed">
-  <p
-    class="codepen"
-    data-height="500"
-    data-slug-hash={id.toString()}
-    data-user={user.toString()}
-    style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-  >
-  </p>
-</div>
+<p
+  class="codepen"
+  data-slug-hash={id.toString()}
+  data-user={user.toString()}
+  style="box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+>
+</p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-<style>
-  .codepen-embed {
+<style is:global>
+  .cp_embed_wrapper {
+    width: 100%;
+    aspect-ratio: 1.6 / 1;
     background-color: #fff;
+  }
+  .cp_embed_wrapper iframe {
+    height: 100% !important;
   }
 </style>
