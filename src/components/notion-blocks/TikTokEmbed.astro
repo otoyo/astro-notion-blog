@@ -7,19 +7,27 @@ const user = url.pathname.split('/')[1]
 const videoId = url.pathname.split('/')[3]
 ---
 
-<blockquote
-  class="tiktok-embed"
-  cite={url.toString()}
-  data-video-id={videoId}
-  style="max-width: 605px;min-width: 325px;"
->
-  <section>
-    <a
-      target="_blank"
-      title={user}
-      href="https://www.tiktok.com/{user}?refer=embed">{user}</a
-    >
-  </section>
-</blockquote>
+<div class="tiktok-wrapper">
+  <blockquote
+    class="tiktok-embed"
+    cite={url.toString()}
+    data-video-id={videoId}
+    style="min-width: 325px;"
+  >
+    <section>
+      <a
+        target="_blank"
+        title={user}
+        href="https://www.tiktok.com/{user}?refer=embed">{user}</a
+      >
+    </section>
+  </blockquote>
+</div>
 
 <script async src="https://www.tiktok.com/embed.js"></script>
+
+<style>
+  .tiktok-wrapper {
+    max-width: 325px;
+  }
+</style>
