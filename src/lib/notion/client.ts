@@ -1,4 +1,5 @@
 import fs, { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream/promises'
 import axios, { AxiosResponse } from 'axios'
 import sharp from 'sharp'
 import retry from 'async-retry'
@@ -419,7 +420,11 @@ export async function downloadFile(url: URL) {
     stream = stream.pipe(rotate)
   }
   try {
-    stream.pipe(new ExifTransformer()).pipe(writeStream)
+    await pipeline(
+      stream,
+      new ExifTransformer(),
+      writeStream,
+    )
   } catch (err) {
     console.log(err)
     writeStream.end()
