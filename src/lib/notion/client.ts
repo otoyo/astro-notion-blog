@@ -398,6 +398,13 @@ export async function downloadFile(url: URL) {
   const dir = './public/notion/' + url.pathname.split('/').slice(-2)[0]
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir)
+    fs.stat(dir, (err, stats) => {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log(stats)
+      }
+    })
   }
 
   const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])

@@ -86,8 +86,9 @@ await Promise.all(
       fs.stat(filepath, (err, stats) => {
         if (err) {
           console.error(err)
+        } else {
+          console.log(stats)
         }
-        console.log(stats)
       })
     }))
 )
