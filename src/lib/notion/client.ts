@@ -384,6 +384,7 @@ export async function downloadFile(url: URL) {
       timeout: REQUEST_TIMEOUT_MS,
       responseType: 'stream',
     })
+    console.log(url.toString())
   } catch (err) {
     console.log(err)
     return Promise.resolve()
