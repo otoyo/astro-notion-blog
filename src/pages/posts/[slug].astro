@@ -1,4 +1,5 @@
 ---
+import fs from 'node:fs'
 import * as interfaces from '../../lib/interfaces.ts'
 import {
   getPosts,
@@ -81,6 +82,14 @@ await Promise.all(
       })
     )
     .map((promise) => promise.then(downloadFile))
+    .map((promise) => promise.then((filepath) => {
+      fs.stat(filepath, (err, stats) => {
+        if (err) {
+          console.error(err)
+        }
+        console.log(stats)
+      })
+    }))
 )
 
 const currentPostIndex = allPosts.findIndex((post) => post.Slug === slug)
