@@ -1,0 +1,48 @@
+---
+import type { Post, SelectProperty } from '../lib/interfaces.ts'
+import { getTagLink } from '../lib/blog-helpers.ts'
+import '../styles/notion-color.css'
+
+export interface Props {
+  post: Post
+  enableLink: boolean
+}
+
+const { post, enableLink = true } = Astro.props
+---
+
+<div class="postCard__tags">
+  {
+    post.Tags &&
+      post.Tags.length > 0 &&
+      post.Tags.map((tag: SelectProperty) => {
+        if (enableLink) {
+          return (
+            <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+              {tag.name}
+            </a>
+          )
+        }
+        return <span class={`tag ${tag.color}`}>{tag.name}</span>
+      })
+  }
+</div>
+
+<style>
+  .header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: auto;
+    max-width: 960px;
+    padding-block: 24px;
+  }
+  .header-list {
+    display: flex;
+  }
+  .header-item {
+    &:not(:first-of-type) {
+      margin-left: 30px;
+    }
+  }
+</style>

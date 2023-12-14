@@ -1,0 +1,75 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import type { Post, SelectProperty } from '../lib/interfaces.ts'
+import { filePath } from '../lib/blog-helpers'
+import { getPostLink } from '../lib/blog-helpers.ts'
+import { getDateStr } from '../lib/blog-helpers.ts'
+import { getTagLink } from '../lib/blog-helpers.ts'
+
+export interface Props {
+  post: Post
+  enableLink: boolean
+}
+
+const { post, enableLink = true } = Astro.props
+
+let image = ''
+if (post.FeaturedImage && post.FeaturedImage.Url) {
+  if (import.meta.env.DEV) {
+    image = post.FeaturedImage.Url
+  } else {
+    image = filePath(new URL(post.FeaturedImage.Url))
+  }
+}
+
+let title = post.Title
+---
+
+<div class="postCard">
+	<div class="postCard__thumb">
+		{
+      image && (
+          <img src={image} alt="Featured image of the post" />
+      )
+    }
+	</div>
+	<div class="postCard__content">
+		<div class="postCard__tags">
+			{
+        post.Tags &&
+          post.Tags.length > 0 &&
+          post.Tags.map((tag: SelectProperty) => {
+            if (enableLink) {
+              return (
+                <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
+                  {tag.name}
+                </a>
+              )
+            }
+            return <span class={`tag ${tag.color}`}>{tag.name}</span>
+          })
+      }
+		</div>
+		<h2 class="postCard__title">
+      {title}
+    </h2>
+		<p class="postCard__date">
+      {post.Date ? getDateStr(post.Date) : ''}
+    </p>
+	</div>
+</div>
+
+<style>
+  .postCard {
+    display: flex;
+    gap: 4rem;
+  }
+  .postCard__thumb {
+    padding: 0.6rem 0 0.2rem;
+  }
+  .postCard__thumb img {
+    display: block;
+    max-width: 100%;
+    max-height: 20rem;
+  }
+</style>

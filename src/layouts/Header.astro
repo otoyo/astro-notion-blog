@@ -1,0 +1,39 @@
+---
+import Logo from '../components/Logo.astro'
+---
+
+<header class="header">
+  <Logo />
+  <!-- <nav class="header-nav">
+    <ul class="header-list">
+      <li class="header-item">
+        <a href="/" class="">TOP</a>
+      </li>
+      <li class="header-item">
+        <a href="/posts" class="">Posts</a>
+      </li>
+      <li class="header-item">
+        <a href="/about" class="">About</a>
+      </li>
+    </ul>
+  </nav> -->
+</header>
+
+<style>
+  .header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: auto;
+    max-width: 960px;
+    padding-block: 24px;
+  }
+  .header-list {
+    display: flex;
+  }
+  .header-item {
+    &:not(:first-of-type) {
+      margin-left: 30px;
+    }
+  }
+</style>
