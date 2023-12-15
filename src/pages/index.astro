@@ -7,13 +7,15 @@ import {
   getNumberOfPages,
 } from '../lib/notion/client.ts'
 import Layout from '../layouts/Layout.astro'
-import Main from "../layouts/Main.astro";
+import Main from '../layouts/Main.astro'
 import NoContents from '../components/NoContents.astro'
-import SinglePost from "../components/SinglePost.astro";
+import SinglePost from '../components/SinglePost.astro'
 import PostDate from '../components/PostDate.astro'
 import PostTags from '../components/PostTags.astro'
 import PostTitle from '../components/PostTitle.astro'
 import PostFeaturedImage from '../components/PostFeaturedImage.astro'
+import BlogPostsLink from '../components/BlogPostsLink.astro'
+import BlogTagsLink from '../components/BlogTagsLink.astro'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
@@ -25,26 +27,43 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 
 <Layout>
   <Main>
-    <ul>
-      {
-        posts.length === 0 ? (
-          <NoContents contents={posts} />
-        ) : (
-          posts.map((post) => (
-            <li>
-              <article class="postCard" key={post.Slug}>
-                <SinglePost post={post} />
-              </article>
-            </li>
-          ))
-        )
-      }
-    </ul>
+    <div class="top-content">
+      <BlogTagsLink heading="Categories" tags={tags} />
+      <div class="latest">
+        <h2 class="latest-ttl">Latest</h2>
+        <ul class="latest-list">
+          {
+            posts.length === 0 ? (
+              <NoContents contents={posts} />
+            ) : (
+              posts.map((post) => (
+                <li>
+                  <article class="postCard" key={post.Slug}>
+                    <SinglePost post={post} />
+                  </article>
+                </li>
+              ))
+            )
+          }
+        </ul>
+      </div>
+    </div>
   </Main>
 </Layout>
 
 <style>
-  ul {
+  .top-content {
+    display: grid;
+    gap: 40px;
+  }
+  .latest {
+    display: grid;
+    gap: 20px;
+  }
+  .latest-ttl {
+    font-size: 24px;
+  }
+  .latest-list {
     display: grid;
     gap: 4rem;
   }

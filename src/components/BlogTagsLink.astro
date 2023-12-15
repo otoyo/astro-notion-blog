@@ -22,7 +22,7 @@ const { heading, tags } = Astro.props
         {tags.map((tag: SelectProperty) => (
           <li>
             <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
-              {tag.name}
+              #{tag.name}
             </a>
           </li>
         ))}
@@ -33,22 +33,21 @@ const { heading, tags } = Astro.props
 
 <style>
   .blog-tags-link {
+    display: grid;
+    gap: 20px;
   }
   .blog-tags-link h2 {
+    font-size: 24px;
     margin: 0;
-    padding-left: 0.4rem;
-    color: #777;
-    font-size: 0.95rem;
   }
   .blog-tags-link ul {
+    display: flex;
+    gap: 10px;
     list-style-type: none;
-    padding: 0;
-    margin-top: 0.3rem;
-    margin-block-end: 1rem;
+    padding-left: 0;
   }
   .blog-tags-link ul li {
     position: relative;
-    padding: 0.4rem;
     line-height: 1.2rem;
     font-size: 0.9rem;
     gap: 6px;
