@@ -19,11 +19,11 @@ const id = buildHeadingId(block.Heading3)
     <details class="toggle">
       <summary>
         <a href={`#${id}`} id={id}>
-          <h6>
+          <h5>
             {block.Heading3.RichTexts.map((richText: interfaces.RichText) => (
               <RichText richText={richText} />
             ))}
-          </h6>
+          </h5>
         </a>
       </summary>
       <div>
@@ -34,23 +34,23 @@ const id = buildHeadingId(block.Heading3)
     </details>
   ) : (
     <a href={`#${id}`} id={id}>
-      <h6>
+      <h5>
         {block.Heading3.RichTexts.map((richText: interfaces.RichText) => (
           <RichText richText={richText} />
         ))}
-      </h6>
+      </h5>
     </a>
   )
 }
 
 <style>
-  h6 {
+  h5 {
     margin: 0.9em 0 0.3em;
     color: var(--fg);
     font-size: 1.25rem;
   }
   @media (max-width: 640px) {
-    h6 {
+    h5 {
       font-size: 1.1rem;
     }
   }
@@ -72,7 +72,7 @@ const id = buildHeadingId(block.Heading3)
     display: inline;
   }
 
-  .toggle > summary > a > h6 {
+  .toggle > summary > a > h5 {
     display: inline;
   }
 

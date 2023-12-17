@@ -3,6 +3,7 @@ import createMetascraper from 'metascraper'
 import metascraperDescription from 'metascraper-description'
 import metascraperImage from 'metascraper-image'
 import metascraperTitle from 'metascraper-title'
+import { isAmazonURL } from '../../lib/blog-helpers.ts'
 import * as interfaces from '../../lib/interfaces.ts'
 
 export interface Props {
@@ -13,19 +14,22 @@ export interface Props {
 const { block, urlMap } = Astro.props
 
 const urlString = (block.Bookmark || block.LinkPreview || block.Embed).Url
-const metascraper = createMetascraper([
-  metascraperDescription(),
-  metascraperImage(),
-  metascraperTitle(),
-])
 
 let url: URL
 let metadata: Record<string, string>
 try {
   url = new URL(urlString)
-  const html = urlMap[urlString]
-  if (html) {
-    metadata = await metascraper({ html, url })
+
+  if (!isAmazonURL(url)) {
+    const metascraper = createMetascraper([
+      metascraperDescription(),
+      metascraperImage(),
+      metascraperTitle(),
+    ])
+    const html = urlMap[url.toString()]
+    if (html) {
+      metadata = await metascraper({ html, url })
+    }
   }
 } catch (err) {
   console.log(err)
@@ -34,39 +38,50 @@ try {
 
 {
   url && (
-    <div class="bookmark">
-      <a href={url.toString()} target="_blank" rel="noopener noreferrer">
-        <div>
-          <div>{metadata && metadata.title}</div>
-          <div>{metadata && metadata.description}</div>
-          <div>
+    <>
+      {isAmazonURL(url) ? (
+        <div class="no-metadata">
+          <a href={url.toString()}>{url.toString()}</a>
+        </div>
+      ) : (
+        <div class="bookmark">
+          <a href={url.toString()} target="_blank" rel="noopener noreferrer">
             <div>
-              <img
-                src={`https://www.google.com/s2/favicons?domain=${url.hostname}`}
-                alt="title"
-                loading="lazy"
-                decoding="async"
-              />
+              <div>{metadata && metadata.title}</div>
+              <div>{metadata && metadata.description}</div>
+              <div>
+                <div>
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${url.hostname}`}
+                    alt="Favicon of the bookmark site"
+                    loading="lazy"
+                  />
+                </div>
+                <div>{url.origin}</div>
+              </div>
             </div>
-            <div>{url.origin}</div>
-          </div>
+            <div>
+              {metadata && metadata.image && (
+                <img
+                  src={metadata.image}
+                  alt="Site image of the bookmark"
+                  loading="lazy"
+                />
+              )}
+            </div>
+          </a>
         </div>
-        <div>
-          {metadata && metadata.image && (
-            <img
-              src={metadata.image}
-              alt="title"
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-        </div>
-      </a>
-    </div>
+      )}
+    </>
   )
 }
 
 <style>
+  .no-metadata > a {
+    border-bottom: 0.05em solid;
+    border-color: var(--anchor-border);
+    opacity: 0.7;
+  }
   .bookmark {
     display: flex;
     overflow: hidden;
@@ -92,6 +107,8 @@ try {
     color: var(--fg);
   }
   .bookmark > a > div:first-child > div:first-child {
+    width: 120px;
+    min-width: 100%;
     font-size: 14px;
     line-height: 20px;
     white-space: nowrap;

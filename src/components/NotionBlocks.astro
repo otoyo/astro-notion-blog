@@ -1,6 +1,10 @@
 ---
 import * as interfaces from '../lib/interfaces.ts'
-import { isTweetURL, buildURLToHTMLMap } from '../lib/blog-helpers.ts'
+import {
+  isTweetURL,
+  isAmazonURL,
+  buildURLToHTMLMap,
+} from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
 import Heading2 from './notion-blocks/Heading2.astro'
@@ -44,8 +48,9 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
   const isNumberedListItem = block.Type === 'numbered_list_item'
   const isToDo = block.Type === 'to_do'
 
-  if (!isBulletedListItem && !isNumberedListItem && !isToDo)
+  if (!isBulletedListItem && !isNumberedListItem && !isToDo) {
     return arr.concat(block)
+  }
 
   let listType = ''
   if (isBulletedListItem) {
@@ -105,7 +110,7 @@ const bookmarkURLs = blocks
     }
     return url
   })
-  .filter((url: URL) => url && !isTweetURL(url))
+  .filter((url: URL) => url && !isTweetURL(url) && !isAmazonURL(url))
 
 const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
 ---

@@ -41,7 +41,9 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
 <Layout title={`Posts in ${tag}`} path={`/posts/tag/${tag}`}>
   <div slot="main" class={styles.main}>
     <header>
-      <h2><span class={`tag ${currentTag.color}`}>{tag}</span></h2>
+      <div class="tag-container">
+        <span class={`tag ${currentTag.color}`}>{tag}</span>
+      </div>
     </header>
 
     {
@@ -71,3 +73,22 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
     <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
+
+<style>
+  .tag-container {
+    margin: 0;
+    line-height: 1.3;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+  @media (max-width: 640px) {
+    .tag-container {
+      font-size: 1.15rem;
+    }
+  }
+  .tag-container span.tag {
+    border-radius: 4px;
+    padding: 3px 9px;
+    background: var(--tag-bg-light-gray);
+  }
+</style>

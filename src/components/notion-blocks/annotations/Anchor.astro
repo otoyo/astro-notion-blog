@@ -10,7 +10,7 @@ const { richText } = Astro.props
 
 {
   /* prettier-ignore */
-  richText.Href ? (
+  richText.Href && !richText.Mention ? (
     <a href={richText.Href}><slot /></a>
   ) : (
     <slot />

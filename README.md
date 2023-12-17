@@ -4,25 +4,32 @@ English | [日本語](README.ja.md)
 
 [![GitHub stars](https://img.shields.io/github/stars/otoyo/astro-notion-blog)](https://github.com/otoyo/astro-notion-blog/stargazers)
 [![GitHub license](https://img.shields.io/github/license/otoyo/astro-notion-blog)](https://github.com/otoyo/astro-notion-blog/blob/main/LICENSE)
+[![GitHub sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
 
 <img src="https://user-images.githubusercontent.com/1063435/213838069-c9654c32-ec9b-4e82-a3b5-2acbd665b16a.png" width="480">
 
 astro-notion-blog enables you to create a blog using [Notion](https://www.notion.so/) and generates it statically, resulting in lightning-fast page views.
 
-- :rocket: **Lightning-fast** page views
+- :rocket: **Blazing fast** page views
 - :pencil: With the ability to write blog content in **Notion**
 - :hammer_and_wrench: **Customize** your site's appearance to your liking
 - :white_check_mark: Take advantage of **the official Notion APIs**
 
-## Screenshots
+## :camera_flash: Screenshots
 
-<img src="https://user-images.githubusercontent.com/1063435/223610351-58d157cc-fe50-4ff3-be0c-5373bec07589.png" width="600">
+### PC
 
-## Demo
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/967bbc23-014c-427d-b6cd-02c41822fb45" width="600">
+
+### Smartphone
+
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bf1add06-1f1c-42ca-88c9-decb8c0dcf8f" width="300">
+
+## :globe_with_meridians: Demo
 
 [https://astro-notion-blog.pages.dev](https://astro-notion-blog.pages.dev)
 
-## Quick Start
+## :motor_scooter: Quick Start
 
 ### Requirements
 
@@ -53,23 +60,22 @@ astro-notion-blog enables you to create a blog using [Notion](https://www.notion
 10. In "Build settings" section,
     1. Select "Astro" as "Framework preset"
     2. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
-       - `NODE_VERSION` is `v16.13.0` or higher
+       - `NODE_VERSION` is `v18.16.0` or higher
        - [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
 
 <img src="https://user-images.githubusercontent.com/1063435/213967061-06f488fe-0b42-40a5-8f19-ac441f0168ff.png" width="400">
 
-<img src="https://user-images.githubusercontent.com/1063435/213967200-6d497b44-f26f-4ad7-8cf9-1780cf5cd2e0.png" width="600">
+<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bc1ceef1-d67a-490b-b465-34af1b0f8010" width="600">
 
 11. After clicking the 'Save and Deploy' button, your Notion Blog will be published once the deployment process is complete.
 
 Please note that the astro-notion-blog requires manual deployment every time you publish a new post or make updates. You can deploy manually from the Cloudflare Pages dashboard or set up a scheduled deploy using CI tools such as GitHub Actions.
 
-## How to customize
+## :hammer_and_pick: How to customize
 
 ### Additional requirements
 
-- Node.js v16 or higher
-- [Yarn](https://yarnpkg.com/getting-started)
+- Node.js v18.14.1 or higher
 
 ### Steps
 
@@ -83,30 +89,26 @@ export DATABASE_ID=<YOUR_DATABASE_ID>
 2. Install dependencies and start local server
 
 ```sh
-yarn install
-yarn dev
+npm install
+npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. Open [http://localhost:4321](http://localhost:4321) in your browser
 4. Press `Ctrl+C` in the terminal to stop
 
 ### For more information
 
 See [wiki](https://github.com/otoyo/astro-notion-blog/wiki).
 
-## Bug reports & feature requests
+## :lady_beetle: Bug reports & feature requests
 
 To report an issue, please create a new Issue. You can use **either English or Japanese** to describe the issue. :wink:
 
-## :bird: Twitter community
+## :two_hearts: Sponsorship
 
-In our community, you have the opportunity to both support and be supported by other members.
+If you like astro-notion-blog, sponsor me so that I can keep on developing software. Thank you.
 
-- [astro-notion-blog](https://twitter.com/i/communities/1618017732653613056)
-
-## Contribution
-
-We welcome pull requests from anyone who wants to contribute to our project. Your contributions are greatly appreciated!
+[![GitHub sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
 
 ---
 

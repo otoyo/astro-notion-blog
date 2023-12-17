@@ -10,14 +10,24 @@ const { richTexts } = Astro.props
 
 {
   richTexts.length > 0 && richTexts[0].Text.Content && (
-    <div class="caption">{richTexts[0].Text.Content}</div>
+    <div class="caption">
+      <div>{richTexts[0].Text.Content}</div>
+    </div>
   )
 }
 
 <style>
   .caption {
+    display: flex;
     margin-top: 0.3rem;
     font-size: 0.9rem;
     color: var(--accents-3);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+  .caption > div {
+    flex-grow: 1;
+    width: 0;
   }
 </style>
