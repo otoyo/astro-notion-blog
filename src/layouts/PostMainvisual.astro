@@ -1,0 +1,60 @@
+--- 
+import PostTags from '../components/PostTags.astro';
+
+
+export interface Props {
+  title: string
+  date: string
+}
+
+const { title = '',  date = '' } = Astro.props
+
+---
+
+<div class="mv">
+  <div class="mv-copy">
+    <p class="mv-date">{date}</p>
+    <h1 class="mv-ttl">{title}</h1>
+  </div>
+  <div class="mv-image">
+    <img src="../../src/images/mv2.jpg" alt="" />
+  </div>
+</div>
+
+<style>
+  .mv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+  }
+  .mv-copy {
+    color: #fff;
+    display: grid;
+    gap: 16px;
+    padding-inline: var(--paddingInner);
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+  }
+  .mv-date {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .mv-ttl {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .mv-image {
+    height: var(--mvHeight);
+  }
+  img {
+    aspect-ratio: 16/9;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+</style>

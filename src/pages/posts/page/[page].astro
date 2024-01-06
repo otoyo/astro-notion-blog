@@ -18,6 +18,7 @@ import Pagination from '../../../components/Pagination.astro'
 import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
 import styles from '../../../styles/blog.module.css'
+import Main from '../../../layouts/Main.astro'
 
 export async function getStaticPaths() {
   const numberOfPages = await getNumberOfPages()
@@ -40,11 +41,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 ---
 
 <Layout title={`Posts ${page}/${numberOfPages}`} path={`/posts/page/${page}`}>
-  <div slot="main" class={styles.main}>
-    <header>
-      <div class="page-container">{page}/{numberOfPages}</div>
-    </header>
-
+  <Main>
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
@@ -61,19 +58,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
         ))
       )
     }
-
-    <footer>
-      <Pagination
-        currentPage={parseInt(page, 10)}
-        numberOfPages={numberOfPages}
-      />
-    </footer>
-  </div>
-
-  <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
-  </div>
+  </Main>
 </Layout>
 
 <style>

@@ -20,6 +20,8 @@ import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
 import styles from '../../../styles/blog.module.css'
 import '../../../styles/notion-color.css'
+import Main from '../../../layouts/Main.astro'
+import SinglePost from '../../../components/SinglePost.astro'
 
 export async function getStaticPaths() {
   const allTags = await getAllTags()
@@ -39,39 +41,23 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
 ---
 
 <Layout title={`Posts in ${tag}`} path={`/posts/tag/${tag}`}>
-  <div slot="main" class={styles.main}>
-    <header>
-      <div class="tag-container">
-        <span class={`tag ${currentTag.color}`}>{tag}</span>
-      </div>
-    </header>
-
-    {
-      posts.length === 0 ? (
-        <NoContents contents={posts} />
-      ) : (
-        posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))
-      )
-    }
-
-    <footer>
-      <Pagination tag={tag} currentPage={1} numberOfPages={numberOfPages} />
-    </footer>
-  </div>
-
-  <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
-  </div>
+  <Main>
+    <ul class="latest-list">
+      {
+        posts.length === 0 ? (
+          <NoContents contents={posts} />
+        ) : (
+          posts.map((post) => (
+            <li>
+              <article class="postCard" key={post.Slug}>
+                <SinglePost post={post} />
+              </article>
+            </li>
+          ))
+        )
+      }
+    </ul>
+  </Main>
 </Layout>
 
 <style>

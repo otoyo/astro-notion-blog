@@ -11,6 +11,7 @@ import Footer from './Footer.astro'
 import Header from './Header.astro'
 import Nav from './Nav.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
+import Mainvisual from './Mainvisual.astro'
 
 export interface Props {
   title: string
@@ -23,7 +24,7 @@ const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
 
 const database = await getDatabase()
 
-const siteTitle = title ? `${title} - ${database.Title}` : database.Title
+const siteTitle = title ? `${title} | ${database.Title}` : database.Title
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(getNavLink(path), Astro.site).toString()
 const siteOGImage = new URL(
@@ -52,6 +53,9 @@ if (database.Icon && database.Icon.Type === 'file') {
     console.log('Invalid DB custom icon URL')
   }
 }
+
+
+
 ---
 
 <!doctype html>
@@ -73,19 +77,21 @@ if (database.Icon && database.Icon.Type === 'file') {
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
+    <link rel="icon" href="../../src/images/favicon.ico" sizes="any"><!-- 32×32 -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
       integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script> 
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <Header />
-    <div class="container">
+    <main class="main">
       <slot />
-    </div>
+    </main>
     <Footer />
 
     <SearchModal />
@@ -98,120 +104,6 @@ if (database.Icon && database.Icon.Type === 'file') {
 </html>
 
 <style>
-  .container {
-    margin-inline: auto;
-    max-width: 800px;
-  }
-
-  .container > div {
-    display: flex;
-    max-width: 1280px;
-  }
-  @media (max-width: 640px) {
-    .container > div {
-      display: block;
-    }
-  }
-
-  main {
-    flex: 1;
-    order: 2;
-    justify-content: space-between;
-  }
-  @media (max-width: 640px) {
-    main {
-      order: 1;
-    }
-  }
-
-  aside {
-    order: 1;
-    width: 300px;
-    padding: 20px 20px;
-    background-color: #f4f4f4;
-  }
-  @media (max-width: 640px) {
-    aside {
-      order: 2;
-      width: 100%;
-    }
-  }
-
-  div.cover {
-  }
-  div.cover img {
-    display: block;
-    width: 100%;
-    height: 20vh;
-    object-fit: cover;
-    object-position: center 60%;
-  }
-
-  div.content {
-    padding: 20px 40px;
-  }
-  @media (max-width: 640px) {
-    div.content {
-      padding: 0 18px;
-    }
-  }
-
-  main header {
-    padding: 20px 0 20px;
-  }
-  main header h1 {
-    font-weight: 700;
-    color: #333;
-  }
-  main header h1 a {
-    display: block;
-    color: inherit;
-  }
-  main header h1 a:hover {
-    color: inherit;
-  }
-  main header h1 a span,
-  main header h1 a img {
-    display: inline-block;
-    font-size: 1.1em;
-  }
-  main header h1 a span {
-    margin-right: 0.3em;
-    margin-left: -0.1rem;
-  }
-  main header h1 a img {
-    width: 1.2em;
-    height: 1.2em;
-    margin-right: 0.2em;
-    margin-left: -0.3rem;
-    vertical-align: sub;
-  }
-  main header h1 a img.custom-icon {
-    border-radius: var(--radius);
-  }
-
-  main header div.description {
-    padding: 0.3rem 0 0.6rem;
-    font-size: 0.95rem;
-  }
-
-  main footer {
-    margin: 30px 0 10px;
-    text-align: center;
-    font-size: 0.75rem;
-  }
-  @media (max-width: 640px) {
-    main footer {
-      margin: 0 auto 30px;
-    }
-  }
-  main footer span {
-    color: #777;
-  }
-  main footer a {
-    color: inherit;
-    text-decoration: underline;
-  }
 </style>
 
 <style is:global>
@@ -223,11 +115,20 @@ if (database.Icon && database.Icon.Type === 'file') {
 
     --bg: #fff;
     --fg: #333;
-    --accents-1: #666;
+    --text: #333;
+    --textRev: #fff;
+    --accents-1: #ec503b;
     --accents-2: #666;
     --accents-3: #666;
     --geist-foreground: #000;
     --geist-success: #690;
+
+    
+    --paddingInner: 40px;
+
+    --headerHeight: 40px;
+    --mvHeight: 400px;
+    --footerHeight: 80px;
 
     --radius: 4px;
 
@@ -236,6 +137,23 @@ if (database.Icon && database.Icon.Type === 'file') {
       'Helvetica Neue', sans-serif;
     --font-mono: SFMono-Regular, Menlo, Consolas, 'PT Mono', 'Liberation Mono',
       Courier, monospace;
+  }
+  @media (min-width: 560px) {
+    :root {
+      --paddingInner: 60px;
+    }
+  }
+  @media (min-width: 960px) {
+    :root {
+      --paddingInner: 40px;
+      --mvHeight: 400px;
+    }
+  }
+  @media (min-width: 1280px) {
+    :root {
+      --paddingInner: 80px;
+      --mvHeight: 400px;
+    }
   }
 
   * {
@@ -251,14 +169,9 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   body {
-    min-height: 100vh;
     background: var(--bg);
     color: var(--fg);
     font-family:
-      ui-sans-serif,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
       Helvetica,
       'Hiragino Sans',
       'Hiragino Kaku Gothic ProN',
@@ -278,120 +191,14 @@ if (database.Icon && database.Icon.Type === 'file') {
       25px 25px;
     background-attachment: fixed;
     background-size: 50px 50px;
-
     /* Hack */
-    overflow-x: hidden;
 
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
+    letter-spacing: .02em;
   }
 
-  figure {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #999;
-    line-height: 1.8rem;
+  p {
   }
 
-  a {
-    color: var(--accents-1);
-    text-decoration: none;
-  }
-  a:hover {
-    color: var(--accents-1);
-  }
-
-  mark {
-    padding: var(--gap-quarter);
-    border-radius: var(--radius);
-    background: rgba(247, 212, 255, 0.8);
-  }
-
-  h1 {
-    margin: 0;
-    color: var(--fg);
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  @media (max-width: 640px) {
-    h1 {
-      font-size: 1.6rem;
-    }
-  }
-
-  ol {
-    color: #222;
-    font-weight: 400;
-    font-size: 0.9rem;
-    line-height: 1.8rem;
-  }
-  p,
-  ul {
-    color: #222;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.8rem;
-  }
-  ul,
-  ol {
-    margin: 0;
-    padding-inline-start: 1.5rem;
-  }
-  pre {
-    margin: 0;
-    white-space: pre;
-    tab-size: 2;
-  }
-  pre :global(code) {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    margin: 0.3rem 0;
-    background-color: #333;
-  }
-
-  code {
-    font-size: 0.9rem;
-    background: rgba(135, 131, 120, 0.15);
-    color: #eb5757;
-    padding: 0.25rem;
-    border-radius: var(--radius);
-    font-family: var(--font-mono);
-  }
-
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-collapse: collapse;
-  }
-
-  table tr {
-    vertical-align: top;
-  }
-
-  table th {
-    font-weight: 600;
-    background-color: #f4f4f4;
-  }
-
-  table td,
-  table th {
-    font-size: 0.9rem;
-    border: 1px solid #e4e4e4;
-    padding: 0.5rem 1rem;
-    text-align: left;
-    line-height: 1.2rem;
-  }
-  table td::after {
-    content: '';
-    display: inline-block;
-    min-height: 0.9rem;
-  }
 </style>

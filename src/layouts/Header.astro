@@ -1,32 +1,42 @@
 ---
 import Logo from '../components/Logo.astro'
+
 ---
 
-<header class="header">
-  <Logo />
-  <!-- <nav class="header-nav">
-    <ul class="header-list">
-      <li class="header-item">
-        <a href="/" class="">TOP</a>
-      </li>
-      <li class="header-item">
-        <a href="/posts" class="">Posts</a>
-      </li>
-      <li class="header-item">
-        <a href="/about" class="">About</a>
-      </li>
-    </ul>
-  </nav> -->
+<header class="header" id="js-header">
+  <div class="header-inner">
+    <Logo />
+    <nav class="header-nav">
+      <ul class="header-list">
+        <li class="header-item">
+          <a href="/" class="">TOP</a>
+        </li>
+        <li class="header-item">
+          <a href="/posts" class="">Posts</a>
+        </li>
+        <li class="header-item">
+          <a href="/about" class="">About</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <style>
   .header {
+    padding-top: 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+  .header-inner {
     align-items: center;
     display: flex;
     justify-content: space-between;
     margin-inline: auto;
-    max-width: 960px;
-    padding-block: 24px;
+    padding-inline: var(--paddingInner);
   }
   .header-list {
     display: flex;
@@ -35,5 +45,13 @@ import Logo from '../components/Logo.astro'
     &:not(:first-of-type) {
       margin-left: 30px;
     }
+  }
+  a {
+    color: var(--textRev);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: var(--accents-1);
   }
 </style>

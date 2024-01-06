@@ -25,6 +25,12 @@ import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import styles from '../../styles/blog.module.css'
+import Main from '../../layouts/Main.astro'
+import PostMainvisual from '../../layouts/PostMainvisual.astro'
+import Inner from '../../layouts/Inner.astro'
+import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
+import PostExcerpt from '../../components/PostExcerpt.astro'
+import { getTagLink } from '../../lib/blog-helpers.ts'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -38,15 +44,22 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
-const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
-  await Promise.all([
-    getAllBlocksByBlockId(post.PageId),
-    getAllPosts(),
-    getRankedPosts(),
-    getPosts(5),
-    getAllTags(),
-    getPostsByTag(post.Tags[0]?.name, 6),
-  ])
+const [
+  blocks,
+  allPosts,
+  rankedPosts,
+  recentPosts,
+  posts,
+  tags,
+  postsHavingSameTag,
+] = await Promise.all([
+  getAllBlocksByBlockId(post.PageId),
+  getAllPosts(),
+  getRankedPosts(),
+  getPosts(5),
+  getAllTags(),
+  getPostsByTag(post.Tags[0]?.name, 6),
+])
 
 const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
   .concat(extractTargetBlocks('file', blocks))
@@ -87,10 +100,19 @@ const currentPostIndex = allPosts.findIndex((post) => post.Slug === slug)
 const prevPost = allPosts[currentPostIndex + 1]
 const nextPost = allPosts[currentPostIndex - 1]
 
+const { enableLink = true } = Astro.props
+
 let ogImage = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
   ogImage = new URL(filePath(new URL(post.FeaturedImage.Url)), Astro.site)
 }
+
+export interface Props {
+  title: string
+  date: string
+}
+
+const { title = '', date = '' } = Astro.props
 ---
 
 <Layout
@@ -99,29 +121,105 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot="main" class={styles.main}>
-    <div class={styles.post}>
-      <PostDate post={post} />
-      <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
-      <PostBody blocks={blocks} />
-      <PostTags post={post} />
-
-      <footer>
-        <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
-      </footer>
+  <div class="mv">
+    <div class="mv-copy">
+      <p class="mv-date">{post.Date}</p>
+      <h1 class="mv-ttl">{post.Title}</h1>
+      <ul class="card-tags">
+        {
+          post.Tags &&
+            post.Tags.length > 0 &&
+            post.Tags.map((tag: SelectProperty) => {
+              if (enableLink) {
+                return (
+                  <li class="card-tag">
+                    <a
+                      href={getTagLink(tag.name)}
+                      class={`card-tag-link ${tag.color}`}
+                    >
+                      #{tag.name}
+                    </a>
+                  </li>
+                )
+              }
+              return <span class={`tag ${tag.color}`}>{tag.name}</span>
+            })
+        }
+      </ul>
+    </div>
+    <div class="mv-image">
+      <img src="../../src/images/mv2.jpg" alt="" />
     </div>
   </div>
-
-  <div slot="aside" class="aside">
-    <BlogPostsLink
-      heading="Posts in the same category"
-      posts={postsHavingSameTag.filter(
-        (p: interfaces.Post) => p.Slug !== post.Slug
-      )}
-    />
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
-  </div>
+  <Inner>
+    <div class={styles.post}>
+      <!-- <PostTags post={post} /> -->
+      <!-- <PostFeaturedImage post={post} /> -->
+      <PostExcerpt post={post} />
+      <PostBody blocks={blocks} />
+      <PostTags post={post} />
+    </div>
+  </Inner>
 </Layout>
+
+<style>
+  .mv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+  }
+  .mv-copy {
+    color: #fff;
+    display: grid;
+    gap: 16px;
+    padding-inline: var(--paddingInner);
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+  }
+  .mv-date {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .mv-ttl {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .mv-image {
+    height: var(--mvHeight);
+  }
+  img {
+    aspect-ratio: 16/9;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    list-style-type: none;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+  .card-tag {
+    font-size: 14px;
+    gap: 6px;
+    line-height: 1.2rem;
+    position: relative;
+  }
+  .card-tag-link {
+    background: #fff;
+    border-radius: 3px;
+    color: rgb(50, 48, 44);
+    line-height: 1.2;
+    min-width: 0;
+    padding: 3px 8px;
+    position: relative;
+    z-index: 2;
+  }
+</style>

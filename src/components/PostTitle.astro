@@ -12,7 +12,7 @@ const { post, enableLink = true } = Astro.props
 let title = post.Title
 ---
 
-<h2 class="post-title">
+<h1 class="post-title">
   {
     enableLink ? (
       <a href={getPostLink(post.Slug)}>
@@ -48,7 +48,7 @@ let title = post.Title
       </>
     )
   }
-</h2>
+</h1>
 
 <style>
   .post-title {
@@ -57,6 +57,7 @@ let title = post.Title
     font-size: 2rem;
     font-weight: 700;
     color: var(--fg);
+    margin-top: 1rem;
   }
   .post-title a {
     font-size: 1.6rem;

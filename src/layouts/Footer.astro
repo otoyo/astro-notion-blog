@@ -1,13 +1,41 @@
 ---
-
 ---
 
 <footer class="footer">
-  <button>Scroll to Top</button>
+  <p class="footer-lead">HRK++</p>
+  <div class="footer-image">
+    <img src="../../src/images/mv2.jpg" alt="" />
+  </div>
 </footer>
 
 <style>
   .footer {
+    display: grid;
+    place-content: center;
+    height: var(--footerHeight);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+  }
+  .footer-lead {
     color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .footer-image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  img {
+    aspect-ratio: 16/9;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+  @media (min-width: 768px) {
   }
 </style>

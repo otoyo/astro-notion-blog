@@ -38,11 +38,12 @@ const { heading, tags } = Astro.props
   }
   .blog-tags-link h2 {
     font-size: 24px;
+    font-weight: 500;
     margin: 0;
   }
   .blog-tags-link ul {
     display: flex;
-    gap: 10px;
+    gap: 16px;
     list-style-type: none;
     padding-left: 0;
   }
@@ -59,5 +60,10 @@ const { heading, tags } = Astro.props
     line-height: 1.2;
     color: rgb(50, 48, 44);
     background: rgba(227, 226, 224, 0.5);
+  }
+  @media (min-width: 960px) {
+    .blog-tags-link ul {
+      flex-direction: column;
+    }
   }
 </style>

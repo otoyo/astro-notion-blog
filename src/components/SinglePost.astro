@@ -25,88 +25,88 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 let title = post.Title
 ---
 
-<div class="postCard">
-  <div class="postCard__thumb">
+<article class="card">
+  <div class="card-thumb">
     {image && <img src={image} alt="Featured image of the post" />}
   </div>
-  <div class="postCard__content">
-    <ul>
-      {
-        post.Tags &&
-          post.Tags.length > 0 &&
-          post.Tags.map((tag: SelectProperty) => {
-            if (enableLink) {
-              return (
-                <li>
-                  <a href={getTagLink(tag.name)} class={`tag ${tag.color}`}>
-                    #{tag.name}
-                  </a>
-                </li>
-              )
-            }
-            return <span class={`tag ${tag.color}`}>{tag.name}</span>
-          })
-      }
-    </ul>
-    <h2 class="postCard__title">
-      {title}
-    </h2>
-    <p class="postCard__date">
-      {post.Date ? getDateStr(post.Date) : ''}
-    </p>
-  </div>
-</div>
+  <ul class="card-tags">
+    {
+      post.Tags &&
+        post.Tags.length > 0 &&
+        post.Tags.map((tag: SelectProperty) => {
+          if (enableLink) {
+            return (
+              <li class="card-tag">
+                <a href={getTagLink(tag.name)} class={`card-tag-link ${tag.color}`}>
+                  #{tag.name}
+                </a>
+              </li>
+            )
+          }
+          return <span class={`tag ${tag.color}`}>{tag.name}</span>
+        })
+    }
+  </ul>
+  <h2 class="card-title">
+    {title}
+  </h2>
+  <!-- <p class="card-date">
+    {post.Date ? getDateStr(post.Date) : ''}
+  </p> -->
+  <a href={getPostLink(post.Slug)} class="card-link"></a>
+</article>
 
 <style>
-  .postCard {
-    display: flex;
-    gap: 1.5rem;
+  .card {
+    position: relative;
   }
-  .postCard__thumb {
+  .card-thumb {
     border-radius: 8px;
     flex-basis: 30%;
     flex-shrink: 0;
     padding: 0.6rem 0 0.2rem;
   }
-  .postCard__thumb img {
+  .card-thumb img {
     aspect-ratio: 16/9;
+    border-radius: 8px;
     object-fit: cover;
     width: 100%;
   }
-  .postCard__thumb img {
-    display: block;
-    max-width: 100%;
-    max-height: 20rem;
-  }
-  .postCard__content {
-    flex: 1;
-  }
-  ul {
+  .card-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 5px 10px;
     list-style-type: none;
+    margin-top: 10px;
     padding-left: 0;
   }
-  ul li {
+  .card-tag {
     font-size: 0.9rem;
     gap: 6px;
     line-height: 1.2rem;
     position: relative;
   }
-  ul li a {
-    min-width: 0;
-    border-radius: 3px;
-    padding: 2px 6px;
-    line-height: 1.2;
-    color: rgb(50, 48, 44);
+  .card-tag-link {
     background: rgba(227, 226, 224, 0.5);
+    border-radius: 3px;
+    color: rgb(50, 48, 44);
+    line-height: 1.2;
+    min-width: 0;
+    padding: 2px 6px;
+    position: relative;
+    z-index: 2;
   }
-  .postCard__title {
-    font-size: 20px;
+  .card-title {
+    font-size: 16px;
+    font-weight: 500;
     margin-top: 10px;
   }
-  .postCard__date {
+  .card-date {
     margin-top: 10px;
+  }
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 </style>

@@ -16,6 +16,9 @@ import PostTitle from '../components/PostTitle.astro'
 import PostFeaturedImage from '../components/PostFeaturedImage.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
+import Mainvisual from '../layouts/Mainvisual.astro'
+import Inner from '../layouts/Inner.astro'
+import Wrapper from '../layouts/Wrapper.astro'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
@@ -26,29 +29,33 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 ---
 
 <Layout>
-  <Main>
+  <Mainvisual />
+  <Inner>
     <div class="top-content">
-      <BlogTagsLink heading="Categories" tags={tags} />
-      <div class="latest">
-        <h2 class="latest-ttl">Latest</h2>
-        <ul class="latest-list">
-          {
-            posts.length === 0 ? (
-              <NoContents contents={posts} />
-            ) : (
-              posts.map((post) => (
-                <li>
-                  <article class="postCard" key={post.Slug}>
+      <div class="wrapper">
+        <div class="side">
+          <div class="side-iiner">
+            <BlogTagsLink heading="Categories" tags={tags} />
+          </div>
+        </div>
+        <div class="article">
+          <ul class="article-list">
+            {
+              posts.length === 0 ? (
+                <NoContents contents={posts} />
+              ) : (
+                posts.map((post) => (
+                  <li class="article-item" key={post.Slug}>
                     <SinglePost post={post} />
-                  </article>
-                </li>
-              ))
-            )
-          }
-        </ul>
+                  </li>
+                ))
+              )
+            }
+          </ul>
+        </div>
       </div>
     </div>
-  </Main>
+  </Inner>
 </Layout>
 
 <style>
@@ -56,15 +63,41 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
     display: grid;
     gap: 40px;
   }
-  .latest {
+  .wrapper {
     display: grid;
-    gap: 20px;
+    gap: 24px;
   }
-  .latest-ttl {
-    font-size: 24px;
+  .side-iiner {
+    position: sticky;
+    top: var(--headerHeight);
   }
-  .latest-list {
+  .article-list {
     display: grid;
-    gap: 4rem;
+    gap: 16px;
+  }
+  @media (min-width: 560px) {
+    .article-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 768px) {
+    .article-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 960px) {
+    .wrapper {
+      grid-template-columns: 160px 1fr;
+    }
+    .article-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1280px) {
+    .wrapper {
+      gap: 40px;
+    }
   }
 </style>
