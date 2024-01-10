@@ -5,6 +5,7 @@ import {
   getAllTags,
   getNumberOfPages,
   getPostsByPage,
+getPosts,
 } from '../../../lib/notion/client.ts'
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
@@ -31,8 +32,9 @@ export async function getStaticPaths() {
 
 const { page } = Astro.params
 
-const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
+const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByPage(parseInt(page, 10)),
+  getPosts(5),
   getRankedPosts(),
   getAllTags(),
   getNumberOfPages(),
@@ -71,8 +73,9 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   </div>
 
   <div slot="aside" class={styles.aside}>
+    <BlogPostsLink heading="最新記事" posts={recentPosts} />
     <BlogPostsLink heading="おすすめ記事" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <BlogTagsLink heading="カテゴリー" tags={tags} />
   </div>
 </Layout>
 

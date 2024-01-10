@@ -19,8 +19,9 @@ import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
 import styles from '../styles/blog.module.css'
 
-const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
+const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
+  getPosts(5),
   getRankedPosts(),
   getAllTags(),
   getNumberOfPages(),
@@ -52,7 +53,8 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   </div>
 
   <div slot="aside" class={styles.aside}>
+    <BlogPostsLink heading="最新記事" posts={recentPosts} />
     <BlogPostsLink heading="おすすめ記事" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <BlogTagsLink heading="カテゴリー" tags={tags} />
   </div>
 </Layout>
