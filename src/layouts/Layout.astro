@@ -78,18 +78,15 @@ if (database.Icon && database.Icon.Type === 'file') {
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
-      <header>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
-            </div>
-          )
-        }
-      </header>
-
       <div>
         <main>
+          {
+            coverImageURL && (
+              <div class="cover">
+                <img src={coverImageURL} alt="カバー画像" loading="lazy" />
+              </div>
+            )
+          }
           <div class="content">
             <header>
               <h1>
@@ -184,7 +181,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     order: 1;
     width: 300px;
     padding: 20px 20px;
-    background-color: #f4f4f4;
+    background-color: #CAFFF1;
   }
   @media (max-width: 640px) {
     aside {
