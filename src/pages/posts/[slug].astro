@@ -98,6 +98,14 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   description={post.Excerpt}
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
+  openGraph={{
+    basic: {
+      title: post.Title,
+      type: 'article',
+      image: new URL(`/og/${post.Slug}.png`, Astro.url.origin).toString(),
+    },
+    image: { alt: post.Title },
+  }}
 >
   <div slot="main" class={styles.main}>
     <div class={styles.post}>

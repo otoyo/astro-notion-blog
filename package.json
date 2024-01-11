@@ -17,11 +17,14 @@
     "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
-    "@astrojs/react": "^2.2.0",
+    "@astrojs/react": "^2.3.2",
     "@astrojs/rss": "^2.4.2",
     "@notionhq/client": "^2.2.5",
     "@supercharge/promise-pool": "^2.4.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
     "astro": "^2.5.6",
+    "astro-seo": "^0.8.0",
     "katex": "^0.16.7",
     "mermaid": "^10.1.0",
     "metascraper": "^5.34.4",
@@ -30,21 +33,24 @@
     "metascraper-title": "^5.34.4",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "satori": "^0.10.11",
+    "sharp": "^0.33.1"
   },
   "devDependencies": {
-    "@nrwl/nx-cloud": "^16.0.5",
+    "@nrwl/nx-cloud": "^16.0.4",
     "@types/js-base64": "^3.3.1",
     "@types/metascraper": "^5.14.1",
     "@types/metascraper-description": "^5.14.1",
     "@types/metascraper-image": "^5.14.0",
     "@types/metascraper-title": "^5.14.0",
+    "@types/sharp": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "cli-progress": "^3.12.0",
     "eslint": "^8.41.0",
     "eslint-plugin-astro": "^0.27.0",
-    "nx": "16.2.1"
+    "nx": "^16.10.0"
   },
   "nx": {
     "targets": {
