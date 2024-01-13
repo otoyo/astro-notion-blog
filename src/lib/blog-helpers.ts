@@ -9,6 +9,7 @@ import type {
   Column,
 } from './interfaces'
 import { pathJoin } from './utils'
+import defineConfig from '../../astro.config.mjs'
 
 export const filePath = (url: URL): string => {
   const [dir, filename] = url.pathname.split('/').slice(-2)
@@ -124,7 +125,7 @@ export const getStaticFilePath = (path: string): string => {
 
 export const getNavLink = (nav: string) => {
   if ((!nav || nav === '/') && BASE_PATH) {
-    return pathJoin(BASE_PATH, '') + '/'
+    return pathJoin(BASE_PATH, '') + (defineConfig.trailingSlash === 'never' ? '' : '/')
   }
 
   return pathJoin(BASE_PATH, nav)
