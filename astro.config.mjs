@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
+import { CUSTOM_DOMAIN, BASE_PATH, TRAILING_SLASH } from './src/server-constants';
 import CoverImageDownloader from './src/integrations/cover-image-downloader';
 import CustomIconDownloader from './src/integrations/custom-icon-downloader';
 import FeaturedImageDownloader from './src/integrations/featured-image-downloader';
@@ -35,6 +35,7 @@ const getSite = function () {
 export default defineConfig({
   site: getSite(),
   base: BASE_PATH,
+  trailingSlash: TRAILING_SLASH,
   integrations: [
     CoverImageDownloader(),
     CustomIconDownloader(),

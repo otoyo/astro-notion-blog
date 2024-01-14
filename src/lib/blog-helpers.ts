@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { BASE_PATH, REQUEST_TIMEOUT_MS } from '../server-constants'
+import { BASE_PATH, REQUEST_TIMEOUT_MS, TRAILING_SLASH } from '../server-constants'
 import type {
   Block,
   Heading1,
@@ -9,7 +9,6 @@ import type {
   Column,
 } from './interfaces'
 import { pathJoin } from './utils'
-import defineConfig from '../../astro.config.mjs'
 
 export const filePath = (url: URL): string => {
   const [dir, filename] = url.pathname.split('/').slice(-2)
@@ -125,7 +124,7 @@ export const getStaticFilePath = (path: string): string => {
 
 export const getNavLink = (nav: string) => {
   if ((!nav || nav === '/') && BASE_PATH) {
-    return pathJoin(BASE_PATH, '') + (defineConfig.trailingSlash === 'never' ? '' : '/')
+    return pathJoin(BASE_PATH, '') + (TRAILING_SLASH === 'never' ? '' : '/')
   }
 
   return pathJoin(BASE_PATH, nav)
