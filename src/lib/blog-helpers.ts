@@ -123,31 +123,41 @@ export const getStaticFilePath = (path: string): string => {
 }
 
 export const getNavLink = (nav: string) => {
+  const trailingSlash = import.meta.env.BASE_URL.endsWith('/') ? '/' : ''
+
   if ((!nav || nav === '/') && BASE_PATH) {
-    return pathJoin(BASE_PATH, '') + '/'
+    return pathJoin(BASE_PATH, '') + trailingSlash
   }
 
-  return pathJoin(BASE_PATH, nav)
+  return pathJoin(BASE_PATH, nav) + trailingSlash
 }
 
 export const getPostLink = (slug: string) => {
-  return pathJoin(BASE_PATH, `/posts/${slug}`)
+  const trailingSlash = import.meta.env.BASE_URL.endsWith('/') ? '/' : ''
+
+  return pathJoin(BASE_PATH, `/posts/${slug}`) + trailingSlash
 }
 
 export const getTagLink = (tag: string) => {
-  return pathJoin(BASE_PATH, `/posts/tag/${encodeURIComponent(tag)}`)
+  const trailingSlash = import.meta.env.BASE_URL.endsWith('/') ? '/' : ''
+
+  return (
+    pathJoin(BASE_PATH, `/posts/tag/${encodeURIComponent(tag)}`) + trailingSlash
+  )
 }
 
 export const getPageLink = (page: number, tag: string) => {
+  const trailingSlash = import.meta.env.BASE_URL.endsWith('/') ? '/' : ''
+
   if (page === 1) {
-    return tag ? getTagLink(tag) : pathJoin(BASE_PATH, '/')
+    return tag ? getTagLink(tag) : pathJoin(BASE_PATH, '/') + trailingSlash
   }
   return tag
     ? pathJoin(
         BASE_PATH,
         `/posts/tag/${encodeURIComponent(tag)}/page/${page.toString()}`
-      )
-    : pathJoin(BASE_PATH, `/posts/page/${page.toString()}`)
+      ) + trailingSlash
+    : pathJoin(BASE_PATH, `/posts/page/${page.toString()}`) + trailingSlash
 }
 
 export const getDateStr = (date: string) => {
