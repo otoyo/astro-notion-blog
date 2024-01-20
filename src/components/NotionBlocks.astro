@@ -133,6 +133,13 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
       case 'video':
         return <Video block={block} />
       case 'code':
+        console.log(block.Code)
+        if(typeof block.Code.Caption[0] !== "undefined"){
+          if(block.Code.Caption[0].PlainText.indexOf('htmlblock') !== -1
+            ){
+            return <Fragment set:html={block.Code.RichTexts[0].PlainText}/>
+            }
+          }
         return <Code block={block} />
       case 'quote':
         return <Quote block={block} headings={headings} />
