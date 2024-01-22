@@ -11,6 +11,7 @@ getPosts,
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
 import PostDate from '../../../components/PostDate.astro'
+import PostUpdateDate from '../../../components/PostUpdateDate.astro'
 import PostTags from '../../../components/PostTags.astro'
 import PostTitle from '../../../components/PostTitle.astro'
 import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
@@ -54,7 +55,10 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
       ) : (
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
+            <div style="display: flex; flex-wrap: wrap; column-gap: 1em;">
+              <PostDate post={post} />
+              <PostUpdateDate post={post} />
+            </div>
             <PostTags post={post} />
             <PostTitle post={post} />
             <PostFeaturedImage post={post} />

@@ -9,6 +9,7 @@ import {
 import Layout from '../layouts/Layout.astro'
 import NoContents from '../components/NoContents.astro'
 import PostDate from '../components/PostDate.astro'
+import PostUpdateDate from '../components/PostUpdateDate.astro'
 import PostTags from '../components/PostTags.astro'
 import PostTitle from '../components/PostTitle.astro'
 import PostFeaturedImage from '../components/PostFeaturedImage.astro'
@@ -18,6 +19,7 @@ import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
 import styles from '../styles/blog.module.css'
+import PostUpdateDate from '../components/PostUpdateDate.astro';
 
 const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
@@ -36,7 +38,10 @@ const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all
       ) : (
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
+            <div style="display: flex; flex-wrap: wrap; column-gap: 1em;">
+              <PostDate post={post} />
+              <PostUpdateDate post={post} />
+            </div>
             <PostTags post={post} />
             <PostTitle post={post} />
             <PostFeaturedImage post={post} />

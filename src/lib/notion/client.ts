@@ -989,6 +989,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
         : '',
     FeaturedImage: featuredImage,
     Rank: prop.Rank.number ? prop.Rank.number : 0,
+    UpdateDate: prop.UpdateDate.date ? prop.UpdateDate.date.start : '',
   }
 
   return post
