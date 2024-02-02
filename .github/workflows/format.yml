@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: Run format
         run: npm run format
 
-      - uses: stefanzweifel/git-auto-commit-action@v3.0.0
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Format by GitHub Actions
