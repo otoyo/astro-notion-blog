@@ -10,12 +10,13 @@ const { post } = Astro.props
 ---
 
 <div class="read-more-link">
-  <a href={getPostLink(post.Slug)}>→Read more</a>
+  <a href={getPostLink(post.Slug)}>→記事を読む</a>
 </div>
 
 <style>
   .read-more-link {
     color: var(--fg);
+    border-bottom: 1px dashed #888;
   }
   .read-more-link a {
     color: rgb(55, 53, 47);

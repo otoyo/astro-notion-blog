@@ -68,6 +68,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
+    <link rel="icon" href="favicon.png">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
@@ -130,8 +131,8 @@ if (database.Icon && database.Icon.Type === 'file') {
             <footer>
               <div>
                 <span>Powered by&nbsp;</span>
-                <a href="https://github.com/otoyo/astro-notion-blog"
-                  >astro-notion-blog</a
+                <a href="https://twitter.com/smith0120"
+                  >smithlabo</a
                 >
               </div>
             </footer>
@@ -185,6 +186,11 @@ if (database.Icon && database.Icon.Type === 'file') {
     width: 300px;
     padding: 20px 20px;
     background-color: #f4f4f4;
+    position: sticky;
+    top: 0;
+    + position: sticky;
+    + top: 0;
+    + height: 100vh;height: 100vh;
   }
   @media (max-width: 640px) {
     aside {
