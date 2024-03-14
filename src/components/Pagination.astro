@@ -22,7 +22,7 @@ for (let i = startPage; i <= endPage; i++) {
 }
 ---
 
-<div class="pagination">
+<div class="pagination mb-5">
   <a href={getPageLink(1, tag)} class={isFirstPage && 'inactive'}>&lt;&lt;</a>
   {
     pages.map((p: number) => (
@@ -40,7 +40,6 @@ for (let i = startPage; i <= endPage; i++) {
   .pagination {
     display: flex;
     width: 100%;
-    margin: 0 auto;
     color: var(--fg);
     justify-content: center;
     align-items: center;
