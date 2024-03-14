@@ -1,0 +1,17 @@
+---
+import SearchButton from '../SearchButton.astro';
+import GithubIcon from '../icon/GithubIcon.astro';
+import XIcon from '../icon/XIcon.astro';
+---
+<header class="max-w-[65rem] mb-auto mx-auto flex flex-wrap sm:justify-start sm:flex-nowrap z-30 w-full text-sm hidden sm:block">
+  <nav class="w-full px-6 sm:flex sm:items-center sm:justify-between" aria-label="Global">
+    <div class="flex items-center justify-between w-full sm:w-6/12">
+      {<SearchButton />}
+    </div>
+
+    <div class="flex gap-5 mb-5 flex-row sm:mt-5 sm:ps-5">
+      {<GithubIcon />}
+      {<XIcon />}
+    </div>
+  </nav>
+</header>
