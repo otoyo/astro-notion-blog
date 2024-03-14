@@ -1,0 +1,60 @@
+---
+import '@fontsource/ma-shan-zheng';
+import '@fontsource/shippori-mincho-b1';
+
+// export interface Props {
+//   japanese: string;
+//   chinese: string;
+//   english: string;
+// };
+
+// const { japanese = '', chinese = '', english ='' } = Astro.props;
+---
+<div class="balloon rounded text-center w-full h-[5rem] sm:h-[6rem]">
+  <div
+    class="text-xs sm:text-sm"
+    style="font-family: 'Shippori Mincho B1', serif; font-weight: bold;"
+  >
+    ようこそ、忠's ホームページへ！
+  </div>
+  <div
+    class="sm:text-lg"
+    style="font-family: 'Ma Shan Zheng', cursive;"
+  >
+    欢迎来到忠's 网站！
+  </div>
+  <div
+    class="text-xs sm:text-sm"
+    style="font-weight: bold;"
+  >
+    Welcome to Zhong's Website!
+  </div>
+</div>
+
+<style>
+/* 吹き出し本体 */
+.balloon{
+  position: relative;
+  padding: 15px;
+  background-color: white;
+  display: inline-block;     /* 横幅を自動で変更 */
+  box-shadow: 6px 6px 0px 0px green;  /* 影をつける */
+  z-index: 2;
+}
+
+/* beforeで三角を表現 */
+.balloon::before{
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 15px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid white;
+  border-left: 15px solid transparent;
+  transform: rotate(60deg);
+  z-index: 3;
+}
+</style>
