@@ -38,6 +38,8 @@ if (!post) {
   throw new Error('Post not found. slug: ${slug}')
 }
 
+console.log({ post });
+
 const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
   await Promise.all([
     getAllBlocksByBlockId(post.PageId),
