@@ -19,6 +19,9 @@
   "dependencies": {
     "@astrojs/react": "^3.0.3",
     "@astrojs/rss": "^3.0.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/ma-shan-zheng": "^5.0.11",
+    "@fontsource/shippori-mincho-b1": "^5.0.16",
     "@notionhq/client": "^2.2.5",
     "@supercharge/promise-pool": "^2.4.0",
     "astro": "^3.3.1",
@@ -32,10 +35,12 @@
     "metascraper-description": "^5.34.4",
     "metascraper-image": "^5.34.4",
     "metascraper-title": "^5.34.4",
+    "preline": "^2.0.3",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.32.4"
+    "sharp": "^0.32.4",
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@nrwl/nx-cloud": "^15.0.2",
