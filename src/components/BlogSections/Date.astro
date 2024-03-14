@@ -1,0 +1,40 @@
+---
+import { formatDate } from "../../lib/utils";
+
+export interface Props {
+  date: string;
+}
+
+const { date } = Astro.props;
+---
+<div class="flex items-center gap-x-1">
+  <dt>
+    <svg
+      viewBox="0 0 24 24"
+      class="base-icon icon"
+      height="16"
+      width="16"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
+    >
+      <circle cx="12" cy="12" r="10">
+      </circle>
+      <path d="M12 6V12L16 16">
+      </path>
+    </svg>
+
+    <!-- <span class="u-visually-hidden">
+      投稿日
+    </span> -->
+  </dt>
+
+  <dd lang="en">
+    <time>
+      {formatDate(date)}
+    </time>
+  </dd>
+</div>

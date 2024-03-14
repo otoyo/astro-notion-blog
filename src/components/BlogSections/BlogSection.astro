@@ -1,0 +1,46 @@
+---
+import '../../styles/notion-color.css';
+import Date from './Date.astro';
+
+import { type Post } from '../../lib/interfaces';
+
+import { getPostLink } from '../../lib/blog-helpers';
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+<a
+  class="group dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 border-b-zinc-300 border-b-2 hover:border-b-zinc-900 pb-2"
+  href={getPostLink(post.Slug)}
+>
+  <div class="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden border-2">
+    <img
+      class="size-full absolute top-0 start-0 object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out rounded-xl"
+      src={post.FeaturedImage ? post.FeaturedImage.Url : '/src/images/no-image.png'}
+      alt="Image Description"
+    >
+    <span class="absolute top-0 end-0 rounded-se-xl rounded-es-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3 dark:bg-gray-900">
+      有料記事
+    </span>
+  </div>
+
+  <div class="mt-1 border-b-zinc-950">
+    {<Date date={post.Date} />}
+    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-blue-500 dark:text-gray-200">
+      { post.Title }
+    </h3>
+    <p class="text-gray-800 dark:text-gray-200">
+      { post.Excerpt }
+    </p>
+    <div>
+      { post.Tags.map((tag) => (
+        <span class={`inline-block mt-2 mr-2 px-2 py-1 text-xs font-medium text-white tag ${tag.color} rounded-md`}>
+          #{ tag.name }
+        </span>
+      )) }
+    </div>
+  </div>
+</a>
