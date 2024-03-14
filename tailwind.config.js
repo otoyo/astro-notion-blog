@@ -1,15 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: [
-    './src/**/*.astro',
-    './node_modules/preline/dist/*.js',
-  ],
+  content: ['./src/**/*.astro', './node_modules/preline/dist/*.js'],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
-  plugins: [
-    require('preline/plugin'),
-  ],
-}
+  plugins: [require('preline/plugin')],
+};
