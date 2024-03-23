@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install packages
-        run: yarn install
+        run: npm install
 
       - name: Run lint
-        run: yarn lint
+        run: npm run lint

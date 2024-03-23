@@ -5,12 +5,14 @@ import {
   isTikTokURL,
   isInstagramURL,
   isPinterestURL,
+  isCodePenURL,
 } from '../../lib/blog-helpers.ts'
 import Bookmark from './Bookmark.astro'
 import TweetEmbed from './TweetEmbed.astro'
 import TikTokEmbed from './TikTokEmbed.astro'
 import InstagramEmbed from './InstagramEmbed.astro'
 import PinterestEmbed from './PinterestEmbed.astro'
+import CodePenEmbed from './CodePenEmbed.astro'
 
 export interface Props {
   block: interfaces.Block
@@ -37,6 +39,8 @@ try {
       <InstagramEmbed url={url} />
     ) : isPinterestURL(url) ? (
       <PinterestEmbed url={url} />
+    ) : isCodePenURL(url) ? (
+      <CodePenEmbed url={url} />
     ) : (
       <Bookmark block={block} urlMap={urlMap} />
     )
