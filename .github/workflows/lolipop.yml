@@ -1,12 +1,9 @@
 name: deploy
 
 on:
-  # 手動でのデプロイもできるようにする
   workflow_dispatch:
-  # 毎日19:00に自動的に実行する(日本時間19時に投稿するには10時にする)
   schedule:
     - cron:  '00 10 * * *'
-  # mainブランチにpushされたら実行する
   push:
     branches:
       - main
