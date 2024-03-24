@@ -18,7 +18,10 @@ Notionで書いたコンテンツをAstroでブログ化しLolipopにデプロ�
 - FTP_HOST
 - FTP_USERNAME
 - FTP_PASSWORD
-- FTP_REMOTE_ROOT ← 自分の契約したレンタルサーバーのどこにデプロイするかの設定。直下でいいなら内容は半角スラッシュ「/」だけで作成(契約したレンタルサーバのアドレスにアクセスするとブログが見られるようになる)
+- FTP_REMOTE_ROOT
+
+※FTP_REMOTE_ROOTは自分の契約したレンタルサーバーのどこにデプロイするかの設定。直下でいいならSecretの内容は半角スラッシュ「/」だけで作成(契約したレンタルサーバのアドレスにアクセスするとブログが見られるようになる)
+
 9. GitHub の Actionsを開き、workflowを作成
 ```
    name: deploy
