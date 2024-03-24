@@ -78,6 +78,9 @@ npm run dev
 
 ### その他の情報
 [wiki](https://github.com/otoyo/astro-notion-blog/wiki)
+[初心者がastro-notion-blogをカスタマイズしてみた【具体例多数】](https://rakuraku-engineer.com/posts/anb-custom/)
+[【astro-notion-blog】右メニューに目次を追加してみた](https://varubogu.com/posts/astro-notion-blog-add-headline/)
+[astro-notion-blogカスタマイズメモ](https://suzu-mono-gram.com/blog/astro-notion-blog-memo/)
 
 ## :two_hearts:
 astro-notion-blogの開発者さまを支援するには[![GitHub sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
