@@ -1,5 +1,3 @@
-[English](README.md) | 日本語
-
 # astro-notion-blog
 
 [![GitHub stars](https://img.shields.io/github/stars/otoyo/astro-notion-blog)](https://github.com/otoyo/astro-notion-blog/stargazers)
