@@ -25,6 +25,10 @@ import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import styles from '../../styles/blog.module.css'
+// 👇importを追加
+import PostFeaturedImage from '../../components/PostFeaturedImage.astro'
+import TableOfContents from '../../components/notion-blocks/TableOfContents.astro'
+import type { number } from 'astro/zod'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -58,6 +62,8 @@ const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
     return imageOrFile && imageOrFile.File && imageOrFile.File.Url
   })
 
+
+
 // Download files
 await Promise.all(
   fileAtacchedBlocks
@@ -86,6 +92,8 @@ await Promise.all(
 const currentPostIndex = allPosts.findIndex((post) => post.Slug === slug)
 const prevPost = allPosts[currentPostIndex + 1]
 const nextPost = allPosts[currentPostIndex - 1]
+const blockData = blocks
+const headingsData = blocks.filter(block => block.Type === 'heading_1' || block.Type === 'heading_2' || block.Type === 'heading_3');
 
 let ogImage = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
@@ -101,9 +109,11 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 >
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
+      <PostTitle post={post} enableLink={false} />
       <PostDate post={post} />
       <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
+      <!-- 👇アイキャッチ表示処理 -->
+      <PostFeaturedImage post={post} />
       <PostBody blocks={blocks} />
       <PostTags post={post} />
 
@@ -113,15 +123,37 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     </div>
   </div>
 
+
+
   <div slot="aside" class="aside">
+    <BlogTagsLink heading="タグ" tags={tags} />
+  </div>
+
+  <div slot="rside" class="rside">
     <BlogPostsLink
-      heading="Posts in the same category"
-      posts={postsHavingSameTag.filter(
-        (p: interfaces.Post) => p.Slug !== post.Slug
-      )}
+    heading="同じタグの投稿"
+    posts={postsHavingSameTag.filter(
+      (p: interfaces.Post) => p.Slug !== post.Slug
+    )}
     />
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <!--<BlogPostsLink heading="最近の投稿" posts={recentPosts} /> -->
+    <!--notionで手動☑して表示させるやつなので一旦非表示    <BlogPostsLink heading="Recommended" posts={rankedPosts} /> -->
+  </div>
+
+  <div slot="toc" class="toc">
+    ▼ 目次<br><br>
+    <TableOfContents block={blockData[0]} headings={headingsData} />
   </div>
 </Layout>
+
+<style>
+  .toc {
+    order: 3;
+    width: 280px;
+    padding: 10px 10px;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+</style>

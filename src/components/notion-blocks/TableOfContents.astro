@@ -24,13 +24,16 @@ const { block, headings } = Astro.props
       } else if (headingBlock.Type === 'heading_3') {
         indentClass = 'indent-2'
       }
+      
+      // Colorの値をチェックし、存在しない場合はデフォルト値を使用
+      const colorClass = block.TableOfContents && block.TableOfContents.Color 
+                          ? snakeToKebab(block.TableOfContents.Color) 
+                          : 'black-color';
 
       return (
         <a
           href={`#${buildHeadingId(heading)}`}
-          class={`table-of-contents ${snakeToKebab(
-            block.TableOfContents.Color
-          )} ${indentClass}`}
+          class={`table-of-contents ${colorClass} ${indentClass}`}
         >
           {heading.RichTexts.map(
             (richText: interfaces.RichText) => richText.PlainText
@@ -42,22 +45,70 @@ const { block, headings } = Astro.props
 </div>
 
 <style>
-  .table-of-contents {
-  }
-  .table-of-contents > a {
-    display: block;
-    line-height: 1.8rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-  .table-of-contents > a:hover {
-    background: rgba(241, 241, 239, 1) !important;
-  }
-  .table-of-contents > a.indent-1 {
-    padding-left: 1.5rem;
-  }
-  .table-of-contents > a.indent-2 {
-    padding-left: 3rem;
-  }
+.table-of-contents {
+  position: relative;
+}
+
+.table-of-contents > a {
+  display: block;
+  position: relative; /* 擬似要素の位置調整の基準点 */
+  line-height: 1.8rem;
+  font-size: 0.9rem;
+  font-weight: 550;
+  padding-left: 1.5rem; /* '●'とテキストの間隔を確保 */
+  position: relative; /* ::beforeの絶対位置指定の基準点 */
+}
+
+.table-of-contents > a::before {
+  content: '●';
+  font-size: 1.5rem;
+  color: rgb(243, 197, 145);
+  position: absolute;
+  left: 0;
+}
+
+.table-of-contents > a.indent-1 {
+  font-size: 0.9rem;
+  font-weight: 530;
+  padding-left: 2rem;
+}
+
+.table-of-contents > a.indent-1::before {
+  font-size: 1rem; /* サイズ調整 */
+  top: -0.08rem; /* 中心を揃えるための位置調整 */
+  left: 0.1rem;
+}
+
+.table-of-contents > a.indent-2 {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding-left: 2.5rem;
+}
+
+.table-of-contents > a.indent-2::before {
+  font-size: 0.8rem; /* サイズ調整 */
+  top: -0.05rem; /* 中心を揃えるための位置調整 */
+  left: 0.2rem;
+}
+
+.table-of-contents > a:hover {
+  background: rgba(241, 241, 239, 1) !important;
+}
+
+.table-of-contents > a::after {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  left: 6px; /* ● の中心から線を開始 */
+  bottom: -1rem;
+  border-left: 2px solid rgb(243, 197, 145); /* 縦線を描画 */
+}
+
+.table-of-contents > a:first-child::after {
+  top: calc(15% + 1rem); /* 最初の項目のための調整。0.9remは●の大体の半分のサイズに相当 */
+}
+
+.table-of-contents > a:last-child::after {
+  display: none; /* 最後の項目には線を表示しない */
+}
 </style>

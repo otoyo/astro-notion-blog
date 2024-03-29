@@ -6,6 +6,8 @@ import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import SearchModal from '../components/SearchModal.astro'
 import SearchButton from '../components/SearchButton.astro'
+import BlogPostsLink from '../components/BlogPostsLink.astro'
+import BlogTagsLink from '../components/BlogTagsLink.astro'
 
 export interface Props {
   title: string
@@ -72,58 +74,53 @@ if (database.Icon && database.Icon.Type === 'file') {
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
       integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
-      crossorigin="anonymous"
+      crossorigin="anonymous"  
     />
+    <link rel="icon" href="/favicon/favicon.ico" sizes="32x32">
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="/favicon/manifest.webmanifest">
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <!-- 👇Headerをbodyタグの直下に移動してくる -->
+    <header>
+      <h1>
+        <a href={getNavLink('/')}>
+          {
+            database.Icon && database.Icon.Type === 'emoji' ? (
+              <>
+                <span>{database.Icon.Emoji}</span>
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'external' ? (
+              <>
+                <img src={database.Icon.Url} />
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'file' ? (
+              <>
+                <img src={customIconURL} class="custom-icon" />
+                {database.Title}
+              </>
+            ) : (
+              database.Title
+            )
+          }
+        </a>
+      </h1>
+      <div class="description">
+        {database.Description}
+      </div>
+    </header>
+    <!-- 👆 -->
+
     <div class="container">
-      <header>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
-            </div>
-          )
-        }
-      </header>
+
 
       <div>
         <main>
           <div class="content">
-            <header>
-              <h1>
-                <a href={getNavLink('/')}>
-                  {
-                    database.Icon && database.Icon.Type === 'emoji' ? (
-                      <>
-                        <span>{database.Icon.Emoji}</span>
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'external' ? (
-                      <>
-                        <img src={database.Icon.Url} alt="Site icon image" />
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'file' ? (
-                      <>
-                        <img
-                          src={customIconURL}
-                          class="custom-icon"
-                          alt="Site icon image"
-                        />
-                        {database.Title}
-                      </>
-                    ) : (
-                      database.Title
-                    )
-                  }
-                </a>
-              </h1>
-              <div class="description">
-                {database.Description}
-              </div>
-            </header>
+
 
             <slot name="main" />
 
@@ -137,11 +134,14 @@ if (database.Icon && database.Icon.Type === 'file') {
             </footer>
           </div>
         </main>
-
         <aside>
-          <SearchButton />
           <slot name="aside" />
+          <SearchButton />
         </aside>
+        <rside>
+          <slot name="rside" />
+          <slot name="toc" />
+        </rside>
       </div>
     </div>
 
@@ -155,6 +155,33 @@ if (database.Icon && database.Icon.Type === 'file') {
 </html>
 
 <style>
+
+/* 既存のスタイルに追加 */
+.container > div {
+  display: flex; /* フレックスコンテナとして扱う */
+  gap: 20px; /* フレックスアイテム間のスペース */
+  flex-direction: row; /* 子要素を水平方向に配置 */
+  justify-content: center; /* 水平方向の中央揃え */
+  max-width: 1280px; /* 最大幅の設定を維持 */
+  margin: auto; /* 水平方向の中央揃え（ページ全体） */
+
+}
+
+@media (max-width: 640px) {
+  .container > div {
+    flex-direction: column; /* 画面が狭い時は垂直方向に並べる */
+  }
+}
+
+main {
+  /* 既に指定されているスタイル（flex: 1; 等）を保持 */
+  max-width: 640px; /* 最大幅を640pxに制限 */
+  width: 100%; /* コンテナの幅に合わせて伸縮 */
+  margin: auto; /* 水平方向の中央揃え */
+  /* 必要に応じて他のスタイルを追加 */
+}
+
+
   .container {
     min-height: 100vh;
   }
@@ -169,26 +196,44 @@ if (database.Icon && database.Icon.Type === 'file') {
     }
   }
 
-  main {
-    flex: 1;
-    order: 2;
-    justify-content: space-between;
+aside {
+    order: 1;
+    width: 200px;
+    min-width: 150px;
+    padding: 0px 0px;
+    margin-right: 1px; /* main要素の左側にあるサイドバーの右マージン */
   }
-  @media (max-width: 640px) {
-    main {
+  @media (max-width: 200px) {
+    aside {
       order: 1;
+      width: 100%;
     }
   }
 
-  aside {
-    order: 1;
-    width: 300px;
-    padding: 20px 20px;
-    background-color: #f4f4f4;
+main {
+    flex: 1;
+    order: 2;
+    justify-content: space-between;
+    background-color: #ffffff;
+    max-width: 768px;
+    width: 100%; /* ウィンドウサイズに合わせて伸縮 */
+    margin: auto; /* 水平方向の中央揃え */
   }
   @media (max-width: 640px) {
-    aside {
+    main {
       order: 2;
+    }
+  }
+
+rside {
+    order: 3;
+    width: 300px;
+    padding: 10px 10px;
+    background-color: #ffffff;
+  }
+  @media (max-width: 200px) {
+    rside {
+      order: 3;
       width: 100%;
     }
   }
@@ -212,8 +257,21 @@ if (database.Icon && database.Icon.Type === 'file') {
     }
   }
 
+  header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+header h1 {
+  text-align: center;
+}
+
   main header {
-    padding: 20px 0 20px;
+    padding: 10px 0 10px;
   }
   main header h1 {
     font-weight: 700;
@@ -277,7 +335,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     --gap: 1rem;
     --gap-double: 2rem;
 
-    --bg: #fff;
+    --bg: #f4f4f4;
     --fg: #333;
     --accents-1: #666;
     --accents-2: #666;

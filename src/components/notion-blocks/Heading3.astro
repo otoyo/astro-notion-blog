@@ -16,7 +16,7 @@ const id = buildHeadingId(block.Heading3)
 
 {
   block.Heading3.IsToggleable ? (
-    <details class="toggle">
+    <details class={`toggle`} open>
       <summary>
         <a href={`#${id}`} id={id}>
           <h5>

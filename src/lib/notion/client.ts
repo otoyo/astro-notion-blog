@@ -153,6 +153,14 @@ export async function getRankedPosts(pageSize = 10): Promise<Post[]> {
     .slice(0, pageSize)
 }
 
+export async function getRecentPosts(pageSize = 10): Promise<Post[]> {
+  const allPosts = await getAllPosts();
+  return allPosts
+    .sort((a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime())
+    .slice(0, pageSize);
+}
+
+
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const allPosts = await getAllPosts()
   return allPosts.find((post) => post.Slug === slug) || null
@@ -1043,3 +1051,4 @@ function _buildRichText(richTextObject: responses.RichTextObject): RichText {
 
   return richText
 }
+

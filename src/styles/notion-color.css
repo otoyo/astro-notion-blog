@@ -34,6 +34,7 @@
 .red:hover {
   color: rgba(212, 76, 71, 1);
 }
+
 .gray-background {
   background: rgba(241, 241, 239, 1) !important;
 }
