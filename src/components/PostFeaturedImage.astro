@@ -7,6 +7,7 @@ export interface Props {
 }
 
 const { post } = Astro.props
+const postLink = `/posts/${post.Slug}`;
 
 let image = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
@@ -21,7 +22,9 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 {
   image && (
     <div class="post-featured-image">
-      <img src={image} alt="Featured image of the post" />
+      <a href={postLink}>
+        <img src={image} alt="Featured image of the post" />
+      </a>
     </div>
   )
 }

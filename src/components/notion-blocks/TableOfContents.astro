@@ -12,6 +12,7 @@ export interface Props {
 const { block, headings } = Astro.props
 ---
 
+<div class="toc-title"> ▼ 目次</div>
 <div class="table-of-contents">
   {
     headings.map((headingBlock: interfaces.Block) => {
@@ -44,6 +45,35 @@ const { block, headings } = Astro.props
   }
 </div>
 
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocLinks = document.querySelectorAll('.table-of-contents a');
+    const sections = document.querySelectorAll('section');
+
+    function onScroll() {
+      let currentSectionId = '';
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (window.scrollY >= sectionTop - sectionHeight * 0.5 && 
+            window.scrollY < sectionTop + sectionHeight - sectionHeight * 0.5) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      tocLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSectionId) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll);
+  });
+</script>
+
+
 <style>
 .table-of-contents {
   position: relative;
@@ -54,29 +84,30 @@ const { block, headings } = Astro.props
   position: relative; /* 擬似要素の位置調整の基準点 */
   line-height: 1.8rem;
   font-size: 0.9rem;
-  font-weight: 550;
+  font-weight: bold;
   padding-left: 1.5rem; /* '●'とテキストの間隔を確保 */
   position: relative; /* ::beforeの絶対位置指定の基準点 */
 }
 
 .table-of-contents > a::before {
   content: '●';
-  font-size: 1.5rem;
-  color: rgb(243, 197, 145);
+  font-size: 1.8rem;
+  color: rgb(245, 215, 181);
   position: absolute;
-  left: 0;
+  left: -0.12225rem;
+  z-index: 2; /* 「●」を前面に表示 */
 }
 
 .table-of-contents > a.indent-1 {
-  font-size: 0.9rem;
-  font-weight: 530;
+  font-size: 0.85rem;
+  font-weight: 500;
   padding-left: 2rem;
 }
 
 .table-of-contents > a.indent-1::before {
-  font-size: 1rem; /* サイズ調整 */
+  font-size: 1.4rem; /* サイズ調整 */
   top: -0.08rem; /* 中心を揃えるための位置調整 */
-  left: 0.1rem;
+  left: 0rem;
 }
 
 .table-of-contents > a.indent-2 {
@@ -86,9 +117,9 @@ const { block, headings } = Astro.props
 }
 
 .table-of-contents > a.indent-2::before {
-  font-size: 0.8rem; /* サイズ調整 */
+  font-size: 1rem; /* サイズ調整 */
   top: -0.05rem; /* 中心を揃えるための位置調整 */
-  left: 0.2rem;
+  left: 0.11rem;
 }
 
 .table-of-contents > a:hover {
@@ -101,7 +132,8 @@ const { block, headings } = Astro.props
   top: -1rem;
   left: 6px; /* ● の中心から線を開始 */
   bottom: -1rem;
-  border-left: 2px solid rgb(243, 197, 145); /* 縦線を描画 */
+  border-left: 2px solid rgb(245, 215, 181); /* 縦線を描画 */
+  z-index: 1; /* 縦線を背面に表示 */
 }
 
 .table-of-contents > a:first-child::after {
@@ -111,4 +143,9 @@ const { block, headings } = Astro.props
 .table-of-contents > a:last-child::after {
   display: none; /* 最後の項目には線を表示しない */
 }
+
+.table-of-contents > a.active::before {
+  color: rgb(245, 141, 22); /* アクティブな項目の●の色 */
+}
+
 </style>

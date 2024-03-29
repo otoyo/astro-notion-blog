@@ -99,6 +99,7 @@ let ogImage = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
   ogImage = new URL(filePath(new URL(post.FeaturedImage.Url)), Astro.site)
 }
+
 ---
 
 <Layout
@@ -112,18 +113,14 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       <PostTitle post={post} enableLink={false} />
       <PostDate post={post} />
       <PostTags post={post} />
-      <!-- 👇アイキャッチ表示処理 -->
-      <PostFeaturedImage post={post} />
+      <PostFeaturedImage post={post} />  <!-- アイキャッチ表示処理 -->
       <PostBody blocks={blocks} />
       <PostTags post={post} />
-
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
       </footer>
     </div>
   </div>
-
-
 
   <div slot="aside" class="aside">
     <BlogTagsLink heading="タグ" tags={tags} />
@@ -141,7 +138,8 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   </div>
 
   <div slot="toc" class="toc">
-    ▼ 目次<br><br>
+    <br>
+    <br>
     <TableOfContents block={blockData[0]} headings={headingsData} />
   </div>
 </Layout>
@@ -157,3 +155,42 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     height: 100vh;
   }
 </style>
+
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocLinks = document.querySelectorAll('.table-of-contents a');
+    const sections = Array.from(document.querySelectorAll('section'));
+    const tocTitle = document.querySelector('.toc-title'); // 目次のタイトル要素を取得
+
+      // 目次の項目が1つもない場合はタイトルを非表示にする
+      if (tocLinks.length === 0 && tocTitle) {
+        tocTitle.style.display = 'none';
+      }
+      
+    function onScroll() {
+      let currentSectionId = '';
+  
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const sectionTop = section.offsetTop;
+        const nextSectionTop = sections[i + 1] ? sections[i + 1].offsetTop : Infinity;
+  
+        if (window.scrollY >= sectionTop - 50 && window.scrollY < nextSectionTop - 50) {
+          currentSectionId = section.getAttribute('id');
+          break; // 現在のセクションを見つけたらループを抜ける
+        }
+      }
+  
+      tocLinks.forEach((link) => {
+        if (link.getAttribute('href') === '#' + currentSectionId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  
+    window.addEventListener('scroll', onScroll);
+    onScroll(); // 初期位置での状態も反映
+  });
+  </script>

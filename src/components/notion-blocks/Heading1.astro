@@ -14,34 +14,16 @@ const { block, headings } = Astro.props
 const id = buildHeadingId(block.Heading1)
 ---
 
-{
-  block.Heading1.IsToggleable ? (
-    <details class={`toggle`} open>
-      <summary>
-        <a href={`#${id}`} id={id}>
-          <h3>
-            {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
-              <RichText richText={richText} />
-            ))}
-          </h3>
-        </a>
-      </summary>
-      <div>
-        {block.Heading1.Children && (
-          <NotionBlocks blocks={block.Heading1.Children} headings={headings} />
-        )}
-      </div>
-    </details>
-  ) : (
-    <a href={`#${id}`} id={id}>
-      <h3>
-        {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
-          <RichText richText={richText} />
-        ))}
-      </h3>
-    </a>
-  )
-}
+<section id={id}>
+  <h3>
+    {block.Heading1.RichTexts.map((richText: interfaces.RichText) => (
+      <RichText key={richText} richText={richText} />
+    ))}
+  </h3>
+  {block.Heading1.Children && (
+    <NotionBlocks blocks={block.Heading1.Children} headings={headings} />
+  )}
+</section>
 
 <style>
   h3 {
@@ -54,7 +36,6 @@ const id = buildHeadingId(block.Heading1)
       font-size: 1.3rem;
     }
   }
-
   .toggle {
     margin: 2rem 0 0;
   }
@@ -63,19 +44,15 @@ const id = buildHeadingId(block.Heading1)
       margin: 1.4rem 0 0;
     }
   }
-
   .toggle > summary {
     cursor: pointer;
   }
-
   .toggle > summary > a {
     display: inline;
   }
-
   .toggle > summary > a > h3 {
     display: inline;
   }
-
   .toggle > div {
     margin-left: 1em;
   }
