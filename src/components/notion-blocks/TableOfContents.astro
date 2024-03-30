@@ -94,7 +94,7 @@ const { block, headings } = Astro.props
   font-size: 1.8rem;
   color: rgb(245, 215, 181);
   position: absolute;
-  left: -0.12225rem;
+  left: -0.1rem;
   z-index: 2; /* 「●」を前面に表示 */
 }
 
@@ -107,7 +107,7 @@ const { block, headings } = Astro.props
 .table-of-contents > a.indent-1::before {
   font-size: 1.4rem; /* サイズ調整 */
   top: -0.08rem; /* 中心を揃えるための位置調整 */
-  left: 0rem;
+  left: 0.01rem;
 }
 
 .table-of-contents > a.indent-2 {
@@ -119,7 +119,7 @@ const { block, headings } = Astro.props
 .table-of-contents > a.indent-2::before {
   font-size: 1rem; /* サイズ調整 */
   top: -0.05rem; /* 中心を揃えるための位置調整 */
-  left: 0.11rem;
+  left: 0.15rem;
 }
 
 .table-of-contents > a:hover {
