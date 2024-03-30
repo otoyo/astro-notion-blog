@@ -110,12 +110,21 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 >
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
-      <PostTitle post={post} enableLink={false} />
-      <PostDate post={post} />
-      <PostTags post={post} />
-      <PostFeaturedImage post={post} />  <!-- アイキャッチ表示処理 -->
+      <PostTitle post={post} enableLink={true} />
+      <!-- PostFeaturedImageとメタデータを包含するコンテナを追加 -->
+      <div class="post-top">
+        <PostFeaturedImage post={post} />
+        
+        <!-- PostTagsとPostDateを含むdivを追加、スタイル調整 -->
+        <div class="post-metadata-top">
+          <PostTags post={post} />
+          <PostDate post={post} />
+        </div>
+      </div>
       <PostBody blocks={blocks} />
+      <div class="post-metadata-bottom">
       <PostTags post={post} />
+      </div>
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
       </footer>
@@ -154,6 +163,27 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     top: 0;
     height: 100vh;
   }
+
+  .post-top {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 100%;
+  }
+
+  .post-metadata-top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .post-metadata-bottom {
+  display: flex;
+  justify-content: flex-end;
+  }
+
+
 </style>
 
 <script type="module">
@@ -166,7 +196,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       if (tocLinks.length === 0 && tocTitle) {
         tocTitle.style.display = 'none';
       }
-      
+
     function onScroll() {
       let currentSectionId = '';
   

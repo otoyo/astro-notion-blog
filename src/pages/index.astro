@@ -37,9 +37,9 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
             <PostTitle post={post} />
-            <PostTags post={post} />
             <PostFeaturedImage post={post} />
             <PostDate post={post} />
+            <PostTags post={post} />
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />
           </div>
