@@ -35,4 +35,12 @@
     flex-wrap: nowrap;
     column-gap: 1em;
   }
+
+  .postDetailLeft {
+    width: 30%;
+  }
+
+  .postDetailRight {
+    width: 70%;
+  }
 }
