@@ -1,14 +1,12 @@
 ---
 import { Post } from '../lib/interfaces.ts'
 import { filePath } from '../lib/blog-helpers'
-import { getPostLink } from '../lib/blog-helpers.ts'
-
 export interface Props {
   post: Post
   enableLink: boolean
 }
 
-const { post, enableLink = true } = Astro.props
+const { post} = Astro.props
 
 let image = ''
 if (post.FeaturedImage && post.FeaturedImage.Url) {
@@ -22,13 +20,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
 {
   image &&
-    enableLink ? (
-    <div class="post-featured-image">
-      <a href={getPostLink(post.Slug)}>
-        <img src={image} alt="Featured image of the post" />
-      </a>
-    </div>
-  ) : (
+    (
     <div class="post-featured-image">
       <img src={image} alt="Featured image of the post" />
     </div>
