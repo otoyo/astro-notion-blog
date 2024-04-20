@@ -6,6 +6,7 @@ import {
   getAllTags,
   getNumberOfPages,
 } from '../lib/notion/client.ts'
+import { getPostLink } from '../lib/blog-helpers.ts'
 import Layout from '../layouts/Layout.astro'
 import NoContents from '../components/NoContents.astro'
 import PostDate from '../components/PostDate.astro'
@@ -50,6 +51,7 @@ const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all
                 </div>
                 <PostTags post={post} />
               </div>
+              <a class={styles.postLink} href={getPostLink(post.Slug)}></a>
             </div>
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />
