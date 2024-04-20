@@ -28,21 +28,24 @@
   column-gap: 1em;
 }
 
+.postDetail {
+  position: relative;
+}
+
+.postLink{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+}
+
 @media (min-width: 640px) {
   .postDetail {
     display: flex;
-    position: relative;
     align-items: center;
     flex-wrap: nowrap;
     column-gap: 1em;
-  }
-
-  .postLink{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height:100%;
-    width: 100%;
   }
 
   .postDetailLeft {
