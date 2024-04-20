@@ -16,6 +16,17 @@ if (block.Image.External) {
 } else if (block.Image.File) {
   image = filePath(new URL(block.Image.File.Url))
 }
+
+// widthに関する情報があれば抽出し、Captionデータからは削除する
+let width = ''
+if (block.Image.Caption[0]?.Text?.Content) {
+  let caption = block.Image.Caption[0].Text.Content;
+  let match = caption.match(/^size(\d+)([\s\S]*)/);
+  if (match){
+    width = match[1].trim() + 'px';
+    block.Image.Caption[0].Text.Content = match[2].trim();
+  }
+}
 ---
 
 <figure class="image">
@@ -25,10 +36,10 @@ if (block.Image.External) {
         <div>
           {ENABLE_LIGHTBOX ? (
             <a data-fslightbox href={image} data-type="image">
-              <img src={image} alt="Image in a image block" loading="lazy" />
+              <img src={image} alt="Image in a image block" {width} loading="lazy" />
             </a>
           ) : (
-            <img src={image} alt="Image in a image block" loading="lazy" />
+            <img src={image} alt="Image in a image block" {width} loading="lazy" />
           )}
         </div>
         <Caption richTexts={block.Image.Caption} />
