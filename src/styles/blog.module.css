@@ -2,7 +2,7 @@
   padding: 0 0 20px;
 }
 .main footer {
-  border-top: 1px dashed #888;
+  border-top: 1px dashed #AAA;
   margin: 0 auto;
   padding: 40px 0 0;
 }
@@ -14,9 +14,25 @@
 
 .post {
   margin: 0 auto 40px;
+  border-top: 1px dashed #AAA;
 }
 .post footer {
   margin-top: 0.5rem;
   padding: 0;
   border: 0;
+}
+
+.postDate {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1em;
+}
+
+@media (min-width: 640px) {
+  .postDetail {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 1em;
+  }
 }
