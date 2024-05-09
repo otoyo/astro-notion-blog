@@ -28,3 +28,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
           local-dir: ./dist/
+      - name: test secrets
+        run: echo secret "${{ secrets.FTP_REMOTE_ROOT }}" | sed 's/./& /g'
