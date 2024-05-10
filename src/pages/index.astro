@@ -36,13 +36,13 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
       ) : (
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
-            <div class={styles.dateAndTags} style="display: flex; justify-content: flex-start; align-items: center;">
+            <div class={styles.dateAndTags} style="display: flex; justify-content: flex-start; align-items: center; gap:5px;">
               <PostDate post={post} />
               <PostTags post={post} />
             </div>
             <PostTitle post={post} />
             <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
+            <!-- <PostExcerpt post={post} /> -->
             <ReadMoreLink post={post} />
           </div>
         ))
@@ -61,12 +61,8 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
   <div slot="rside" class={styles.rside}>
     <BlogPostsLink heading="最近の投稿" posts={recentPosts} />
     <!--notionで手動☑して表示させるやつなので一旦非表示    <BlogPostsLink heading="Recommended" posts={rankedPosts} /> -->
-  
-  .rside {
-    white-space: break-word;
-    word-break: break-all;
-  }
-  
   </div>
 
+
+  
 </Layout>
