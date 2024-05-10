@@ -61,11 +61,12 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
   <div slot="rside" class={styles.rside}>
     <BlogPostsLink heading="最近の投稿" posts={recentPosts} />
     <!--notionで手動☑して表示させるやつなので一旦非表示    <BlogPostsLink heading="Recommended" posts={rankedPosts} /> -->
-  </div>
   
   .rside {
     white-space: break-word;
     word-break: break-all;
   }
   
+  </div>
+
 </Layout>
