@@ -36,7 +36,7 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
       ) : (
         posts.map((post) => (
           <div class={styles.post} key={post.Slug}>
-            <div class={styles.dateAndTags}>
+            <div class={styles.dateAndTags} style="display: flex; justify-content: space-between; align-items: left;">
               <PostDate post={post} />
               <PostTags post={post} />
             </div>
