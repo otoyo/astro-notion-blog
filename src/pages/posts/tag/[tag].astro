@@ -69,8 +69,8 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
   </div>
 
   <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+    <!--notionで手動☑して表示させるやつなので一旦非表示    <BlogPostsLink heading="Recommended" posts={rankedPosts} /> -->
+    <BlogTagsLink heading="タグ" tags={tags} />
   </div>
 </Layout>
 
