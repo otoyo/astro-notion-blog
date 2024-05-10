@@ -113,8 +113,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       <PostTitle post={post} enableLink={true} />
       <!-- PostFeaturedImageとメタデータを包含するコンテナを追加 -->
       <div class="post-top">
-        <PostFeaturedImage post={post} />
-        
+        <PostFeaturedImage post={post} style="width: 100%;" />
         <!-- PostTagsとPostDateを含むdivを追加、スタイル調整 -->
         <div class="post-metadata-top">
           <PostTags post={post} />
