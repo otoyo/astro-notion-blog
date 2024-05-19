@@ -5,8 +5,8 @@ import type {
   Heading2,
   Heading3,
   RichText,
-  Column,
-} from './interfaces'
+  Column, Post,
+} from './interfaces';
 import { pathJoin } from './utils'
 
 export const filePath = (url: URL): string => {
@@ -129,8 +129,9 @@ export const getNavLink = (nav: string) => {
   return pathJoin(BASE_PATH, nav)
 }
 
-export const getPostLink = (slug: string) => {
-  return pathJoin(BASE_PATH, `/posts/${slug}`)
+export const getPostLink = (post: Post) => {
+  console.log("ext link : " + post.ExternalLink)
+  return post.ExternalLink ? post.ExternalLink : pathJoin(BASE_PATH, `/posts/${post.Slug}`)
 }
 
 export const getTagLink = (tag: string) => {

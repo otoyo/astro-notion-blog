@@ -10,7 +10,7 @@ export async function GET() {
     const lastmod = updateDate || new Date(post.Date)
 
     return {
-      loc: new URL(getPostLink(post.Slug), import.meta.env.SITE).toString(),
+      loc: new URL(getPostLink(post), import.meta.env.SITE).toString(),
       lastmod,
     }
   })

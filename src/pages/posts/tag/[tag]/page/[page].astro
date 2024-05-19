@@ -85,7 +85,7 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
                 </div>
                 <PostTags post={post} />
               </div>
-              <a class={styles.postLink} href={getPostLink(post.Slug)}></a>
+              <a class={styles.postLink} href={getPostLink(post)}></a>
             </div>
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />

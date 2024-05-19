@@ -17,7 +17,7 @@ export interface Post {
   Excerpt: string
   FeaturedImage: FileObject | null
   Rank: number
-  ExternalLink: URL | null
+  ExternalLink?: string
 }
 
 export interface Block {

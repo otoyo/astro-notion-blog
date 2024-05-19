@@ -15,7 +15,7 @@ let title = post.Title
 <h2 class="post-title">
   {
     enableLink ? (
-      <a href={getPostLink(post.Slug)}>
+      <a href={getPostLink(post)}>
         {post.Icon && post.Icon.Type === 'emoji' ? (
           <>
             <span>{post.Icon.Emoji}</span>
