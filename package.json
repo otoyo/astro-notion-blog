@@ -38,6 +38,7 @@
     "prismjs": "^1.29.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-share": "^5.1.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
