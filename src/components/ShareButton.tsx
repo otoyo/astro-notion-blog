@@ -6,21 +6,33 @@ import {
   HatenaShareButton, HatenaIcon, HatenaShareCount,
 } from 'react-share';
 
+interface SocialShareArgs {
+  url: string;
+  title: string;
+}
+
 export const SocialShareButtons: React.FC<SocialShareArgs> = (props) => {
   const { url, title } = props
+  const buttonStyle = {
+    padding: "4px",
+    margin: "4px",
+    alignItems: "center"
+  };
+
   return (
     <>
-      <HatenaShareButton url={url} className="mx-2 flex-col">
+      <HatenaShareButton url={url} style={buttonStyle}>
         <HatenaIcon round size={40} />
-        <HatenaShareCount url={url} className="text-blue-600 font-semibold" />
+        {/*<HatenaShareCount url={url} className="text-blue-600 font-semibold" />*/}
       </HatenaShareButton>
-      <FacebookShareButton url={url} className="mx-2 flex-col">
+      <FacebookShareButton url={url} style={buttonStyle}>
         <FacebookIcon round size={40} />
-        <FacebookShareCount url={url} className="text-blue-600 font-semibold" />
+        {/*<FacebookShareCount url={url} className="text-blue-600 font-semibold" />*/}
       </FacebookShareButton>
-      <TwitterShareButton url={url} title={title} className="mx-2">
+      <TwitterShareButton url={url} title={title} style={buttonStyle}>
         <XIcon size={40} round />
       </TwitterShareButton>
     </>
   )
 }
+
