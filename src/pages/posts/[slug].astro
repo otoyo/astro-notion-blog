@@ -13,6 +13,7 @@ import {
 } from '../../lib/notion/client.ts'
 import {
   getPostLink,
+  getPostFullLink,
   filePath,
   extractTargetBlocks,
 } from '../../lib/blog-helpers.ts'
@@ -109,7 +110,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
         <PostUpdateDate post={post} />
       </div>
       <PostTags post={post} />
-      <SocialShareButtons title={post.Title} url={getPostLink(post)} client:load/>
+      <SocialShareButtons title={post.Title} url={getPostFullLink(post)} client:load/>
       <PostBody blocks={blocks} />
 
       <footer>

@@ -133,6 +133,10 @@ export const getPostLink = (post: Post) => {
   return post.ExternalLink ? post.ExternalLink : pathJoin(BASE_PATH, `/posts/${post.Slug}`)
 }
 
+export const getPostFullLink = (post: Post) => {
+  return new URL(getPostLink(post), import.meta.env.SITE).toString();
+}
+
 export const getTagLink = (tag: string) => {
   return pathJoin(BASE_PATH, `/posts/tag/${encodeURIComponent(tag)}`)
 }
