@@ -130,7 +130,6 @@ export const getNavLink = (nav: string) => {
 }
 
 export const getPostLink = (post: Post) => {
-  console.log("ext link : " + post.ExternalLink)
   return post.ExternalLink ? post.ExternalLink : pathJoin(BASE_PATH, `/posts/${post.Slug}`)
 }
 
