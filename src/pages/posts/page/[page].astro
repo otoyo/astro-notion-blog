@@ -67,7 +67,7 @@ const [posts, recentPosts, rankedPosts, tags, numberOfPages] = await Promise.all
                 </div>
                 <PostTags post={post} />
               </div>
-              <a class={styles.postLink} href={getPostLink(post)}></a>
+              <a class={styles.postLink} href={getPostLink(post)} target={post.ExternalLink ? "_blank" : undefined}></a>
             </div>
             <PostExcerpt post={post} />
             <ReadMoreLink post={post} />
