@@ -6,12 +6,12 @@ import {
   HatenaShareButton, HatenaIcon, HatenaShareCount,
 } from 'react-share';
 
-interface SocialShareArgs {
+interface Props {
   url: string;
   title: string;
 }
 
-export const SocialShareButtons: React.FC<SocialShareArgs> = (props) => {
+export const SocialShareButtons: React.FC<Props> = (props) => {
   const { url, title } = props
   const buttonStyle = {
     padding: "4px",
