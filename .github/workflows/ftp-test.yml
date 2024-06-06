@@ -1,0 +1,24 @@
+name: FTP Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ftp-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          # 必要なFTP接続情報を入力
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          remotePath: ${{ secrets.FTP_REMOTE_ROOT }}
+          # local-dir: ./dist/
+          # テスト用のファイルを作成
+          files: |
+            test.txt: This is a test file.
