@@ -17,10 +17,9 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          remotePath: ${{ secrets.FTP_REMOTE_ROOT }}
+          server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
           # local-dir: ./dist/
           # テスト用のファイルを作成
           local-dir: .
-          server-dir: /path/to/remote/folder
           files: |
             test.txt: This is a test file.
