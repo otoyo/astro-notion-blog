@@ -10,6 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create test.txt file
+        run: echo "This is a test file." > test.txt
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -18,8 +21,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
-          # local-dir: ./dist/
-          # テスト用のファイルを作成
-          # local-dir: .
-          files: |
-            test.txt: This is a test file.
+          # local-dir: ./dist/  # 必要な場合、dist フォルダを指定
+          local-dir: .  # 現在のディレクトリを指定
