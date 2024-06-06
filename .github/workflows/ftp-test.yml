@@ -20,6 +20,6 @@ jobs:
           server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
           # local-dir: ./dist/
           # テスト用のファイルを作成
-          local-dir: ./dist/
+          # local-dir: .
           files: |
             test.txt: This is a test file.
