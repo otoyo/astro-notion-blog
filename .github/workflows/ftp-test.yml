@@ -1,25 +1,29 @@
-name: FTP Test
+on: push
+ name: 🚀 Deploy website on push
+ jobs:
+   web-deploy:
+     name: 🎉 Deploy
+     runs-on: ubuntu-latest
+     steps:
+     - name: 🚚 Get latest code
+       uses: actions/checkout@v3
 
-on:
-  workflow_dispatch:
-
-jobs:
-  ftp-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Create test.txt file
-        run: echo "This is a test file." > test.txt
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          # 必要なFTP接続情報を入力
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
-          # local-dir: notion  # 必要な場合、dist フォルダを指定
-          local-dir: ./dist/
+     - name: 📂 Sync files
+       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+       with:
+         server: ${{ secrets.FTP_SERVER }}
+         username: ${{ secrets.FTP_USERNAME }}
+         password: ${{ secrets.FTP_PASSWORD }}
+         server-dir: ${{ secrets.FTP_SERVER_DIR }}
+       exclude: |
+          **/.git*
+          **/.git*/**
+          .gitignore
+          package.json
+          yarn.lock
+          **/node_modules/**
+          .composer.lock
+          .composer.json
+          **/vendor/**
+          **/src/**
+          .vscode/**
