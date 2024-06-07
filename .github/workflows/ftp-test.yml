@@ -1,0 +1,30 @@
+on: push
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
+        local-dir: ./public/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          .gitignore
+          package.json
+          yarn.lock
+          **/node_modules/**
+          .composer.lock
+          .composer.json
+          **/vendor/**
+          **/src/**
+          .vscode/**
