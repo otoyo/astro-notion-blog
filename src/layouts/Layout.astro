@@ -75,9 +75,43 @@ if (database.Icon && database.Icon.Type === 'file') {
       crossorigin="anonymous"
     />
     <link rel="icon" href={getStaticFilePath('/favicon.ico')} />
+    <script  src="https://platform.twitter.com/widgets.js" charset="utf-8"/>
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <header>
+      <h1>
+        <a href={getNavLink('/')}>
+          {
+            database.Icon && database.Icon.Type === 'emoji' ? (
+              <>
+                <span>{database.Icon.Emoji}</span>
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'external' ? (
+              <>
+                <img src={database.Icon.Url} alt="Site icon image" />
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'file' ? (
+              <>
+                <img
+                  src={customIconURL}
+                  class="custom-icon"
+                  alt="Site icon image"
+                />
+                {database.Title}
+              </>
+            ) : (
+              database.Title
+            )
+          }
+        </a>
+      </h1>
+      <div class="description">
+        {database.Description}
+      </div>
+    </header>
     <div class="container">
       <header>
         {
@@ -92,39 +126,6 @@ if (database.Icon && database.Icon.Type === 'file') {
       <div>
         <main>
           <div class="content">
-            <header>
-              <h1>
-                <a href={getNavLink('/')}>
-                  {
-                    database.Icon && database.Icon.Type === 'emoji' ? (
-                      <>
-                        <span>{database.Icon.Emoji}</span>
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'external' ? (
-                      <>
-                        <img src={database.Icon.Url} alt="Site icon image" />
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'file' ? (
-                      <>
-                        <img
-                          src={customIconURL}
-                          class="custom-icon"
-                          alt="Site icon image"
-                        />
-                        {database.Title}
-                      </>
-                    ) : (
-                      database.Title
-                    )
-                  }
-                </a>
-              </h1>
-              <div class="description">
-                {database.Description}
-              </div>
-            </header>
 
             <slot name="main" />
 
@@ -139,6 +140,7 @@ if (database.Icon && database.Icon.Type === 'file') {
         <aside>
           <SearchButton />
           <slot name="aside" />
+          <a class="twitter-timeline" href="https://twitter.com/penpen_77777?ref_src=twsrc%5Etfw">Tweets by penpen_77777</a> 
         </aside>
       </div>
     </div>
@@ -210,41 +212,41 @@ if (database.Icon && database.Icon.Type === 'file') {
     }
   }
 
-  main header {
-    padding: 20px 0 20px;
+  body > header {
+    padding: 20px 0 0 20px;
   }
-  main header h1 {
+  body > header h1 {
     font-weight: 700;
     color: #333;
   }
-  main header h1 a {
+  body > header h1 a {
     display: block;
     color: inherit;
   }
-  main header h1 a:hover {
+  body > header h1 a:hover {
     color: inherit;
   }
-  main header h1 a span,
-  main header h1 a img {
+  body > header h1 a span,
+  body > header h1 a img {
     display: inline-block;
     font-size: 1.1em;
   }
-  main header h1 a span {
+  body > header h1 a span {
     margin-right: 0.3em;
     margin-left: -0.1rem;
   }
-  main header h1 a img {
+  body > header h1 a img {
     width: 1.2em;
     height: 1.2em;
     margin-right: 0.2em;
     margin-left: -0.3rem;
     vertical-align: sub;
   }
-  main header h1 a img.custom-icon {
+  body > header h1 a img.custom-icon {
     border-radius: var(--radius);
   }
 
-  main header div.description {
+  body > header div.description {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
   }
