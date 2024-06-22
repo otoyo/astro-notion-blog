@@ -75,6 +75,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       crossorigin="anonymous"
     />
     <link rel="icon" href={getStaticFilePath('/favicon.ico')} />
+    <script  src="https://platform.twitter.com/widgets.js" charset="utf-8"/>
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
@@ -139,6 +140,7 @@ if (database.Icon && database.Icon.Type === 'file') {
         <aside>
           <SearchButton />
           <slot name="aside" />
+          <a class="twitter-timeline" href="https://twitter.com/penpen_77777?ref_src=twsrc%5Etfw">Tweets by penpen_77777</a> 
         </aside>
       </div>
     </div>
