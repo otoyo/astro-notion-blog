@@ -26,3 +26,5 @@ tmp/
 
 public/notion/*
 !public/notion/.gitkeep
+
+.devcontainer/.env
