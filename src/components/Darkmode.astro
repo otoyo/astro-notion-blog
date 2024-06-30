@@ -1,0 +1,327 @@
+---
+
+---
+
+<div class="mode-wrap">
+    <input type="checkbox" id="mode-toggle" tabindex="0" />
+    <label for="mode-toggle"><span></span></label>
+</div>
+
+<style is:global>
+    /* --------------------
+  layout.astro
+  -------------------- */
+    :root.darkmode {
+        --bg: #191919;
+        --fg: #d5d5d5;
+        --accents-1: #864c1d;
+        --accents-2: #f26000;
+        --accents-3: #a5a5a5;
+    }
+    .darkmode .header h1 {
+        color: var(--fg);
+    }
+
+    .darkmode aside {
+        background: #202020;
+        color: var(--fg);
+    }
+
+    .darkmode a:hover {
+        background: #333 !important;
+    }
+
+    /* --------------------
+  pages/index.astro
+  -------------------- */
+    .darkmode .read-more-link a {
+        color: var(--fg);
+    }
+    /* --------------------
+  posts/[slug].astro
+  -------------------- */
+    .darkmode .content h1 {
+        color: var(--fg);
+    }
+
+    /* --------------------
+  NoContents.astro
+  -------------------- */
+    .darkmode .no-contents {
+        color: var(--accents-3);
+    }
+
+    /* --------------------
+  Pagination.astro
+  -------------------- */
+    .darkmode .pagination a {
+        background: #333;
+    }
+    .darkmode .pagination a:hover:not(.inactive) {
+        background: #555;
+    }
+    .darkmode .pagination a.inactive {
+        color: #f7f7f7;
+        background: #444;
+    }
+    /* --------------------
+  Bookmark.astro
+  -------------------- */
+    .darkmode .bookmark {
+        background: #202020;
+    }
+
+    /* --------------------
+  BulletedListItems.astro
+  -------------------- */
+    .darkmode li {
+        color: var(--fg);
+    }
+
+    /* --------------------
+  Callout.astro
+  -------------------- */
+    .darkmode .callout.gray-background {
+        background: #252525 !important;
+    }
+
+    /* --------------------
+  Code.astro
+  -------------------- */
+    .darkmode .code pre {
+        background: #272727 !important;
+    }
+    .darkmode .code pre code {
+        color: var(--fg);
+        background: #272727 !important;
+    }
+    .darkmode code {
+        background: #2f2f2d;
+    }
+
+    .darkmode .code > div {
+        background: #272727;
+    }
+
+    .darkmode .code button.copy {
+        background-color: rgba(227, 226, 224, 0.2);
+    }
+
+    /* --------------------
+  Caption.astro
+  -------------------- */
+    .darkmode .caption {
+        background: var(--bg) !important;
+    }
+
+    /* --------------------
+  Paragraph.astro
+  -------------------- */
+    .darkmode p {
+        color: var(--fg);
+    }
+
+    /* --------------------
+  SyncedBlock.astro
+  -------------------- */
+    .darkmode .callout.blue-background {
+        background: #1d282e !important;
+    }
+
+    /* --------------------
+  Table.astro
+  -------------------- */
+    .darkmode table {
+        color: var(--fg);
+    }
+    .darkmode table th {
+        background: #272727;
+        border-color: #272727;
+    }
+    .darkmode table td {
+        border-color: #272727;
+    }
+
+    /* --------------------
+  TableOfContents.astro
+  -------------------- */
+    .darkmode .table-of-contents > a {
+        color: #9b9b9b;
+    }
+    .darkmode .table-of-contents > a:hover {
+        background: rgba(241, 241, 239, 0.1) !important;
+    }
+
+    /* --------------------
+  ToDo.astro
+  -------------------- */
+    .darkmode .to-do {
+        color: var(--fg);
+    }
+
+    /* --------------------
+  PostRelativeLink.astro
+  -------------------- */
+    .darkmode div.post-relative-link > div > a.colored {
+        background: rgba(227, 226, 224, 0.1);
+    }
+
+    /* --------------------
+  notion-color.css
+  -------------------- */
+    .darkmode .tag.default {
+        background: #373737 !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.gray,
+    .darkmode .gray-background {
+        background: #5a5a5a !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.brown,
+    .darkmode .brown-background {
+        background: #603b2c !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.orange,
+    .darkmode .orange-background {
+        background: #864c1d !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.yellow,
+    .darkmode .yellow-background {
+        background: #8a632a !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.green,
+    .darkmode .green-background {
+        background: #2c5940 !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.blue,
+    .darkmode .blue-background {
+        background: #28456c !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.purple,
+    .darkmode .purple-background {
+        background: #493064 !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.pink,
+    .darkmode .pink-background {
+        background: #613047 !important;
+        color: #f7f7f7;
+    }
+    .darkmode .tag.red,
+    .darkmode .red-background {
+        background: #6f3630 !important;
+        color: #f7f7f7;
+    }
+
+    /* --------------------
+  ダークモードトグル
+  -------------------- */
+    .mode-wrap {
+        display: flex;
+        margin-block-end: 1rem;
+    }
+
+    .mode-wrap #mode-toggle {
+        display: none;
+    }
+
+    .mode-wrap #mode-toggle + label {
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        height: 1.6em;
+        width: 2.4em;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: calc(2em / 2);
+        background: #fff;
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+        border: 2px solid var(--accents-1);
+        overflow: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    .mode-wrap #mode-toggle + label span {
+        background: var(--accents-1);
+        border-radius: 50%;
+        height: 1.8em;
+        width: 1.8em;
+        -webkit-transform: translateX(-0.125em) scale(0.65);
+        transform: translateX(-0.125em) scale(0.65);
+        -webkit-transition: 0.2s;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .mode-wrap #mode-toggle:checked + label {
+        border-color: var(--bg);
+        background: var(--accents-1);
+    }
+
+    .mode-wrap #mode-toggle:checked + label span {
+        background: var(--bg);
+        -webkit-transform: translateX(calc(100% - 1.25em)) scale(0.65);
+        transform: translateX(calc(100% - 1.25em)) scale(0.65);
+    }
+
+    .darkmode .mode-wrap #mode-toggle + label {
+        border-color: var(--accents-1);
+    }
+</style>
+
+<script is:inline>
+    /* --------------------
+  ダークモード切り替え
+  -------------------- */
+    // OS設定を反映
+    const osDark = window.matchMedia('(prefers-color-scheme: dark)')
+    // トグル処理
+    const modeToggle = document.getElementById('mode-toggle')
+    function darkModeOn() {
+        document.documentElement.classList.add('darkmode')
+        modeToggle.checked = true
+    }
+
+    function darkModeOff() {
+        document.documentElement.classList.remove('darkmode')
+        modeToggle.checked = false
+    }
+
+    const listener = (event) => {
+        if (event.matches) {
+            darkModeOn()
+        } else {
+            darkModeOff()
+        }
+    }
+
+    osDark.addEventListener('change', listener)
+    listener(osDark)
+
+    modeToggle.addEventListener('change', () => {
+        if (modeToggle.checked) {
+            darkModeOn()
+            style = 'dark'
+        } else {
+            darkModeOff()
+            style = 'light'
+        }
+        localStorage.setItem('mode', style)
+    })
+    // モード設定をロード
+    if (localStorage.getItem('mode') === 'dark') {
+        darkModeOn()
+    } else if (localStorage.getItem('mode') === 'light') {
+        darkModeOff()
+    }
+</script>
