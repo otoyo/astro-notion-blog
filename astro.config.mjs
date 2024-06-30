@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
-import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
-import CoverImageDownloader from './src/integrations/cover-image-downloader';
-import CustomIconDownloader from './src/integrations/custom-icon-downloader';
-import FeaturedImageDownloader from './src/integrations/featured-image-downloader';
-import PublicNotionCopier from './src/integrations/public-notion-copier';
+import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants.ts';
+import CoverImageDownloader from './src/integrations/cover-image-downloader.ts';
+import CustomIconDownloader from './src/integrations/custom-icon-downloader.ts';
+import FeaturedImageDownloader from './src/integrations/featured-image-downloader.ts';
+import PublicNotionCopier from './src/integrations/public-notion-copier.ts';
 
 const getSite = function () {
   if (CUSTOM_DOMAIN) {
@@ -41,4 +41,7 @@ export default defineConfig({
     FeaturedImageDownloader(),
     PublicNotionCopier(),
   ],
+  server: {
+    host: '127.0.0.1'
+  },
 });
