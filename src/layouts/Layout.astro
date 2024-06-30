@@ -88,7 +88,11 @@ if (database.Icon && database.Icon.Type === 'file') {
         }
       </header>
 
-      <div>
+      <div class="main-content">
+        <aside class=".left-aside">
+          <SearchButton />
+          <slot name="aside" />
+        </aside>
         <main>
           <div class="content">
             <header>
@@ -137,8 +141,7 @@ if (database.Icon && database.Icon.Type === 'file') {
             </footer>
           </div>
         </main>
-
-        <aside>
+        <aside class=".right-aside">
           <SearchButton />
           <slot name="aside" />
         </aside>
@@ -161,31 +164,50 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   .container > div {
     display: flex;
-    max-width: 1280px;
+    max-width: 90%;
+    margin: 0 auto;
   }
   @media (max-width: 640px) {
     .container > div {
       display: block;
     }
   }
+  .main-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+  }
 
   main {
     flex: 1;
-    order: 2;
-    justify-content: space-between;
+    justify-self: center;
+    width: 60%;
+    background: var(--bg);
+    margin: 0 auto;
   }
+
   @media (max-width: 640px) {
     main {
       order: 1;
     }
   }
 
-  aside {
-    order: 1;
-    width: 300px;
+  .left-aside {
+    float: left;
+    width: 20%;
+    margin-left: 2%;
     padding: 20px 20px;
-    background-color: #f4f4f4;
+    background-color: #c8c8c8;
   }
+
+  .right-aside {
+    justify-content: flex-end;
+    width: 20%;
+    padding: 20px 20px;
+    background-color: #c8c8c8;
+  }
+
   @media (max-width: 640px) {
     aside {
       order: 2;
@@ -308,7 +330,6 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   body {
     min-height: 100vh;
-    background: var(--bg);
     color: var(--fg);
     font-family:
       ui-sans-serif,

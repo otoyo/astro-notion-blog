@@ -42,6 +42,13 @@ export default defineConfig({
     PublicNotionCopier(),
   ],
   server: {
-    host: '127.0.0.1'
+    host: '127.0.0.1',
+  },
+  vite: {
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
   },
 });
