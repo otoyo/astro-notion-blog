@@ -4,8 +4,10 @@ import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+import Darkmode from '../components/Darkmode.astro'
 import SearchModal from '../components/SearchModal.astro'
 import SearchButton from '../components/SearchButton.astro'
+import SocialLink from '../components/SocialLink.astro'
 
 export interface Props {
   title: string
@@ -82,7 +84,13 @@ if (database.Icon && database.Icon.Type === 'file') {
         {
           coverImageURL && (
             <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
+              <a href={getNavLink('/')}>
+                <img
+                  src={coverImageURL}
+                  alt="Site cover image"
+                  loading="lazy"
+                />
+              </a>
             </div>
           )
         }
@@ -142,8 +150,7 @@ if (database.Icon && database.Icon.Type === 'file') {
           </div>
         </main>
         <aside class=".right-aside">
-          <SearchButton />
-          <slot name="aside" />
+          <SocialLink />
         </aside>
       </div>
     </div>
@@ -219,8 +226,8 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
   div.cover img {
     display: block;
-    width: 100%;
-    height: 20vh;
+    width: auto;
+    height: 15vh;
     object-fit: cover;
     object-position: center 60%;
   }
