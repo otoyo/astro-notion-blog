@@ -97,7 +97,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       </header>
 
       <div class="main-content">
-        <aside class=".left-aside">
+        <aside class="left-aside">
           <SearchButton />
           <slot name="aside" />
         </aside>
@@ -149,7 +149,7 @@ if (database.Icon && database.Icon.Type === 'file') {
             </footer>
           </div>
         </main>
-        <aside class=".right-aside">
+        <aside class="right-aside">
           <SocialLink />
         </aside>
       </div>
@@ -174,16 +174,25 @@ if (database.Icon && database.Icon.Type === 'file') {
     max-width: 90%;
     margin: 0 auto;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 1200px) {
     .container > div {
-      display: block;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      height: 650px;
+    }
+  }
+  @media (max-width: 990px) {
+    .container > div {
+      display: flex;
+      flex-direction: column;
     }
   }
   .main-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
   }
 
   main {
@@ -194,9 +203,24 @@ if (database.Icon && database.Icon.Type === 'file') {
     margin: 0 auto;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 1200px) {
     main {
-      order: 1;
+      order: 0;
+      width: 70%;
+      margin-top: 0%;
+      margin-bottom: 0%;
+      margin-right: 0%;
+      margin-left: 0%;
+    }
+  }
+  @media (max-width: 990px) {
+    main {
+      order: 0;
+      width: 100%;
+      margin-top: 0%;
+      margin-bottom: 0%;
+      margin-right: 0%;
+      margin-left: 0%;
     }
   }
 
@@ -205,20 +229,37 @@ if (database.Icon && database.Icon.Type === 'file') {
     width: 20%;
     margin-left: 2%;
     padding: 20px 20px;
-    background-color: #c8c8c8;
+    background-color: #ffffff;
   }
 
   .right-aside {
     justify-content: flex-end;
     width: 20%;
     padding: 20px 20px;
-    background-color: #c8c8c8;
+    background-color: #ffffff;
   }
 
-  @media (max-width: 640px) {
-    aside {
+  @media (max-width: 1200px) {
+    .left-aside {
+      display: none;
+      order: 1;
+      width: 25%;
+      height: min-content;
+      margin-left: 0%;
+    }
+    .right-aside {
       order: 2;
-      width: 100%;
+      width: 25%;
+      height: 25%;
+    }
+  }
+
+  @media (max-width: 990px) {
+    .left-aside {
+      display: none;
+    }
+    .right-aside {
+      display: none;
     }
   }
 

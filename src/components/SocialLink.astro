@@ -1,5 +1,9 @@
 ---
-
+import { Image } from 'astro:assets'
+import ytMusicIcon from '../images/app_icon_music_192.svg'
+import niconicoIcon from '../images/nc296561.png'
+import boothIcon from '../images/logo_icon_r.png'
+import moraIcon from '../images/mora_a1.png'
 ---
 
 <header>
@@ -17,7 +21,7 @@
             target="_blank"
             class="icon"
         >
-            <img src="nc296561.png" alt="NicoNico" />
+            <Image src={niconicoIcon} alt="NicoNico" />
             <span class="sr-only">NicoNico</span>
         </a>
         <a
@@ -43,7 +47,7 @@
     <h3>Physical</h3>
     <div class="flex justify-center flex-wrap space-x-4">
         <a href="https://mass-box.booth.pm" target="_blank" class="icon">
-            <img src="logo_icon_r.png" alt="BOOTH" />
+            <Image src={boothIcon} alt="BOOTH" />
             <span class="sr-only">BOOTH</span>
         </a>
     </div>
@@ -62,7 +66,7 @@
             target="_blank"
             class="icon"
         >
-            <img src="app_icon_music_192.svg" alt="YouTube Music" />
+            <Image src={ytMusicIcon} alt="YouTube Music" />
             <span class="sr-only">YouTube Music</span>
         </a>
         <a
@@ -102,7 +106,7 @@
             <span class="sr-only">Bandcamp</span>
         </a>
         <a href="https://mora.jp/artist/1943517/" target="_blank" class="icon">
-            <img src="mora_a1.png" alt="Mora" />
+            <Image src={moraIcon} alt="Mora" />
             <span class="sr-only">Mora</span>
         </a>
     </div>
@@ -115,7 +119,7 @@
     <style>
         body {
             background-color: white;
-            color: #4a4a4a;
+            color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;

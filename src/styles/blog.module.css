@@ -14,17 +14,34 @@
   }
 }
 
-.main {
+.postContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-
 }
 
 .post {
   margin: 0 auto 40px;
+  width: 100%
 }
+
+@media (min-width: 1800px) {
+  .postContainer .post {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (min-width: 2560px) {
+  .postContainer .post {
+    width: calc(33.33% - 20px);
+  }
+
+  .post {
+    width: 70%
+  }
+}
+
 
 .post footer {
   margin-top: 0.5rem;

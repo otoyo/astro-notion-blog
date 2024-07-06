@@ -46,22 +46,24 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
       </div>
     </header>
 
-    {
-      posts.length === 0 ? (
-        <NoContents contents={posts} />
-      ) : (
-        posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))
-      )
-    }
+    <div class={styles.postContainer}>
+      {
+        posts.length === 0 ? (
+          <NoContents contents={posts} />
+        ) : (
+          posts.map((post) => (
+            <div class={styles.post} key={post.Slug}>
+              <PostDate post={post} />
+              <PostTags post={post} />
+              <PostTitle post={post} />
+              <PostFeaturedImage post={post} />
+              <PostExcerpt post={post} />
+              <ReadMoreLink post={post} />
+            </div>
+          ))
+        )
+      }
+    </div>
 
     <footer>
       <Pagination tag={tag} currentPage={1} numberOfPages={numberOfPages} />
@@ -80,6 +82,7 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
     line-height: 1.3;
     font-size: 1.2rem;
     font-weight: normal;
+    width: 100%;
   }
   @media (max-width: 640px) {
     .tag-container {
