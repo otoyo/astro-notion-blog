@@ -14,7 +14,7 @@
     :root.darkmode {
         --bg: #191919;
         --fg: #d5d5d5;
-        --accents-1: #864c1d;
+        --accents-1: #ffffff;
         --accents-2: #f26000;
         --accents-3: #a5a5a5;
     }
@@ -23,7 +23,7 @@
     }
 
     .darkmode aside {
-        background: #202020;
+        background: var(--bg);
         color: var(--fg);
     }
 
@@ -129,6 +129,18 @@
     }
 
     /* --------------------
+  SocialLink.astro
+  -------------------- */
+    .darkmode .panel {
+        background: var(--bg);
+        color: var(--fg);
+    }
+
+    .darkmode .blog-tags-link h2 {
+        color: var(--fg);
+    }
+
+    /* --------------------
   Table.astro
   -------------------- */
     .darkmode table {
@@ -164,6 +176,10 @@
   -------------------- */
     .darkmode div.post-relative-link > div > a.colored {
         background: rgba(227, 226, 224, 0.1);
+    }
+
+    .darkmode .read-more-link {
+        color: #f7f7f7;
     }
 
     /* --------------------

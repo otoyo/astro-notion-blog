@@ -102,6 +102,7 @@ if (database.Icon && database.Icon.Type === 'file') {
           <slot name="aside" />
           <div class="sticky-social">
             <SocialLink />
+            <Darkmode />
           </div>
         </aside>
         <main>
@@ -150,6 +151,7 @@ if (database.Icon && database.Icon.Type === 'file') {
                 >
                 <div class="foot-social">
                   <SocialLink />
+                  <Darkmode />
                 </div>
               </div>
             </footer>
@@ -170,6 +172,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 <style>
   .container {
     min-height: 100vh;
+    background: var(--bg);
   }
 
   .container > div {
@@ -316,7 +319,6 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
   main header h1 a {
     display: block;
-    color: inherit;
   }
   main header h1 a:hover {
     color: inherit;
