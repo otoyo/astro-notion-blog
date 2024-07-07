@@ -100,6 +100,9 @@ if (database.Icon && database.Icon.Type === 'file') {
         <aside class="left-aside">
           <SearchButton />
           <slot name="aside" />
+          <div class="sticky-social">
+            <SocialLink />
+          </div>
         </aside>
         <main>
           <div class="content">
@@ -145,13 +148,13 @@ if (database.Icon && database.Icon.Type === 'file') {
                 <a href="https://github.com/otoyo/astro-notion-blog"
                   >astro-notion-blog</a
                 >
+                <div class="foot-social">
+                  <SocialLink />
+                </div>
               </div>
             </footer>
           </div>
         </main>
-        <aside class="right-aside">
-          <SocialLink />
-        </aside>
       </div>
     </div>
 
@@ -184,8 +187,12 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
   @media (max-width: 990px) {
     .container > div {
-      display: flex;
-      flex-direction: column;
+      display: block;
+    }
+  }
+  @media (max-width: 640px) {
+    .container > div {
+      display: block;
     }
   }
   .main-content {
@@ -206,7 +213,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   @media (max-width: 1200px) {
     main {
       order: 0;
-      width: 70%;
+      width: 75%;
       margin-top: 0%;
       margin-bottom: 0%;
       margin-right: 0%;
@@ -223,43 +230,59 @@ if (database.Icon && database.Icon.Type === 'file') {
       margin-left: 0%;
     }
   }
-
-  .left-aside {
-    float: left;
-    width: 20%;
-    margin-left: 2%;
-    padding: 20px 20px;
-    background-color: #ffffff;
+  @media (max-width: 640px) {
+    main {
+      order: 0;
+      width: 100%;
+      margin-top: 0%;
+      margin-bottom: 0%;
+      margin-right: 0%;
+      margin-left: 10%;
+    }
   }
 
-  .right-aside {
-    justify-content: flex-end;
-    width: 20%;
-    padding: 20px 20px;
-    background-color: #ffffff;
+  .foot-social {
+    display: none;
+  }
+
+  .left-aside {
+    display: block;
+    order: 1;
+    width: 15%;
+    height: min-content;
+    margin-left: 0%;
   }
 
   @media (max-width: 1200px) {
     .left-aside {
-      display: none;
+      display: block;
       order: 1;
       width: 25%;
       height: min-content;
       margin-left: 0%;
     }
-    .right-aside {
-      order: 2;
-      width: 25%;
-      height: 25%;
-    }
   }
 
   @media (max-width: 990px) {
     .left-aside {
+      display: block;
+      width: 95%;
+      margin: 0 auto;
+    }
+    .sticky-social {
       display: none;
     }
-    .right-aside {
-      display: none;
+
+    .foot-social {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .left-aside {
+      display: block;
+      width: 100%;
+      margin-left: 10%;
     }
   }
 
@@ -276,9 +299,11 @@ if (database.Icon && database.Icon.Type === 'file') {
   div.content {
     padding: 20px 40px;
   }
+
   @media (max-width: 640px) {
     div.content {
       padding: 0 18px;
+      width: 500px;
     }
   }
 

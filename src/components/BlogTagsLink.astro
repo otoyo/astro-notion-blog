@@ -46,6 +46,12 @@ const { heading, tags } = Astro.props
     margin-top: 0.3rem;
     margin-block-end: 1rem;
   }
+  @media (max-width: 990px) {
+    .blog-tags-link ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   .blog-tags-link ul li {
     position: relative;
     padding: 0.4rem;

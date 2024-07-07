@@ -45,22 +45,24 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
       <div class="page-container">{page}/{numberOfPages}</div>
     </header>
 
-    {
-      posts.length === 0 ? (
-        <NoContents contents={posts} />
-      ) : (
-        posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
-            <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
-          </div>
-        ))
-      )
-    }
+    <div class={styles.postContainer}>
+      {
+        posts.length === 0 ? (
+          <NoContents contents={posts} />
+        ) : (
+          posts.map((post) => (
+            <div class={styles.post} key={post.Slug}>
+              <PostDate post={post} />
+              <PostTags post={post} />
+              <PostTitle post={post} />
+              <PostFeaturedImage post={post} />
+              <PostExcerpt post={post} />
+              <ReadMoreLink post={post} />
+            </div>
+          ))
+        )
+      }
+    </div>
 
     <footer>
       <Pagination

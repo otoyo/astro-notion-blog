@@ -14,107 +14,127 @@ import moraIcon from '../images/mora_a1.png'
 </header>
 <div class="panel">
     <h2>Links</h2>
-    <h3>Posting</h3>
-    <div class="flex justify-left flex-wrap space-x-4">
-        <a
-            href="https://www.nicovideo.jp/user/42022149/series/218454"
-            target="_blank"
-            class="icon"
-        >
-            <Image src={niconicoIcon} alt="NicoNico" />
-            <span class="sr-only">NicoNico</span>
-        </a>
-        <a
-            href="https://www.youtube.com/c/Massbox"
-            target="_blank"
-            class="icon"
-            style="color: #FF0000;"
-        >
-            <i class="fab fa-youtube"></i>
-            <span class="sr-only">YouTube</span>
-        </a>
+    <div class="link-container">
+        <div class="category-container">
+            <h3>Posting</h3>
+            <div class="flex justify-left flex-wrap space-x-4">
+                <a
+                    href="https://www.nicovideo.jp/user/42022149/series/218454"
+                    target="_blank"
+                    class="icon"
+                >
+                    <Image src={niconicoIcon} alt="NicoNico" />
+                    <span class="sr-only">NicoNico</span>
+                </a>
+                <a
+                    href="https://www.youtube.com/c/Massbox"
+                    target="_blank"
+                    class="icon"
+                    style="color: #FF0000;"
+                >
+                    <i class="fab fa-youtube"></i>
+                    <span class="sr-only">YouTube</span>
+                </a>
 
-        <a
-            href="https://soundcloud.com/mass-dtm"
-            target="_blank"
-            class="icon"
-            style="color: #FF8800;"
-        >
-            <i class="fab fa-soundcloud"></i>
-            <span class="sr-only">SoundCloud</span>
-        </a>
+                <a
+                    href="https://soundcloud.com/mass-dtm"
+                    target="_blank"
+                    class="icon"
+                    style="color: #FF8800;"
+                >
+                    <i class="fab fa-soundcloud"></i>
+                    <span class="sr-only">SoundCloud</span>
+                </a>
+            </div>
+        </div>
+        <div class="category-container">
+            <h3>Physical</h3>
+            <div class="">
+                <a
+                    href="https://mass-box.booth.pm"
+                    target="_blank"
+                    class="icon"
+                >
+                    <Image src={boothIcon} alt="BOOTH" />
+                    <span class="sr-only">BOOTH</span>
+                </a>
+            </div>
+        </div>
+        <div class="category-container">
+            <h3>Streaming</h3>
+            <div class="flex justify-center flex-wrap space-x-4">
+                <a
+                    href="https://music.apple.com/jp/artist/mass/1483963744"
+                    target="_blank"
+                    class="icon"
+                >
+                    <i class="fa-brands fa-itunes" style="color: #fa2d48;"></i>
+                    <span class="sr-only">Spotify</span>
+                </a>
+                <a
+                    href="https://music.youtube.com/playlist?list=PLnQxkSmdS_FuCNhliNxtS-k_aS3WCtjf-&si=0xA90y8R0c2koybF"
+                    target="_blank"
+                    class="icon"
+                >
+                    <Image src={ytMusicIcon} alt="YouTube Music" />
+                    <span class="sr-only">YouTube Music</span>
+                </a>
+                <a
+                    href="https://open.spotify.com/intl-ja/artist/4ST3gigKteqEC6jRwjmssC?si=bX18UMMYThmSnOQHsKCDYA"
+                    target="_blank"
+                    class="icon"
+                >
+                    <i class="fa-brands fa-spotify" style="color: #1db954;"></i>
+                    <span class="sr-only">Spotify</span>
+                </a>
+                <a
+                    href="https://music.amazon.co.jp/artists/B0CHQDLQWS/mass"
+                    target="_blank"
+                    class="icon"
+                >
+                    <i class="fa-brands fa-amazon"></i>
+                    <span class="sr-only">Spotify</span>
+                </a>
+            </div>
+        </div>
+        <div class="category-container">
+            <h3>DL</h3>
+            <div class="flex justify-center flex-wrap space-x-4">
+                <a
+                    href="https://music.apple.com/jp/artist/mass/1483963744"
+                    target="_blank"
+                    class="icon"
+                >
+                    <i class="fa-brands fa-itunes" style="color: #fa2d48;"></i>
+                    <span class="sr-only">iTunes</span>
+                </a>
+                <a
+                    href="https://massbox.bandcamp.com"
+                    target="_blank"
+                    class="icon"
+                    style="color: #00FFFF;"
+                >
+                    <i class="fab fa-bandcamp"></i>
+                    <span class="sr-only">Bandcamp</span>
+                </a>
+                <a
+                    href="https://mora.jp/artist/1943517/"
+                    target="_blank"
+                    class="icon"
+                >
+                    <Image src={moraIcon} alt="Mora" />
+                    <span class="sr-only">Mora</span>
+                </a>
+            </div>
+        </div>
+        <div class="category-container">
+            <h3>SNS</h3>
+            <a href="https://twitter.com/Mass_DTM" target="_blank" class="icon">
+                <i class="fab fa-x-twitter"></i>
+                <span class="sr-only">Twitter</span>
+            </a>
+        </div>
     </div>
-    <h3>Physical</h3>
-    <div class="flex justify-center flex-wrap space-x-4">
-        <a href="https://mass-box.booth.pm" target="_blank" class="icon">
-            <Image src={boothIcon} alt="BOOTH" />
-            <span class="sr-only">BOOTH</span>
-        </a>
-    </div>
-    <h3>Streaming</h3>
-    <div class="flex justify-center flex-wrap space-x-4">
-        <a
-            href="https://music.apple.com/jp/artist/mass/1483963744"
-            target="_blank"
-            class="icon"
-        >
-            <i class="fa-brands fa-itunes" style="color: #fa2d48;"></i>
-            <span class="sr-only">Spotify</span>
-        </a>
-        <a
-            href="https://music.youtube.com/playlist?list=PLnQxkSmdS_FuCNhliNxtS-k_aS3WCtjf-&si=0xA90y8R0c2koybF"
-            target="_blank"
-            class="icon"
-        >
-            <Image src={ytMusicIcon} alt="YouTube Music" />
-            <span class="sr-only">YouTube Music</span>
-        </a>
-        <a
-            href="https://open.spotify.com/intl-ja/artist/4ST3gigKteqEC6jRwjmssC?si=bX18UMMYThmSnOQHsKCDYA"
-            target="_blank"
-            class="icon"
-        >
-            <i class="fa-brands fa-spotify" style="color: #1db954;"></i>
-            <span class="sr-only">Spotify</span>
-        </a>
-        <a
-            href="https://music.amazon.co.jp/artists/B0CHQDLQWS/mass"
-            target="_blank"
-            class="icon"
-        >
-            <i class="fa-brands fa-amazon"></i>
-            <span class="sr-only">Spotify</span>
-        </a>
-    </div>
-    <h3>DL</h3>
-    <div class="flex justify-center flex-wrap space-x-4">
-        <a
-            href="https://music.apple.com/jp/artist/mass/1483963744"
-            target="_blank"
-            class="icon"
-        >
-            <i class="fa-brands fa-itunes" style="color: #fa2d48;"></i>
-            <span class="sr-only">iTunes</span>
-        </a>
-        <a
-            href="https://massbox.bandcamp.com"
-            target="_blank"
-            class="icon"
-            style="color: #00FFFF;"
-        >
-            <i class="fab fa-bandcamp"></i>
-            <span class="sr-only">Bandcamp</span>
-        </a>
-        <a href="https://mora.jp/artist/1943517/" target="_blank" class="icon">
-            <Image src={moraIcon} alt="Mora" />
-            <span class="sr-only">Mora</span>
-        </a>
-    </div>
-    <h3>SNS</h3>
-    <a href="https://twitter.com/Mass_DTM" target="_blank" class="icon">
-        <i class="fab fa-x-twitter"></i>
-        <span class="sr-only">Twitter</span>
-    </a>
 
     <style>
         body {
@@ -175,6 +195,22 @@ import moraIcon from '../images/mora_a1.png'
             height: 2rem;
             width: auto;
             margin-top: 0.4rem;
+        }
+        @media (max-width: 990px) {
+            .panel {
+                margin-top: 5%;
+            }
+            .link-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .category-container {
+                margin-right: 5%;
+                margin-left: 5%;
+                padding: 10px;
+            }
         }
     </style>
 </div>

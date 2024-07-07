@@ -26,7 +26,7 @@
   width: 100%
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1440px) {
   .postContainer .post {
     width: calc(50% - 20px);
   }
