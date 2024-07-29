@@ -69,6 +69,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     <meta name="twitter:description" content={siteDescription} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage || siteOGImage} />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
@@ -170,11 +171,12 @@ if (database.Icon && database.Icon.Type === 'file') {
   .container {
     min-height: 100vh;
     background: var(--bg);
+    width: fit-content;
   }
 
   .container > div {
     display: flex;
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
   }
   @media (max-width: 1200px) {
@@ -199,7 +201,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 95%;
+    width: fit-content;
   }
 
   main {
@@ -236,8 +238,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       width: 100%;
       margin-top: 0%;
       margin-bottom: 0%;
-      margin-right: 0%;
-      margin-left: 10%;
+      margin-left: auto;
     }
   }
 
@@ -251,6 +252,8 @@ if (database.Icon && database.Icon.Type === 'file') {
     width: 15%;
     height: min-content;
     margin-left: 0%;
+    padding: 20px 10px;
+    margin-right: 5%;
   }
 
   @media (max-width: 1200px) {
@@ -260,6 +263,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       width: 25%;
       height: min-content;
       margin-left: 0%;
+      padding: 20px 40px;
     }
   }
 
@@ -268,6 +272,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       display: block;
       width: 95%;
       margin: 0 auto;
+      padding: 20px 40px;
     }
     .sticky-social {
       display: none;
@@ -282,7 +287,8 @@ if (database.Icon && database.Icon.Type === 'file') {
     .left-aside {
       display: block;
       width: 100%;
-      margin-left: 10%;
+      margin-left: auto;
+      padding: 0 18px;
     }
   }
 
@@ -303,7 +309,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   @media (max-width: 640px) {
     div.content {
       padding: 0 18px;
-      width: 500px;
+      width: auto;
     }
   }
 
@@ -398,6 +404,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     padding: 0;
     margin: 0;
     font-size: 16px;
+    width: fit-content;
   }
 
   body {
