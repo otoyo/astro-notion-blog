@@ -15,3 +15,8 @@ export const REQUEST_TIMEOUT_MS = parseInt(
   10
 )
 export const ENABLE_LIGHTBOX = import.meta.env.ENABLE_LIGHTBOX
+
+  export const DATABASE_ID =
+    import.meta.env.DATABASE_ID || process.env.DATABASE_ID || ''
++ export const INDEX_PAGE_ID =
++   import.meta.env.INDEX_PAGE_ID || process.env.INDEX_PAGE_ID || ''
