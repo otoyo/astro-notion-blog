@@ -1,0 +1,16 @@
+---
+import { INDEX_PAGE_ID } from '../server-constants.ts'
+import { getAllBlocksByBlockId } from '../lib/notion/client.ts'
+import Layout from '../layouts/Layout.astro'
+import NotionBlocks from '../components/NotionBlocks.astro'
+
+const blocks = await getAllBlocksByBlockId(INDEX_PAGE_ID)
+---
+
+<Layout>
+  <div slot="main">
+    <NotionBlocks blocks={blocks} isRoot={true} />
+  </div>
+
+  <div slot="aside"></div>
+</Layout>
