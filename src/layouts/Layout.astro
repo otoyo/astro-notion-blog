@@ -50,7 +50,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="ja" prefix="og: https://ogp.me/ns#">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="max-image-preview:large" />
@@ -78,53 +78,43 @@ if (database.Icon && database.Icon.Type === 'file') {
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <header>
+      <h1>
+        <a href={getNavLink('/')}>
+          {
+            database.Icon && database.Icon.Type === 'emoji' ? (
+              <>
+                <span>{database.Icon.Emoji}</span>
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'external' ? (
+              <>
+                <img src={database.Icon.Url} alt="Site icon image" />
+                {database.Title}
+              </>
+            ) : database.Icon && database.Icon.Type === 'file' ? (
+              <>
+                <img
+                  src={customIconURL}
+                  class="custom-icon"
+                  alt="Site icon image"
+                />
+                {database.Title}
+              </>
+            ) : (
+              database.Title
+            )
+          }
+        </a>
+      </h1>
+      <div class="description">
+        {database.Description}
+      </div>
+    </header>
     <div class="container">
-      <header>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
-            </div>
-          )
-        }
-      </header>
-
       <div>
         <main>
           <div class="content">
-            <header>
-              <h1>
-                <a href={getNavLink('/')}>
-                  {
-                    database.Icon && database.Icon.Type === 'emoji' ? (
-                      <>
-                        <span>{database.Icon.Emoji}</span>
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'external' ? (
-                      <>
-                        <img src={database.Icon.Url} alt="Site icon image" />
-                        {database.Title}
-                      </>
-                    ) : database.Icon && database.Icon.Type === 'file' ? (
-                      <>
-                        <img
-                          src={customIconURL}
-                          class="custom-icon"
-                          alt="Site icon image"
-                        />
-                        {database.Title}
-                      </>
-                    ) : (
-                      database.Title
-                    )
-                  }
-                </a>
-              </h1>
-              <div class="description">
-                {database.Description}
-              </div>
-            </header>
 
             <slot name="main" />
 
@@ -154,6 +144,9 @@ if (database.Icon && database.Icon.Type === 'file') {
 
 <style>
   .container {
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 1280px;
     min-height: 100vh;
   }
 
@@ -169,7 +162,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   main {
     flex: 1;
-    order: 2;
+    order: 1;
     justify-content: space-between;
   }
   @media (max-width: 640px) {
@@ -179,7 +172,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   aside {
-    order: 1;
+    order: 2;
     width: 300px;
     padding: 20px 20px;
     background-color: #f4f4f4;
@@ -210,41 +203,45 @@ if (database.Icon && database.Icon.Type === 'file') {
     }
   }
 
-  main header {
+  header {
     padding: 20px 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
   }
-  main header h1 {
+  header h1 {
     font-weight: 700;
     color: #333;
   }
-  main header h1 a {
+  header h1 a {
     display: block;
     color: inherit;
   }
-  main header h1 a:hover {
+  header h1 a:hover {
     color: inherit;
   }
-  main header h1 a span,
-  main header h1 a img {
+  header h1 a span,
+  header h1 a img {
     display: inline-block;
     font-size: 1.1em;
   }
-  main header h1 a span {
+  header h1 a span {
     margin-right: 0.3em;
     margin-left: -0.1rem;
   }
-  main header h1 a img {
+  header h1 a img {
     width: 1.2em;
     height: 1.2em;
     margin-right: 0.2em;
     margin-left: -0.3rem;
     vertical-align: sub;
   }
-  main header h1 a img.custom-icon {
+  header h1 a img.custom-icon {
     border-radius: var(--radius);
   }
 
-  main header div.description {
+  header div.description {
     padding: 0.3rem 0 0.6rem;
     font-size: 0.95rem;
   }
