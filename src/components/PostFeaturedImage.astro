@@ -19,11 +19,14 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 ---
 
 {
-  image && (
+  image ? (
     <div class="post-featured-image">
       <img src={image} alt="Featured image of the post" />
     </div>
-  )
+):
+    <div class="post-featured-image">
+      <img src="/default-og-image.png" alt="Default image" />
+    </div>
 }
 
 <style>
@@ -32,7 +35,8 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   }
   .post-featured-image img {
     display: block;
-    max-width: 100%;
-    max-height: 20rem;
+    max-width: 20rem;
+    aspect-ratio: 16/9;
+    object-fit: cover;
   }
 </style>
