@@ -31,12 +31,17 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 
 <style>
   .post-featured-image {
-    padding: 0.6rem 0 0.2rem;
+    padding: 0 0 0.2rem;
+    max-width:25%;
+    min-width:10rem;
   }
   .post-featured-image img {
     display: block;
-    max-width: 20rem;
     aspect-ratio: 16/9;
     object-fit: cover;
+    width: 100%;
+  }
+  .post {
+    margin: 0 auto 40px;
   }
 </style>

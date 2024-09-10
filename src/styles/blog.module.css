@@ -12,9 +12,16 @@
   }
 }
 
-.post {
+.post_item {
   margin: 0 auto 40px;
+  display: flex;
+  align-items: flex-start;
 }
+
+.post_content {
+  margin-left: 20px;
+}
+
 .post footer {
   margin-top: 0.5rem;
   padding: 0;
