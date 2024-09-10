@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 40px 0 0;
 }
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .main footer {
     margin: 0 auto 40px;
   }
