@@ -122,22 +122,17 @@ if (database.Icon && database.Icon.Type === 'file') {
         </aside>
         <main>
           <div class="content">
-
-
             <slot name="main" />
-
-            <footer>
-              <div>
-                <span>Copyright © 2024 pikary-box. All rights reserved.</span>
-                <!-- <a href="https://github.com/otoyo/astro-notion-blog"
-                  >astro-notion-blog</a -->
-              </div>
-            </footer>
           </div>
         </main>
       </div>
     </div>
 
+    <footer>
+      <div>
+        <span>Copyright © 2024 pikary-box. All rights reserved.</span>
+      </div>
+    </footer>
     <SearchModal />
     {
       ENABLE_LIGHTBOX && (
@@ -152,15 +147,12 @@ if (database.Icon && database.Icon.Type === 'file') {
     min-height: 100vh;
     max-width: 1280px;
     margin: 0 auto;
-  }
-
-  .site-header {
-    width: 1280px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   .content-wrapper {
+    flex: 1;
     display: flex;
     margin-top: 20px;
   }
@@ -172,6 +164,13 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   aside {
     width: 300px;
+  }
+
+  footer {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 1rem 0;
+    text-align: center;
   }
 
   @media (max-width: 1280px) {
