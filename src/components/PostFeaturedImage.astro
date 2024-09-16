@@ -29,10 +29,13 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 <style>
   .post-featured-image {
     padding: 0.6rem 0 0.2rem;
+    float: left; /* 画像を左に浮かせる */
+    margin-right: 1rem; /* タイトルとの間にスペースを作る */
+    max-width: 30%; /* 画像の幅を調整 */
   }
   .post-featured-image img {
     display: block;
     max-width: 100%;
-    max-height: 20rem;
+    height: auto;
   }
 </style>

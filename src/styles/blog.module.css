@@ -20,3 +20,17 @@
   padding: 0;
   border: 0;
 }
+.postContent {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.postInfo {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.postMeta {
+  margin-bottom: 0.5rem;
+}
