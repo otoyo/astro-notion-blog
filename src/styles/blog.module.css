@@ -34,3 +34,9 @@
 .postMeta {
   margin-bottom: 0.5rem;
 }
+
+.postMetaInner {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 日付とタグの間隔を調整 */
+}
