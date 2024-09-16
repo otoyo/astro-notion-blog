@@ -26,29 +26,30 @@ const {
     <div slot="main" class={styles.main}>
         <slot name="header" />
 
-        {
-            posts.length === 0 ? (
-                <NoContents contents={posts} />
-            ) : (
-                posts.map((post) => (
-                    <div class={styles.post} key={post.Slug}>
-                        <div class={styles.postContent}>
-                            <PostFeaturedImage post={post} />
-                            <div class={styles.postInfo}>
-                                <div class={styles.postMeta}>
-                                    <div class={styles.postMetaInner}>
-                                        <PostDate post={post} />
-                                        <PostTags post={post} />
+        <div class={styles.posts}>
+            {
+                posts.length === 0 ? (
+                    <NoContents contents={posts} />
+                ) : (
+                    posts.map((post) => (
+                        <div class={styles.post} key={post.Slug}>
+                            <div class={styles.postContent}>
+                                <PostFeaturedImage post={post} />
+                                <div class={styles.postInfo}>
+                                    <div class={styles.postMeta}>
+                                        <div class={styles.postMetaInner}>
+                                            <PostDate post={post} />
+                                            <PostTags post={post} />
+                                        </div>
                                     </div>
+                                    <PostTitle post={post} />
                                 </div>
-                                <PostTitle post={post} />
                             </div>
                         </div>
-                    </div>
-                ))
-            )
-        }
-
+                    ))
+                )
+            }
+        </div>
         <footer>
             <Pagination
                 currentPage={currentPage}

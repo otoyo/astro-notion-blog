@@ -1,10 +1,18 @@
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%; /* 幅を100%に設定 */
+  overflow: hidden; /* はみ出しを防ぐ */
+}
 .main header {
   padding: 0 0 20px;
 }
 .main footer {
   border-top: 1px dashed #888;
-  margin: 0 auto;
-  /* padding: 40px 0 0; */
+  margin-top: auto;
+  padding: 20px 0;
 }
 @media (max-width: 640px) {
   .main footer {

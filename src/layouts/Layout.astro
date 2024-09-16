@@ -151,6 +151,13 @@ if (database.Icon && database.Icon.Type === 'file') {
     flex-direction: column;
   }
 
+  header {
+    background-color: #ffffff;
+    padding: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; // 角を丸くする
+  }
+
   .content-wrapper {
     flex: 1;
     display: flex;
@@ -158,10 +165,13 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   main {
-    flex: 1;
-    margin-left: 20px;
-  }
-
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff; // 赤色を白に変更
+  display: flex;
+  flex-direction: column; // 縦方向に並べる
+  overflow: hidden; // はみ出しを防ぐ
+}
   aside {
     width: 300px;
   }
