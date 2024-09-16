@@ -41,17 +41,16 @@ const { block, headings } = Astro.props
 <style>
   .callout {
     display: flex;
-    margin: 0.4rem auto;
     padding: 16px 12px;
     width: 100%;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.6rem;
     border-radius: 3px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent;
     background: rgba(235, 236, 237, 0.6);
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .callout > div {
     margin: 0;
@@ -59,6 +58,7 @@ const { block, headings } = Astro.props
   }
   .callout > div.icon {
     margin-right: 0.7rem;
+    flex-shrink: 0;
   }
   .callout > div.icon > img {
     width: 1.2rem;

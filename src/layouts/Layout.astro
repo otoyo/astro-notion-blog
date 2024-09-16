@@ -195,18 +195,19 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   main {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 1;
-    /* margin: 10px; 周囲の要素との間隔を確保 */
-  }
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
   .content {
     overflow: hidden; // はみ出しを防ぐ
     padding: 10px;
