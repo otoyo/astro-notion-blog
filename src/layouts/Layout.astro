@@ -159,10 +159,11 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   .content-wrapper {
-    flex: 1;
-    display: flex;
-    margin-top: 20px;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
 
   main {
   flex: 1;
@@ -184,21 +185,21 @@ if (database.Icon && database.Icon.Type === 'file') {
   }
 
   @media (max-width: 1280px) {
-    .container {
-      padding: 0 20px;
-    }
-
-    .content-wrapper {
-      flex-direction: column;
-    }
-
-    aside {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    main {
-      margin-left: 0;
-    }
+  .container {
+    padding: 0 20px;
   }
+
+  .content-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  aside {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  main {
+    margin-left: 0;
+  }
+}
 </style>
