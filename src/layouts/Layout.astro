@@ -75,7 +75,7 @@ if (database.Icon && database.Icon.Type === 'file') {
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body class="body-background">
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
       <header>
@@ -143,42 +143,74 @@ if (database.Icon && database.Icon.Type === 'file') {
 </html>
 
 <style>
-  .container {
-    min-height: 100vh;
-    max-width: 1280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    .body-background {
+    background-color: #f4f4ff; /* お好みの色に変更 */
   }
 
   header {
     background-color: #ffffff;
     padding: 1.2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; // 角を丸くする
+    border-radius: 15px;
+    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
+    position: relative; /* z-indexを有効にするため */
+    z-index: 1; /* 他の要素より前面に */
+    margin: 10px; /* 周囲の要素との間隔を確保 */
+  }
+
+  .container {
+    min-height: 100vh;
+    max-width: 1380px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
   }
 
   .content-wrapper {
-    flex: 1;
-    display: flex;
-    margin-top: 20px;
+  flex: 1;
+  display: flex;
+  /* margin-top: 20px; */
+  gap: 10px; // ここにgapを追加
+  border-radius: 10px; // 角を丸くする
+  /* box-shadow: inset  0px 0px 10px 1px rgba(0, 0, 0, 0.2); */
+  
   }
 
+  aside {
+  width: 400px;
+  background-color: #ffffff;
+  /* box-shadow: inset  0px 0px 10px 1px rgba(0, 0, 0, 0.2); */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
+  position: relative; /* z-indexを有効にするため */
+  z-index: 1; /* 他の要素より前面に */
+  margin: 10px; /* 周囲の要素との間隔を確保 */
+  }
   main {
   flex: 1;
   padding: 20px;
-  background-color: #ffffff; // 赤色を白に変更
+  background-color: #ffffff;
   display: flex;
-  flex-direction: column; // 縦方向に並べる
-  overflow: hidden; // はみ出しを防ぐ
+  flex-direction: column;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* ボーダーを半透明に変更 */
+  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
+  position: relative; /* z-indexを有効にするため */
+  z-index: 1; /* 他の要素より前面に */
+  margin: 10px; /* 周囲の要素との間隔を確保 */
 }
-  aside {
-    width: 300px;
+
+  .content {
+    overflow: hidden; // はみ出しを防ぐ
+    padding: 10px;
+    background-color: #ffffff; // 背景色を設定
+    box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 1); // サイズを大きく
   }
 
   footer {
     width: 100%;
-    background-color: #ffffff;
+    background-color: #f4f4ff;
     padding: 1rem 0;
     text-align: center;
   }
