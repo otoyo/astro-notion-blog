@@ -142,6 +142,14 @@ if (database.Icon && database.Icon.Type === 'file') {
   </body>
 </html>
 
+<style is:global>
+  body {
+    max-width: 1380px; /* コンテンツの最大幅を設定 */
+    margin: 0 auto; /* 上下のマージンは0、左右は自動で中央揃え */
+    padding: 0 20px; /* 左右に少しパディングを追加 */
+  }
+</style>
+
 <style>
     .body-background {
     background-color: #f4f4ff; /* お好みの色に変更 */
@@ -154,53 +162,51 @@ if (database.Icon && database.Icon.Type === 'file') {
     box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
     position: relative; /* z-indexを有効にするため */
     z-index: 1; /* 他の要素より前面に */
-    margin: 10px; /* 周囲の要素との間隔を確保 */
+    /* margin: 10px; 周囲の要素との間隔を確保 */
   }
 
   .container {
     min-height: 100vh;
-    max-width: 1380px;
-    margin: 0 auto;
+    max-width: 1380px; /* 必要に応じてこの値を調整 */
+    /* margin: 0 auto; 中央揃え */
+    padding: 20px; /* 左右の余白を固定 */
+    box-sizing: border-box; /* パディングを幅に含める */
     display: flex;
     flex-direction: column;
-    
   }
 
   .content-wrapper {
-  flex: 1;
-  display: flex;
-  /* margin-top: 20px; */
-  gap: 5px; // ここにgapを追加
-  border-radius: 10px; // 角を丸くする
-  /* box-shadow: inset  0px 0px 10px 1px rgba(0, 0, 0, 0.2); */
-  
+    flex: 1;
+    display: flex;
+    gap: 5px;
+    border-radius: 10px;
+    padding: 10px 0 0 0;
   }
 
   aside {
-  width: 400px;
-  background-color: #ffffff;
-  /* box-shadow: inset  0px 0px 10px 1px rgba(0, 0, 0, 0.2); */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
-  position: relative; /* z-indexを有効にするため */
-  z-index: 1; /* 他の要素より前面に */
-  margin: 10px; /* 周囲の要素との間隔を確保 */
+    width: 400px; /* 固定幅を維持 */
+    max-width: calc(100% - 40px); /* 画面幅に応じて調整（左右の余白分を引く） */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1;
+    background-color: #ffffff;
   }
-  main {
-  flex: 1;
-  padding: 20px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.1); /* ボーダーを半透明に変更 */
-  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
-  position: relative; /* z-indexを有効にするため */
-  z-index: 1; /* 他の要素より前面に */
-  margin: 10px; /* 周囲の要素との間隔を確保 */
-}
 
+  main {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1;
+    /* margin: 10px; 周囲の要素との間隔を確保 */
+  }
   .content {
     overflow: hidden; // はみ出しを防ぐ
     padding: 10px;
@@ -217,7 +223,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 
   @media (max-width: 1280px) {
   .container {
-    padding: 0 20px;
+    /* padding: 0 20px; */
   }
 
   .content-wrapper {
