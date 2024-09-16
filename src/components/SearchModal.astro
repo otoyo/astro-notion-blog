@@ -43,7 +43,7 @@
     left: 20%;
     width: 60%;
     border-radius: 6px;
-    background-color: var(--bg);
+    background-color: #ffffff; /* 白色に変更 */
   }
   @media (max-width: 640px) {
     div.search-modal {
@@ -80,6 +80,7 @@
     display: block;
     padding: 0.4rem 0.6rem;
     border-radius: var(--radius);
+    text-decoration: none; /* 下線を非表示にする */
   }
   div.search-result ul > :global(li.selected > a) {
     background-color: rgba(241, 241, 239, 1);
@@ -87,14 +88,14 @@
 
   div.search-result :global(div.search-result-title) {
     padding: 0.1rem 0;
-    color: var(--fg);
+    color: #000000; /* 黒色に変更 */
     font-size: 1.1rem;
     line-height: 1.2rem;
     font-weight: bold;
   }
   div.search-result :global(div.search-result-description) {
     margin: 0 0 0.1rem;
-    color: var(--fg);
+    color: #464646; /* 黒色に変更 */
     font-size: 0.9rem;
     line-height: 1.2rem;
   }
