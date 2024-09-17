@@ -29,3 +29,14 @@
   align-items: center;
   gap: 1rem; /* 日付とタグの間隔を調整 */
 }
+
+.featuredImage {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.featuredImage img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}

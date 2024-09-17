@@ -99,23 +99,24 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot="main" class={styles.main}>
-    <div class={styles.post}>
-      {
-        post.FeaturedImage && post.FeaturedImage.Url && (
-          <div class={styles.featuredImage}>
-            <img
-              src={filePath(new URL(post.FeaturedImage.Url))}
-              alt={post.Title}
-              loading="eager"
-            />
-          </div>
-        )
-      }
-      <PostDate post={post} />
-      <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
-      <PostBody blocks={blocks} />
+<div slot="main" class={styles.main}>
+  <div class={styles.post}>
+    {
+      post.FeaturedImage && post.FeaturedImage.Url && (
+        <div class={styles.featuredImage}>
+          <img
+            src={import.meta.env.DEV ? post.FeaturedImage.Url : filePath(new URL(post.FeaturedImage.Url))}
+            alt={post.Title}
+            loading="eager"
+            style="max-width: 100%; height: auto;"
+          />
+        </div>
+      )
+    }
+    <PostDate post={post} />
+    <PostTags post={post} />
+    <PostTitle post={post} enableLink={false} />
+    <PostBody blocks={blocks} />
 
       <footer>
         <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />

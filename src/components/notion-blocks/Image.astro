@@ -41,14 +41,19 @@ if (block.Image.External) {
   .image {
     display: flex;
     margin: 0.2rem auto 0;
+    max-width: 100%;
   }
   .image > div {
     margin: 0 auto;
+    max-width: 100%;
   }
   .image > div > div {
+    max-width: 100%;
   }
   .image > div > div img {
     display: block;
     max-width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 </style>
