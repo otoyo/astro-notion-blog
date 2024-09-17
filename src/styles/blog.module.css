@@ -2,7 +2,7 @@
 
 
 .post {
-  margin: 0 auto 40px;
+  margin: 0 auto 10px;
 }
 .post footer {
   margin-top: 0.5rem;
@@ -12,7 +12,7 @@
 .postContent {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  /* margin-bottom: 1rem; */
 }
 
 .postInfo {
