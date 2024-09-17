@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div class="search-modal-container">
@@ -103,13 +104,27 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
-    let feedItems = []
+    let feedItems: {
+      title: string
+      link: string
+      description: string
+      pubDate: string
+    }[] = [] // 型を明示的に指定
     let fetched = false
-
     async function openModal() {
-      document.querySelector('.search-modal-container').style.display = 'block'
-      document.querySelector('.search-prompt input').focus()
-
+      const modalContainer = document.querySelector('.search-modal-container')
+      if (modalContainer) {
+        // null チェックを追加
+        if (modalContainer instanceof HTMLElement) {
+          // 型チェックを追加
+          modalContainer.style.display = 'block'
+        }
+        const searchInput = document.querySelector('.search-prompt input')
+        if (searchInput) {
+          // null チェックを追加
+          searchInput.addEventListener('input', searchAndRender)
+        }
+      }
       if (!fetched) {
         await fetchRSS()
       }
@@ -117,7 +132,11 @@
     }
 
     function closeModal() {
-      document.querySelector('.search-modal-container').style.display = 'none'
+      const modalContainer = document.querySelector('.search-modal-container')
+      if (modalContainer instanceof HTMLElement) {
+        // 型チェックを追加
+        modalContainer.style.display = 'none'
+      }
     }
 
     function handleKeydown(event) {
@@ -194,10 +213,17 @@
     }
 
     function searchAndRender() {
-      const text = document.querySelector('.search-prompt input').value.trim()
+      const searchInput = document.querySelector(
+        '.search-prompt input'
+      ) as HTMLInputElement // 型を明示的に指定
+      if (!searchInput) return // null チェックを追加
+      const text = searchInput.value.trim()
+      // ここで入力を全角カタカナに変換
+      // ここで入力を全角カタカナに変換
+      const fullWidthText = toFullWidthKatakana(text)
 
-      if (text !== '') {
-        const results = search(text)
+      if (fullWidthText !== '') {
+        const results = search(fullWidthText) // 変換後のテキストで検索
         renderResults(results)
       } else {
         renderResults(feedItems)
@@ -206,10 +232,68 @@
       selectFirst()
     }
 
-    function search(query) {
-      const results = []
+    function toFullWidthKatakana(str: string): string {
+  const kanaMap = {
+    'ｶﾞ': '\u30AC', 'ｷﾞ': '\u30AE', 'ｸﾞ': '\u30B0', 'ｹﾞ': '\u30B2', 'ｺﾞ': '\u30B4',
+    'ｻﾞ': '\u30B6', 'ｼﾞ': '\u30B8', 'ｽﾞ': '\u30BA', 'ｾﾞ': '\u30BC', 'ｿﾞ': '\u30BE',
+    'ﾀﾞ': '\u30C0', 'ﾁﾞ': '\u30C2', 'ﾂﾞ': '\u30C5', 'ﾃﾞ': '\u30C7', 'ﾄﾞ': '\u30C9',
+    'ﾊﾞ': '\u30D0', 'ﾋﾞ': '\u30D3', 'ﾌﾞ': '\u30D6', 'ﾍﾞ': '\u30D9', 'ﾎﾞ': '\u30DC',
+    'ﾊﾟ': '\u30D1', 'ﾋﾟ': '\u30D4', 'ﾌﾟ': '\u30D7', 'ﾍﾟ': '\u30DA', 'ﾎﾟ': '\u30DD',
+    'ｳﾞ': '\u30F4', 'ﾜﾞ': '\u30F7', 'ｦﾞ': '\u30FA',
+    'ｱ': '\u30A2', 'ｲ': '\u30A4', 'ｳ': '\u30A6', 'ｴ': '\u30A8', 'ｵ': '\u30AA',
+    'ｶ': '\u30AB', 'ｷ': '\u30AD', 'ｸ': '\u30AF', 'ｹ': '\u30B1', 'ｺ': '\u30B3',
+    'ｻ': '\u30B5', 'ｼ': '\u30B7', 'ｽ': '\u30B9', 'ｾ': '\u30BB', 'ｿ': '\u30BD',
+    'ﾀ': '\u30BF', 'ﾁ': '\u30C1', 'ﾂ': '\u30C4', 'ﾃ': '\u30C6', 'ﾄ': '\u30C8',
+    'ﾅ': '\u30CA', 'ﾆ': '\u30CB', 'ﾇ': '\u30CC', 'ﾈ': '\u30CD', 'ﾉ': '\u30CE',
+    'ﾊ': '\u30CF', 'ﾋ': '\u30D2', 'ﾌ': '\u30D5', 'ﾍ': '\u30D8', 'ﾎ': '\u30DB',
+    'ﾏ': '\u30DE', 'ﾐ': '\u30DF', 'ﾑ': '\u30E0', 'ﾒ': '\u30E1', 'ﾓ': '\u30E2',
+    'ﾔ': '\u30E4', 'ﾕ': '\u30E6', 'ﾖ': '\u30E8',
+    'ﾗ': '\u30E9', 'ﾘ': '\u30EA', 'ﾙ': '\u30EB', 'ﾚ': '\u30EC', 'ﾛ': '\u30ED',
+    'ﾜ': '\u30EF', 'ｦ': '\u30F2', 'ﾝ': '\u30F3',
+    'ｧ': '\u30A1', 'ｨ': '\u30A3', 'ｩ': '\u30A5', 'ｪ': '\u30A7', 'ｫ': '\u30A9',
+    'ｯ': '\u30C3', 'ｬ': '\u30E3', 'ｭ': '\u30E5', 'ｮ': '\u30E7',
+    '｡': '\u3002', '､': '\u3001', 'ｰ': '\u30FC', '｢': '\u300C', '｣': '\u300D', '･': '\u30FB'
+  };
+
+  const symbolMap = {
+    '!': '\uFF01', '"': '\uFF02', '#': '\uFF03', '$': '\uFF04', '%': '\uFF05', '&': '\uFF06', "'": '\uFF07',
+    '(': '\uFF08', ')': '\uFF09', '*': '\uFF0A', '+': '\uFF0B', ',': '\uFF0C', '-': '\uFF0D', '.': '\uFF0E',
+    '/': '\uFF0F', ':': '\uFF1A', ';': '\uFF1B', '<': '\uFF1C', '=': '\uFF1D', '>': '\uFF1E', '?': '\uFF1F',
+    '@': '\uFF20', '[': '\uFF3B', '\\': '\uFF3C', ']': '\uFF3D', '^': '\uFF3E', '_': '\uFF3F', '`': '\uFF40',
+    '{': '\uFF5B', '|': '\uFF5C', '}': '\uFF5D', '~': '\uFF5E', ' ': '\u3000'
+  };
+
+  const combinedMap = { ...kanaMap, ...symbolMap };
+  const escapedKeys = Object.keys(combinedMap).map(key => key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const reg = new RegExp(`(${escapedKeys.join('|')}|[0-9A-Za-z])`, 'g');
+
+  return str.replace(reg, (match) => {
+    if (combinedMap[match]) {
+      return combinedMap[match];
+    } else if (match.match(/[0-9A-Za-z]/)) {
+      return String.fromCharCode(match.charCodeAt(0) + 0xFEE0);
+    }
+    return match;
+  });
+}
+
+    function search(
+      query: string
+    ): { title: string; link: string; description: string; pubDate: string }[] {
+      const results: {
+        title: string
+        link: string
+        description: string
+        pubDate: string
+      }[] = []
+      const upperQuery = toFullWidthKatakana(query).toUpperCase() // 入力を全角に変換し、大文字に変換
       feedItems.forEach((item) => {
-        if (item.title.includes(query) || item?.description?.includes(query)) {
+        const title = toFullWidthKatakana(item.title).toUpperCase()
+        const description = item?.description
+          ? toFullWidthKatakana(item.description).toUpperCase()
+          : ''
+
+        if (title.includes(upperQuery) || description.includes(upperQuery)) {
           results.push(item)
         }
       })
@@ -245,9 +329,7 @@
       const url = new URL(location.href)
       const port = url.port ? `:${url.port}` : ''
 
-      const res = await fetch(
-        `${url.protocol}//${url.hostname}${port}/feed`
-      )
+      const res = await fetch(`${url.protocol}//${url.hostname}${port}/feed`)
       if (res.status !== 200) {
         console.log(res.status)
         throw new Error('Failed to fetch RSS feed')
