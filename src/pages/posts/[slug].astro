@@ -101,6 +101,17 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 >
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
+      {
+        post.FeaturedImage && post.FeaturedImage.Url && (
+          <div class={styles.featuredImage}>
+            <img
+              src={filePath(new URL(post.FeaturedImage.Url))}
+              alt={post.Title}
+              loading="eager"
+            />
+          </div>
+        )
+      }
       <PostDate post={post} />
       <PostTags post={post} />
       <PostTitle post={post} enableLink={false} />
