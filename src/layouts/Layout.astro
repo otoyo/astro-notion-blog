@@ -148,6 +148,25 @@ if (database.Icon && database.Icon.Type === 'file') {
     margin: 0 auto; /* 上下のマージンは0、左右は自動で中央揃え */
     /* padding: 0 20px; 左右に少しパディングを追加 */
   }
+
+  code:not(pre code) {
+    background-color: #272a30; /* お好みの背景色に変更してください */
+    color: #e6e6e6 !important; /* 文字色を明るい灰色に変更 */
+    padding: 0.1em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+
+  /* コードブロック以外のli要素にスタイルを適用 */
+  .content li:not(.code li) {
+    padding: 0.1rem 0;
+  }
+
+  /* コードブロック以外のli要素内のcode要素にスタイルを適用 */
+  .content li:not(.code li) code:not(pre code) {
+    padding: 0.2em 0.4em;
+  }
 </style>
 
 <style>
@@ -208,6 +227,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   overflow-x: hidden;
   word-wrap: break-word;
 }
+
   .content {
     overflow: hidden; // はみ出しを防ぐ
     padding: 10px;
