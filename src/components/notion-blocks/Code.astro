@@ -13,6 +13,7 @@ import 'prismjs/components/prism-ruby'
 import 'prismjs/components/prism-sql'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-yaml'
+import 'prismjs/plugins/line-numbers/prism-line-numbers.js'
 import * as interfaces from '../../lib/interfaces'
 import Caption from './Caption.astro'
 
@@ -26,27 +27,28 @@ const code = block.Code.RichTexts.map(
   (richText: interfaces.RichText) => richText.Text.Content
 ).join('')
 const language = block.Code.Language.toLowerCase()
-const grammer =
+const grammar =
   Prism.languages[language.toLowerCase()] || Prism.languages.javascript
+
+const highlightedCode = Prism.highlight(code, grammar, language)
+const lines = highlightedCode.split('\n')
 ---
 
-<div class="code">
+<div class="code line-numbers">
   <div>
-    {
-      /* prettier-ignore */
-      language === 'mermaid' ? (
-        <pre class="mermaid">{code}</pre>
-      ) : (
-        <>
-          <div>
-            <button class="copy" data-code={code} data-done-text="Copied!">
-              Copy
-            </button>
-          </div>
-          <pre><code set:html={Prism.highlight(code, grammer, language)} /></pre>
-        </>
-      )
-    }
+    <div class="code-header">
+      <button class="copy" data-code={code} data-done-text="Copied!">
+        Copy
+      </button>
+    </div>
+    <div class="code-content">
+      <ul class="line-numbers-rows">
+        {lines.map((_, index) => (
+          <li><span>{index + 1}</span></li>
+        ))}
+      </ul>
+      <pre class="line-numbers"><code class={`language-${language}`} set:html={highlightedCode} /></pre>
+    </div>
   </div>
   <Caption richTexts={block.Code.Caption} />
 </div>
@@ -74,57 +76,112 @@ const grammer =
   })
 </script>
 
-<style>
+<style is:global>
   .code {
     display: block;
     width: 100%;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
   }
   .code > div {
-    background: rgb(247, 246, 243);
-    border-radius: var(--radius);
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  .code > div div {
+  .code-header {
     display: flex;
     justify-content: flex-end;
+    padding: 0.5rem;
+    border-bottom: 1px solid #333;
   }
   .code button.copy {
     display: block;
-    width: 4rem;
-    border: 0;
-    border-radius: var(--radius);
-    background-color: rgba(227, 226, 224, 0.5);
-    color: var(--fg);
-    line-height: 1.2rem;
+    width: auto;
+    padding: 0.25rem 0.75rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #4caf50;
+    color: #ffffff;
+    font-size: 0.8rem;
+    line-height: 1.5;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+    font-weight: bold;
+  }
+  .code button.copy:hover {
+    background-color: #45a049;
+  }
+  .code-content {
+    display: flex;
+    position: relative;
   }
   .code pre {
-    display: block;
+    flex-grow: 1;
     overflow: auto;
-    padding: 0.8rem 2rem 2rem;
+    padding: 1rem 1rem 1rem 0;
+    margin: 0;
     font-size: 0.9rem;
-    line-height: 1.2rem;
+    line-height: 1.5;
     white-space: pre;
-    width: 100px;
-    min-width: 100%;
-    overflow-x: auto;
-    &::-webkit-scrollbar {
-      height: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: rgb(211, 209, 203);
-    }
-    &::-webkit-scrollbar-track {
-      background: rgb(237, 236, 233);
-    }
+    word-wrap: normal;
+    background-color: #1e1e1e;
+    border-radius: 0 0 6px 6px;
   }
-  .code pre.mermaid {
-    padding: 2rem;
+  .code .line-numbers-rows {
+    flex-shrink: 0;
+    width: 3rem;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    list-style: none;
+    margin: 0;
+    text-align: right;
+    background-color: #252525;
+    border-right: 1px solid #404040;
   }
+  .code .line-numbers-rows li {
+    padding-right: 0.5rem;
+    color: #858585;
+  }
+
   .code pre code {
-    color: var(--fg);
+    color: #e0e0e0;
     padding: 0;
-    background: rgb(247, 246, 243) !important;
+    background: transparent !important;
     border-radius: 0;
+    font-family: inherit;
+  }
+
+  /* シンタックスハイライトの色をカスタマイズ */
+  .code pre code .token.string,
+  .code pre code span.token.string {
+    color: #ff9bd5 !important; /* 文字列の色を明るい緑に変更 */
+  }
+  .code pre code .token.comment,
+  .code pre code span.token.comment {
+    color: #a1c591 !important; /* コメントの色を薄い緑に変更 */
+  }
+  .code pre code .token.keyword,
+  .code pre code span.token.keyword {
+    color: #9bcffa !important; /* キーワードの色を青に変更 */
+  }
+  .code pre code .token.function,
+  .code pre code span.token.function {
+    color: #ffbc63 !important; /* 関数名の色を黄色に変更 */
+  }
+  .code pre code .token.number,
+  .code pre code span.token.number {
+    color: #b5cea8 !important; /* 数値の色を薄い緑に変更 */
+  }
+  .code pre code .token.operator,
+  .code pre code span.token.operator {
+    color: #d4d4d4 !important; /* 演算子の色を薄い灰色に変更 */
+  }
+
+  .code pre::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 4px;
   }
 </style>
