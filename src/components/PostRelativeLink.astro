@@ -16,7 +16,7 @@ const { prevPost, nextPost } = Astro.props
     {
       nextPost && (
         <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>◀︎ Next</div>
+          <div>◀︎ 次の記事</div>
           <div>{nextPost.Title}</div>
           <PostTags post={nextPost} enableLink={false} />
         </a>
@@ -27,7 +27,7 @@ const { prevPost, nextPost } = Astro.props
     {
       prevPost && (
         <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>▶︎ Previous</div>
+          <div>▶︎ 前の記事</div>
           <div>{prevPost.Title}</div>
           <PostTags post={prevPost} enableLink={false} />
         </a>
