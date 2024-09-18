@@ -47,4 +47,10 @@ const { post, enableLink = true } = Astro.props
     color: rgb(50, 48, 44);
     background: rgba(227, 226, 224, 0.5);
   }
+    /* モバイル表示時のフォントサイズを小さくする */
+    @media (max-width: 430px) {
+    .post-tags {
+      font-size: 0.7rem; /* フォントサイズを小さく設定 */
+    }
+  }
 </style>

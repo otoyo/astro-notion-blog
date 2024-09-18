@@ -76,12 +76,21 @@ let title = post.Title
     height: 1.3em;
     vertical-align: sub;
   }
-  @media (max-width: 640px) {
-    .post-title {
-      font-size: 1.4rem;
-    }
-    .post-title a {
-      font-size: 1.2rem;
-    }
+  @media (max-width: 430px) {
+  .post-title {
+    font-size: 1.4rem;
+    overflow: hidden; /* 子要素のはみ出しを防止 */
+    text-overflow: ellipsis; /* テキストが長すぎる場合に省略記号を表示 */
+    white-space: normal; /* テキストを折り返す */
   }
+  .post-title a {
+    font-size: 0.8rem;
+    display: block; /* 要素をブロック表示にして幅を制限 */
+    max-width: 100%; /* 最大幅を親要素に合わせる */
+    overflow: hidden;
+    text-overflow: ellipsis; /* テキストが長すぎる場合に省略記号を表示 */
+    white-space: normal; /* テキストを折り返す */
+  }
+  
+}
 </style>

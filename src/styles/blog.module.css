@@ -17,7 +17,7 @@
 
 .postInfo {
   flex: 1;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 
 .postMeta {
@@ -36,7 +36,23 @@
 }
 
 .featuredImage img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+/* モバイル画面向けのスタイル */
+@media (max-width: 430px) {
+  .postContent {
+    flex-direction: column;
+  }
+
+  .featuredImage {
+    width: 100%;
+  }
+
+  .postInfo {
+    width: 100%;
+  }
+
 }

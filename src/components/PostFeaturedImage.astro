@@ -41,4 +41,12 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
     max-width: 100%;
     height: auto;
   }
+  /* モバイル表示時の画像サイズ設定 */
+  @media (max-width: 430px) {
+    .post-featured-image {
+      float: none; /* 画像を左に浮かせない */
+      margin-right: 0; /* タイトルとの間にスペースを作らない */
+      max-width: 100%; /* 画像の幅を調整 */
+    }
+  }
 </style>
