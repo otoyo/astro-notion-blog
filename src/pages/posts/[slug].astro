@@ -113,8 +113,12 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
         </div>
       )
     }
+<div class={styles.postMeta}>
+  <div class={styles.postMetaInner}>
     <PostDate post={post} />
     <PostTags post={post} />
+  </div>
+</div>
     <PostTitle post={post} enableLink={false} />
     <PostBody blocks={blocks} />
 

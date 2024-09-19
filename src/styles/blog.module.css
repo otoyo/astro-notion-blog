@@ -27,7 +27,7 @@
 .postMetaInner {
   display: flex;
   align-items: center;
-  gap: 1rem; /* 日付とタグの間隔を調整 */
+  flex-direction: row; /* PC表示で左右に表示 */
 }
 
 .featuredImage {
@@ -40,6 +40,8 @@
   height: auto;
   object-fit: contain;
 }
+
+
 
 /* モバイル画面向けのスタイル */
 @media (max-width: 430px) {
@@ -54,5 +56,9 @@
   .postInfo {
     width: 100%;
   }
+  .postMetaInner {
+    flex-direction: column; /* モバイル表示で上下に表示 */
 
+    align-items: flex-start; /* 左詰めで表示 */
+  }
 }
