@@ -12,68 +12,134 @@ const { prevPost, nextPost } = Astro.props
 ---
 
 <div class="post-relative-link">
-  <div>
-    {
-      nextPost && (
-        <a href={getPostLink(nextPost.Slug)} class="colored">
-          <div>◀︎ 次の記事</div>
+  <div class="links-container">
+    {nextPost && (
+      <a href={getPostLink(nextPost.Slug)} class="colored">
+        <div class="arrow right"></div>
+        <div>
+          <div>次の記事</div>
           <div>{nextPost.Title}</div>
           <PostTags post={nextPost} enableLink={false} />
-        </a>
-      )
-    }
-  </div>
-  <div>
-    {
-      prevPost && (
-        <a href={getPostLink(prevPost.Slug)} class="colored">
-          <div>▶︎ 前の記事</div>
+        </div>
+      </a>
+    )}
+    {prevPost && (
+      <a href={getPostLink(prevPost.Slug)} class="colored">
+        <div>
+          <div class="prev-post-footer">
+            <span>前の記事</span>
+          </div>
           <div>{prevPost.Title}</div>
           <PostTags post={prevPost} enableLink={false} />
-        </a>
-      )
-    }
+
+        </div>
+        <div class="arrow left"></div>
+      </a>
+    )}
   </div>
-  <div>
-    <a href={getNavLink('/')} class="text">↑Top</a>
+  <div class="top-link">
+    <a href={getNavLink('/')}>
+      <div>↑Top</div>
+    </a>
   </div>
 </div>
 
 <style>
+  /* 親要素に対して相対配置を設定 */
+  :global(.post-relative-link) {
+    position: relative;
+  }
   div.post-relative-link {
+    width: 100%;
+    margin-top: 0; /* マージンをリセット */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  /* リンクコンテナのスタイル */
+  .links-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: nowrap; // wrapをnowrapに変更
+    justify-content: space-between;
+  }
+
+    /* TOPリンクのスタイル */
+    .top-link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin-top: 1rem;
   }
-  div.post-relative-link > div {
-    display: block;
-    margin-top: 0.6rem;
+
+  /* 矢印共通のスタイル */
+  .arrow {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 0.5rem; /* 矢印とテキストの間に余白を追加 */
   }
-  div.post-relative-link > div > a {
-    display: block;
-    text-align: center;
-    line-height: 1.2rem;
-    font-size: 0.95rem;
+
+  /* 左向き矢印のスタイル */
+  .arrow.left {
+    border-top: 10px solid transparent; /* 縦のサイズを大きく */
+    border-bottom: 10px solid transparent; /* 縦のサイズを大きく */
+    border-left: 15px solid #7a0; /* 矢印の色と幅を調整（左向き） */
   }
-  div.post-relative-link > div > a.text {
-    margin-top: 1rem;
+
+  /* 右向き矢印のスタイル */
+  .arrow.right {
+    border-top: 10px solid transparent; /* 縦のサイズを大きく */
+    border-bottom: 10px solid transparent; /* 縦のサイズを大きく */
+    border-right: 15px solid #7a0; /* 矢印の色と幅を調整（右向き） */
+  }
+
+  /* 他のスタイルはそのまま維持 */
+  div.post-relative-link > div.links-container > a {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* リンクの下線を削除 */
+  }
+
+  div.post-relative-link > div.links-container > a > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  div.post-relative-link > div.links-container > a.colored {
+    width: calc(50% - 0.5rem); /* 親要素の半分の幅から間隔の半分を引く */
+    padding: 1rem;
+    border-radius: var(--radius);
+    color: var(--fg);
+    background: rgba(227, 226, 224, 0.5);
+  }
+
+  div.post-relative-link > div.links-container > a.text {
+    display: flex;
+    align-items: center;
     padding: 0.5rem;
     color: inherit;
     font-size: 1rem;
     text-decoration: underline;
     font-weight: 500;
   }
-  div.post-relative-link > div > a.colored {
-    padding: 1rem;
-    border-radius: var(--radius);
-    color: var(--fg);
-    background: rgba(227, 226, 224, 0.5);
-  }
-  div.post-relative-link > div > a.colored > div:first-child {
-    width: auto;
+
+  div.post-relative-link > div.links-container > a.colored > div:first-child {
+    width: 100%; /* 親要素の全幅を使用 */
+    padding: 0.2rem 0 0.4rem;
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    font-weight: bold;
   }
-  div.post-relative-link > div > a.colored > div:nth-child(2) {
-    width: auto;
+
+  div.post-relative-link > div.links-container > a.colored > div:nth-child(2) {
+    width: 100%; /* 親要素の全幅を使用 */
     padding: 0.2rem 0 0.4rem;
     text-align: left;
     font-size: 1rem;
