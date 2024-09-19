@@ -40,28 +40,29 @@ const { block, headings } = Astro.props
 
 <style>
   .callout {
-    display: flex;
-    padding: 16px 12px;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6rem;
-    border-radius: 3px;
-    background: rgba(235, 236, 237, 0.6);
-    box-sizing: border-box;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 100vw; /* 最大幅を画面幅に設定 */
+    box-sizing: border-box; /* パディングを幅に含める */
+    overflow: hidden; /* はみ出しを防ぐ */
+    padding: 12px;
   }
-  .callout > div {
-    margin: 0;
-    line-height: 1.5rem;
-  }
-  .callout > div.icon {
-    margin-right: 0.7rem;
-    flex-shrink: 0;
-  }
-  .callout > div.icon > img {
-    width: 1.2rem;
-    height: 1.2rem;
+  @media (max-width: 430px) {
+    .callout {
+      flex-direction: column;
+      padding: 12px;
+    }
+    .callout > div.icon {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+    .callout img,
+    .callout article {
+      max-width: 100%;
+      height: auto;
+    }
+    .callout blockquote { /* Twitter投稿のスタイル */
+      max-width: 100%; /* 最大幅を100%に設定 */
+      overflow: auto; /* はみ出し時にスクロール可能にする */
+    }
   }
 </style>
