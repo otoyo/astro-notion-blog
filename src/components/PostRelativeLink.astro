@@ -13,29 +13,30 @@ const { prevPost, nextPost } = Astro.props
 
 <div class="post-relative-link">
   <div class="links-container">
-    {nextPost && (
-      <a href={getPostLink(nextPost.Slug)} class="colored">
-        <div class="arrow right"></div>
-        <div>
-          <div>次の記事</div>
-          <div>{nextPost.Title}</div>
-          <PostTags post={nextPost} enableLink={false} />
-        </div>
-      </a>
-    )}
-    {prevPost && (
-      <a href={getPostLink(prevPost.Slug)} class="colored">
-        <div>
-          <div class="prev-post-footer">
-            <span>前の記事</span>
+    {
+      nextPost && (
+        <a href={getPostLink(nextPost.Slug)} class="colored-left">
+          <div class="arrow-right" />
+          <div class="next-post-content">
+            <div class="post-label">次の記事</div>
+            <div>{nextPost.Title}</div>
+            <PostTags post={nextPost} enableLink={false} />
           </div>
-          <div>{prevPost.Title}</div>
-          <PostTags post={prevPost} enableLink={false} />
-
-        </div>
-        <div class="arrow left"></div>
-      </a>
-    )}
+        </a>
+      )
+    }
+    {
+      prevPost && (
+        <a href={getPostLink(prevPost.Slug)} class="colored-right">
+          <div class="prev-post-content">
+            <div class="post-label">前の記事</div>
+            <div>{prevPost.Title}</div>
+            <PostTags post={prevPost} enableLink={false} />
+          </div>
+          <div class="arrow-left" />
+        </a>
+      )
+    }
   </div>
   <div class="top-link">
     <a href={getNavLink('/')}>
@@ -45,6 +46,21 @@ const { prevPost, nextPost } = Astro.props
 </div>
 
 <style>
+
+.post-label {
+    color: #007dfa; /* 青色の例 */
+    font-weight: bold;
+  }
+
+  .colored-right{
+    align-items:flex-start;
+  }
+
+  .colored-left:hover,
+  .colored-right:hover { 
+    background-color: #cae5ff; // マウスオーバー時の背景色
+  }
+  
   /* 親要素に対して相対配置を設定 */
   :global(.post-relative-link) {
     position: relative;
@@ -57,46 +73,100 @@ const { prevPost, nextPost } = Astro.props
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   /* リンクコンテナのスタイル */
   .links-container {
     width: 100%;
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    flex-wrap: nowrap; // wrapをnowrapに変更
+    flex-wrap: nowrap;
     justify-content: space-between;
+    background-color: #f3f6fd;
+    padding: 20px 0;
   }
 
-    /* TOPリンクのスタイル */
-    .top-link {
+  /* リンク要素のスタイル */
+  .links-container > a {
+    flex: 1;
+    max-width: calc(50% - 0.5rem);
+    display: flex;
+    align-items: center; /* 垂直方向の中央揃え */
+  }
+
+  /* TOPリンクのスタイル */
+  .top-link {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
   }
 
-  /* 矢印共通のスタイル */
-  .arrow {
-    position: relative;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-right: 0.5rem; /* 矢印とテキストの間に余白を追加 */
-  }
-
   /* 左向き矢印のスタイル */
-  .arrow.left {
-    border-top: 10px solid transparent; /* 縦のサイズを大きく */
-    border-bottom: 10px solid transparent; /* 縦のサイズを大きく */
-    border-left: 15px solid #7a0; /* 矢印の色と幅を調整（左向き） */
+  .arrow-left {
+    border-top: 25px solid transparent; /* サイズを小さく */
+    border-bottom: 25px solid transparent; /* サイズを小さく */
+    border-left: 25px solid #97d0ff; /* 幅を少し狭く */
+    margin-left: 10px;
+    transform: scaleY(1.5);
+    padding: 0 5px;
+    /* align-self: flex-end; */
   }
 
   /* 右向き矢印のスタイル */
-  .arrow.right {
-    border-top: 10px solid transparent; /* 縦のサイズを大きく */
-    border-bottom: 10px solid transparent; /* 縦のサイズを大きく */
-    border-right: 15px solid #7a0; /* 矢印の色と幅を調整（右向き） */
+  .arrow-right {
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-right: 25px solid #97d0ff;
+    margin-right: 10px;
+    transform: scaleY(1.5);
+    padding: 0 5px;
+  }
+
+
+
+  /* 次の記事のコンテンツスタイル修正 */
+  .next-post-content {
+    text-align: left;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+    /* 次の記事のコンテナスタイルを修正 */
+    .links-container > a:has(.arrow-left) {
+    justify-content: flex-end; /* 子要素を右詰めに配置 */
+  }
+
+  /* 前の記事のコンテンツスタイル修正 */
+  .prev-post-content {
+    text-align: left;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start; // この行を追加
+  }
+
+    /* タグのスタイル調整 */
+    .next-post-content :global(.post-tags),
+  .prev-post-content :global(.post-tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .next-post-content :global(.post-tags) {
+    justify-content: flex-start; /* 次の記事のタグを左詰めに */
+  }
+
+  .prev-post-content :global(.post-tags) {
+    justify-content: flex-end; /* 前の記事のタグを右詰めに */
+  }
+
+    /* 前の記事のリンクコンテナスタイルを追加 */
+    .links-container > a:has(.arrow-left) {
+    justify-content: flex-start; /* 子要素を左詰めに配置 */
   }
 
   /* 他のスタイルはそのまま維持 */
@@ -113,11 +183,12 @@ const { prevPost, nextPost } = Astro.props
   }
 
   div.post-relative-link > div.links-container > a.colored {
-    width: calc(50% - 0.5rem); /* 親要素の半分の幅から間隔の半分を引く */
-    padding: 1rem;
+    flex-basis: calc(50% - 0.5rem);
     border-radius: var(--radius);
     color: var(--fg);
     background: rgba(227, 226, 224, 0.5);
+    display: flex;
+    align-items: center;
   }
 
   div.post-relative-link > div.links-container > a.text {
@@ -130,19 +201,108 @@ const { prevPost, nextPost } = Astro.props
     font-weight: 500;
   }
 
-  div.post-relative-link > div.links-container > a.colored > div:first-child {
+  div.post-relative-link
+    > div.links-container
+    > a.colored-left
+    > div:nth-child(2) {
     width: 100%; /* 親要素の全幅を使用 */
-    padding: 0.2rem 0 0.4rem;
+    /* padding: 0.2rem 0 0.4rem; */
     text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  div.post-relative-link
+    > div.links-container
+    > a.colored-right
+    > div:nth-child(1) {
+    width: 100%; /* 親要素の全幅を使用 */
+    /* padding: 0.2rem 0 0.4rem; */
+    text-align: right;
     font-size: 1rem;
     font-weight: bold;
   }
 
-  div.post-relative-link > div.links-container > a.colored > div:nth-child(2) {
-    width: 100%; /* 親要素の全幅を使用 */
-    padding: 0.2rem 0 0.4rem;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: bold;
+    /* 前の記事のリンクコンテナスタイルを修正 */
+    .links-container > a:has(.prev-post-content) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
   }
+  
+
+  /* モバイル表示用のスタイル */
+  @media (max-width: 430px) {
+    .links-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .links-container > a {
+      max-width: 100%;
+    }
+
+    /* colored-leftとcolored-rightの順序を入れ替え */
+    .links-container {
+      display: flex;
+      /* flex-direction: column-reverse; */
+    }
+
+    /* 矢印の位置調整 */
+    .arrow-left, .arrow-right {
+      align-self: center;
+    }
+
+    /* リンク要素のスタイル調整 */
+    .links-container > a {
+      display: flex;
+      align-items: center;
+    }
+    /* コンテンツの配置調整 */
+    .next-post-content, .prev-post-content {
+      width: 100%;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    /* タグの配置調整 */
+    .next-post-content :global(.post-tags),
+    .prev-post-content :global(.post-tags) {
+      justify-content: flex-start;
+    }
+
+        /* 前の記事のコンテンツ配置調整 */
+        .prev-post-content {
+    text-align: right;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+    /* 前の記事のタグ配置調整 */
+    .prev-post-content :global(.post-tags) {
+      justify-content: flex-end;
+    }
+
+    /* 前の記事のリンク全体の配置調整 */
+    .links-container > a:has(.prev-post-content) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+    /* 矢印の位置調整 */
+    .arrow-left {
+      /* margin-left: 10px; */
+      margin-left: 0;
+    }
+    .arrow-right {
+      /* margin-right: 10px; */
+      margin-right: 0;
+    }
+  }
+
 </style>
