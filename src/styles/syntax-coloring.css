@@ -31,7 +31,7 @@
 .token.constant,
 .token.property,
 .token.regex {
-  color: #905;
+  color: rgb(139, 141, 255);
 }
 
 .token.prefix.inserted {
