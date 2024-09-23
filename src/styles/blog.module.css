@@ -41,8 +41,6 @@
   object-fit: contain;
 }
 
-
-
 /* モバイル画面向けのスタイル */
 @media (max-width: 430px) {
   .postContent {
