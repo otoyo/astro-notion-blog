@@ -39,6 +39,28 @@ const listTypes = ['i', '1', 'a']
 
 <style>
   ol {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    padding: 0 0 0 25px;
+    margin: 0;
+    ul {
+      font-size: 0.85rem;
+      padding: 0 0 0 20px;
+      margin: 0;
+      list-style-type: disc; /* 「・」を頭に表示 */
+    }
+  }
+
+  /* モバイル表示用のスタイル */
+  @media (max-width: 430px) {
+    ol {
+      font-size: 0.85rem;
+      padding: 0 0 0 20px;
+
+      ul {
+        font-size: 0.8rem;
+        padding: 0 0 0 5px;
+        list-style-type: disc; /* 「・」を頭に表示 */
+      }
+    }
   }
 </style>
