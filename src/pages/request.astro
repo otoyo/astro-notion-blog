@@ -1,0 +1,44 @@
+---
+import { NUMBER_OF_POSTS_PER_PAGE } from '../server-constants.ts'
+import {
+    getPosts,
+    getRankedPosts,
+    getAllTags,
+    getNumberOfPages,
+} from '../lib/notion/client.ts'
+
+import Layout from '../layouts/Layout.astro'
+import BlogPostsLink from '../components/BlogPostsLink.astro'
+import BlogTagsLink from '../components/BlogTagsLink.astro'
+import styles from '../styles/blog.module.css'
+import RequestStatusPanel from '../components/RequestStatusPanel.astro'
+
+const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
+    getPosts(NUMBER_OF_POSTS_PER_PAGE),
+    getRankedPosts(),
+    getAllTags(),
+    getNumberOfPages(),
+])
+---
+
+<Layout>
+    <div slot="main" class={styles.main}>
+        <RequestStatusPanel />
+        <h2>依頼フォーム</h2>
+        <p>ご依頼の際は以下のフォームよりご相談ください．</p>
+        <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScAjYMcchujVxB3lrYJ8ttO0BEAK-h_VCONAKIOAodhIoz8xQ/viewform?embedded=true"
+            width="640"
+            height="2222"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0">読み込んでいます…</iframe
+        >
+    </div>
+
+    <div slot="aside" class={styles.aside}>
+        <BlogPostsLink heading="Recommended" posts={rankedPosts} />
+        <BlogTagsLink heading="Categories" tags={tags} />
+    </div>
+</Layout>
+---

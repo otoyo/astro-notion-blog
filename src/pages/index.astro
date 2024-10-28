@@ -29,6 +29,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
 
 <Layout>
   <div slot="main" class={styles.main}>
+    <h3><a href="/request/">ご依頼はこちらから</a></h3>
     <div class={styles.postContainer}>
       {
         posts.length === 0 ? (
@@ -57,3 +58,23 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
     <BlogTagsLink heading="Categories" tags={tags} />
   </div>
 </Layout>
+
+<style>
+  a {
+    padding: 0 10px;
+    color: #fff;
+    background-image: linear-gradient(
+      to right,
+      #34bfff 50%,
+      rgb(137, 190, 214) 50%
+    );
+    background-position: 0 0;
+    background-size: 200% auto;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    background-position: -100% 0;
+    color: #fff;
+  }
+</style>

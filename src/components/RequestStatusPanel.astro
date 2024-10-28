@@ -1,0 +1,116 @@
+<div>
+    <h2>着手可能時期</h2>
+    <p>楽曲制作、作詞・編曲のみの依頼に関しましてはこちらを参考ください．</p>
+    <div id="widget"></div>
+    <button id="loadMore">さらに表示</button>
+
+    <script>
+        let offset = 12
+        let data = []
+
+        async function fetchData() {
+            try {
+                const response = await fetch(
+                    'https://round-bird-aab3.mass0203ms.workers.dev/'
+                )
+                if (!response.ok) {
+                    console.error(
+                        'データの取得に失敗しました',
+                        response.statusText
+                    )
+                    return []
+                }
+                data = await response.json()
+                render()
+            } catch (error) {
+                console.error('データの取得中にエラーが発生しました', error)
+            }
+        }
+
+        function render() {
+            const widget = document.getElementById('widget')
+            widget.innerHTML = ''
+
+            const table = document.createElement('table')
+            table.style.width = '100%'
+            table.style.borderCollapse = 'collapse'
+
+            // offsetからoffset + 6までのデータを表示
+            const slicedData = data.slice(0, offset)
+
+            for (let i = 0; i < slicedData.length; i += 6) {
+                const dateRow = document.createElement('tr')
+                const statusRow = document.createElement('tr')
+
+                slicedData.slice(i, i + 6).forEach((item) => {
+                    const dateCell = document.createElement('td')
+                    dateCell.textContent = item.date
+                    dateCell.style.border = '1px solid #ddd'
+                    dateCell.style.padding = '8px'
+                    dateCell.style.textAlign = 'center'
+
+                    const statusCell = document.createElement('td')
+                    statusCell.style.border = '1px solid #ddd'
+                    statusCell.style.padding = '8px'
+                    statusCell.style.textAlign = 'center'
+
+                    let statusSymbol = ''
+                    switch (item.status) {
+                        case '空き無し':
+                            statusSymbol = '❌'
+                            break
+                        case '応相談':
+                            statusSymbol = '🔴'
+                            break
+                        case '空きあり':
+                            statusSymbol = '🟡'
+                            break
+                        case '空き':
+                            statusSymbol = '🟢'
+                            break
+                    }
+
+                    statusCell.textContent = `${statusSymbol} ${item.status}`
+                    statusRow.appendChild(statusCell)
+                    dateRow.appendChild(dateCell)
+                })
+
+                table.appendChild(dateRow)
+                table.appendChild(statusRow)
+            }
+
+            widget.appendChild(table)
+        }
+        document.getElementById('loadMore').addEventListener('click', () => {
+            offset += 6
+            render()
+        })
+
+        fetchData()
+    </script>
+</div>
+
+<style>
+    #widget {
+        display: block;
+        width: 100%;
+        max-width: 800px; /* 任意の最大幅を設定 */
+        margin: auto; /* 中央に配置 */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    button {
+        display: block;
+        margin: 0 auto; /* 中央に配置 */
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
