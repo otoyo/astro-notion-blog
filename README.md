@@ -60,12 +60,12 @@ astro-notion-blog enables you to create a blog using [Notion](https://www.notion
 10. In "Build settings" section,
     1. Select "Astro" as "Framework preset"
     2. Open "Environment Variables (advanced)" and set `NODE_VERSION`, `NOTION_API_SECRET` and `DATABASE_ID`
-       - `NODE_VERSION` is `v18.16.0` or higher
+       - `NODE_VERSION` is `20.18.1` or higher
        - [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) is helpful
 
 <img src="https://user-images.githubusercontent.com/1063435/213967061-06f488fe-0b42-40a5-8f19-ac441f0168ff.png" width="400">
 
-<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/bc1ceef1-d67a-490b-b465-34af1b0f8010" width="600">
+<img src="https://github.com/user-attachments/assets/34fa8e2e-db34-40d3-87a6-acdb0d4e66db" width="600">
 
 11. After clicking the 'Save and Deploy' button, your Notion Blog will be published once the deployment process is complete.
 
@@ -75,7 +75,7 @@ Please note that the astro-notion-blog requires manual deployment every time you
 
 ### Additional requirements
 
-- Node.js v18.14.1 or higher
+- Node.js v20.18.1 or higher
 
 ### Steps
 

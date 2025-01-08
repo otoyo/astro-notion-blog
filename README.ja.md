@@ -65,12 +65,12 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 10. 「ビルドの設定」で、
     1. 「フレームワーク プリセット」で Astro を選択します
     2. 「環境変数(アドバンスド)」 を開き `NODE_VERSION`, `NOTION_API_SECRET`, `DATABASE_ID` の 3 つを設定します
-       - `NODE_VERSION` は `v18.16.0` かそれ以上を指定します
+       - `NODE_VERSION` は `20.18.1` かそれ以上を指定します
        - 詳しくは [How to deploy a site with Git](https://docs.astro.build/en/guides/deploy/cloudflare/#how-to-deploy-a-site-with-git) をご覧ください
 
 <img src="https://user-images.githubusercontent.com/1063435/213967111-72ea2ad1-ad3b-4629-8b65-7b25bc6ddb31.png" width="400">
 
-<img src="https://github.com/otoyo/astro-notion-blog/assets/1063435/17ecdc09-c0f8-4332-8b87-04f4b2ffafce" width="600">
+<img src="https://github.com/user-attachments/assets/548a57eb-a152-4a56-8bf9-0853c76638a8" width="600">
 
 11. "Save and Deploy" をクリックし、デプロイが完了すると Notion Blog が見えるようになります
 
@@ -81,7 +81,7 @@ Cloudflare Pages のダッシュボードから手動でデプロイするか、
 
 ### 追加の必要要件
 
-- Node.js v18.14.1 かそれ以上
+- Node.js v20.18.1 かそれ以上
 - Git
 
 ### ステップ
