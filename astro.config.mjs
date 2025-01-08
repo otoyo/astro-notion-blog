@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import icon from "astro-icon";
+import icon from 'astro-icon';
 import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
 import CoverImageDownloader from './src/integrations/cover-image-downloader';
 import CustomIconDownloader from './src/integrations/custom-icon-downloader';
