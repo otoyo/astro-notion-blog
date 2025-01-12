@@ -241,12 +241,7 @@
     }
 
     async function fetchRSS() {
-      const url = new URL(location.href)
-      const port = url.port ? `:${url.port}` : ''
-
-      const res = await fetch(
-        `${url.protocol}//${url.hostname}${port}/feed`
-      )
+      const res = await fetch('https://midnight480.com/feed')
       if (res.status !== 200) {
         console.log(res.status)
         throw new Error('Failed to fetch RSS feed')
