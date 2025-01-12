@@ -116,48 +116,14 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   <div slot="aside" class="aside">
     <div class="fixed-content">
       <BlogPostsLink
-        heading="Posts in the same category"
-        posts={postsHavingSameTag.filter(
-          (p: interfaces.Post) => p.Slug !== post.Slug
-        )}
-      />
-      <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-      <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    </div>
-    <div class="categories-wrapper">
-      <BlogTagsLink heading="Categories" tags={tags} />
+      heading="Posts in the same category"
+      posts={postsHavingSameTag.filter(
+        (p: interfaces.Post) => p.Slug !== post.Slug
+      )}
+    />
+    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
+    <BlogPostsLink heading="Latest posts" posts={recentPosts} />
+    <BlogTagsLink heading="Categories" tags={tags} />
     </div>
   </div>
-
-  <style>
-    .fixed-content {
-      /* 固定コンテンツ用のスタイル */
-      flex-shrink: 0;
-    }
-
-    .categories-wrapper {
-      margin-top: 1rem;
-      flex: 1;
-      overflow-y: auto;
-      scrollbar-width: thin;
-    }
-
-    .categories-wrapper::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .categories-wrapper::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 3px;
-    }
-
-    .categories-wrapper::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 3px;
-    }
-
-    .categories-wrapper::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-  </style>
 </Layout>

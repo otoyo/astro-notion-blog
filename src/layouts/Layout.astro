@@ -189,11 +189,6 @@ if (database.Icon && database.Icon.Type === 'file') {
     width: 300px;
     padding: 20px 20px;
     background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: sticky;
-    top: 0;
   }
   :global(.dark) aside {
     background-color: #2d2d2d;
@@ -201,10 +196,10 @@ if (database.Icon && database.Icon.Type === 'file') {
   :global(.dark) aside h3 {
     color: var(--text-base);
   }
-  :global(.dark) aside > :first-child a {
+  :global(.dark) aside a {
     color: var(--text-base);
   }
-  :global(.dark) aside > :first-child a:hover {
+  :global(.dark) aside a:hover {
     background-color: #3d3d3d;
   }
   @media (max-width: 640px) {
