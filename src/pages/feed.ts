@@ -4,13 +4,14 @@ import { getPostLink } from '../lib/blog-helpers'
 
 export async function GET() {
   const [posts, database] = await Promise.all([getAllPosts(), getDatabase()])
+  const siteUrl = 'https://midnight480.com'
 
   return rss({
     title: database.Title,
     description: database.Description,
-    site: import.meta.env.SITE,
+    site: siteUrl,
     items: posts.map((post) => ({
-      link: new URL(getPostLink(post.Slug), import.meta.env.SITE).toString(),
+      link: new URL(getPostLink(post.Slug), siteUrl).toString(),
       title: post.Title,
       description: post.Excerpt,
       pubDate: new Date(post.Date),
