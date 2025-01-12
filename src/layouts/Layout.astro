@@ -6,6 +6,7 @@ import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import SearchModal from '../components/SearchModal.astro'
 import SearchButton from '../components/SearchButton.astro'
+import ThemeToggle from '../components/ThemeToggle.astro'
 
 export interface Props {
   title: string
@@ -76,6 +77,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     />
   </head>
   <body>
+    <ThemeToggle />
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
       <header>
@@ -186,6 +188,18 @@ if (database.Icon && database.Icon.Type === 'file') {
     padding: 20px 20px;
     background-color: #f4f4f4;
   }
+  :global(.dark) aside {
+    background-color: #2d2d2d;
+  }
+  :global(.dark) aside h3 {
+    color: var(--text-base);
+  }
+  :global(.dark) aside a {
+    color: var(--text-base);
+  }
+  :global(.dark) aside a:hover {
+    background-color: #3d3d3d;
+  }
   @media (max-width: 640px) {
     aside {
       order: 2;
@@ -219,6 +233,15 @@ if (database.Icon && database.Icon.Type === 'file') {
     font-weight: 700;
     color: #333;
   }
+  :global(.dark) main header h1,
+  :global(.dark) main header h1 a,
+  :global(.dark) main header .description,
+  :global(.dark) div.content header h1,
+  :global(.dark) div.content header h1 a,
+  :global(.dark) div.content header .description {
+    color: #fff;
+  }
+
   main header h1 a {
     display: block;
     color: inherit;

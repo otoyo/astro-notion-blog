@@ -1,38 +1,71 @@
+:root {
+  --bg: #fff;
+  --fg: #333;
+  --accent: #0070f3;
+  --gray-text: rgba(120, 119, 116, 1);
+  --brown-text: rgba(159, 107, 83, 1);
+  --orange-text: rgba(217, 115, 13, 1);
+  --yellow-text: rgba(203, 145, 47, 1);
+  --green-text: rgba(68, 131, 97, 1);
+  --blue-text: rgba(51, 126, 169, 1);
+  --purple-text: rgba(144, 101, 176, 1);
+  --pink-text: rgba(193, 76, 138, 1);
+  --red-text: rgba(212, 76, 71, 1);
+}
+
+:root.dark {
+  --bg: #1a1a1a;
+  --fg: #fff;
+  --accent: #0070f3;
+  --gray-text: rgba(155, 155, 155, 1);
+  --brown-text: rgba(189, 137, 113, 1);
+  --orange-text: rgba(247, 145, 43, 1);
+  --yellow-text: rgba(233, 175, 77, 1);
+  --green-text: rgba(98, 162, 128, 1);
+  --blue-text: rgba(81, 153, 201, 1);
+  --purple-text: rgba(174, 129, 207, 1);
+  --pink-text: rgba(223, 106, 151, 1);
+  --red-text: rgba(242, 106, 101, 1);
+  --text-base: #fff;
+  --text-gray: #e1e1e1;
+  --link-color: #3291ff;
+}
+
 .gray,
 .gray:hover {
-  color: rgba(120, 119, 116, 1);
+  color: var(--gray-text);
 }
 .brown,
 .brown:hover {
-  color: rgba(159, 107, 83, 1);
+  color: var(--brown-text);
 }
 .orange,
 .orange:hover {
-  color: rgba(217, 115, 13, 1);
+  color: var(--orange-text);
 }
 .yellow,
 .yellow:hover {
-  color: rgba(203, 145, 47, 1);
+  color: var(--yellow-text);
 }
 .green,
 .green:hover {
-  color: rgba(68, 131, 97, 1);
+  color: var(--green-text);
 }
 .blue,
 .blue:hover {
-  color: rgba(51, 126, 169, 1);
+  color: var(--blue-text);
 }
 .purple,
 .purple:hover {
-  color: rgba(144, 101, 176, 1);
+  color: var(--purple-text);
 }
 .pink,
 .pink:hover {
-  color: rgba(193, 76, 138, 1);
+  color: var(--pink-text);
 }
 .red,
 .red:hover {
-  color: rgba(212, 76, 71, 1);
+  color: var(--red-text);
 }
 .gray-background {
   background: rgba(241, 241, 239, 1) !important;
@@ -101,4 +134,24 @@
 .tag.red {
   color: rgb(28, 56, 41);
   background: rgb(255, 226, 221) !important;
+}
+
+body {
+  color: var(--text-base);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-base);
+}
+
+p, span, div {
+  color: var(--text-base);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.text-gray {
+  color: var(--text-gray);
 }

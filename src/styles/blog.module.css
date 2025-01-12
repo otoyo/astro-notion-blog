@@ -20,3 +20,8 @@
   padding: 0;
   border: 0;
 }
+
+.post :global(h3) {
+  margin: 0;
+  color: var(--fg);
+}
