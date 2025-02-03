@@ -11,21 +11,35 @@ const postURL =
     : url
 ---
 
-<div class="tweet-embed">
-  <blockquote class="twitter-tweet">
+<div class="light-tweet-embed">
+  <blockquote class="twitter-tweet" data-conversation="none">
     <a href={postURL}></a>
   </blockquote>
 </div>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div class="dark-tweet-embed">
+  <blockquote class="twitter-tweet" data-conversation="none" data-theme="dark">
+    <a href={postURL}></a>
+  </blockquote>
+</div>
 
-<style>
-  .tweet-embed {
-    width: 100%;
-    max-width: 640px;
-    margin: auto;
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"
+></script>
+
+<style is:global>
+  .twitter-tweet {
+    margin-inline: auto;
   }
-  .tweet-embed div:first-child div:first-child {
-    margin: auto;
+  .light-tweet-embed {
+    display: block;
+  }
+  .dark-tweet-embed {
+    display: none;
+  }
+  .dark .dark-tweet-embed {
+    display: block;
+  }
+  .dark .light-tweet-embed {
+    display: none;
   }
 </style>
