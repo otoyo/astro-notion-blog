@@ -98,6 +98,7 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   description={post.Excerpt}
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
+  post={post}
 >
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
