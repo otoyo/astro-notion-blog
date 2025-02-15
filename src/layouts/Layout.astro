@@ -12,9 +12,10 @@ export interface Props {
   description: string
   path: string
   ogImage: string
+  post?: Post
 }
 
-const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
+const { title = '', description = '', path = '/', ogImage = '', post } = Astro.props
 
 const database = await getDatabase()
 
@@ -74,7 +75,12 @@ if (database.Icon && database.Icon.Type === 'file') {
       integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
       crossorigin="anonymous"
     />
-  </head>
+    {post && (
+      <>
+        <meta property="article:published_time" content={post.Date} />
+        {post.UpdatedDate && <meta property="article:modified_time" content={post.UpdatedDate} />}
+      </>
+    )}
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
