@@ -8,17 +8,13 @@ export interface Props {
 }
 
 const { post } = Astro.props
+const postDate = getDateStr(post.Date)
+const updatedDate = post.UpdatedDate ? getUpdatedDateStr(post.UpdatedDate) : null
 ---
 
 <div class="post-date">
-  <img src="/src/images/blog-creation.png">
-  {post.Date ? getDateStr(post.Date) : ''}
-  {post.UpdatedDate && (
-    <div>
-      <img class="updateddate" src="/src/images/updated.png">
-      {post.UpdatedDate ? getUpdatedDateStr(post.UpdatedDate) : ''}
-    </div>
-  )}
+  投稿日:{postDate}
+  {updatedDate && <div>／更新日:{updatedDate}</div>}
 </div>
 
 <style>
