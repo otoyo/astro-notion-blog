@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { BASE_PATH, REQUEST_TIMEOUT_MS } from '../server-constants'
 import type {
   Block,
@@ -238,6 +237,13 @@ export const isPinterestURL = (url: URL): boolean => {
     return false
   }
   return /\/pin\/[\d]+/.test(url.pathname)
+}
+
+export const isCodePenURL = (url: URL): boolean => {
+  if (url.hostname !== 'codepen.io' && url.hostname !== 'www.codepen.io') {
+    return false
+  }
+  return /\/[^/]+\/pen\/[^/]+/.test(url.pathname)
 }
 
 export const isShortAmazonURL = (url: URL): boolean => {

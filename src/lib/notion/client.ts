@@ -1,5 +1,6 @@
 import fs, { createWriteStream } from 'node:fs'
-import axios, { AxiosResponse } from 'axios'
+import { pipeline } from 'node:stream/promises'
+import axios from 'axios'
 import sharp from 'sharp'
 import retry from 'async-retry'
 import ExifTransformer from 'exif-be-gone'
@@ -9,6 +10,7 @@ import {
   NUMBER_OF_POSTS_PER_PAGE,
   REQUEST_TIMEOUT_MS,
 } from '../../server-constants'
+import type { AxiosResponse } from 'axios'
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
 import type {
@@ -410,7 +412,13 @@ export async function downloadFile(url: URL) {
   if (res.headers['content-type'] === 'image/jpeg') {
     stream = stream.pipe(rotate)
   }
-  stream.pipe(new ExifTransformer()).pipe(writeStream)
+  try {
+    return pipeline(stream, new ExifTransformer(), writeStream)
+  } catch (err) {
+    console.log(err)
+    writeStream.end()
+    return Promise.resolve()
+  }
 }
 
 export async function getDatabase(): Promise<Database> {
