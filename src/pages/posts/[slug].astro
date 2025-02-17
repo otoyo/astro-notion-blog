@@ -9,14 +9,14 @@ import {
   getBlock,
   getAllTags,
   getAllBlocksByBlockId,
-  downloadFile,
+  downloadFile
 } from '../../lib/notion/client.ts'
 import {
   getPostLink,
   filePath,
-  extractTargetBlocks,
+  extractTargetBlocks
 } from '../../lib/blog-helpers.ts'
-import Layout from '../../layouts/Layout.astro'
+import PostLayout from '../../layouts/PostLayout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
 import PostTitle from '../../components/PostTitle.astro'
@@ -24,7 +24,6 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
-import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -45,7 +44,7 @@ const [blocks, allPosts, rankedPosts, recentPosts, tags, postsHavingSameTag] =
     getRankedPosts(),
     getPosts(5),
     getAllTags(),
-    getPostsByTag(post.Tags[0]?.name, 6),
+    getPostsByTag(post.Tags[0]?.name, 6)
   ])
 
 const fileAtacchedBlocks = extractTargetBlocks('image', blocks)
@@ -74,7 +73,10 @@ await Promise.all(
         try {
           url = new URL((block.Image || block.File).File.Url)
         } catch {
-          console.log('Invalid file URL: ', (block.Image || block.File)?.File?.Url)
+          console.log(
+            'Invalid file URL: ',
+            (block.Image || block.File)?.File?.Url
+          )
           return Promise.reject()
         }
         return Promise.resolve(url)
@@ -93,35 +95,23 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
 }
 ---
 
-<Layout
+<PostLayout
   title={post.Title}
   description={post.Excerpt}
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot="main" class={styles.main}>
-    <div class={styles.post}>
-      <PostDate post={post} />
-      <PostTags post={post} />
-      <PostTitle post={post} enableLink={false} />
-      <PostBody blocks={blocks} />
-      <PostTags post={post} />
-
-      <footer>
-        <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
-      </footer>
-    </div>
+  <div slot='main' class=''>
+    <PostDate post={post} />
+    <PostTitle post={post} enableLink={false} />
+    <PostBody blocks={blocks} />
   </div>
 
-  <div slot="aside" class="aside">
-    <BlogPostsLink
-      heading="Posts in the same category"
-      posts={postsHavingSameTag.filter(
-        (p: interfaces.Post) => p.Slug !== post.Slug
-      )}
-    />
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogPostsLink heading="Latest posts" posts={recentPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+  <div slot='colophon'>
+    <PostTags post={post} />
   </div>
-</Layout>
+
+  <div slot='footer'>
+    <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
+  </div>
+</PostLayout>

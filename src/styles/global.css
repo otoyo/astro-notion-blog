@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+body {
+  @apply tracking-wide leading-relaxed w-auto h-svh;
+}
+.writing-vertical {
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  @apply text-start overflow-x-scroll break-words whitespace-nowrap;
+}
+.writing-vertical p {
+  @apply my-4;
+}

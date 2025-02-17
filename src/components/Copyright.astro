@@ -1,0 +1,25 @@
+---
+const toKanjiYear = (year) => {
+  const kanjiNumbers = [
+    '〇',
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+    '七',
+    '八',
+    '九'
+  ]
+  return String(year)
+    .split('')
+    .map((num) => kanjiNumbers[num])
+    .join('')
+}
+
+const currentYearKanji = toKanjiYear(new Date().getFullYear())
+console.log(currentYearKanji) // "二〇二五"
+---
+
+;<p>© {currentYearKanji} Daisukenagai.</p>

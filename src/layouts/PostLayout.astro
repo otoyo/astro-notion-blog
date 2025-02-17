@@ -1,0 +1,116 @@
+---
+import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts'
+import { getDatabase } from '../lib/notion/client.ts'
+import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
+import '../styles/syntax-coloring.css'
+import '../styles/global.css'
+import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+import Copyright from '../components/Copyright.astro'
+import SearchModal from '../components/SearchModal.astro'
+import SearchButton from '../components/SearchButton.astro'
+
+export interface Props {
+  title: string
+  description: string
+  path: string
+  ogImage: string
+}
+
+const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
+
+const database = await getDatabase()
+
+const siteTitle = title ? `${title} - ${database.Title}` : database.Title
+const siteDescription = description ? description : database.Description
+const siteURL = new URL(getNavLink(path), Astro.site).toString()
+const siteOGImage = new URL(
+  getStaticFilePath('/default-og-image.png'),
+  Astro.site
+)
+
+let coverImageURL: string
+if (database.Cover) {
+  if (database.Cover.Type === 'external') {
+    coverImageURL = database.Cover.Url
+  } else if (database.Cover.Type === 'file') {
+    try {
+      coverImageURL = filePath(new URL(database.Cover.Url))
+    } catch {
+      console.log('Invalid DB cover image URL: ', database.Cover?.Url)
+    }
+  }
+}
+
+let customIconURL: string
+if (database.Icon && database.Icon.Type === 'file') {
+  try {
+    customIconURL = filePath(new URL(database.Icon.Url))
+  } catch {
+    console.log('Invalid DB custom icon URL: ', database.Icon?.Url)
+  }
+}
+---
+
+<!doctype html>
+<html lang='ja' prefix='og: https://ogp.me/ns#'>
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name='robots' content='max-image-preview:large' />
+    <meta charset='UTF-8' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{siteTitle}</title>
+    <meta name='description' content={siteDescription} />
+    <link rel='canonical' href={siteURL} />
+    <meta property='og:url' content={siteURL} />
+    <meta property='og:title' content={siteTitle} />
+    <meta property='og:description' content={siteDescription} />
+    <meta property='og:site_name' content={database.Title} />
+    <meta property='og:image' content={ogImage || siteOGImage} />
+    <meta name='twitter:title' content={siteTitle} />
+    <meta name='twitter:description' content={siteDescription} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:image' content={ogImage || siteOGImage} />
+    <link
+      rel='stylesheet'
+      href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
+      integrity='sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0'
+      crossorigin='anonymous'
+    />
+  </head>
+  <body>
+    <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <div
+      class='flex flex-col justify-between w-full h-screen overflow-y-hidden'
+    >
+      <header class='sticky top-0 left-0 w-full'>
+        <div class='py-4 text-center'>
+          <a href={getNavLink('/')}>
+            {database.Title}
+          </a>
+        </div>
+      </header>
+
+      <main class='flex-8 writing-vertical h-[80%]'>
+        <slot name='main' />
+        <aside>
+          <slot name='colophon' />
+          <Copyright />
+        </aside>
+      </main>
+
+      <footer class='flex-1'>
+        <slot name='footer' />
+      </footer>
+    </div>
+  </body>
+
+  <style>
+    div.cover img {
+      display: block;
+      width: 100%;
+      height: 20vh;
+      object-fit: cover;
+      object-position: center 60%;
+    }
+  </style>
+</html>
