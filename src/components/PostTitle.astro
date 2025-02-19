@@ -5,14 +5,15 @@ import { getPostLink } from '../lib/blog-helpers.ts'
 export interface Props {
   post: Post
   enableLink: boolean
+  className?: string
 }
 
-const { post, enableLink = true } = Astro.props
+const { post, enableLink = true, className } = Astro.props
 
 let title = post.Title
 ---
 
-<h2 class="post-title">
+<h2 class={className}>
   {
     enableLink ? (
       <a href={getPostLink(post.Slug)}>
@@ -23,7 +24,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} alt="Post title icon" />
+            <img src={post.Icon.Url} alt='Post title icon' />
             {title}
           </>
         ) : (
@@ -39,7 +40,7 @@ let title = post.Title
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img src={post.Icon.Url} alt="Post title icon" />
+            <img src={post.Icon.Url} alt='Post title icon' />
             {title}
           </>
         ) : (
@@ -49,38 +50,3 @@ let title = post.Title
     )
   }
 </h2>
-
-<style>
-  .post-title {
-    margin: 0;
-    padding: 0.2rem 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--fg);
-  }
-  .post-title a {
-    font-size: 1.6rem;
-    color: inherit;
-  }
-  .post-title span,
-  .post-title img {
-    display: inline-block;
-    margin-right: 0.2em;
-  }
-  .post-title span {
-    font-size: 1.2em;
-  }
-  .post-title img {
-    width: 1.3em;
-    height: 1.3em;
-    vertical-align: sub;
-  }
-  @media (max-width: 640px) {
-    .post-title {
-      font-size: 1.4rem;
-    }
-    .post-title a {
-      font-size: 1.2rem;
-    }
-  }
-</style>

@@ -4,7 +4,7 @@ import {
   getRankedPosts,
   getAllTags,
   getNumberOfPages,
-  getPostsByPage,
+  getPostsByPage
 } from '../../../lib/notion/client.ts'
 import Layout from '../../../layouts/Layout.astro'
 import NoContents from '../../../components/NoContents.astro'
@@ -35,14 +35,14 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByPage(parseInt(page, 10)),
   getRankedPosts(),
   getAllTags(),
-  getNumberOfPages(),
+  getNumberOfPages()
 ])
 ---
 
 <Layout title={`Posts ${page}/${numberOfPages}`} path={`/posts/page/${page}`}>
-  <div slot="main" class={styles.main}>
+  <div slot='main' class={styles.main}>
     <header>
-      <div class="page-container">{page}/{numberOfPages}</div>
+      <div class='page-container'>{page}/{numberOfPages}</div>
     </header>
 
     {
@@ -70,9 +70,9 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
     </footer>
   </div>
 
-  <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+  <div slot='aside' class={styles.aside}>
+    <BlogPostsLink heading='Recommended' posts={rankedPosts} />
+    <BlogTagsLink heading='Categories' tags={tags} />
   </div>
 </Layout>
 

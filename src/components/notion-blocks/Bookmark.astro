@@ -24,7 +24,7 @@ try {
     const metascraper = createMetascraper([
       metascraperDescription(),
       metascraperImage(),
-      metascraperTitle(),
+      metascraperTitle()
     ])
     const html = urlMap[url.toString()]
     if (html) {
@@ -40,12 +40,12 @@ try {
   url && (
     <>
       {isAmazonURL(url) ? (
-        <div class="no-metadata">
+        <div class='no-metadata'>
           <a href={url.toString()}>{url.toString()}</a>
         </div>
       ) : (
-        <div class="bookmark">
-          <a href={url.toString()} target="_blank" rel="noopener noreferrer">
+        <div class='bookmark'>
+          <a href={url.toString()} target='_blank' rel='noopener noreferrer'>
             <div>
               <div>{metadata && metadata.title}</div>
               <div>{metadata && metadata.description}</div>
@@ -53,8 +53,8 @@ try {
                 <div>
                   <img
                     src={`https://www.google.com/s2/favicons?domain=${url.hostname}`}
-                    alt="Favicon of the bookmark site"
-                    loading="lazy"
+                    alt='Favicon of the bookmark site'
+                    loading='lazy'
                   />
                 </div>
                 <div>{url.origin}</div>
@@ -64,8 +64,8 @@ try {
               {metadata && metadata.image && (
                 <img
                   src={metadata.image}
-                  alt="Site image of the bookmark"
-                  loading="lazy"
+                  alt='Site image of the bookmark'
+                  loading='lazy'
                 />
               )}
             </div>

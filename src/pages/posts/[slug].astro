@@ -24,6 +24,7 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
+import PostCoverImage from '../../components/PostCoverImage.astro'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -101,9 +102,9 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
 >
-  <div slot='main' class=''>
+  <div slot='main' class='space-y-2 md:space-y-8'>
     <PostDate post={post} />
-    <PostTitle post={post} enableLink={false} />
+    <PostCoverImage post={post} />
     <PostBody blocks={blocks} />
   </div>
 

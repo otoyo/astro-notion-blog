@@ -1,13 +1,58 @@
 @import 'tailwindcss';
 
 body {
+  font-family: 'Noto Serif JP', '游明朝', 'Yu Mincho', YuMincho,
+    'Hiragino Mincho Pro', serif;
+  font-optical-sizing: auto;
   @apply tracking-wide leading-relaxed w-auto h-svh;
 }
+
+/* vertical layout */
 .writing-vertical {
-  text-orientation: mixed;
   writing-mode: vertical-rl;
-  @apply text-start overflow-x-scroll break-words whitespace-nowrap;
+  @apply overflow-x-scroll;
 }
 .writing-vertical p {
   @apply my-4;
+}
+/* components */
+.writing-vertical .bookmark,
+.writing-vertical .image,
+.writing-vertical .code,
+.writing-vertical .table {
+  writing-mode: horizontal-tb;
+  @apply mx-8;
+}
+
+.post-title {
+  margin: 0;
+  padding: 0.2rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.post-title a {
+  font-size: 1.6rem;
+  color: inherit;
+}
+.post-title span,
+.post-title img {
+  display: inline-block;
+  margin-right: 0.2em;
+}
+.post-title span {
+  font-size: 1.2em;
+}
+.post-title img {
+  width: 1.3em;
+  height: 1.3em;
+  vertical-align: sub;
+}
+@media (max-width: 640px) {
+  .post-title {
+    font-size: 1.4rem;
+  }
+  .post-title a {
+    font-size: 1.2rem;
+  }
 }

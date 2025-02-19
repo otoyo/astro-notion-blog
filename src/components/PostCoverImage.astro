@@ -1,0 +1,33 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import { filePath } from '../lib/blog-helpers'
+import PostTitle from './PostTitle.astro'
+
+export interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+
+let image = ''
+if (post.FeaturedImage && post.FeaturedImage.Url) {
+  if (import.meta.env.DEV) {
+    image = post.FeaturedImage.Url
+  } else {
+    image = filePath(new URL(post.FeaturedImage.Url))
+  }
+}
+---
+
+{
+  image && (
+    <div
+      class='w-xs h-full bg-cover md:w-md lg:w-xl'
+      style={`background-image: url(${image})`}
+    >
+      <div class='w-full h-full flex items-center justify-center p-4'>
+        <PostTitle post={post} enableLink={false} className='text-5xl' />
+      </div>
+    </div>
+  )
+}
