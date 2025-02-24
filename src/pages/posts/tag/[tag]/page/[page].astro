@@ -59,7 +59,7 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
   rankedPosts={rankedPosts}
   tags={tags}
   numberOfPages={numberOfPages}
-  currentPage={1}
+  currentPage={parseInt(page, 10)}
 >
 </BlogLayout>
 

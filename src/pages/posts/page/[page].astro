@@ -47,7 +47,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   rankedPosts={rankedPosts}
   tags={tags}
   numberOfPages={numberOfPages}
-  currentPage={1}
+  currentPage={parseInt(page, 10)}
 >
 </BlogLayout>
 

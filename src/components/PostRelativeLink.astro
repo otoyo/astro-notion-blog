@@ -39,8 +39,8 @@ const { prevPost, nextPost } = Astro.props
     }
   </div>
   <div class="top-link">
-    <a href={getNavLink('/')}>
-      <div>↑Top</div>
+    <a href={getNavLink('/')} style="text-decoration: none;">
+      <div>Top</div>
     </a>
   </div>
 </div>
@@ -102,17 +102,23 @@ const { prevPost, nextPost } = Astro.props
 
   /* TOPリンクのスタイル */
   .top-link {
-    width: 100%;
+    width: 70px;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    color: rgb(74, 116, 255);
+    background: rgb(192, 217, 255);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1.9rem; /* 四隅を丸くする */
+    font-weight: bold;
   }
 
   /* 左向き矢印のスタイル */
   .arrow-left {
-    border-top: 25px solid transparent; /* サイズを小さく */
-    border-bottom: 25px solid transparent; /* サイズを小さく */
-    border-left: 25px solid #97d0ff; /* 幅を少し狭く */
+    border-top: 16px solid transparent; /* サイズを小さく */
+    border-bottom: 16px solid transparent; /* サイズを小さく */
+    border-left: 16px solid #97d0ff; /* 幅を少し狭く */
     margin-left: 10px;
     transform: scaleY(1.5);
     padding: 0 5px;
@@ -121,9 +127,9 @@ const { prevPost, nextPost } = Astro.props
 
   /* 右向き矢印のスタイル */
   .arrow-right {
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-right: 25px solid #97d0ff;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right: 16px solid #97d0ff;
     margin-right: 10px;
     transform: scaleY(1.5);
     padding: 0 5px;

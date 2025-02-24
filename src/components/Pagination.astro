@@ -1,40 +1,51 @@
 ---
-import { getPageLink } from '../lib/blog-helpers.ts'
-
-export interface Props {
-  currentPage: number
-  numberOfPages: number
-  tag: string
-}
+import { getNavLink, getPageLink } from '../lib/blog-helpers';
 
 const { currentPage, numberOfPages, tag = '' } = Astro.props
 
 const isFirstPage = currentPage === 1
 const isLastPage = currentPage === numberOfPages
 
-const startPage = currentPage - 2 < 1 ? 1 : currentPage - 2
-const endPage =
-  currentPage + 2 > numberOfPages ? numberOfPages : currentPage + 2
+// startPageとendPageの計算を修正
+let startPage = Math.max(1, currentPage - 2);
+let endPage = Math.min(numberOfPages, currentPage + 2);
 
-let pages = []
+// ページ数が5ページ未満の場合の調整
+if (numberOfPages <= 5) {
+  startPage = 1;
+  endPage = numberOfPages;
+} else {
+  // currentPageがnumberOfPagesに近い場合の調整
+  if (currentPage > numberOfPages - 2) {
+    startPage = numberOfPages - 4;
+  }
+  // currentPageが3未満の場合の調整
+  if (currentPage < 3) {
+    endPage = 5;
+  }
+}
+
+let pages = [];
 for (let i = startPage; i <= endPage; i++) {
-  pages.push(i)
+  pages.push(i);
 }
 ---
 
 <div class="pagination">
-  <a href={getPageLink(1, tag)} class={isFirstPage && 'inactive'}>&lt;&lt;</a>
+  <a href={getPageLink(1, tag)} class={isFirstPage ? 'inactive' : ''}>&lt;&lt;</a>
   {
     pages.map((p: number) => (
-      <a href={getPageLink(p, tag)} class={p === currentPage && 'inactive'}>
+      <a
+        href={p === currentPage ? undefined : getPageLink(p, tag)}
+        class={p === currentPage ? 'active' : ''}
+      >
         {p}
       </a>
     ))
   }
-  <a href={getPageLink(numberOfPages, tag)} class={isLastPage && 'inactive'}
-    >&gt;&gt;</a
-  >
+  <a href={getPageLink(numberOfPages, tag)} class={isLastPage ? 'inactive' : ''}>&gt;&gt;</a>
 </div>
+
 
 <style>
   .pagination {
@@ -46,7 +57,7 @@ for (let i = startPage; i <= endPage; i++) {
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 255, 255);
-    box-sizing: border-box; // パディングを幅に含める
+    box-sizing: border-box;
   }
   .pagination a {
     display: block;
@@ -54,19 +65,26 @@ for (let i = startPage; i <= endPage; i++) {
     height: 3rem;
     margin: 0 0.4rem;
     border-radius: var(--radius);
-    background: #f4f4f4;
-    color: inherit;
+    background: #ffffff;
+    color: blue;
     font-size: 0.85rem;
     text-align: center;
-    text-decoration: underline;
-    font-weight: 500;
+    text-decoration: none;
+    font-weight: bold;
     line-height: 3rem;
+    border-radius: 10px;
   }
+
   .pagination a:hover:not(.inactive) {
-    background: #ddd;
+    background: rgb(216, 229, 253);
   }
   .pagination a.inactive {
-    color: #999;
+    color: lightgray;
     text-decoration: none;
+    pointer-events: none; /* ここを追加 */
+  }
+  .pagination a.active {
+    pointer-events: none;
+    color: lightgray; /* テキストを灰色にする */
   }
 </style>
