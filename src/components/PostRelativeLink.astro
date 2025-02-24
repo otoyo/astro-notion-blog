@@ -56,9 +56,15 @@ const { prevPost, nextPost } = Astro.props
     align-items:flex-start;
   }
 
+  .colored-left,
+  .colored-right { 
+    border-radius: 1.9rem; /* 四隅を丸くする */
+  }
+
   .colored-left:hover,
   .colored-right:hover { 
-    background-color: #cae5ff; // マウスオーバー時の背景色
+    background-color: #dbebf8;
+    border-radius: 1.9rem; /* 四隅を丸くする */ 
   }
   
   /* 親要素に対して相対配置を設定 */
@@ -82,7 +88,7 @@ const { prevPost, nextPost } = Astro.props
     gap: 1rem;
     flex-wrap: nowrap;
     justify-content: space-between;
-    background-color: #f3f6fd;
+    background-color: #ffffff;
     padding: 20px 0;
   }
 
