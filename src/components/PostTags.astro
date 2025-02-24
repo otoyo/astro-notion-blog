@@ -30,7 +30,7 @@ const { post, enableLink = true } = Astro.props
 
 <style>
   .post-tags {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -44,8 +44,9 @@ const { post, enableLink = true } = Astro.props
     border-radius: 3px;
     padding: 2px 6px;
     line-height: 1.2;
-    color: rgb(50, 48, 44);
-    background: rgba(227, 226, 224, 0.5);
+    color: rgb(97, 97, 97);
+    background: rgba(167, 191, 236, 0.555);
+    text-decoration: none; /* 下線を消す */
   }
     /* モバイル表示時のフォントサイズを小さくする */
     @media (max-width: 430px) {

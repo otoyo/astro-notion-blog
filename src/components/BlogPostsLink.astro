@@ -70,11 +70,12 @@ const { heading, posts } = Astro.props
     border-radius: var(--radius);
     padding: 0.4rem 0.4rem;
     line-height: 1.2rem;
-    color: inherit;
-    font-size: 0.95rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    color: rgb(112, 112, 202); /* 変更: 青色に変更 */
+    font-size: 0.9rem;
+    overflow: visible; /* 変更 */
+    white-space: normal; /* 変更 */
+    text-overflow: clip; /* 変更 */
+    word-break: break-word; /* 追加 */
   }
   .blog-posts-link ul li a:hover {
     background-color: #ddd;

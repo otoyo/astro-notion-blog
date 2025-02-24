@@ -79,45 +79,17 @@ if (database.Icon && database.Icon.Type === 'file') {
   <body class="body-background">
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
-      <header>
-        <h1>
-          <a href={getNavLink('/')}>
-            {
-              database.Icon && database.Icon.Type === 'emoji' ? (
-                <>
-                  <span>{database.Icon.Emoji}</span>
-                  {database.Title}
-                </>
-              ) : database.Icon &&
-                database.Icon.Type === 'external' &&
-                database.Icon.Url !==
-                  'https://www.notion.so/icons/cellular_purple.svg' ? (
-                <>
-                  <img src={database.Icon.Url} alt="Site icon image" />
-                  {database.Title}
-                </>
-              ) : database.Icon && database.Icon.Type === 'file' ? (
-                <>
-                  <img
-                    src={customIconURL}
-                    class="custom-icon"
-                    alt="Site icon image"
-                  />
-                  {database.Title}
-                </>
-              ) : (
-                database.Title
-              )
-            }
-          </a>
-        </h1>
-        <div class="description">
-          {database.Description}
+      <a href={getNavLink('/')} >
+        <div class="header">
+          <div class="description">
+            {database.Description}
+          </div>
         </div>
-      </header>
+      </a>
 
       <div class="content-wrapper">
         <aside>
+          <p class="search-label">各領域で専門知識を持ったメンバーがいろいろな記事を執筆しています。普段の生活に役立つ情報活用ワザをあなたにお届けします。気になるカテゴリを最下部からクリックしてみてね。AI活用も取り入れた情報も発信しますので、気になる方はブックマークお願いします。</p>
           <SearchButton />
           <slot name="aside" />
         </aside>
@@ -145,86 +117,99 @@ if (database.Icon && database.Icon.Type === 'file') {
 
 <style is:global>
   body {
-    max-width: 1380px; /* コンテンツの最大幅を設定 */
-    margin: 0 auto; /* 上下のマージンは0、左右は自動で中央揃え */
-    /* padding: 0 20px; 左右に少しパディングを追加 */
+    max-width: 1380px;
+    margin: 0 auto;
   }
 
   code:not(pre code) {
-    background-color: #ffe4fe; /* お好みの背景色に変更してください */
-    color: #a80000 !important; /* 文字色を明るい灰色に変更 */
+    background-color: #ffe4fe;
+    color: #a80000 !important;
     padding: 0.1em;
     border-radius: 3px;
     font-size: 0.85em;
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-weight: bold; /* ボールドに設定 */
+    font-weight: bold;
   }
 
-  /* コードブロック以外のli要素にスタイルを適用 */
   .content li:not(.code li) {
     padding: 0.1rem 0;
   }
 
-  /* コードブロック以外のli要素内のcode要素にスタイルを適用 */
   .content li:not(.code li) code:not(pre code) {
     padding: 0.2em 0.4em;
   }
 </style>
 
 <style>
+/* src/styles/blog.module.css */
+.header {
+  background-image: url('../images/headerImage.png'); /* デフォルト画像 */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 10px;
+  /* 高さはJavaScriptで動的に設定 */
+}
+
+@media (max-width: 430px) {
+  .header {
+    
+    background-image: url('../images/headerImage_mini.png'); /* 430px以下の場合の画像 */
+    background-position: left center; /* 左端を基準に */
+    background-size: contain; /* 変更 */
+    object-fit: contain; /* 変更 */
+  }
+}
 
 h1 a {
   font-size: 2.25rem;
   font-weight: 700;
-  background: linear-gradient(to right, #3801ff, #fb7dff, #ae97ff, #3801ff);
+  /* background: linear-gradient(to right, #3801ff, #fb7dff, #ae97ff, #3801ff);  削除または変更 */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 100% 100%; /* グラデーションのサイズを調整 */
+  /* background-size: 100% 100%; 削除 */
 }
-    .body-background {
-    background-color: #f4f4ff; /* お好みの色に変更 */
-  }
+.body-background {
+  background-color: #f4f4ff;
+}
 
-  header {
-    background-color: #ffffff;
-    padding: 1.2rem;
-    border-radius: 15px;
-    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05); /* シャドウを大きく、より目立つように */
-    position: relative; /* z-indexを有効にするため */
-    z-index: 1; /* 他の要素より前面に */
-    /* margin: 10px; 周囲の要素との間隔を確保 */
-  }
+.container {
+  min-height: 100vh;
+  max-width: 1380px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
 
-  .container {
-    min-height: 100vh;
-    max-width: 1380px; /* 必要に応じてこの値を調整 */
-    /* margin: 0 auto; 中央揃え */
-    padding: 10px; /* 左右の余白を固定 */
-    box-sizing: border-box; /* パディングを幅に含める */
-    display: flex;
-    flex-direction: column;
-  }
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+  border-radius: 10px;
+  padding: 5px 0 0 0;
+}
 
-  .content-wrapper {
-    flex: 1;
-    display: flex;
-    gap: 5px;
-    border-radius: 10px;
-    padding: 5px 0 0 0;
-  }
+aside {
+  width: 400px;
+  max-width: calc(100% - 40px);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+  background-color: #ffffff;
+}
 
-  aside {
-    width: 400px; /* 固定幅を維持 */
-    max-width: calc(100% - 40px); /* 画面幅に応じて調整（左右の余白分を引く） */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 1;
-    background-color: #ffffff;
-  }
+aside p.search-label {
+  font-size: 0.9rem; /* 例として0.9remに設定 */
+}
 
-  main {
+main {
   flex: 1;
   padding: 20px;
   background-color: #ffffff;
@@ -239,25 +224,14 @@ h1 a {
   word-wrap: break-word;
 }
 
-  .content {
-    overflow: hidden; // はみ出しを防ぐ
-    padding: 10px;
-    background-color: #ffffff; // 背景色を設定
-    box-shadow: inset 0px 0px 20px 10px rgba(0, 0, 0, 1); // サイズを大きく
-  }
+footer {
+  width: 100%;
+  background-color: #f4f4ff;
+  padding: 1rem 0;
+  text-align: center;
+}
 
-  footer {
-    width: 100%;
-    background-color: #f4f4ff;
-    padding: 1rem 0;
-    text-align: center;
-  }
-
-  @media (max-width: 1280px) {
-  .container {
-    /* padding: 0 20px; */
-  }
-
+@media (max-width: 1280px) {
   .content-wrapper {
     flex-direction: column-reverse;
   }
@@ -270,14 +244,39 @@ h1 a {
   main {
     margin-left: 0;
   }
-    /* モバイル表示時のフォントサイズを小さくする */
-    @media (max-width: 430px) {
+  @media (max-width: 430px) {
     .description {
-      font-size: 0.8rem; /* フォントサイズを小さく設定 */
+      font-size: 0.8rem;
     }
     footer {
-      font-size: 0.8rem; /* モバイル表示時のフォントサイズを小さく設定 */
+      font-size: 0.8rem;
     }
   }
 }
 </style>
+
+<script is:inline>
+  function adjustHeaderHeight() {
+    const header = document.querySelector('.header');
+    const windowWidth = window.innerWidth;
+    const aspectRatio = 1360 / 200;
+    const maxHeight = 200;
+    const minHeight = 50;
+
+    // 430px以上の時のみJavaScriptで計算
+    if (windowWidth > 430) {
+      let headerHeight = Math.min(maxHeight, windowWidth / aspectRatio);
+      headerHeight = Math.max(minHeight, headerHeight);
+      header.style.height = headerHeight + 'px';
+      header.style.backgroundSize = 'contain';
+    } else {
+      // 430px以下の場合は200pxに固定
+      header.style.height = '150px';
+      header.style.backgroundSize = 'cover';
+    }
+  }
+
+  window.addEventListener('resize', adjustHeaderHeight);
+  // 初期表示時にも実行
+  adjustHeaderHeight();
+</script>
