@@ -204,7 +204,7 @@ export const isInstagramURL = (url: URL): boolean => {
   ) {
     return false
   }
-  return /\/p\/[^/]+/.test(url.pathname)
+  return /\/(p|reel)\/[^/]+/.test(url.pathname)
 }
 
 export const isPinterestURL = (url: URL): boolean => {
