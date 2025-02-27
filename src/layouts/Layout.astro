@@ -18,11 +18,12 @@ const { title = '', description = '', path = '/', ogImage = '' } = Astro.props
 
 const database = await getDatabase()
 
-const siteTitle = title ? `${title} - ${database.Title}` : database.Title
+// const siteTitle = title ? `${title} - ${database.Title}` : database.Title
+const siteTitle = "biliotech"
 const siteDescription = description ? description : database.Description
 const siteURL = new URL(getNavLink(path), Astro.site).toString()
 const siteOGImage = new URL(
-  getStaticFilePath('/default-og-image.png'),
+  getStaticFilePath('/og-image.png'),
   Astro.site
 )
 
