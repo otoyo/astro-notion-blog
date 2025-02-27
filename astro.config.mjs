@@ -33,7 +33,7 @@ const getSite = function () {
 
 // https://astro.build/config
 export default defineConfig({
-  site: getSite(),
+  site: 'https://biliotech.com/', // ここにあなたの独自ドメインを設定
   base: BASE_PATH,
   integrations: [
     CoverImageDownloader(),
