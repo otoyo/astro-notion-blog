@@ -11,4 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: curl
-        run: curl -X POST '${{ secrets.DEPLOY_HOOK_URL }}'
+        run: |
+          curl -X POST "${{ secrets.DEPLOY_HOOK_URL }}"
