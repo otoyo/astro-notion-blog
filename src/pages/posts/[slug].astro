@@ -19,12 +19,12 @@ import {
 import PostLayout from '../../layouts/PostLayout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
-import PostTitle from '../../components/PostTitle.astro'
 import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import PostCoverImage from '../../components/PostCoverImage.astro'
+import Copyright from '../../components/Copyright.astro'
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -101,18 +101,39 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   description={post.Excerpt}
   path={getPostLink(post.Slug)}
   ogImage={ogImage}
+  layoutPost={true}
 >
-  <div slot='main' class='space-y-2 md:space-y-8'>
-    <PostDate post={post} />
-    <PostCoverImage post={post} />
+  <div slot='main-content' class='space-y-2 md:space-y-8'>
+    <PostDate post={post} className='text-slate-500' />
+    <PostCoverImage
+      post={post}
+      widthClass='w-xs md:w-md lg:w-xl '
+      textClass='text-5xl text-white'
+    />
     <PostBody blocks={blocks} />
   </div>
 
-  <div slot='colophon'>
-    <PostTags post={post} />
+  <div slot='footer-content'>
+    <Copyright />
   </div>
 
-  <div slot='footer'>
+  <div
+    slot='aside-content'
+    class='grid grid-cols-2 items-center justify-between p-2 text-sm h-full'
+  >
     <PostRelativeLink prevPost={prevPost} nextPost={nextPost} />
+    <!-- <PostTags post={post} /> -->
   </div>
 </PostLayout>
+
+<script>
+  import { onMount } from 'solid-js'
+
+  onMount(() => {
+    const scrollContainer = document.querySelector('.content-wrapper')
+
+    window.addEventListener('wheel', (e) => {
+      scrollContainer.scrollLeft -= e.deltaY
+    })
+  })
+</script>

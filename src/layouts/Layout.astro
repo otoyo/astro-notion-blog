@@ -49,48 +49,41 @@ if (database.Icon && database.Icon.Type === 'file') {
 }
 ---
 
-<!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<!doctype html>
+<html lang='en' prefix='og: https://ogp.me/ns#'>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="max-image-preview:large" />
-    <meta charset="UTF-8" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name='robots' content='max-image-preview:large' />
+    <meta charset='UTF-8' />
+    <meta name='generator' content={Astro.generator} />
     <title>{siteTitle}</title>
-    <meta name="description" content={siteDescription} />
-    <link rel="canonical" href={siteURL} />
-    <meta property="og:url" content={siteURL} />
-    <meta property="og:title" content={siteTitle} />
-    <meta property="og:description" content={siteDescription} />
-    <meta property="og:site_name" content={database.Title} />
-    <meta property="og:image" content={ogImage || siteOGImage} />
-    <meta name="twitter:title" content={siteTitle} />
-    <meta name="twitter:description" content={siteDescription} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={ogImage || siteOGImage} />
+    <meta name='description' content={siteDescription} />
+    <link rel='canonical' href={siteURL} />
+    <meta property='og:url' content={siteURL} />
+    <meta property='og:title' content={siteTitle} />
+    <meta property='og:description' content={siteDescription} />
+    <meta property='og:site_name' content={database.Title} />
+    <meta property='og:image' content={ogImage || siteOGImage} />
+    <meta name='twitter:title' content={siteTitle} />
+    <meta name='twitter:description' content={siteDescription} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:image' content={ogImage || siteOGImage} />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
-      integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
-      crossorigin="anonymous"
+      rel='stylesheet'
+      href='https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
+      integrity='sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0'
+      crossorigin='anonymous'
     />
   </head>
   <body>
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
-    <div class="container">
-      <header>
-        {
-          coverImageURL && (
-            <div class="cover">
-              <img src={coverImageURL} alt="Site cover image" loading="lazy" />
-            </div>
-          )
-        }
-      </header>
-
+    <div
+      class='container bg-cover'
+      style={`background-image: url(${coverImageURL});`}
+    >
       <div>
         <main>
-          <div class="content">
+          <div class='content'>
             <header>
               <h1>
                 <a href={getNavLink('/')}>
@@ -102,15 +95,15 @@ if (database.Icon && database.Icon.Type === 'file') {
                       </>
                     ) : database.Icon && database.Icon.Type === 'external' ? (
                       <>
-                        <img src={database.Icon.Url} alt="Site icon image" />
+                        <img src={database.Icon.Url} alt='Site icon image' />
                         {database.Title}
                       </>
                     ) : database.Icon && database.Icon.Type === 'file' ? (
                       <>
                         <img
                           src={customIconURL}
-                          class="custom-icon"
-                          alt="Site icon image"
+                          class='custom-icon'
+                          alt='Site icon image'
                         />
                         {database.Title}
                       </>
@@ -120,17 +113,17 @@ if (database.Icon && database.Icon.Type === 'file') {
                   }
                 </a>
               </h1>
-              <div class="description">
+              <div class='description'>
                 {database.Description}
               </div>
             </header>
 
-            <slot name="main" />
+            <slot name='main' />
 
             <footer>
               <div>
                 <span>Powered by&nbsp;</span>
-                <a href="https://github.com/otoyo/astro-notion-blog"
+                <a href='https://github.com/otoyo/astro-notion-blog'
                   >astro-notion-blog</a
                 >
               </div>
@@ -140,7 +133,7 @@ if (database.Icon && database.Icon.Type === 'file') {
 
         <aside>
           <SearchButton />
-          <slot name="aside" />
+          <slot name='aside' />
         </aside>
       </div>
     </div>
@@ -310,14 +303,28 @@ if (database.Icon && database.Icon.Type === 'file') {
     min-height: 100vh;
     background: var(--bg);
     color: var(--fg);
-    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Helvetica, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
-      'Hiragino Sans GB', メイリオ, Meiryo, 'Apple Color Emoji', Arial,
-      sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-family:
+      ui-sans-serif,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Helvetica,
+      'Hiragino Sans',
+      'Hiragino Kaku Gothic ProN',
+      'Hiragino Sans GB',
+      メイリオ,
+      Meiryo,
+      'Apple Color Emoji',
+      Arial,
+      sans-serif,
+      'Segoe UI Emoji',
+      'Segoe UI Symbol';
 
     /*background-image: radial-gradient(#ddd 1px, transparent 1px),
       radial-gradient(#ddd 1px, transparent 1px);*/
-    background-position: 0 0, 25px 25px;
+    background-position:
+      0 0,
+      25px 25px;
     background-attachment: fixed;
     background-size: 50px 50px;
 

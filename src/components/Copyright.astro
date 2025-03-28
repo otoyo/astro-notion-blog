@@ -1,4 +1,6 @@
 ---
+import BlogOwnersInfo from './BlogOwnersInfo.astro'
+
 const toKanjiYear = (year) => {
   const kanjiNumbers = [
     '〇',
@@ -19,7 +21,9 @@ const toKanjiYear = (year) => {
 }
 
 const currentYearKanji = toKanjiYear(new Date().getFullYear())
-console.log(currentYearKanji) // "二〇二五"
 ---
 
-;<p>© {currentYearKanji} Daisukenagai.</p>
+<div class='flex items-center space-x-4'>
+  <BlogOwnersInfo />
+  <p>© {currentYearKanji}</p>
+</div>

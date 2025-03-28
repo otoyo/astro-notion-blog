@@ -30,6 +30,7 @@
     "dotenv": "^16.4.7",
     "exif-be-gone": "^1.5.1",
     "katex": "^0.16.19",
+    "lenis": "^1.2.3",
     "mermaid": "^11.4.1",
     "metascraper": "^5.45.28",
     "metascraper-description": "^5.45.28",
@@ -39,6 +40,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.33.5",
+    "solid-js": "^1.9.5",
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {

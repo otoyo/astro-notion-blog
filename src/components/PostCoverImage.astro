@@ -5,28 +5,55 @@ import PostTitle from './PostTitle.astro'
 
 export interface Props {
   post: Post
+  widthClass?: string
+  textClass?: string
+  textVerticalTop?: Boolean
 }
 
 const { post } = Astro.props
 
 let image = ''
-if (post.FeaturedImage && post.FeaturedImage.Url) {
+if (post.Cover && post.Cover.Url) {
   if (import.meta.env.DEV) {
-    image = post.FeaturedImage.Url
-  } else {
-    image = filePath(new URL(post.FeaturedImage.Url))
+    image = post.Cover.Url
+  }
+} else {
+  if (post.FeaturedImage && post.FeaturedImage.Url) {
+    if (import.meta.env.DEV) {
+      image = post.FeaturedImage.Url
+    } else {
+      image = filePath(new URL(post.FeaturedImage.Url))
+    }
   }
 }
+
+// if (post.FeaturedImage && post.FeaturedImage.Url) {
+//   if (import.meta.env.DEV) {
+//     image = post.FeaturedImage.Url
+//   } else {
+//     image = filePath(new URL(post.FeaturedImage.Url))
+//   }
+// }
+
+const textAlignment = Astro.props.textVerticalTop
+  ? 'justify-start pt-24'
+  : 'justify-center'
 ---
 
 {
   image && (
     <div
-      class='w-xs h-full bg-cover md:w-md lg:w-xl'
+      class={`h-full bg-cover bg-center grayscale-50 ${Astro.props.widthClass}`}
       style={`background-image: url(${image})`}
     >
-      <div class='w-full h-full flex items-center justify-center p-4'>
-        <PostTitle post={post} enableLink={false} className='text-5xl' />
+      <div
+        class={`w-full h-full flex items-center p-4 backdrop-blur-xs ${textAlignment}`}
+      >
+        <PostTitle
+          post={post}
+          enableLink={false}
+          className={Astro.props.textClass}
+        />
       </div>
     </div>
   )

@@ -11,28 +11,21 @@ export interface Props {
 const { prevPost, nextPost } = Astro.props
 ---
 
-<div class='flex p-2 text-sm'>
-  <div>
-    {
-      nextPost && (
-        <a href={getPostLink(nextPost.Slug)} class='colored'>
-          <div>次</div>
-          <div>{nextPost.Title}</div>
-          <PostTags post={nextPost} enableLink={false} />
-        </a>
-      )
-    }
-  </div>
-  <div class='flex-1 border-r-2 w-2 mx-4'></div>
-  <div>
-    {
-      prevPost && (
-        <a href={getPostLink(prevPost.Slug)} class='colored'>
-          <div>前</div>
-          <div>{prevPost.Title}</div>
-          <PostTags post={prevPost} enableLink={false} />
-        </a>
-      )
-    }
-  </div>
+<div>
+  {
+    nextPost && (
+      <a href={getPostLink(nextPost.Slug)}>
+        <div>次 ○ {nextPost.Title}</div>
+      </a>
+    )
+  }
+</div>
+<div class='text-right'>
+  {
+    prevPost && (
+      <a href={getPostLink(prevPost.Slug)}>
+        <div>前 ○ {prevPost.Title}</div>
+      </a>
+    )
+  }
 </div>

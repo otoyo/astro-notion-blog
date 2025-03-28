@@ -9,12 +9,6 @@ export interface Props {
 const { blocks } = Astro.props
 ---
 
-<div class="post-body">
+<div class='p-4 leading-loose tracking-wider space-y-4'>
   <NotionBlocks blocks={blocks} isRoot={true} />
 </div>
-
-<style>
-  .post-body {
-    padding: 0.5rem 0;
-  }
-</style>

@@ -1,9 +1,15 @@
 ---
-import { Post } from '../lib/interfaces.ts'
-import { getPostLink } from '../lib/blog-helpers.ts'
+import { getNavLink } from '../lib/blog-helpers.ts'
 
 export interface Props {
-  post: Post
+  post: {
+    Title: string
+    Icon?: {
+      Type: 'emoji' | 'external'
+      Emoji?: string
+      Url?: string
+    }
+  }
   enableLink: boolean
   className?: string
 }
@@ -16,10 +22,10 @@ let title = post.Title
 <h2 class={className}>
   {
     enableLink ? (
-      <a href={getPostLink(post.Slug)}>
+      <a href={getNavLink('/')}>
         {post.Icon && post.Icon.Type === 'emoji' ? (
           <>
-            <span class='text-3xl inline-block mr-1'>{post.Icon.Emoji}</span>
+            <span>{post.Icon.Emoji}</span>
             {title}
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
@@ -35,16 +41,12 @@ let title = post.Title
       <>
         {post.Icon && post.Icon.Type === 'emoji' ? (
           <>
-            <span class='text-3xl inline-block mr-1'>{post.Icon.Emoji}</span>
+            <span>{post.Icon.Emoji}</span>
             {title}
           </>
         ) : post.Icon && post.Icon.Type === 'external' ? (
           <>
-            <img
-              src={post.Icon.Url}
-              alt='Post title icon'
-              class='text-center inline-block w-10 align-sub'
-            />
+            <img src={post.Icon.Url} alt='Post title icon' />
             {title}
           </>
         ) : (
@@ -54,3 +56,16 @@ let title = post.Title
     )
   }
 </h2>
+<style>
+  span {
+    font-size: 1.2em;
+    display: inline-block;
+    margin-right: 0.2em;
+  }
+  img {
+    text-align: center;
+    display: inline-block;
+    width: 2.5rem;
+    vertical-align: sub;
+  }
+</style>

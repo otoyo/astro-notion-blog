@@ -1,0 +1,12 @@
+---
+import { Image } from 'astro:assets'
+import faceImage from '../images/face.png'
+const name = '永井 大介'
+---
+
+<div class='flex items-center'>
+  <div class='w-16'>
+    <Image src={faceImage} alt='' />
+  </div>
+  <span>{name}</span>
+</div>

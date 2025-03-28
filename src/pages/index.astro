@@ -4,9 +4,10 @@ import {
   getPosts,
   getRankedPosts,
   getAllTags,
-  getNumberOfPages,
+  getNumberOfPages
 } from '../lib/notion/client.ts'
-import Layout from '../layouts/Layout.astro'
+import { getPostLink } from '../lib/blog-helpers.ts'
+import PostLayout from '../layouts/PostLayout.astro'
 import NoContents from '../components/NoContents.astro'
 import PostDate from '../components/PostDate.astro'
 import PostTags from '../components/PostTags.astro'
@@ -17,42 +18,65 @@ import ReadMoreLink from '../components/ReadMoreLink.astro'
 import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
+import PostCoverImage from '../components/PostCoverImage.astro'
+import Copyright from '../components/Copyright.astro'
+
 import styles from '../styles/blog.module.css'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
   getRankedPosts(),
   getAllTags(),
-  getNumberOfPages(),
+  getNumberOfPages()
 ])
 ---
 
-<Layout>
-  <div slot="main" class={styles.main}>
+<PostLayout>
+  <div slot='main-content' class='space-y-8'>
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
         posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
-            <PostDate post={post} />
-            <PostTags post={post} />
-            <PostTitle post={post} />
-            <PostFeaturedImage post={post} />
+          <div key={post.Slug}>
+            {/* <PostDate post={post} /> */}
+            {/* <PostTags post={post} /> */}
+            {/* <PostTitle post={post} /> */}
+            <a href={getPostLink(post.Slug)} class='hover:underline-none'>
+              <PostCoverImage
+                post={post}
+                widthClass='w-42'
+                textClass='text-3xl text-white drop-shadow-xs'
+                textVerticalTop={true}
+              />
+            </a>
             <PostExcerpt post={post} />
-            <ReadMoreLink post={post} />
+            {/* <ReadMoreLink post={post} /> */}
           </div>
         ))
       )
     }
-
-    <footer>
-      <Pagination currentPage={1} numberOfPages={numberOfPages} />
-    </footer>
   </div>
 
-  <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+  <div slot='footer-content'>
+    <Copyright />
   </div>
-</Layout>
+
+  <div slot='aside-content' class='flex space-x-4'>
+    <!-- <BlogTagsLink heading='' tags={tags} /> -->
+    <!-- <Pagination currentPage={1} numberOfPages={numberOfPages} /> -->
+  </div>
+  <!-- <BlogPostsLink heading='Recommended' posts={rankedPosts} /> -->
+</PostLayout>
+
+<script>
+  import { onMount } from 'solid-js'
+
+  onMount(() => {
+    const scrollContainer = document.querySelector('.content-wrapper')
+
+    window.addEventListener('wheel', (e) => {
+      scrollContainer.scrollLeft -= e.deltaY
+    })
+  })
+</script>
