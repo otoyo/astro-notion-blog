@@ -13,7 +13,7 @@ export async function GET() {
       link: new URL(getPostLink(post.Slug), import.meta.env.SITE).toString(),
       title: post.Title,
       description: post.Excerpt,
-      pubDate: new Date(post.Date),
-    })),
+      pubDate: new Date(post.Date)
+    }))
   })
 }

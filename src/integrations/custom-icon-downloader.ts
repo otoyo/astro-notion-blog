@@ -23,6 +23,6 @@ export default (): AstroIntegration => ({
       }
 
       return downloadFile(url)
-    },
-  },
+    }
+  }
 })

@@ -3,8 +3,9 @@
 /* Custom CSS */
 @layer body {
   body {
-    font-family: 'Noto Serif JP', '游明朝', 'Yu Mincho', YuMincho,
-      'Hiragino Mincho Pro', serif;
+    font-family:
+      'Noto Serif JP', '游明朝', 'Yu Mincho', YuMincho, 'Hiragino Mincho Pro',
+      serif;
     font-optical-sizing: auto;
     @apply tracking-wide leading-relaxed w-auto h-svh;
   }

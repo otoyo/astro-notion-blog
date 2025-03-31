@@ -1,9 +1,9 @@
-const { exec } = require('child_process');
-const { Client } = require('@notionhq/client');
-const cliProgress = require('cli-progress');
-const { PromisePool } = require('@supercharge/promise-pool');
+const { exec } = require('child_process')
+const { Client } = require('@notionhq/client')
+const cliProgress = require('cli-progress')
+const { PromisePool } = require('@supercharge/promise-pool')
 
-const notion = new Client({ auth: process.env.NOTION_API_SECRET });
+const notion = new Client({ auth: process.env.NOTION_API_SECRET })
 
 const getAllPages = async () => {
   const params = {
@@ -24,19 +24,19 @@ const getAllPages = async () => {
         },
       ],
     },
-  };
+  }
 
-  let results = [];
+  let results = []
   while (true) {
-    const res = await notion.databases.query(params);
+    const res = await notion.databases.query(params)
 
-    results = results.concat(res.results);
+    results = results.concat(res.results)
 
     if (!res.has_more) {
-      break;
+      break
     }
 
-    params['start_cursor'] = res.next_cursor;
+    params['start_cursor'] = res.next_cursor
   }
 
   const pages = results.map((result) => {
@@ -46,37 +46,37 @@ const getAllPages = async () => {
       slug: result.properties.Slug.rich_text
         ? result.properties.Slug.rich_text[0].plain_text
         : '',
-    };
-  });
+    }
+  })
 
-  return pages;
-};
+  return pages
+}
 
-(async () => {
-  const pages = await getAllPages();
+;(async () => {
+  const pages = await getAllPages()
 
-  const concurrency = parseInt(process.env.CACHE_CONCURRENCY || '1', 10);
+  const concurrency = parseInt(process.env.CACHE_CONCURRENCY || '1', 10)
 
   const progressBar = new cliProgress.SingleBar(
     { stopOnComplete: true },
-    cliProgress.Presets.shades_classic
-  );
-  progressBar.start(pages.length, 0);
+    cliProgress.Presets.shades_classic,
+  )
+  progressBar.start(pages.length, 0)
 
   await PromisePool.withConcurrency(concurrency)
     .for(pages)
     .process(async (page) => {
       return new Promise((resolve) => {
-        const command = `NX_BRANCH=main npx nx run astro-notion-blog:_fetch-notion-blocks ${page.id} ${page.last_edited_time}`;
-        const options = { timeout: 60000 };
+        const command = `NX_BRANCH=main npx nx run astro-notion-blog:_fetch-notion-blocks ${page.id} ${page.last_edited_time}`
+        const options = { timeout: 60000 }
 
         exec(command, options, (err, stdout, stderr) => {
           if (err) {
-            console.error(`exec error: ${err}`);
+            console.error(`exec error: ${err}`)
           }
-          progressBar.increment();
-          return resolve();
-        });
-      });
-    });
-})();
+          progressBar.increment()
+          return resolve()
+        })
+      })
+    })
+})()

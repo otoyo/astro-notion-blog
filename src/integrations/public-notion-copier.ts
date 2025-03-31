@@ -35,6 +35,6 @@ export default (): AstroIntegration => ({
 
       copyFiles('public/notion', outDir)
       console.log('Finished copying notion files to root!')
-    },
-  },
+    }
+  }
 })

@@ -8,7 +8,7 @@ import {
   NOTION_API_SECRET,
   DATABASE_ID,
   NUMBER_OF_POSTS_PER_PAGE,
-  REQUEST_TIMEOUT_MS,
+  REQUEST_TIMEOUT_MS
 } from '../../server-constants'
 import type { AxiosResponse } from 'axios'
 import type * as responses from './responses'
@@ -51,13 +51,13 @@ import type {
   FileObject,
   LinkToPage,
   Mention,
-  Reference,
+  Reference
 } from '../interfaces'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import { Client, APIResponseError } from '@notionhq/client'
 
 const client = new Client({
-  auth: NOTION_API_SECRET,
+  auth: NOTION_API_SECRET
 })
 
 let postsCache: Post[] | null = null
@@ -77,24 +77,24 @@ export async function getAllPosts(): Promise<Post[]> {
         {
           property: 'Published',
           checkbox: {
-            equals: true,
-          },
+            equals: true
+          }
         },
         {
           property: 'Date',
           date: {
-            on_or_before: new Date().toISOString(),
-          },
-        },
-      ],
+            on_or_before: new Date().toISOString()
+          }
+        }
+      ]
     },
     sorts: [
       {
         property: 'Date',
-        direction: 'descending',
-      },
+        direction: 'descending'
+      }
     ],
-    page_size: 100,
+    page_size: 100
   }
 
   let results: responses.PageObject[] = []
@@ -115,7 +115,7 @@ export async function getAllPosts(): Promise<Post[]> {
         }
       },
       {
-        retries: numberOfRetry,
+        retries: numberOfRetry
       }
     )
 
@@ -236,7 +236,7 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
     results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
   } else {
     const params: requestParams.RetrieveBlockChildren = {
-      block_id: blockId,
+      block_id: blockId
     }
 
     while (true) {
@@ -256,7 +256,7 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
           }
         },
         {
-          retries: numberOfRetry,
+          retries: numberOfRetry
         }
       )
 
@@ -333,7 +333,7 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
 
 export async function getBlock(blockId: string): Promise<Block> {
   const params: requestParams.RetrieveBlock = {
-    block_id: blockId,
+    block_id: blockId
   }
 
   const res = await retry(
@@ -352,7 +352,7 @@ export async function getBlock(blockId: string): Promise<Block> {
       }
     },
     {
-      retries: numberOfRetry,
+      retries: numberOfRetry
     }
   )
 
@@ -384,7 +384,7 @@ export async function downloadFile(url: URL) {
       method: 'get',
       url: url.toString(),
       timeout: REQUEST_TIMEOUT_MS,
-      responseType: 'stream',
+      responseType: 'stream'
     })
   } catch (err) {
     console.log(err)
@@ -427,7 +427,7 @@ export async function getDatabase(): Promise<Database> {
   }
 
   const params: requestParams.RetrieveDatabase = {
-    database_id: DATABASE_ID,
+    database_id: DATABASE_ID
   }
 
   const res = await retry(
@@ -446,7 +446,7 @@ export async function getDatabase(): Promise<Database> {
       }
     },
     {
-      retries: numberOfRetry,
+      retries: numberOfRetry
     }
   )
 
@@ -455,17 +455,17 @@ export async function getDatabase(): Promise<Database> {
     if (res.icon.type === 'emoji' && 'emoji' in res.icon) {
       icon = {
         Type: res.icon.type,
-        Emoji: res.icon.emoji,
+        Emoji: res.icon.emoji
       }
     } else if (res.icon.type === 'external' && 'external' in res.icon) {
       icon = {
         Type: res.icon.type,
-        Url: res.icon.external?.url || '',
+        Url: res.icon.external?.url || ''
       }
     } else if (res.icon.type === 'file' && 'file' in res.icon) {
       icon = {
         Type: res.icon.type,
-        Url: res.icon.file?.url || '',
+        Url: res.icon.file?.url || ''
       }
     }
   }
@@ -474,7 +474,7 @@ export async function getDatabase(): Promise<Database> {
   if (res.cover) {
     cover = {
       Type: res.cover.type,
-      Url: res.cover.external?.url || res.cover?.file?.url || '',
+      Url: res.cover.external?.url || res.cover?.file?.url || ''
     }
   }
 
@@ -484,7 +484,7 @@ export async function getDatabase(): Promise<Database> {
       .map((richText) => richText.plain_text)
       .join(''),
     Icon: icon,
-    Cover: cover,
+    Cover: cover
   }
 
   dbCache = database
@@ -495,7 +495,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
   const block: Block = {
     Id: blockObject.id,
     Type: blockObject.type,
-    HasChildren: blockObject.has_children,
+    HasChildren: blockObject.has_children
   }
 
   switch (blockObject.type) {
@@ -503,7 +503,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.paragraph) {
         const paragraph: Paragraph = {
           RichTexts: blockObject.paragraph.rich_text.map(_buildRichText),
-          Color: blockObject.paragraph.color,
+          Color: blockObject.paragraph.color
         }
         block.Paragraph = paragraph
       }
@@ -513,7 +513,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const heading1: Heading1 = {
           RichTexts: blockObject.heading_1.rich_text.map(_buildRichText),
           Color: blockObject.heading_1.color,
-          IsToggleable: blockObject.heading_1.is_toggleable,
+          IsToggleable: blockObject.heading_1.is_toggleable
         }
         block.Heading1 = heading1
       }
@@ -523,7 +523,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const heading2: Heading2 = {
           RichTexts: blockObject.heading_2.rich_text.map(_buildRichText),
           Color: blockObject.heading_2.color,
-          IsToggleable: blockObject.heading_2.is_toggleable,
+          IsToggleable: blockObject.heading_2.is_toggleable
         }
         block.Heading2 = heading2
       }
@@ -533,7 +533,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const heading3: Heading3 = {
           RichTexts: blockObject.heading_3.rich_text.map(_buildRichText),
           Color: blockObject.heading_3.color,
-          IsToggleable: blockObject.heading_3.is_toggleable,
+          IsToggleable: blockObject.heading_3.is_toggleable
         }
         block.Heading3 = heading3
       }
@@ -543,7 +543,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const bulletedListItem: BulletedListItem = {
           RichTexts:
             blockObject.bulleted_list_item.rich_text.map(_buildRichText),
-          Color: blockObject.bulleted_list_item.color,
+          Color: blockObject.bulleted_list_item.color
         }
         block.BulletedListItem = bulletedListItem
       }
@@ -553,7 +553,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const numberedListItem: NumberedListItem = {
           RichTexts:
             blockObject.numbered_list_item.rich_text.map(_buildRichText),
-          Color: blockObject.numbered_list_item.color,
+          Color: blockObject.numbered_list_item.color
         }
         block.NumberedListItem = numberedListItem
       }
@@ -563,7 +563,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const toDo: ToDo = {
           RichTexts: blockObject.to_do.rich_text.map(_buildRichText),
           Checked: blockObject.to_do.checked,
-          Color: blockObject.to_do.color,
+          Color: blockObject.to_do.color
         }
         block.ToDo = toDo
       }
@@ -572,7 +572,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.video) {
         const video: Video = {
           Caption: blockObject.video.caption?.map(_buildRichText) || [],
-          Type: blockObject.video.type,
+          Type: blockObject.video.type
         }
         if (
           blockObject.video.type === 'external' &&
@@ -587,7 +587,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.image) {
         const image: Image = {
           Caption: blockObject.image.caption?.map(_buildRichText) || [],
-          Type: blockObject.image.type,
+          Type: blockObject.image.type
         }
         if (
           blockObject.image.type === 'external' &&
@@ -601,7 +601,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           image.File = {
             Type: blockObject.image.type,
             Url: blockObject.image.file.url,
-            ExpiryTime: blockObject.image.file.expiry_time,
+            ExpiryTime: blockObject.image.file.expiry_time
           }
         }
         block.Image = image
@@ -611,7 +611,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.file) {
         const file: File = {
           Caption: blockObject.file.caption?.map(_buildRichText) || [],
-          Type: blockObject.file.type,
+          Type: blockObject.file.type
         }
         if (blockObject.file.type === 'external' && blockObject.file.external) {
           file.External = { Url: blockObject.file.external.url }
@@ -619,7 +619,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           file.File = {
             Type: blockObject.file.type,
             Url: blockObject.file.file.url,
-            ExpiryTime: blockObject.file.file.expiry_time,
+            ExpiryTime: blockObject.file.file.expiry_time
           }
         }
         block.File = file
@@ -630,7 +630,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const code: Code = {
           Caption: blockObject.code.caption?.map(_buildRichText) || [],
           RichTexts: blockObject.code.rich_text.map(_buildRichText),
-          Language: blockObject.code.language,
+          Language: blockObject.code.language
         }
         block.Code = code
       }
@@ -639,7 +639,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.quote) {
         const quote: Quote = {
           RichTexts: blockObject.quote.rich_text.map(_buildRichText),
-          Color: blockObject.quote.color,
+          Color: blockObject.quote.color
         }
         block.Quote = quote
       }
@@ -647,7 +647,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'equation':
       if (blockObject.equation) {
         const equation: Equation = {
-          Expression: blockObject.equation.expression,
+          Expression: blockObject.equation.expression
         }
         block.Equation = equation
       }
@@ -662,7 +662,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           ) {
             icon = {
               Type: blockObject.callout.icon.type,
-              Emoji: blockObject.callout.icon.emoji,
+              Emoji: blockObject.callout.icon.emoji
             }
           } else if (
             blockObject.callout.icon.type === 'external' &&
@@ -670,7 +670,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           ) {
             icon = {
               Type: blockObject.callout.icon.type,
-              Url: blockObject.callout.icon.external?.url || '',
+              Url: blockObject.callout.icon.external?.url || ''
             }
           }
         }
@@ -678,7 +678,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const callout: Callout = {
           RichTexts: blockObject.callout.rich_text.map(_buildRichText),
           Icon: icon,
-          Color: blockObject.callout.color,
+          Color: blockObject.callout.color
         }
         block.Callout = callout
       }
@@ -691,12 +691,12 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           blockObject.synced_block.synced_from.block_id
         ) {
           syncedFrom = {
-            BlockId: blockObject.synced_block.synced_from.block_id,
+            BlockId: blockObject.synced_block.synced_from.block_id
           }
         }
 
         const syncedBlock: SyncedBlock = {
-          SyncedFrom: syncedFrom,
+          SyncedFrom: syncedFrom
         }
         block.SyncedBlock = syncedBlock
       }
@@ -706,7 +706,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         const toggle: Toggle = {
           RichTexts: blockObject.toggle.rich_text.map(_buildRichText),
           Color: blockObject.toggle.color,
-          Children: [],
+          Children: []
         }
         block.Toggle = toggle
       }
@@ -714,7 +714,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'embed':
       if (blockObject.embed) {
         const embed: Embed = {
-          Url: blockObject.embed.url,
+          Url: blockObject.embed.url
         }
         block.Embed = embed
       }
@@ -722,7 +722,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'bookmark':
       if (blockObject.bookmark) {
         const bookmark: Bookmark = {
-          Url: blockObject.bookmark.url,
+          Url: blockObject.bookmark.url
         }
         block.Bookmark = bookmark
       }
@@ -730,7 +730,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
     case 'link_preview':
       if (blockObject.link_preview) {
         const linkPreview: LinkPreview = {
-          Url: blockObject.link_preview.url,
+          Url: blockObject.link_preview.url
         }
         block.LinkPreview = linkPreview
       }
@@ -741,21 +741,21 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           TableWidth: blockObject.table.table_width,
           HasColumnHeader: blockObject.table.has_column_header,
           HasRowHeader: blockObject.table.has_row_header,
-          Rows: [],
+          Rows: []
         }
         block.Table = table
       }
       break
     case 'column_list':
       const columnList: ColumnList = {
-        Columns: [],
+        Columns: []
       }
       block.ColumnList = columnList
       break
     case 'table_of_contents':
       if (blockObject.table_of_contents) {
         const tableOfContents: TableOfContents = {
-          Color: blockObject.table_of_contents.color,
+          Color: blockObject.table_of_contents.color
         }
         block.TableOfContents = tableOfContents
       }
@@ -764,7 +764,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
       if (blockObject.link_to_page && blockObject.link_to_page.page_id) {
         const linkToPage: LinkToPage = {
           Type: blockObject.link_to_page.type,
-          PageId: blockObject.link_to_page.page_id,
+          PageId: blockObject.link_to_page.page_id
         }
         block.LinkToPage = linkToPage
       }
@@ -781,7 +781,7 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
     results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
   } else {
     const params: requestParams.RetrieveBlockChildren = {
-      block_id: blockId,
+      block_id: blockId
     }
 
     while (true) {
@@ -801,7 +801,7 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
           }
         },
         {
-          retries: numberOfRetry,
+          retries: numberOfRetry
         }
       )
 
@@ -820,13 +820,13 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
       Id: blockObject.id,
       Type: blockObject.type,
       HasChildren: blockObject.has_children,
-      Cells: [],
+      Cells: []
     }
 
     if (blockObject.type === 'table_row' && blockObject.table_row) {
       const cells: TableCell[] = blockObject.table_row.cells.map((cell) => {
         const tableCell: TableCell = {
-          RichTexts: cell.map(_buildRichText),
+          RichTexts: cell.map(_buildRichText)
         }
 
         return tableCell
@@ -846,7 +846,7 @@ async function _getColumns(blockId: string): Promise<Column[]> {
     results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
   } else {
     const params: requestParams.RetrieveBlockChildren = {
-      block_id: blockId,
+      block_id: blockId
     }
 
     while (true) {
@@ -866,7 +866,7 @@ async function _getColumns(blockId: string): Promise<Column[]> {
           }
         },
         {
-          retries: numberOfRetry,
+          retries: numberOfRetry
         }
       )
 
@@ -888,7 +888,7 @@ async function _getColumns(blockId: string): Promise<Column[]> {
         Id: blockObject.id,
         Type: blockObject.type,
         HasChildren: blockObject.has_children,
-        Children: children,
+        Children: children
       }
 
       return column
@@ -934,7 +934,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
     if (pageObject.icon.type === 'emoji' && 'emoji' in pageObject.icon) {
       icon = {
         Type: pageObject.icon.type,
-        Emoji: pageObject.icon.emoji,
+        Emoji: pageObject.icon.emoji
       }
     } else if (
       pageObject.icon.type === 'external' &&
@@ -942,7 +942,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
     ) {
       icon = {
         Type: pageObject.icon.type,
-        Url: pageObject.icon.external?.url || '',
+        Url: pageObject.icon.external?.url || ''
       }
     }
   }
@@ -951,7 +951,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
   if (pageObject.cover) {
     cover = {
       Type: pageObject.cover.type,
-      Url: pageObject.cover.external?.url || '',
+      Url: pageObject.cover.external?.url || ''
     }
   }
 
@@ -960,13 +960,13 @@ function _buildPost(pageObject: responses.PageObject): Post {
     if (prop.FeaturedImage.files[0].external) {
       featuredImage = {
         Type: prop.FeaturedImage.type,
-        Url: prop.FeaturedImage.files[0].external.url,
+        Url: prop.FeaturedImage.files[0].external.url
       }
     } else if (prop.FeaturedImage.files[0].file) {
       featuredImage = {
         Type: prop.FeaturedImage.type,
         Url: prop.FeaturedImage.files[0].file.url,
-        ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time,
+        ExpiryTime: prop.FeaturedImage.files[0].file.expiry_time
       }
     }
   }
@@ -988,7 +988,7 @@ function _buildPost(pageObject: responses.PageObject): Post {
         ? prop.Excerpt.rich_text.map((richText) => richText.plain_text).join('')
         : '',
     FeaturedImage: featuredImage,
-    Rank: prop.Rank.number ? prop.Rank.number : 0,
+    Rank: prop.Rank.number ? prop.Rank.number : 0
   }
 
   return post
@@ -1001,40 +1001,40 @@ function _buildRichText(richTextObject: responses.RichTextObject): RichText {
     Strikethrough: richTextObject.annotations.strikethrough,
     Underline: richTextObject.annotations.underline,
     Code: richTextObject.annotations.code,
-    Color: richTextObject.annotations.color,
+    Color: richTextObject.annotations.color
   }
 
   const richText: RichText = {
     Annotation: annotation,
     PlainText: richTextObject.plain_text,
-    Href: richTextObject.href,
+    Href: richTextObject.href
   }
 
   if (richTextObject.type === 'text' && richTextObject.text) {
     const text: Text = {
-      Content: richTextObject.text.content,
+      Content: richTextObject.text.content
     }
 
     if (richTextObject.text.link) {
       text.Link = {
-        Url: richTextObject.text.link.url,
+        Url: richTextObject.text.link.url
       }
     }
 
     richText.Text = text
   } else if (richTextObject.type === 'equation' && richTextObject.equation) {
     const equation: Equation = {
-      Expression: richTextObject.equation.expression,
+      Expression: richTextObject.equation.expression
     }
     richText.Equation = equation
   } else if (richTextObject.type === 'mention' && richTextObject.mention) {
     const mention: Mention = {
-      Type: richTextObject.mention.type,
+      Type: richTextObject.mention.type
     }
 
     if (richTextObject.mention.type === 'page' && richTextObject.mention.page) {
       const reference: Reference = {
-        Id: richTextObject.mention.page.id,
+        Id: richTextObject.mention.page.id
       }
       mention.Page = reference
     }

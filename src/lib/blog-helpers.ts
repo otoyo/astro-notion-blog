@@ -5,7 +5,7 @@ import type {
   Heading2,
   Heading3,
   RichText,
-  Column,
+  Column
 } from './interfaces'
 import { pathJoin } from './utils'
 
