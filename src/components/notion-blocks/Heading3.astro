@@ -16,7 +16,7 @@ const id = buildHeadingId(block.Heading3)
 
 {
   block.Heading3.IsToggleable ? (
-    <details class="toggle">
+    <details class='toggle'>
       <summary>
         <a href={`#${id}`} id={id}>
           <h5>
@@ -44,17 +44,6 @@ const id = buildHeadingId(block.Heading3)
 }
 
 <style>
-  h5 {
-    margin: 0.9em 0 0.3em;
-    color: var(--fg);
-    font-size: 1.25rem;
-  }
-  @media (max-width: 640px) {
-    h5 {
-      font-size: 1.1rem;
-    }
-  }
-
   .toggle {
     margin: 1.2rem 0 0;
   }

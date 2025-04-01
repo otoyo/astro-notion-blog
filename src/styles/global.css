@@ -7,56 +7,126 @@
       'Noto Serif JP', '游明朝', 'Yu Mincho', YuMincho, 'Hiragino Mincho Pro',
       serif;
     font-optical-sizing: auto;
-    @apply tracking-wide leading-relaxed w-auto h-svh;
+    @apply tracking-wide leading-relaxed w-auto h-svh text-base;
+  }
+  h4 {
+    color: var(--fg);
+    @apply text-3xl ml-8 mr-16;
+  }
+  h5 {
+    color: var(--fg);
+    font-size: 1.25rem;
+    @apply text-2xl pl-2 pr-4;
   }
 }
 
-/* vertical layout */
-.writing-vertical {
-  writing-mode: vertical-rl;
-  @apply overflow-x-scroll;
-}
-.writing-vertical p {
-  @apply my-4;
-}
-/* components */
-.writing-vertical .bookmark,
-.writing-vertical .image,
-.writing-vertical .code,
-.writing-vertical .table {
-  writing-mode: horizontal-tb;
-  @apply mx-8;
-}
+@layer components {
+  p {
+    @apply px-8 text-base leading-loose;
+  }
+  ul {
+    @apply px-8 list-disc list-inside;
+  }
+  ol {
+    @apply px-8 list-decimal list-inside;
+  }
+  .code {
+    display: block;
+    margin-bottom: 0.6rem;
+    writing-mode: horizontal-tb;
+    @apply max-w-lg;
+  }
+  .code > div {
+    background: rgb(247, 246, 243);
+    border-radius: var(--radius);
+  }
+  .code > div div {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .code button.copy {
+    border-radius: var(--radius);
+    background-color: rgba(227, 226, 224, 0.5);
+    color: var(--fg);
+    @apply block border-0 cursor-pointer leading-relaxed px-2 py-1 text-sm;
+  }
+  .code pre {
+    display: block;
+    overflow: auto;
+    padding: 0.8rem 2rem 2rem;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    white-space: pre;
+    width: 100px;
+    min-width: 100%;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgb(211, 209, 203);
+    }
+    &::-webkit-scrollbar-track {
+      background: rgb(237, 236, 233);
+    }
+  }
+  .code pre.mermaid {
+    padding: 2rem;
+  }
+  .code pre code {
+    color: var(--fg);
+    padding: 0;
+    background: rgb(247, 246, 243) !important;
+    border-radius: 0;
+  }
 
-.post-title {
-  margin: 0;
-  padding: 0.2rem 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--fg);
-}
-.post-title a {
-  font-size: 1.6rem;
-  color: inherit;
-}
-.post-title span,
-.post-title img {
-  display: inline-block;
-  margin-right: 0.2em;
-}
-.post-title span {
-  font-size: 1.2em;
-}
-.post-title img {
-  width: 1.3em;
-  height: 1.3em;
-  vertical-align: sub;
-}
-@media (max-width: 640px) {
+  /* vertical layout */
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    @apply overflow-x-scroll;
+  }
+  .writing-vertical p {
+    @apply my-4;
+  }
+  /* components */
+  .writing-vertical .bookmark,
+  .writing-vertical .image,
+  .writing-vertical .code,
+  .writing-vertical .table {
+    writing-mode: horizontal-tb;
+    @apply mx-8;
+  }
+
   .post-title {
-    font-size: 1.4rem;
+    margin: 0;
+    padding: 0.2rem 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fg);
   }
   .post-title a {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+    color: inherit;
+  }
+  .post-title span,
+  .post-title img {
+    display: inline-block;
+    margin-right: 0.2em;
+  }
+  .post-title span {
+    font-size: 1.2em;
+  }
+  .post-title img {
+    width: 1.3em;
+    height: 1.3em;
+    vertical-align: sub;
+  }
+  @media (max-width: 640px) {
+    .post-title {
+      font-size: 1.4rem;
+    }
+    .post-title a {
+      font-size: 1.2rem;
+    }
   }
 }
