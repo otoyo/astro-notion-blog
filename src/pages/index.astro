@@ -21,8 +21,6 @@ import BlogTagsLink from '../components/BlogTagsLink.astro'
 import PostCoverImage from '../components/PostCoverImage.astro'
 import Copyright from '../components/Copyright.astro'
 
-import styles from '../styles/blog.module.css'
-
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPosts(NUMBER_OF_POSTS_PER_PAGE),
   getRankedPosts(),

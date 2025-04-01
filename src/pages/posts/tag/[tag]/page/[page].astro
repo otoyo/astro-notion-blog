@@ -4,7 +4,7 @@ import {
   getPostsByTagAndPage,
   getRankedPosts,
   getAllTags,
-  getNumberOfPagesByTag,
+  getNumberOfPagesByTag
 } from '../../../../../lib/notion/client.ts'
 import Layout from '../../../../../layouts/Layout.astro'
 import NoContents from '../../../../../components/NoContents.astro'
@@ -17,7 +17,6 @@ import ReadMoreLink from '../../../../../components/ReadMoreLink.astro'
 import Pagination from '../../../../../components/Pagination.astro'
 import BlogPostsLink from '../../../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../../../components/BlogTagsLink.astro'
-import styles from '../../../../../styles/blog.module.css'
 import '../../../../../styles/notion-color.css'
 
 export async function getStaticPaths() {
@@ -44,7 +43,7 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
   getPostsByTagAndPage(tag, parseInt(page, 10)),
   getRankedPosts(),
   getAllTags(),
-  getNumberOfPagesByTag(tag),
+  getNumberOfPagesByTag(tag)
 ])
 
 const currentTag = posts[0].Tags.find((t) => t.name === tag)
@@ -54,9 +53,9 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
   title={`Posts in ${tag} ${page}/${numberOfPages}`}
   path={`/posts/tag/${tag}/page/${page}`}
 >
-  <div slot="main" class={styles.main}>
+  <div slot='main' class={styles.main}>
     <header>
-      <div class="tag-container">
+      <div class='tag-container'>
         <span class={`tag ${currentTag.color}`}>{tag}</span>
         {page}/{numberOfPages}
       </div>
@@ -88,9 +87,9 @@ const currentTag = posts[0].Tags.find((t) => t.name === tag)
     </footer>
   </div>
 
-  <div slot="aside" class={styles.aside}>
-    <BlogPostsLink heading="Recommended" posts={rankedPosts} />
-    <BlogTagsLink heading="Categories" tags={tags} />
+  <div slot='aside' class={styles.aside}>
+    <BlogPostsLink heading='Recommended' posts={rankedPosts} />
+    <BlogTagsLink heading='Categories' tags={tags} />
   </div>
 </Layout>
 
