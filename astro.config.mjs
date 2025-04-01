@@ -6,7 +6,6 @@ import CustomIconDownloader from './src/integrations/custom-icon-downloader'
 import FeaturedImageDownloader from './src/integrations/featured-image-downloader'
 import PublicNotionCopier from './src/integrations/public-notion-copier'
 import tailwindcss from '@tailwindcss/vite'
-import 'dotenv/config'
 
 const getSite = function () {
   if (CUSTOM_DOMAIN) {
