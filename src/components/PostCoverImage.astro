@@ -16,24 +16,16 @@ let image = ''
 if (post.Cover && post.Cover.Url) {
   if (import.meta.env.DEV) {
     image = post.Cover.Url
+  } else {
+    image = filePath(new URL(post.Cover.Url))
   }
-} else {
-  if (post.FeaturedImage && post.FeaturedImage.Url) {
-    if (import.meta.env.DEV) {
-      image = post.FeaturedImage.Url
-    } else {
-      image = filePath(new URL(post.FeaturedImage.Url))
-    }
+} else if (post.FeaturedImage && post.FeaturedImage.Url) {
+  if (import.meta.env.DEV) {
+    image = post.FeaturedImage.Url
+  } else {
+    image = filePath(new URL(post.FeaturedImage.Url))
   }
 }
-
-// if (post.FeaturedImage && post.FeaturedImage.Url) {
-//   if (import.meta.env.DEV) {
-//     image = post.FeaturedImage.Url
-//   } else {
-//     image = filePath(new URL(post.FeaturedImage.Url))
-//   }
-// }
 
 const textAlignment = Astro.props.textVerticalTop
   ? 'justify-start pt-24'
