@@ -1,0 +1,33 @@
+---
+import { Post } from '../lib/interfaces.ts'
+import PostTitle from './PostTitle.astro'
+
+export interface Props {
+  post: Post
+  widthClass?: string
+  textClass?: string
+  textVerticalTop?: Boolean
+}
+
+const { post } = Astro.props
+
+const textAlignment = Astro.props.textVerticalTop
+  ? 'justify-start'
+  : 'justify-center'
+---
+
+{
+  (
+    <div class={`h-full ${Astro.props.widthClass}`}>
+      <div
+        class={`w-full h-full flex items-center border-8 pt-24 pb-24 ${textAlignment}`}
+      >
+        <PostTitle
+          post={post}
+          enableLink={false}
+          className={Astro.props.textClass}
+        />
+      </div>
+    </div>
+  )
+}

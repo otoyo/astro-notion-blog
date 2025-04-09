@@ -18,7 +18,7 @@ import ReadMoreLink from '../components/ReadMoreLink.astro'
 import Pagination from '../components/Pagination.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
 import BlogTagsLink from '../components/BlogTagsLink.astro'
-import PostCoverImage from '../components/PostCoverImage.astro'
+import PostCoverSimple from '../components/PostCoverSimple.astro'
 import Copyright from '../components/Copyright.astro'
 
 const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
@@ -41,10 +41,10 @@ const [posts, rankedPosts, tags, numberOfPages] = await Promise.all([
             {/* <PostTags post={post} /> */}
             {/* <PostTitle post={post} /> */}
             <a href={getPostLink(post.Slug)} class='hover:underline-none'>
-              <PostCoverImage
+              <PostCoverSimple
                 post={post}
-                widthClass='w-42'
-                textClass='text-3xl text-white drop-shadow-xs'
+                widthClass='w-80'
+                textClass='text-3xl text-black'
                 textVerticalTop={true}
               />
             </a>
