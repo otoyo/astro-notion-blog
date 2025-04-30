@@ -20,6 +20,7 @@ jobs:
         env:
           NOTION_API_SECRET: ${{ secrets.NOTION_API_SECRET }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
+          PUBLIC_GA_TRACKING_ID: ${{ secrets.PUBLIC_GA_TRACKING_ID }}
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
