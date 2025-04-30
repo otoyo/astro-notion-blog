@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import { CUSTOM_DOMAIN, BASE_PATH } from './src/server-constants';
+import { CUSTOM_DOMAIN, BASE_PATH, PUBLIC_GA_TRACKING_ID } from './src/server-constants';
 import CoverImageDownloader from './src/integrations/cover-image-downloader';
 import CustomIconDownloader from './src/integrations/custom-icon-downloader';
 import FeaturedImageDownloader from './src/integrations/featured-image-downloader';
@@ -41,4 +41,22 @@ export default defineConfig({
     FeaturedImageDownloader(),
     PublicNotionCopier(),
   ],
+  head: [
+    {
+      tag: 'script',
+      attrs: {
+        src: `https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_TRACKING_ID}`,
+        async: true
+      }
+    },
+    {
+      tag: 'script',
+      content: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${PUBLIC_GA_TRACKING_ID}');
+      `
+    }
+  ]
 });

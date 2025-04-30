@@ -3,7 +3,6 @@ import { PUBLIC_GA_TRACKING_ID, ENABLE_LIGHTBOX } from '../server-constants.ts'
 import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
-import GoogleAnalytics from '../components/GoogleAnalytics.astro'
 import SearchModal from '../components/SearchModal.astro'
 import SearchButton from '../components/SearchButton.astro'
 import BlogPostsLink from '../components/BlogPostsLink.astro'
@@ -58,6 +57,7 @@ if (database.Icon && database.Icon.Type === 'file') {
     <meta name="robots" content="max-image-preview:large" />
     <meta charset="UTF-8" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="google-site-verification" content="YOUR-VERIFICATION-CODE" />
     <title>{siteTitle}</title>
     <meta name="description" content={siteDescription} />
     <link rel="canonical" href={siteURL} />
@@ -81,8 +81,6 @@ if (database.Icon && database.Icon.Type === 'file') {
     <link rel="manifest" href="/favicon/manifest.webmanifest">
   </head>
   <body>
-    <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
-    <!-- 👇Headerをbodyタグの直下に移動してくる -->
     <header>
       <h1>
         <a href={getNavLink('/')}>
@@ -112,7 +110,6 @@ if (database.Icon && database.Icon.Type === 'file') {
         {database.Description}
       </div>
     </header>
-    <!-- 👆 -->
 
     <div class="container">
 
