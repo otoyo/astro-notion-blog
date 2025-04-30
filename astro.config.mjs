@@ -41,22 +41,9 @@ export default defineConfig({
     FeaturedImageDownloader(),
     PublicNotionCopier(),
   ],
-  head: [
-    {
-      tag: 'script',
-      attrs: {
-        src: `https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_TRACKING_ID}`,
-        async: true
-      }
+  vite: {
+    define: {
+      'import.meta.env.PUBLIC_GA_TRACKING_ID': JSON.stringify(PUBLIC_GA_TRACKING_ID),
     },
-    {
-      tag: 'script',
-      content: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${PUBLIC_GA_TRACKING_ID}');
-      `
-    }
-  ]
+  },
 });
