@@ -29,13 +29,13 @@ const [posts, rankedPosts, tags, numberOfPages, recentPosts, toc] = await Promis
 ---
 
 <Layout>
-  <div slot="main" class={styles.main}>
+  <div slot="main" class="main">
     {
       posts.length === 0 ? (
         <NoContents contents={posts} />
       ) : (
         posts.map((post) => (
-          <div class={styles.post} key={post.Slug}>
+          <div class="post" key={post.Slug}>
             <div class={styles.dateAndTags} style="display: flex; justify-content: flex-start; align-items: center; gap:5px;">
               <PostDate post={post} />
               <PostTags post={post} />
