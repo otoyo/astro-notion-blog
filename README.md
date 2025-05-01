@@ -63,8 +63,25 @@ jobs:
 ### 追加の必要要件
 - Node.js v18.14.1 かそれ以上
 - Git
-### ステップ
-1. 下記コマンドを実行して秘密情報を環境変数に設定
+### Steps
+
+1. If you enjoy using this repo, **don't forget to give it a star!** :wink:
+   - This is very motivating!
+2. Simply duplicate [the blog template](https://otoyo.notion.site/e2c5fa2c8660452988d6137ba57fd974?v=abe305cd8b3d467285e91a2a85f4d8de) into your Notion workspace.
+
+<img src="https://user-images.githubusercontent.com/1063435/223611374-86d7172c-9cda-477b-b8a3-dc724fa7ccf4.png" width="600">
+
+4. For future reference, identify the `DATABASE_ID` by noting the portion of the duplicated page (database) URL that appears as https://notion.so/your-account/<HERE>?v=xxxx.
+
+<img src="https://user-images.githubusercontent.com/1063435/213966685-3a2afed2-45c0-4ea5-8070-e634d8d648de.png" width="260">
+
+<img src="https://user-images.githubusercontent.com/1063435/213966888-c3f1f741-62ac-42f3-9af2-94ab375b5676.png" width="600">
+
+5. [Create an integration](https://developers.notion.com/docs/create-a-notion-integration#step-1-create-an-integration) and note "Internal Integration Token" as `NOTION_API_SECRET`
+6. To integrate your application with Notion, [share a database with your integration](https://developers.notion.com/docs/create-a-notion-integration#step-2-share-a-database-with-your-integration).
+7. To make a copy of this repository in your own account, fork it by clicking on the 'Fork' button in the top-right corner of the repository page.
+8. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and sign in
+9. Create new project with "Connect to Git" with your forked repository `<your-account>/astro-notion-blog`, then click "Begin setup"
 ```sh
 export NOTION_API_SECRET=<YOUR_NOTION_API_SECRET>
 export DATABASE_ID=<YOUR_DATABASE_ID>

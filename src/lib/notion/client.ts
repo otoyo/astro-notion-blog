@@ -1,6 +1,6 @@
 import fs, { createWriteStream } from 'node:fs'
 import { pipeline } from 'node:stream/promises'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import sharp from 'sharp'
 import retry from 'async-retry'
 import ExifTransformer from 'exif-be-gone'
@@ -10,6 +10,7 @@ import {
   NUMBER_OF_POSTS_PER_PAGE,
   REQUEST_TIMEOUT_MS,
 } from '../../server-constants'
+import type { AxiosResponse } from 'axios'
 import type * as responses from './responses'
 import type * as requestParams from './request-params'
 import type {
