@@ -50,7 +50,7 @@
     "@types/prismjs": "^1.26.5",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
-    "@typescript-eslint/typescript-estree": "^8.19.1",
+    "@typescript-eslint/typescript-estree": "^8.33.0",
     "cli-progress": "^3.12.0",
     "eslint": "^9.17.0",
     "eslint-plugin-astro": "^1.3.1",
