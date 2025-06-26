@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components'
+export interface Props {
+  iconEmoji?: string
+  iconUrl?: string
+  github: string
+  x?: string
+  intro: string
+}
+const { iconEmoji = '', iconUrl = '', github, x = '', intro } = Astro.props
+---
+<div class="profile">
+  {iconEmoji && !iconUrl ? (
+    <span class="profile-icon emoji">{iconEmoji}</span>
+  ) : iconUrl ? (
+    <img class="profile-icon" src={iconUrl} alt="profile" />
+  ) : null}
+  <p class="intro">{intro}</p>
+  <ul class="links">
+    {x && (
+      <li>
+        <a href={x} target="_blank" rel="noopener noreferrer">
+          <Icon name="ri:twitter-x-fill" /> X
+        </a>
+      </li>
+    )}
+    <li>
+      <a href={github} target="_blank" rel="noopener noreferrer">
+        <Icon name="mdi:github" /> GitHub
+      </a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .profile {
+    margin-bottom: 1rem;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  .profile-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+  .profile-icon.emoji {
+    display: inline-block;
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .intro {
+    margin: 0 0 0.5rem;
+  }
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .links a {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--radius);
+  }
+  .links a:hover {
+    background-color: #ddd;
+  }
+  .links svg {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>
