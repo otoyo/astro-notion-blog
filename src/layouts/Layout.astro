@@ -144,25 +144,12 @@ if (database.Icon && database.Icon.Type === 'file') {
         </main>
 
         <aside>
+          <Profile />
           <SearchButton />
-          <Profile
-            iconEmoji={database.Icon?.Type === 'emoji' ? database.Icon.Emoji : ''}
-            iconUrl={
-              database.Icon && database.Icon.Type === 'external'
-                ? database.Icon.Url
-                : database.Icon && database.Icon.Type === 'file'
-                ? customIconURL
-                : ''
-            }
-            github="https://github.com/your-account"
-            x="https://x.com/your_x_account"
-            intro="Astro Notion Blog をご覧いただきありがとうございます。"
-          />
           <slot name="aside" />
         </aside>
       </div>
     </div>
-
     <SearchModal />
     {
       ENABLE_LIGHTBOX && (

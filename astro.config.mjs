@@ -37,7 +37,12 @@ export default defineConfig({
   site: getSite(),
   base: BASE_PATH,
   integrations: [
-    icon(),
+    icon({
+      collections: {
+        ri: () => import('@iconify-json/ri/icons.json'),
+        mdi: () => import('@iconify-json/mdi/icons.json'),
+      },
+    }),
     CoverImageDownloader(),
     CustomIconDownloader(),
     FeaturedImageDownloader(),

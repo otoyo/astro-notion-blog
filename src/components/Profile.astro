@@ -7,26 +7,38 @@ export interface Props {
   x?: string
   intro: string
 }
-const { iconEmoji = '', iconUrl = '', github, x = '', intro } = Astro.props
+
+
+const { iconEmoji = '', 
+        iconUrl = 'https://kirara-code.net/_next/image?url=https%3A%2F%2Fstatic.kirara-code.net%2Fimages%2FTGGVCLZSS-U021L5CS6Q6-a88d7eb9f8b5-512_9166ff7b-bb0b-4e7d-813d-773683fcb71a.jpeg&w=256&q=75', 
+        github="https://github.com/kuma6082/",
+        x="https://x.com/kuma6082",
+        } = Astro.props
 ---
+
 <div class="profile">
-  {iconEmoji && !iconUrl ? (
-    <span class="profile-icon emoji">{iconEmoji}</span>
-  ) : iconUrl ? (
-    <img class="profile-icon" src={iconUrl} alt="profile" />
-  ) : null}
-  <p class="intro">{intro}</p>
+  {
+    iconEmoji && !iconUrl ? (
+      <span class="profile-icon emoji">{iconEmoji}</span>
+    ) : iconUrl ? (
+      <img class="profile-icon" src={iconUrl} alt="profile" />
+    ) : null
+  }
+  <p class="intro">東京都在住。<br>
+    厨房設備レイアウト設計に8年以上従事し、VBA・GAS・Pythonで業務効率化を実践。ITエンジニア転職を目指しプログラミング学習中。学習記録や業務改善、雑記も発信しています。</p>
   <ul class="links">
-    {x && (
-      <li>
-        <a href={x} target="_blank" rel="noopener noreferrer">
-          <Icon name="ri:twitter-x-fill" /> X
-        </a>
-      </li>
-    )}
+    {
+      x && (
+        <li>
+          <a href={x} target="_blank" rel="noopener noreferrer">
+            <Icon name="ri:twitter-x-fill" class="icon" />
+          </a>
+        </li>
+      )
+    }
     <li>
       <a href={github} target="_blank" rel="noopener noreferrer">
-        <Icon name="mdi:github" /> GitHub
+        <Icon name="mdi:github" class="icon" />
       </a>
     </li>
   </ul>
@@ -39,10 +51,15 @@ const { iconEmoji = '', iconUrl = '', github, x = '', intro } = Astro.props
     text-align: center;
     font-size: 0.95rem;
     color: #333;
+    border-bottom: #333 1px solid;
+  }
+  .profile p{
+    text-align: left;
+    font-size: 0.95rem;
   }
   .profile-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
     margin-bottom: 0.5rem;
   }
@@ -77,5 +94,9 @@ const { iconEmoji = '', iconUrl = '', github, x = '', intro } = Astro.props
   .links svg {
     width: 1rem;
     height: 1rem;
+  }
+  .links .icon {
+    width: 2rem;
+    height: 2rem;
   }
 </style>
