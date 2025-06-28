@@ -43,4 +43,29 @@ export default defineConfig({
     FeaturedImageDownloader(),
     PublicNotionCopier(),
   ],
+  // ビルドパフォーマンス最適化設定
+  build: {
+    // 並列処理を有効化
+    inlineStylesheets: 'auto',
+  },
+  vite: {
+    // Viteのビルド最適化
+    build: {
+      // 並列処理を有効化
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // 大きなライブラリを分離
+            'mermaid': ['mermaid'],
+            'katex': ['katex'],
+            'prismjs': ['prismjs'],
+          }
+        }
+      }
+    },
+    // 並列処理の設定
+    optimizeDeps: {
+      include: ['mermaid', 'katex', 'prismjs']
+    }
+  }
 });

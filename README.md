@@ -113,3 +113,43 @@ If you like astro-notion-blog, sponsor me so that I can keep on developing softw
 ---
 
 astro-notion-blog is based [otoyo/notion-blog](https://github.com/otoyo/notion-blog)
+
+## Environment Variables
+
+```bash
+NOTION_API_SECRET=your_notion_api_secret
+DATABASE_ID=your_notion_database_id
+CACHE_CONCURRENCY=8  # キャッシュ処理の並列度（デフォルト: 4）
+```
+
+## Build Optimization
+
+記事数が多い場合のビルド高速化オプション：
+
+```bash
+# 標準ビルド
+npm run build
+
+# キャッシュ付きビルド
+npm run build:cached
+
+# 高速ビルド（並列度8）
+npm run build:fast
+
+# 最大並列ビルド（並列度12）
+npm run build:parallel
+```
+
+## Nx Cloud Setup
+
+ビルドをさらに高速化するには、Nx Cloudの設定を完了してください：
+
+1. `npm install && npx nx g @nrwl/nx-cloud:init`
+2. `nx.json`から`accessToken`をメモ
+3. `git checkout -- nx.json`
+4. Nx Cloudでアカウント作成・ワークスペース接続
+5. 環境変数`NX_CLOUD_ACCESS_TOKEN`を設定
+6. `npm run cache:fetch`でキャッシュ生成
+7. Cloudflare Pagesのビルドコマンドを`npm run build:cached`に変更
+
+詳細は[Wiki](https://github.com/otoyo/astro-notion-blog/wiki/%E3%83%93%E3%83%AB%E3%83%89%E3%81%AE%E9%AB%98%E9%80%9F%E5%8C%96%28%E8%A8%98%E4%BA%8B%E6%95%B0%E3%81%8C%E5%A4%9A%E3%81%84%E4%BA%BA%E5%90%91%E3%81%91%29)を参照してください。

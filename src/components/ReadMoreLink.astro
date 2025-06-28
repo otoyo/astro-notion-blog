@@ -24,6 +24,9 @@ const { post } = Astro.props
     line-height: 2rem;
     text-decoration: underline;
   }
+  :global(.dark) .read-more-link a {
+    color: #fff;
+  }
   @media (max-width: 640px) {
     .read-more-link a {
       width: 50%;
