@@ -76,6 +76,9 @@ const { heading, posts } = Astro.props
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+  :global(.dark) .blog-posts-link ul li a {
+    color: #fff;
+  }
   .blog-posts-link ul li a:hover {
     background-color: #ddd;
   }
