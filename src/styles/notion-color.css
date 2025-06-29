@@ -202,3 +202,14 @@ body.dark .code,
   background: #222 !important;
 }
 
+:root.dark ::selection,
+:global(html.dark) ::selection {
+  background: #4e5d94; /* お好みで調整可 */
+  color: #fff;
+}
+:root:not(.dark) ::selection,
+:global(html):not(.dark) ::selection {
+  background: #b3d4fc;
+  color: #222;
+}
+
