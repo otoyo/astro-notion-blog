@@ -16,6 +16,7 @@ import {
   filePath,
   extractTargetBlocks,
 } from '../../lib/blog-helpers.ts'
+import { ENABLE_COMMENTS, GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } from '../../server-constants.ts'
 import Layout from '../../layouts/Layout.astro'
 import PostDate from '../../components/PostDate.astro'
 import PostTags from '../../components/PostTags.astro'
@@ -24,6 +25,7 @@ import PostBody from '../../components/PostBody.astro'
 import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
+import Comments from '../../components/Comments.astro'
 import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
@@ -102,9 +104,26 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
   <div slot="main" class={styles.main}>
     <div class={styles.post}>
       <PostDate post={post} />
-      <PostTags post={post} />
       <PostTitle post={post} enableLink={false} />
       <PostBody blocks={blocks} />
+
+      {ENABLE_COMMENTS && GISCUS_REPO && GISCUS_REPO_ID && (
+        <Comments
+          repo={GISCUS_REPO}
+          repoId={GISCUS_REPO_ID}
+          category={GISCUS_CATEGORY}
+          categoryId={GISCUS_CATEGORY_ID}
+          mapping="pathname"
+          strict={false}
+          reactionsEnabled={true}
+          emitMetadata={false}
+          inputPosition="bottom"
+          theme="preferred_color_scheme"
+          lang="ja"
+          loading="lazy"
+        />
+      )}
+
       <PostTags post={post} />
 
       <footer>

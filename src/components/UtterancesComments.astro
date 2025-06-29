@@ -1,0 +1,46 @@
+---
+export interface Props {
+  repo: string
+  issueTerm?: string
+  issueNumber?: number
+  label?: string
+  theme?: 'github-light' | 'github-dark' | 'preferred-color-scheme' | 'github-dark-orange' | 'icy-dark' | 'dark-blue' | 'photon-dark'
+  crossorigin?: string
+  async?: boolean
+}
+
+const {
+  repo,
+  issueTerm = 'pathname',
+  issueNumber,
+  label,
+  theme = 'preferred-color-scheme',
+  crossorigin = 'anonymous',
+  async = true
+} = Astro.props
+---
+
+<div class="comments-container">
+  <script 
+    src="https://utteranc.es/client.js"
+    data-repo={repo}
+    data-issue-term={issueTerm}
+    data-issue-number={issueNumber}
+    data-label={label}
+    data-theme={theme}
+    crossorigin={crossorigin}
+    async={async}>
+  </script>
+</div>
+
+<style>
+  .comments-container {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  :global(.dark) .comments-container {
+    border-top-color: #374151;
+  }
+</style> 

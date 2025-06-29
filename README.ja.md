@@ -15,6 +15,7 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 - :pencil: **Notion で**ブログが書ける
 - :hammer_and_wrench: ブログの見た目を**自由にカスタマイズ可能**
 - :white_check_mark: **Notion 公式 API**を使っているため安心
+- 💬 **コメント機能**を追加可能（Giscus/Utterances）
 
 ## :camera_flash: スクリーンショット
 
@@ -102,6 +103,42 @@ npm run dev
 
 3. ブラウザで [http://localhost:4321](http://localhost:4321) を開きます
 4. 開発サーバーを停止するにはターミナルで `Ctrl+C` を押します。
+
+### コメント機能の追加
+
+記事にコメント機能を追加するには、以下の手順で設定してください：
+
+#### Giscus（推奨）
+
+1. **GitHub Discussionsを有効化**
+   - リポジトリのSettings → Features → Discussionsを有効にする
+
+2. **Giscusアプリをインストール**
+   - [Giscus](https://github.com/apps/giscus)にアクセス
+   - リポジトリにインストール
+
+3. **設定値を取得**
+   - リポジトリ名: `your-username/your-repo-name`
+   - リポジトリID: リポジトリのSettings → General → Repository ID
+   - カテゴリ: Discussionsのカテゴリ名（例: "Announcements"）
+   - カテゴリID: DiscussionsのカテゴリID
+
+4. **環境変数を設定**
+   ```bash
+   ENABLE_COMMENTS=true
+   GISCUS_REPO=your-username/your-repo-name
+   GISCUS_REPO_ID=your-repo-id
+   GISCUS_CATEGORY=Announcements
+   GISCUS_CATEGORY_ID=your-category-id
+   ```
+
+#### Utterances（代替案）
+
+1. **環境変数を設定**
+   ```bash
+   ENABLE_COMMENTS=true
+   UTTERANCES_REPO=your-username/your-repo-name
+   ```
 
 ### その他の情報
 
