@@ -174,14 +174,31 @@ a {
   color: #fff !important;
 }
 
-:global(html.dark) * {
-  color: #fff !important;
-  border-color: #444 !important;
-}
 :global(html.dark) a {
   color: #8ec2f7 !important;
 }
 :global(html.dark) .tag {
   color: #222 !important;
+}
+
+:root.dark .code,
+html.dark .code,
+body.dark .code,
+:global(html.dark) .code,
+:global(body.dark) .code {
+  background: #222 !important;
+  border-radius: 8px;
+  padding: 1.2em 1em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+:global(html.dark) .code,
+:global(html.dark) .code > div,
+:global(html.dark) .code > pre,
+:global(html.dark) .code > div > pre,
+:global(html.dark) .code > div[data-astro-cid-noi6lzum],
+:global(html.dark) .code > div[data-astro-cid-noi6lzum] > pre[data-astro-cid-noi6lzum] {
+  background: #222 !important;
 }
 

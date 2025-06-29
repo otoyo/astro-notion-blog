@@ -1,3 +1,14 @@
+/* CSS変数の定義 */
+:root {
+  --code-bg: rgb(247, 246, 243);
+  --code-fg: var(--fg);
+}
+
+:global(html.dark) {
+  --code-bg: #222;
+  --code-fg: #fff;
+}
+
 .main header {
   padding: 0 0 20px;
 }

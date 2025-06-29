@@ -24,7 +24,7 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--comment-color);
+  color: var(--comment-color) !important;
 }
 
 .token.namespace {
@@ -33,15 +33,15 @@
 
 .token.string,
 .token.attr-value {
-  color: var(--string-color);
+  color: var(--string-color) !important;
 }
 
 .token.punctuation {
-  color: var(--punctuation-color);
+  color: var(--punctuation-color) !important;
 }
 
 .token.operator {
-  color: var(--operator-color);
+  color: var(--operator-color) !important;
 }
 
 .token.entity,
@@ -53,33 +53,33 @@
 .token.constant,
 .token.property,
 .token.regex {
-  color: var(--variable-color);
+  color: var(--variable-color) !important;
 }
 
 .token.prefix.inserted {
-  color: var(--string-color);
+  color: var(--string-color) !important;
 }
 
 .token.prefix.deleted {
-  color: var(--function-color);
+  color: var(--function-color) !important;
 }
 
 .token.atrule,
 .token.keyword,
 .token.attr-name,
 .language-autohotkey .token.selector {
-  color: var(--keyword-color);
+  color: var(--keyword-color) !important;
 }
 
 .token.function,
 .language-autohotkey .token.tag {
-  color: var(--function-color);
+  color: var(--function-color) !important;
 }
 
 .token.tag,
 .token.selector,
 .language-autohotkey .token.keyword {
-  color: var(--tag-color);
+  color: var(--tag-color) !important;
 }
 
 .token.important,
@@ -89,4 +89,49 @@
 
 .token.italic {
   font-style: italic;
+}
+
+:global(html.dark) *:not(pre):not(code):not(.token) {
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+:global(html.dark) pre:not(.code pre),
+:global(html.dark) pre[class]:not(.code pre),
+:global(html.dark) .notion-code-block pre:not(.code pre) {
+  background: #222 !important;
+  color: #fff !important;
+  border-radius: 8px;
+  padding: 1.2em 1em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+:global(html.dark) code:not(.code code),
+:global(html.dark) code[class]:not(.code code),
+:global(html.dark) .notion-code-block code:not(.code code) {
+  background: #111 !important;
+  color: #fff !important;
+}
+
+:global(pre):not(.code pre) {
+  background: #f6f8fa;
+  border-radius: 8px;
+  padding: 1.2em 1em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+:global(code):not(.code code) {
+  background: #f6f8fa;
+}
+
+:global(html.dark) .code:not(.notion-code-block .code) {
+  background: #222 !important;
+  border-radius: 8px;
+  padding: 1.2em 1em;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+:global(html.dark) .code pre:not(.notion-code-block .code pre),
+:global(html.dark) .code code:not(.notion-code-block .code code) {
+  background: transparent !important;
 }

@@ -81,7 +81,7 @@ const grammer =
     margin-bottom: 0.6rem;
   }
   .code > div {
-    background: rgb(247, 246, 243);
+    background: var(--code-bg);
     border-radius: var(--radius);
   }
   .code > div div {
@@ -108,6 +108,8 @@ const grammer =
     width: 100px;
     min-width: 100%;
     overflow-x: auto;
+    background: var(--code-bg) !important;
+    color: var(--code-fg) !important;
     &::-webkit-scrollbar {
       height: 10px;
     }
@@ -122,9 +124,42 @@ const grammer =
     padding: 2rem;
   }
   .code pre code {
-    color: var(--fg);
+    color: var(--code-fg);
     padding: 0;
-    background: rgb(247, 246, 243) !important;
+    background: transparent !important;
     border-radius: 0;
+  }
+
+  /* ダークモード対応 */
+  :global(html.dark) .code > div {
+    background: #222 !important;
+  }
+  :global(html.dark) .code pre {
+    background: #222 !important;
+    color: #fff !important;
+  }
+  :global(html.dark) .code pre code {
+    background: transparent !important;
+    color: #fff !important;
+  }
+  :global(html.dark) .code button.copy {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  /* より強力なセレクタでダークモード対応 */
+  :global(html.dark) div[data-astro-cid-noi6lzum] .code > div,
+  :global(html.dark) div[data-astro-source-file*="Code.astro"] .code > div {
+    background: #222 !important;
+  }
+  :global(html.dark) div[data-astro-cid-noi6lzum] .code pre,
+  :global(html.dark) div[data-astro-source-file*="Code.astro"] .code pre {
+    background: #222 !important;
+    color: #fff !important;
+  }
+  :global(html.dark) div[data-astro-cid-noi6lzum] .code pre code,
+  :global(html.dark) div[data-astro-source-file*="Code.astro"] .code pre code {
+    background: transparent !important;
+    color: #fff !important;
   }
 </style>
