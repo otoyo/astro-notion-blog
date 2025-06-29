@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getDatabase } from '../lib/notion/client.ts'
+
+const database = await getDatabase()
+---
+
+<Layout
+  title="プライバシーポリシー"
+  description="このウェブサイトのプライバシーポリシーについて説明します。"
+  path="/privacy-policy"
+  ogImage=""
+>
+  <div class="privacy-policy" slot="main">
+    <h1>プライバシーポリシー</h1>
+    
+    <section>
+      <h2>1. 個人情報の収集について</h2>
+      <p>
+        このウェブサイトでは、ユーザーエクスペリエンスの向上とサイトの分析のために、以下の情報を収集する場合があります：
+      </p>
+      <ul>
+        <li>アクセスログ（IPアドレス、アクセス日時、参照元URL等）</li>
+        <li>ブラウザ情報（ブラウザの種類、バージョン等）</li>
+        <li>デバイス情報（OS、画面解像度等）</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Google Analyticsの使用について</h2>
+      <p>
+        このウェブサイトでは、Google Analyticsを使用してサイトの利用状況を分析しています。
+        Google Analyticsは、Cookieを使用してユーザーの行動を追跡し、以下の情報を収集します：
+      </p>
+      <ul>
+        <li>ページビュー数</li>
+        <li>滞在時間</li>
+        <li>参照元サイト</li>
+        <li>ユーザーの地理的位置情報（国・地域レベル）</li>
+        <li>デバイス情報</li>
+      </ul>
+      <p>
+        Google Analyticsの利用規約およびプライバシーポリシーについては、
+        <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer">Google Analytics利用規約</a>をご確認ください。
+      </p>
+      <p>
+        Google Analyticsのデータ収集を無効にしたい場合は、ブラウザの設定でCookieを無効にするか、
+        サイト訪問時に表示されるCookie同意バナーで「拒否する」を選択してください。
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Cookieの使用について</h2>
+      <p>
+        このウェブサイトでは、以下の目的でCookieを使用しています：
+      </p>
+      <ul>
+        <li>Google Analyticsによるサイト分析</li>
+        <li>ユーザーの設定や選択の記憶</li>
+        <li>サイトの機能向上</li>
+      </ul>
+      <p>
+        Cookieの使用に同意しない場合でも、サイトの基本的な機能は利用できますが、
+        一部の機能が制限される場合があります。
+      </p>
+    </section>
+
+    <section>
+      <h2>4. 個人情報の利用目的</h2>
+      <p>
+        収集した情報は、以下の目的でのみ使用されます：
+      </p>
+      <ul>
+        <li>サイトの改善とユーザーエクスペリエンスの向上</li>
+        <li>サイトの利用状況分析</li>
+        <li>技術的な問題の解決</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. 個人情報の第三者提供</h2>
+      <p>
+        このウェブサイトでは、法令に基づく場合を除き、収集した個人情報を第三者に提供することはありません。
+        ただし、Google Analyticsを使用しているため、Google LLCがデータを処理する場合があります。
+      </p>
+    </section>
+
+    <section>
+      <h2>6. 個人情報の管理</h2>
+      <p>
+        収集した個人情報は、適切な安全管理措置を講じて管理し、
+        漏洩、滅失、き損の防止に努めます。
+      </p>
+    </section>
+
+    <section>
+      <h2>7. プライバシーポリシーの変更</h2>
+      <p>
+        このプライバシーポリシーは、必要に応じて変更される場合があります。
+        重要な変更がある場合は、サイト上でお知らせします。
+      </p>
+    </section>
+
+    <section>
+      <h2>8. お問い合わせ</h2>
+      <p>
+        このプライバシーポリシーに関するお問い合わせは、
+        サイト管理者までご連絡ください。
+      </p>
+    </section>
+
+    <div class="last-updated">
+      <p>最終更新日: 2024年12月</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .privacy-policy {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .privacy-policy h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--fg);
+  }
+
+  .privacy-policy section {
+    margin-bottom: 2rem;
+  }
+
+  .privacy-policy h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--fg);
+  }
+
+  .privacy-policy p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: var(--fg);
+  }
+
+  .privacy-policy ul {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  .privacy-policy li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    color: var(--fg);
+  }
+
+  .privacy-policy a {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  .privacy-policy a:hover {
+    color: #004499;
+  }
+
+  .last-updated {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  :global(.dark) .privacy-policy,
+  :global(.dark) .privacy-policy h1,
+  :global(.dark) .privacy-policy h2,
+  :global(.dark) .privacy-policy p,
+  :global(.dark) .privacy-policy li {
+    color: #fff;
+  }
+
+  :global(.dark) .privacy-policy a {
+    color: #66b3ff;
+  }
+
+  :global(.dark) .privacy-policy a:hover {
+    color: #99ccff;
+  }
+
+  :global(.dark) .last-updated {
+    border-top-color: #444;
+    color: #999;
+  }
+
+  :global(.dark) body {
+    background: #181818;
+  }
+
+  :global(.dark) .privacy-policy {
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .privacy-policy {
+      padding: 1rem;
+    }
+
+    .privacy-policy h1 {
+      font-size: 1.5rem;
+    }
+
+    .privacy-policy h2 {
+      font-size: 1.3rem;
+    }
+  }
+</style> 

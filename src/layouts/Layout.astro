@@ -4,6 +4,7 @@ import { getDatabase } from '../lib/notion/client.ts'
 import { getNavLink, getStaticFilePath, filePath } from '../lib/blog-helpers.ts'
 import '../styles/syntax-coloring.css'
 import GoogleAnalytics from '../components/GoogleAnalytics.astro'
+import CookieConsent from '../components/CookieConsent.astro'
 import SearchModal from '../components/SearchModal.astro'
 import SearchButton from '../components/SearchButton.astro'
 import ThemeToggle from '../components/ThemeToggle.astro'
@@ -80,6 +81,7 @@ if (database.Icon && database.Icon.Type === 'file') {
   <body>
     <ThemeToggle />
     <GoogleAnalytics trackingId={PUBLIC_GA_TRACKING_ID} />
+    <CookieConsent trackingId={PUBLIC_GA_TRACKING_ID} />
     <div class="container">
       <header>
         {
@@ -136,6 +138,8 @@ if (database.Icon && database.Icon.Type === 'file') {
                 <a href="https://github.com/otoyo/astro-notion-blog"
                   >astro-notion-blog</a
                 >
+                <span>&nbsp;|&nbsp;</span>
+                <a href="/privacy-policy">プライバシーポリシー</a>
               </div>
             </footer>
           </div>

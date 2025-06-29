@@ -1,0 +1,243 @@
+---
+export interface Props {
+  trackingId?: string
+}
+
+const { trackingId } = Astro.props
+---
+
+{
+  trackingId && (
+    <div id="cookie-consent" class="cookie-consent hidden">
+      <div class="cookie-content">
+        <div class="cookie-text">
+          <p>
+            このウェブサイトでは、ユーザーエクスペリエンスの向上とサイトの分析のためにGoogle Analyticsを使用しています。
+            サイトを利用することで、Cookieの使用に同意したことになります。
+          </p>
+          <p>
+            詳細については<a href="/privacy-policy" class="privacy-link">プライバシーポリシー</a>をご確認ください。
+          </p>
+        </div>
+        <div class="cookie-buttons">
+          <button id="accept-cookies" class="accept-btn">
+            同意する
+          </button>
+          <button id="decline-cookies" class="decline-btn">
+            拒否する
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg);
+    border-top: 1px solid #ddd;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cookie-text {
+    flex: 1;
+  }
+
+  .cookie-text p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .cookie-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .privacy-link {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  .privacy-link:hover {
+    color: #004499;
+  }
+
+  .cookie-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .accept-btn,
+  .decline-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+
+  .accept-btn {
+    background-color: #0066cc;
+    color: white;
+  }
+
+  .accept-btn:hover {
+    background-color: #004499;
+  }
+
+  .decline-btn {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+
+  .decline-btn:hover {
+    background-color: #e5e5e5;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  :global(.dark) .cookie-consent {
+    background-color: #2d2d2d;
+    border-top-color: #444;
+    color: #fff;
+  }
+
+  :global(.dark) .cookie-text,
+  :global(.dark) .cookie-text p {
+    color: #fff;
+  }
+
+  :global(.dark) .privacy-link {
+    color: #66b3ff;
+  }
+
+  :global(.dark) .privacy-link:hover {
+    color: #99ccff;
+  }
+
+  :global(.dark) .decline-btn {
+    background-color: #3d3d3d;
+    border-color: #444;
+    color: #fff;
+  }
+
+  :global(.dark) .decline-btn:hover {
+    background-color: #4d4d4d;
+  }
+
+  @media (max-width: 768px) {
+    .cookie-content {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cookie-buttons {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // Google Analyticsの型定義
+  declare global {
+    interface Window {
+      gtag: (...args: any[]) => void
+      dataLayer: any[]
+    }
+  }
+
+  // Cookie同意の状態を管理
+  const COOKIE_CONSENT_KEY = 'cookie-consent'
+  const GA_TRACKING_ID = 'PUBLIC_GA_TRACKING_ID' // 環境変数から取得する必要があります
+
+  function getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`
+    const parts = value.split(`; ${name}=`)
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null
+    return null
+  }
+
+  function setCookie(name: string, value: string, days: number = 365) {
+    const expires = new Date()
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`
+  }
+
+  function hasConsented(): boolean {
+    return getCookie(COOKIE_CONSENT_KEY) === 'accepted'
+  }
+
+  function hasDeclined(): boolean {
+    return getCookie(COOKIE_CONSENT_KEY) === 'declined'
+  }
+
+  function showConsentBanner() {
+    const banner = document.getElementById('cookie-consent')
+    if (banner && !hasConsented() && !hasDeclined()) {
+      banner.classList.remove('hidden')
+    }
+  }
+
+  function acceptCookies() {
+    setCookie(COOKIE_CONSENT_KEY, 'accepted')
+    hideConsentBanner()
+    
+    // Google Analyticsを有効化
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('consent', 'update', {
+        'analytics_storage': 'granted'
+      })
+    }
+  }
+
+  function declineCookies() {
+    setCookie(COOKIE_CONSENT_KEY, 'declined')
+    hideConsentBanner()
+    
+    // Google Analyticsを無効化
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('consent', 'update', {
+        'analytics_storage': 'denied'
+      })
+    }
+  }
+
+  function hideConsentBanner() {
+    const banner = document.getElementById('cookie-consent')
+    if (banner) {
+      banner.classList.add('hidden')
+    }
+  }
+
+  // イベントリスナーの設定
+  document.addEventListener('DOMContentLoaded', () => {
+    const acceptBtn = document.getElementById('accept-cookies')
+    const declineBtn = document.getElementById('decline-cookies')
+
+    acceptBtn?.addEventListener('click', acceptCookies)
+    declineBtn?.addEventListener('click', declineCookies)
+
+    // 同意バナーを表示
+    showConsentBanner()
+  })
+</script> 
