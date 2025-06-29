@@ -173,3 +173,15 @@ a {
 :global(html.dark) td {
   color: #fff !important;
 }
+
+:global(html.dark) * {
+  color: #fff !important;
+  border-color: #444 !important;
+}
+:global(html.dark) a {
+  color: #8ec2f7 !important;
+}
+:global(html.dark) .tag {
+  color: #222 !important;
+}
+

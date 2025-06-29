@@ -5,6 +5,9 @@ on:
     - cron: '0 8 * * 1' # 8am (Mon) UTC
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   curl:
     name: Kick deploy hook
