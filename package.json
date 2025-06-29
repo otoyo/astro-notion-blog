@@ -55,7 +55,7 @@
     "@types/metascraper-image": "^5.14.5",
     "@types/metascraper-title": "^5.14.5",
     "@types/prismjs": "^1.26.5",
-    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.19.1",
     "@typescript-eslint/typescript-estree": "^8.33.0",
     "cli-progress": "^3.12.0",
