@@ -155,3 +155,21 @@ a {
 .text-gray {
   color: var(--text-gray);
 }
+
+:global(html.dark) body,
+:global(html.dark) h1,
+:global(html.dark) h2,
+:global(html.dark) h3,
+:global(html.dark) h4,
+:global(html.dark) h5,
+:global(html.dark) h6,
+:global(html.dark) p,
+:global(html.dark) span,
+:global(html.dark) div,
+:global(html.dark) li,
+:global(html.dark) ul,
+:global(html.dark) ol,
+:global(html.dark) th,
+:global(html.dark) td {
+  color: #fff !important;
+}
