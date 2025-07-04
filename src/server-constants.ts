@@ -20,5 +20,7 @@ export const ENABLE_LIGHTBOX = import.meta.env.ENABLE_LIGHTBOX
 export const ENABLE_COMMENTS = import.meta.env.PUBLIC_ENABLE_COMMENTS === 'true'
 export const GISCUS_REPO = import.meta.env.PUBLIC_GISCUS_REPO || ''
 export const GISCUS_REPO_ID = import.meta.env.PUBLIC_GISCUS_REPO_ID || ''
-export const GISCUS_CATEGORY = import.meta.env.PUBLIC_GISCUS_CATEGORY || 'Announcements'
-export const GISCUS_CATEGORY_ID = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || ''
+export const GISCUS_CATEGORY =
+  import.meta.env.PUBLIC_GISCUS_CATEGORY || 'Announcements'
+export const GISCUS_CATEGORY_ID =
+  import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || ''

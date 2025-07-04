@@ -191,11 +191,18 @@ body {
   color: var(--text-base);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-base);
 }
 
-p, span, div {
+p,
+span,
+div {
   color: var(--text-base);
 }
 
@@ -241,7 +248,7 @@ body.dark .code,
   border-radius: 8px;
   padding: 1.2em 1em;
   margin: 1.5em 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 :global(html.dark) .code,
@@ -249,7 +256,10 @@ body.dark .code,
 :global(html.dark) .code > pre,
 :global(html.dark) .code > div > pre,
 :global(html.dark) .code > div[data-astro-cid-noi6lzum],
-:global(html.dark) .code > div[data-astro-cid-noi6lzum] > pre[data-astro-cid-noi6lzum] {
+:global(html.dark)
+  .code
+  > div[data-astro-cid-noi6lzum]
+  > pre[data-astro-cid-noi6lzum] {
   background: #222 !important;
 }
 
@@ -263,4 +273,3 @@ body.dark .code,
   background: #b3d4fc;
   color: #222;
 }
-

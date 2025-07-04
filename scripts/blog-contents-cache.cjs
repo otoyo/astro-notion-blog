@@ -77,7 +77,9 @@ const getAllPages = async () => {
           if (err) {
             errorCount++;
             errors.push({ page: page.slug || page.id, error: err.message });
-            console.error(`Error processing ${page.slug || page.id}: ${err.message}`);
+            console.error(
+              `Error processing ${page.slug || page.id}: ${err.message}`
+            );
           }
           progressBar.increment();
           return resolve();
@@ -85,7 +87,9 @@ const getAllPages = async () => {
       });
     });
 
-  console.log(`\nキャッシュ処理完了: ${pages.length - errorCount}/${pages.length} 成功`);
+  console.log(
+    `\nキャッシュ処理完了: ${pages.length - errorCount}/${pages.length} 成功`
+  );
   if (errorCount > 0) {
     console.log(`エラー数: ${errorCount}`);
     console.log('エラー詳細:');
