@@ -161,14 +161,13 @@ const { trackingId } = Astro.props
   // Google Analyticsの型定義
   declare global {
     interface Window {
-      gtag: (...args: any[]) => void
-      dataLayer: any[]
+      gtag: (...args: unknown[]) => void
+      dataLayer: unknown[]
     }
   }
 
   // Cookie同意の状態を管理
   const COOKIE_CONSENT_KEY = 'cookie-consent'
-  const GA_TRACKING_ID = 'PUBLIC_GA_TRACKING_ID' // 環境変数から取得する必要があります
 
   function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`
@@ -240,4 +239,4 @@ const { trackingId } = Astro.props
     // 同意バナーを表示
     showConsentBanner()
   })
-</script> 
+</script>  

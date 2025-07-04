@@ -12,8 +12,8 @@ export interface Props {
 
 const { block, headings } = Astro.props
 
-function getListItems(block: any): interfaces.Block[] {
-  const items = (block as any).ListItems;
+function getListItems(block: interfaces.Block): interfaces.Block[] {
+  const items = (block as unknown as { ListItems: interfaces.Block[] }).ListItems;
   return Array.isArray(items) ? items : [];
 }
 ---

@@ -67,6 +67,57 @@
 .red:hover {
   color: var(--red-text);
 }
+
+/* Dark mode overrides for color classes */
+:global(html.dark) .default,
+:global(html.dark) .default:hover {
+  color: #fff !important;
+}
+
+:global(html.dark) .gray,
+:global(html.dark) .gray:hover {
+  color: var(--gray-text) !important;
+}
+
+:global(html.dark) .brown,
+:global(html.dark) .brown:hover {
+  color: var(--brown-text) !important;
+}
+
+:global(html.dark) .orange,
+:global(html.dark) .orange:hover {
+  color: var(--orange-text) !important;
+}
+
+:global(html.dark) .yellow,
+:global(html.dark) .yellow:hover {
+  color: var(--yellow-text) !important;
+}
+
+:global(html.dark) .green,
+:global(html.dark) .green:hover {
+  color: var(--green-text) !important;
+}
+
+:global(html.dark) .blue,
+:global(html.dark) .blue:hover {
+  color: var(--blue-text) !important;
+}
+
+:global(html.dark) .purple,
+:global(html.dark) .purple:hover {
+  color: var(--purple-text) !important;
+}
+
+:global(html.dark) .pink,
+:global(html.dark) .pink:hover {
+  color: var(--pink-text) !important;
+}
+
+:global(html.dark) .red,
+:global(html.dark) .red:hover {
+  color: var(--red-text) !important;
+}
 .gray-background {
   background: rgba(241, 241, 239, 1) !important;
 }
@@ -140,11 +191,18 @@ body {
   color: var(--text-base);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-base);
 }
 
-p, span, div {
+p,
+span,
+div {
   color: var(--text-base);
 }
 
@@ -190,7 +248,7 @@ body.dark .code,
   border-radius: 8px;
   padding: 1.2em 1em;
   margin: 1.5em 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 :global(html.dark) .code,
@@ -198,7 +256,10 @@ body.dark .code,
 :global(html.dark) .code > pre,
 :global(html.dark) .code > div > pre,
 :global(html.dark) .code > div[data-astro-cid-noi6lzum],
-:global(html.dark) .code > div[data-astro-cid-noi6lzum] > pre[data-astro-cid-noi6lzum] {
+:global(html.dark)
+  .code
+  > div[data-astro-cid-noi6lzum]
+  > pre[data-astro-cid-noi6lzum] {
   background: #222 !important;
 }
 
@@ -212,4 +273,3 @@ body.dark .code,
   background: #b3d4fc;
   color: #222;
 }
-

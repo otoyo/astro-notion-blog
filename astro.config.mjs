@@ -56,16 +56,16 @@ export default defineConfig({
         output: {
           manualChunks: {
             // 大きなライブラリを分離
-            'mermaid': ['mermaid'],
-            'katex': ['katex'],
-            'prismjs': ['prismjs'],
-          }
-        }
-      }
+            mermaid: ['mermaid'],
+            katex: ['katex'],
+            prismjs: ['prismjs'],
+          },
+        },
+      },
     },
     // 並列処理の設定
     optimizeDeps: {
-      include: ['mermaid', 'katex', 'prismjs']
-    }
-  }
+      include: ['mermaid', 'katex', 'prismjs'],
+    },
+  },
 });
