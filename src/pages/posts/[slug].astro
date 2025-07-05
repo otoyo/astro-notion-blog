@@ -26,6 +26,7 @@ import PostRelativeLink from '../../components/PostRelativeLink.astro'
 import BlogPostsLink from '../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../components/BlogTagsLink.astro'
 import Comments from '../../components/Comments.astro'
+import SocialShare from '../../components/SocialShare.astro'
 import styles from '../../styles/blog.module.css'
 
 export async function getStaticPaths() {
@@ -106,6 +107,12 @@ if (post.FeaturedImage && post.FeaturedImage.Url) {
       <PostDate post={post} />
       <PostTitle post={post} enableLink={false} />
       <PostBody blocks={blocks} />
+
+      <SocialShare 
+        title={post.Title}
+        url={new URL(getPostLink(post.Slug), Astro.site).toString()}
+        description={post.Excerpt}
+      />
 
       {ENABLE_COMMENTS && GISCUS_REPO && GISCUS_REPO_ID && (
         <Comments
