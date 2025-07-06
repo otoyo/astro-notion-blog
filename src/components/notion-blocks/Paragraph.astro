@@ -13,7 +13,7 @@ export interface Props {
 const { block, headings } = Astro.props
 ---
 
-<p class={snakeToKebab(block.Paragraph.Color)}>
+<p class={block.Paragraph.Color === 'default' ? 'default' : snakeToKebab(block.Paragraph.Color)}>
   {
     block.Paragraph.RichTexts.map((richText: interfaces.RichText) => (
       <RichText richText={richText} />

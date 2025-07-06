@@ -70,7 +70,9 @@
 
 /* Dark mode overrides for color classes */
 :global(html.dark) .default,
-:global(html.dark) .default:hover {
+:global(html.dark) .default:hover,
+:global(html.dark) p.default,
+:global(html.dark) span.default {
   color: #fff !important;
 }
 
@@ -229,6 +231,14 @@ a {
 :global(html.dark) ol,
 :global(html.dark) th,
 :global(html.dark) td {
+  color: #fff !important;
+}
+
+/* 特に本文のテキストに対して */
+:global(html.dark) .post p,
+:global(html.dark) .post span,
+:global(html.dark) .post div,
+:global(html.dark) .post li {
   color: #fff !important;
 }
 
