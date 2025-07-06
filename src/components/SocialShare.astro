@@ -1,4 +1,6 @@
 ---
+import { CUSTOM_DOMAIN } from '../server-constants'
+
 export interface Props {
   title: string
   url: string
@@ -7,19 +9,36 @@ export interface Props {
 
 const { title, url, description = '' } = Astro.props
 
+// URLを midnight480.com ドメインに強制変換
+const forceCustomDomain = (originalUrl: string): string => {
+  if (CUSTOM_DOMAIN) {
+    try {
+      const urlObj = new URL(originalUrl)
+      // パスとクエリパラメータを保持しつつ、ドメインを変更
+      return `https://${CUSTOM_DOMAIN}${urlObj.pathname}${urlObj.search}${urlObj.hash}`
+    } catch (error) {
+      // URLの解析に失敗した場合は、CUSTOM_DOMAINを使用
+      return `https://${CUSTOM_DOMAIN}${originalUrl.startsWith('/') ? originalUrl : '/' + originalUrl}`
+    }
+  }
+  return originalUrl
+}
+
+const shareUrl = forceCustomDomain(url)
+
 // URLエンコード用のヘルパー関数
 const encodeText = (text: string) => encodeURIComponent(text)
 const encodeUrl = (url: string) => encodeURIComponent(url)
 
 // 各SNSのシェアURL
-const twitterUrl = `https://x.com/intent/tweet?text=${encodeText(title)}&url=${encodeUrl(url)}`
-const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeUrl(url)}`
-const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeUrl(url)}`
-const hatenaUrl = `https://b.hatena.ne.jp/entry/s/${url.replace(/^https?:\/\//, '')}`
+const twitterUrl = `https://x.com/intent/tweet?text=${encodeText(title)}&url=${encodeUrl(shareUrl)}`
+const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeUrl(shareUrl)}`
+const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeUrl(shareUrl)}`
+const hatenaUrl = `https://b.hatena.ne.jp/entry/s/${shareUrl.replace(/^https?:\/\//, '')}`
 
 // クリップボードにコピーする関数
 const copyToClipboard = `
-  navigator.clipboard.writeText('${url}').then(() => {
+  navigator.clipboard.writeText('${shareUrl}').then(() => {
     const button = event.target.closest('.copy-button');
     const originalText = button.textContent;
     button.textContent = 'コピーしました！';
@@ -31,7 +50,7 @@ const copyToClipboard = `
   }).catch(() => {
     // フォールバック: 古いブラウザ対応
     const textArea = document.createElement('textarea');
-    textArea.value = '${url}';
+    textArea.value = '${shareUrl}';
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand('copy');
