@@ -1,0 +1,121 @@
+---
+import type * as interfaces from '../lib/interfaces'
+
+export interface Props {
+  post?: interfaces.Post
+  isHomePage?: boolean
+  siteUrl: string
+  siteTitle: string
+  siteDescription: string
+}
+
+const { post, isHomePage = false, siteUrl, siteTitle, siteDescription } = Astro.props
+
+const baseUrl = siteUrl.replace(/\/$/, '')
+
+// Website/Organization schema for homepage
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteTitle,
+  "description": siteDescription,
+  "url": baseUrl,
+  "author": {
+    "@type": "Person",
+    "name": "midnight480",
+    "url": "https://midnight480.com",
+    "sameAs": [
+      "https://x.com/midnight480",
+      "https://github.com/midnight480",
+      "https://speakerdeck.com/midnight480"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteTitle,
+    "url": baseUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/default-og-image.png`
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${baseUrl}/posts/tag/{search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+
+// Article schema for blog posts
+const articleSchema = post ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.Title,
+  "description": post.Excerpt,
+  "url": `${baseUrl}/posts/${post.Slug}`,
+  "datePublished": post.Date,
+  "dateModified": post.LastEditedTime || post.Date,
+  "author": {
+    "@type": "Person",
+    "name": "midnight480",
+    "url": "https://midnight480.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": siteTitle,
+    "url": baseUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/default-og-image.png`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `${baseUrl}/posts/${post.Slug}`
+  },
+  "image": post.FeaturedImage?.Url ? {
+    "@type": "ImageObject",
+    "url": post.FeaturedImage.Url
+  } : {
+    "@type": "ImageObject",
+    "url": `${baseUrl}/default-og-image.png`
+  },
+  "keywords": post.Tags?.map(tag => tag.name).join(", "),
+  "articleSection": "Technology",
+  "inLanguage": "ja-JP"
+} : null
+
+const schema = isHomePage ? websiteSchema : (articleSchema || websiteSchema)
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+{post && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": baseUrl
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "記事",
+        "item": `${baseUrl}/posts`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.Title,
+        "item": `${baseUrl}/posts/${post.Slug}`
+      }
+    ]
+  })} />
+)}

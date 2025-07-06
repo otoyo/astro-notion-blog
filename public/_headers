@@ -1,0 +1,32 @@
+# Cloudflare Pages Headers
+/*
+  # Security Headers
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # AI Bot restrictions
+  X-Robots-Tag: noai, noimageai
+  
+  # Cache Control
+  Cache-Control: public, max-age=3600
+
+# Static assets caching
+/favicon.ico
+  Cache-Control: public, max-age=31536000
+
+/favicon.svg
+  Cache-Control: public, max-age=31536000
+
+/default-og-image.png
+  Cache-Control: public, max-age=31536000
+
+# API routes
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml
+
+/feed
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml
