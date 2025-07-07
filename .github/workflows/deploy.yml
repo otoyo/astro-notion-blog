@@ -1,15 +1,15 @@
-name: Deploy
+name: Deploy (Disabled)
 
 on:
-  schedule:
-    - cron: '0 8 * * 1' # 8am (Mon) UTC
+  # schedule:
+  #   - cron: '0 8 * * 1' # 8am (Mon) UTC
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'astro.config.mjs'
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'src/**'
+  #     - 'public/**'
+  #     - 'astro.config.mjs'
 
 permissions:
   contents: write
