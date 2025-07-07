@@ -2,11 +2,7 @@ name: Lint
 
 on:
   push:
-    branches:
-
-permissions:
-  checks: write
-  contents: write
+    branches: [main]
 
 jobs:
   lint:

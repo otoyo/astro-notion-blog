@@ -4,9 +4,18 @@ on:
   schedule:
     - cron: '0 8 * * 1' # 8am (Mon) UTC
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.mjs'
 
 permissions:
   contents: write
+
+env:
+  DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
 
 jobs:
   curl:
@@ -15,4 +24,19 @@ jobs:
     steps:
       - name: curl
         run: |
-          curl -X POST "${{ secrets.DEPLOY_HOOK_URL }}"
+          echo "Deploying to Cloudflare Pages..."
+          response=$(curl -X POST "$DEPLOY_HOOK_URL" \
+            -H "Content-Type: application/json" \
+            -w "%{http_code}" \
+            -s -o /tmp/response.json)
+          
+          echo "HTTP Status: $response"
+          
+          if [[ $response -eq 200 ]]; then
+            echo "✅ Deploy triggered successfully"
+            echo "Response: Success"
+          else
+            echo "❌ Deploy failed with status: $response"
+            echo "Error details: Check Cloudflare Pages dashboard for more information"
+            exit 1
+          fi

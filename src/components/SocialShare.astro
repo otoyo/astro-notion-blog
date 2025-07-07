@@ -7,7 +7,7 @@ export interface Props {
   description?: string
 }
 
-const { title, url, description = '' } = Astro.props
+const { title, url } = Astro.props
 
 // URLを midnight480.com ドメインに強制変換
 const forceCustomDomain = (originalUrl: string): string => {
@@ -16,7 +16,7 @@ const forceCustomDomain = (originalUrl: string): string => {
       const urlObj = new URL(originalUrl)
       // パスとクエリパラメータを保持しつつ、ドメインを変更
       return `https://${CUSTOM_DOMAIN}${urlObj.pathname}${urlObj.search}${urlObj.hash}`
-    } catch (error) {
+    } catch {
       // URLの解析に失敗した場合は、CUSTOM_DOMAINを使用
       return `https://${CUSTOM_DOMAIN}${originalUrl.startsWith('/') ? originalUrl : '/' + originalUrl}`
     }
