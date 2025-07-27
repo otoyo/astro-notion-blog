@@ -226,6 +226,20 @@ export const isCodePenURL = (url: URL): boolean => {
   return /\/[^/]+\/pen\/[^/]+/.test(url.pathname)
 }
 
+export const isSpeakerDeckURL = (url: URL): boolean => {
+  if (url.hostname !== 'speakerdeck.com' && url.hostname !== 'www.speakerdeck.com') {
+    return false
+  }
+  return /\/[^/]+\/[^/]+/.test(url.pathname)
+}
+
+export const isDocswellURL = (url: URL): boolean => {
+  if (url.hostname !== 'docswell.com' && url.hostname !== 'www.docswell.com') {
+    return false
+  }
+  return /\/s\/[^/]+\/[^/]+/.test(url.pathname)
+}
+
 export const isShortAmazonURL = (url: URL): boolean => {
   if (url.hostname === 'amzn.to' || url.hostname === 'www.amzn.to') {
     return true

@@ -1,0 +1,49 @@
+---
+export interface Props {
+  url: URL
+}
+
+const { url } = Astro.props
+
+// DocswellのURLから埋め込み用のパラメータを抽出
+// URL形式: https://www.docswell.com/s/user/presentation-id
+const pathParts = url.pathname.split('/')
+const user = pathParts[2]
+const presentationId = pathParts[3]
+---
+
+<div class="docswell-wrapper">
+  <iframe
+    src={`https://www.docswell.com/slide/${user}/${presentationId}/embed`}
+    title="Docswell presentation"
+    frameborder="0"
+    allowfullscreen
+    scrolling="no"
+  ></iframe>
+</div>
+
+<style>
+  .docswell-wrapper {
+    width: 100%;
+    aspect-ratio: 1.33 / 1; /* 4:3 aspect ratio for slides */
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .docswell-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  @media (max-width: 640px) {
+    .docswell-wrapper {
+      margin: 1rem 0;
+      border-radius: 4px;
+      aspect-ratio: 1.2 / 1; /* モバイルでは少し縦長に */
+    }
+  }
+</style>

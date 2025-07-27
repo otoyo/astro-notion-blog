@@ -1,0 +1,46 @@
+---
+export interface Props {
+  url: URL
+}
+
+const { url } = Astro.props
+
+// SpeakerDeckのURLから埋め込み用のIDを抽出
+// URL形式: https://speakerdeck.com/user/presentation-id
+const pathParts = url.pathname.split('/')
+const presentationId = pathParts[pathParts.length - 1]
+---
+
+<div class="speakerdeck-wrapper">
+  <iframe
+    src={`https://speakerdeck.com/player/${presentationId}`}
+    title="SpeakerDeck presentation"
+    frameborder="0"
+    allowfullscreen
+    scrolling="no"
+  ></iframe>
+</div>
+
+<style>
+  .speakerdeck-wrapper {
+    width: 100%;
+    aspect-ratio: 1.77 / 1; /* 16:9 aspect ratio */
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .speakerdeck-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  @media (max-width: 640px) {
+    .speakerdeck-wrapper {
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+  }
+</style>
