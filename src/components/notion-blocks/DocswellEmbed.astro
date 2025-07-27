@@ -5,27 +5,66 @@ export interface Props {
 
 const { url } = Astro.props
 
-// DocswellのURLから埋め込み用のパラメータを抽出
-// URL形式: https://www.docswell.com/s/user/presentation-id
-const pathParts = url.pathname.split('/')
-const user = pathParts[2]
-const presentationId = pathParts[3]
+// DocswellのJavaScript埋め込み方式を使用
+let slideId = ''
+let embedSrc = ''
+let linkUrl = ''
+let title = ''
+let error = ''
+
+try {
+  const pathParts = url.pathname.split('/')
+  if (pathParts.length >= 4 && pathParts[1] === 's') {
+    const user = pathParts[2]
+    const fullSlideId = pathParts[3]
+    
+    // スライドIDを抽出（例: "59GVNP-2025-06-23-221658" から "59GVNP" を抽出）
+    slideId = fullSlideId.split('-')[0]
+    
+    // DocswellのJavaScript埋め込み用のパラメータを設定
+    embedSrc = `https://www.docswell.com/slide/${slideId}/embed`
+    linkUrl = url.toString()
+    
+    // タイトルを動的に生成（実際のタイトルは取得できないため、ユーザー名とスライドIDベース）
+    title = `Docswell presentation by @${user}`
+  } else {
+    error = 'Docswellの正しいURL形式ではありません（/s/user/id形式である必要があります）'
+  }
+} catch (err) {
+  error = 'DocswellのURL解析中にエラーが発生しました'
+  console.error('Docswell URL parsing error:', err)
+}
 ---
 
 <div class="docswell-wrapper">
-  <iframe
-    src={`https://www.docswell.com/slide/${user}/${presentationId}/embed`}
-    title="Docswell presentation"
-    frameborder="0"
-    allowfullscreen
-    scrolling="no"
-  ></iframe>
+  {slideId ? (
+    <>
+      <script 
+        async 
+        class="docswell-embed" 
+        src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" 
+        data-src={embedSrc}
+        data-aspect="0.5625"
+      ></script>
+      <div class="docswell-link">
+        <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+          {title}
+        </a>
+      </div>
+    </>
+  ) : (
+    <div class="error-message">
+      <p>{error}</p>
+      <a href={url.toString()} target="_blank" rel="noopener noreferrer">
+        Docswellで表示
+      </a>
+    </div>
+  )}
 </div>
 
 <style>
   .docswell-wrapper {
     width: 100%;
-    aspect-ratio: 1.33 / 1; /* 4:3 aspect ratio for slides */
     margin: 1.5rem 0;
     border-radius: 8px;
     overflow: hidden;
@@ -35,15 +74,43 @@ const presentationId = pathParts[3]
   
   .docswell-wrapper iframe {
     width: 100%;
-    height: 100%;
+    height: 400px; /* 固定高さで表示 */
     border: none;
+    border-radius: 8px;
+  }
+  
+  .error-message {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: center;
+    color: #6c757d;
+  }
+  
+  .error-message p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .error-message a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .error-message a:hover {
+    text-decoration: underline;
   }
   
   @media (max-width: 640px) {
     .docswell-wrapper {
       margin: 1rem 0;
       border-radius: 4px;
-      aspect-ratio: 1.2 / 1; /* モバイルでは少し縦長に */
+    }
+    
+    .docswell-wrapper iframe {
+      height: 300px; /* モバイルでは少し小さく */
     }
   }
 </style>
