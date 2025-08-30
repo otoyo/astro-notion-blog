@@ -14,8 +14,8 @@ export default (): AstroIntegration => ({
       let url!: URL
       try {
         url = new URL(database.Cover.Url)
-      } catch (err) {
-        console.log('Invalid Cover image URL')
+      } catch {
+        console.log('Invalid Cover image URL: ', database.Cover?.Url)
         return Promise.resolve()
       }
 

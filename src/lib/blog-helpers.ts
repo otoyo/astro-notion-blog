@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { BASE_PATH, REQUEST_TIMEOUT_MS } from '../server-constants'
 import type {
   Block,

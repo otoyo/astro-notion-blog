@@ -31,7 +31,7 @@ const { slug } = Astro.params
 
 const post = await getPostBySlug(slug)
 if (!post) {
-  throw new Error('Post not found. slug: ${slug}')
+  throw new Error(`Post not found. slug: ${slug}`)
 }
 
 const [blocks, allPosts, tags] = await Promise.all([
@@ -65,8 +65,8 @@ await Promise.all(
         let url!: URL
         try {
           url = new URL((block.Image || block.File).File.Url)
-        } catch (err) {
-          console.log('Invalid file URL')
+        } catch {
+          console.log('Invalid file URL: ', (block.Image || block.File)?.File?.Url)
           return Promise.reject()
         }
         return Promise.resolve(url)
