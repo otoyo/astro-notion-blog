@@ -1,0 +1,17 @@
+name = "astro-notion-blog"
+compatibility_date = "2023-10-30"
+
+[env.production]
+vars = { NODE_ENV = "production" }
+
+[env.preview]
+vars = { NODE_ENV = "development" }
+
+# Build configuration
+[build]
+command = "npm run build:cached"
+cwd = "."
+publish = "dist"
+
+# Pages specific configuration
+pages_build_output_dir = "dist" 
