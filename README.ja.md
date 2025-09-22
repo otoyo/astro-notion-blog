@@ -2,6 +2,12 @@
 
 # astro-notion-blog
 
+## 🌟 テスト: Cloudflareプレビュー機能
+
+このテキストはCloudflareプレビュー機能のテスト用です。
+
+## 💫 概要
+
 [![GitHub stars](https://img.shields.io/github/stars/otoyo/astro-notion-blog)](https://github.com/otoyo/astro-notion-blog/stargazers)
 [![GitHub license](https://img.shields.io/github/license/otoyo/astro-notion-blog)](https://github.com/otoyo/astro-notion-blog/blob/main/LICENSE)
 [![GitHub sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/otoyo)
