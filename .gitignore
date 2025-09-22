@@ -26,3 +26,7 @@ tmp/
 
 public/notion/*
 !public/notion/.gitkeep
+
+# Cloudflare
+.wrangler/
+wrangler.toml.backup

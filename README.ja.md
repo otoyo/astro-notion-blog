@@ -77,6 +77,37 @@ astro-notion-blog を使えば [Notion](https://www.notion.so) で書けるブ�
 astro-notion-blog では新しい記事や変更を公開したいとき毎回デプロイが必要になります。  
 Cloudflare Pages のダッシュボードから手動でデプロイするか、GitHub Action のような CI を使って定時デプロイしてください。
 
+## :eyes: プルリクエストプレビューの設定
+
+GitHubのプルリクエストでCloudflare Pagesの自動プレビューを利用する場合は、以下の手順で設定してください。
+
+### GitHub リポジトリの設定
+
+1. **GitHubシークレットの設定**  
+   リポジトリの `Settings > Secrets and variables > Actions` で以下のシークレットを追加：
+
+   - `CLOUDFLARE_API_TOKEN`: [Cloudflare APIトークン](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
+   - `CLOUDFLARE_ACCOUNT_ID`: CloudflareのアカウントID
+   - `NOTION_API_SECRET`: Notion インテグレーションシークレット
+   - `DATABASE_ID`: NotionデータベースID
+   - `CUSTOM_DOMAIN` (オプション): カスタムドメイン
+   - `BASE_PATH` (オプション): サブディレクトリパス
+   - `PUBLIC_GA_TRACKING_ID` (オプション): Google AnalyticsトラッキングID
+   - `ENABLE_LIGHTBOX` (オプション): ライトボックス有効化
+
+2. **Cloudflare Pagesプロジェクトの作成**  
+   [Cloudflare Pages](https://pages.cloudflare.com/)でプロジェクトを作成し、プロジェクト名を `astro-notion-blog` に設定
+
+3. **プレビューデプロイの有効化**  
+   Cloudflare Pagesの `Settings > Builds & deployments > Preview deployments` を `Enabled` に設定
+
+### 使い方
+
+設定完了後、プルリクエストを作成すると：
+- 自動的にプレビュー環境がビルド・デプロイされます
+- プルリクエストにプレビューURLがコメントとして追加されます
+- 変更をプレビューで確認してからマージできます
+
 ## :hammer_and_pick: カスタマイズするには
 
 ### 追加の必要要件
