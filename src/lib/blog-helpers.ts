@@ -226,6 +226,13 @@ export const isCodePenURL = (url: URL): boolean => {
   return /\/[^/]+\/pen\/[^/]+/.test(url.pathname)
 }
 
+export const isGitHubURL = (url: URL): boolean => {
+  if (url.hostname !== 'github.com' && url.hostname !== 'www.github.com') {
+    return false
+  }
+  return /\/[^/]+\/[^/]+\/blob\/[^/]+\/.+/.test(url.pathname)
+}
+
 export const isShortAmazonURL = (url: URL): boolean => {
   if (url.hostname === 'amzn.to' || url.hostname === 'www.amzn.to') {
     return true
