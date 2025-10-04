@@ -3,7 +3,8 @@ import createMetascraper from 'metascraper'
 import metascraperDescription from 'metascraper-description'
 import metascraperImage from 'metascraper-image'
 import metascraperTitle from 'metascraper-title'
-import { isAmazonURL } from '../../lib/blog-helpers.ts'
+import { isAmazonURL, isGitHubURL } from '../../lib/blog-helpers.ts'
+import GithubLinkPreview from './GitHubLinkPreview.astro'
 import * as interfaces from '../../lib/interfaces.ts'
 
 export interface Props {
@@ -39,7 +40,9 @@ try {
 {
   url && (
     <>
-      {isAmazonURL(url) ? (
+      {block.LinkPreview && isGitHubURL(new URL(block.LinkPreview.Url)) ? (
+        <GithubLinkPreview url={url} />
+      ) : isAmazonURL(url) ? (
         <div class="no-metadata">
           <a href={url.toString()}>{url.toString()}</a>
         </div>
