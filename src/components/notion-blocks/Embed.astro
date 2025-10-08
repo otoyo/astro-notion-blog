@@ -6,6 +6,7 @@ import {
   isInstagramURL,
   isPinterestURL,
   isCodePenURL,
+  isCircuitSimulatorAppletURL,
 } from '../../lib/blog-helpers.ts'
 import Bookmark from './Bookmark.astro'
 import TweetEmbed from './TweetEmbed.astro'
@@ -13,6 +14,7 @@ import TikTokEmbed from './TikTokEmbed.astro'
 import InstagramEmbed from './InstagramEmbed.astro'
 import PinterestEmbed from './PinterestEmbed.astro'
 import CodePenEmbed from './CodePenEmbed.astro'
+import CircuitSimulatorAppletEmbed from './CircuitSimulatorAppletEmbed.astro'
 
 export interface Props {
   block: interfaces.Block
@@ -41,6 +43,8 @@ try {
       <PinterestEmbed url={url} />
     ) : isCodePenURL(url) ? (
       <CodePenEmbed url={url} />
+    ) : isCircuitSimulatorAppletURL(url) ? (
+      <CircuitSimulatorAppletEmbed url={url} />
     ) : (
       <Bookmark block={block} urlMap={urlMap} />
     )
