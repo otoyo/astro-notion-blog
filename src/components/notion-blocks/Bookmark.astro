@@ -6,6 +6,7 @@ import metascraperTitle from 'metascraper-title'
 import { isAmazonURL, isGitHubURL } from '../../lib/blog-helpers.ts'
 import GithubLinkPreview from './GitHubLinkPreview.astro'
 import * as interfaces from '../../lib/interfaces.ts'
+import Caption from './Caption.astro'
 
 export interface Props {
   block: interfaces.Block
@@ -73,6 +74,7 @@ try {
               )}
             </div>
           </a>
+          <Caption richTexts={block.Bookmark.Caption} />
         </div>
       )}
     </>
@@ -86,7 +88,7 @@ try {
     opacity: 0.7;
   }
   .bookmark {
-    display: flex;
+    display: block;
     overflow: hidden;
     width: 100%;
     max-width: 100%;
