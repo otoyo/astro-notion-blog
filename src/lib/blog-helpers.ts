@@ -233,6 +233,14 @@ export const isGitHubURL = (url: URL): boolean => {
   return /\/[^/]+\/[^/]+\/blob\/[^/]+\/.+/.test(url.pathname)
 }
 
+export const isCircuitSimulatorAppletURL = (url: URL): boolean => {
+  if (url.hostname !== 'falstad.com' && url.hostname !== 'www.falstad.com') {
+    return false
+  }
+
+  return url.pathname === '/circuit/circuitjs.html'
+}
+
 export const isShortAmazonURL = (url: URL): boolean => {
   if (url.hostname === 'amzn.to' || url.hostname === 'www.amzn.to') {
     return true
