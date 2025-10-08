@@ -1,0 +1,26 @@
+---
+export interface Props {
+  url: URL
+}
+const { url } = Astro.props
+const param = url.searchParams.get('ctz')
+---
+
+<div class="circuit-simulator-applet-wrapper">
+  <iframe
+    src={`https://www.falstad.com/circuit/circuitjs.html?ctz=${param}`}
+    allowfullscreen></iframe>
+</div>
+
+<style>
+  .circuit-simulator-applet-wrapper {
+    margin: 0.4rem auto;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+  .circuit-simulator-applet-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--fg);
+  }
+</style>
