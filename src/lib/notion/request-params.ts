@@ -1,5 +1,5 @@
 export interface QueryDatabase {
-  database_id: string
+  data_source_id: string
   filter?: PropertyFilterObject | CompoundFilterObject
   sorts?: PropertyValueSortObject[]
   page_size?: number
@@ -7,7 +7,7 @@ export interface QueryDatabase {
 }
 
 export interface RetrieveDatabase {
-  database_id: string
+  data_source_id: string
 }
 
 export interface RetrieveBlock {

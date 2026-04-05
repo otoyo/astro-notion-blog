@@ -72,7 +72,7 @@ export async function getAllPosts(): Promise<Post[]> {
   }
 
   const params: requestParams.QueryDatabase = {
-    database_id: DATABASE_ID,
+    data_source_id: DATABASE_ID,
     filter: {
       and: [
         {
@@ -428,13 +428,13 @@ export async function getDatabase(): Promise<Database> {
   }
 
   const params: requestParams.RetrieveDatabase = {
-    database_id: DATABASE_ID,
+    data_source_id: DATABASE_ID,
   }
 
   const res = await retry(
     async (bail) => {
       try {
-        return (await client.databases.retrieve(
+        return (await client.dataSources.retrieve(
           params as any // eslint-disable-line @typescript-eslint/no-explicit-any
         )) as responses.RetrieveDatabaseResponse
       } catch (error: unknown) {

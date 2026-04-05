@@ -7,7 +7,7 @@ const notion = new Client({ auth: process.env.NOTION_API_SECRET, notionVersion: 
 
 const getAllPages = async () => {
   const params = {
-    database_id: process.env.DATABASE_ID,
+    data_source_id: process.env.DATABASE_ID,
     filter: {
       and: [
         {
@@ -28,7 +28,7 @@ const getAllPages = async () => {
 
   let results = [];
   while (true) {
-    const res = await notion.databases.query(params);
+    const res = await notion.dataSources.query(params);
 
     results = results.concat(res.results);
 
