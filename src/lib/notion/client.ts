@@ -58,6 +58,7 @@ import { Client, APIResponseError } from '@notionhq/client'
 
 const client = new Client({
   auth: NOTION_API_SECRET,
+  notionVersion: '2026-03-11',
 })
 
 let postsCache: Post[] | null = null
@@ -102,7 +103,7 @@ export async function getAllPosts(): Promise<Post[]> {
     const res = await retry(
       async (bail) => {
         try {
-          return (await client.databases.query(
+          return (await client.dataSources.query(
             params as any // eslint-disable-line @typescript-eslint/no-explicit-any
           )) as responses.QueryDatabaseResponse
         } catch (error: unknown) {

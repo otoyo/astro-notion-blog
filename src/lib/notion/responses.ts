@@ -137,7 +137,7 @@ interface DatabaseObject {
   properties: DatabaseProperties
   parent: Parent
   url: string
-  archived: boolean
+  in_trash: boolean
   is_inline: boolean
 }
 
@@ -237,7 +237,7 @@ export interface PageObject {
   created_by: UserObject
   last_edited_time: string
   last_edited_by: UserObject
-  archived: boolean
+  in_trash: boolean
   icon: FileObject | Emoji | null
   cover: FileObject
   properties: PageProperties
@@ -319,7 +319,7 @@ export interface BlockObject {
   created_by: UserObject
   last_edited_by: UserObject
   has_children: boolean
-  archived: boolean
+  in_trash: boolean
   type: string
 
   paragraph?: Paragraph

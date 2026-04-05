@@ -3,7 +3,7 @@ const { Client } = require('@notionhq/client');
 const cliProgress = require('cli-progress');
 const { PromisePool } = require('@supercharge/promise-pool');
 
-const notion = new Client({ auth: process.env.NOTION_API_SECRET });
+const notion = new Client({ auth: process.env.NOTION_API_SECRET, notionVersion: '2026-03-11' });
 
 const getAllPages = async () => {
   const params = {
