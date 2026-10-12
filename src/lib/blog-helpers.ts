@@ -71,6 +71,49 @@ export const extractTargetBlocks = (
     .flat()
 }
 
+const HEADING_TYPES = ['heading_1', 'heading_2', 'heading_3']
+
+const _getChildBlocks = (block: Block): Block[] => {
+  if (block.ColumnList && block.ColumnList.Columns) {
+    return block.ColumnList.Columns.flatMap((column) => column.Children || [])
+  }
+  return (
+    (block.BulletedListItem && block.BulletedListItem.Children) ||
+    (block.NumberedListItem && block.NumberedListItem.Children) ||
+    (block.ToDo && block.ToDo.Children) ||
+    (block.SyncedBlock && block.SyncedBlock.Children) ||
+    (block.Toggle && block.Toggle.Children) ||
+    (block.Paragraph && block.Paragraph.Children) ||
+    (block.Heading1 && block.Heading1.Children) ||
+    (block.Heading2 && block.Heading2.Children) ||
+    (block.Heading3 && block.Heading3.Children) ||
+    (block.Quote && block.Quote.Children) ||
+    (block.Callout && block.Callout.Children) ||
+    []
+  )
+}
+
+export const extractHeadings = (blocks: Block[]): Block[] => {
+  return blocks.flatMap((block) => {
+    const self = HEADING_TYPES.includes(block.Type) ? [block] : []
+    return self.concat(extractHeadings(_getChildBlocks(block)))
+  })
+}
+
+export const assignHeadingAnchorIds = (headings: Block[]): void => {
+  const counts: { [key: string]: number } = {}
+  headings.forEach((block) => {
+    const heading = block.Heading1 || block.Heading2 || block.Heading3
+    if (!heading) {
+      return
+    }
+    const baseId = _buildBaseHeadingId(heading)
+    const count = counts[baseId] || 0
+    counts[baseId] = count + 1
+    heading.AnchorId = count === 0 ? baseId : `${baseId}-${count + 1}`
+  })
+}
+
 const _extractTargetBlockFromColums = (
   blockType: string,
   columns: Column[]
@@ -168,6 +211,13 @@ export const getDateStr = (date: string) => {
 }
 
 export const buildHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
+  if (heading.AnchorId) {
+    return heading.AnchorId
+  }
+  return _buildBaseHeadingId(heading)
+}
+
+const _buildBaseHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
   return heading.RichTexts.map((richText: RichText) => {
     if (!richText.Text) {
       return ''
