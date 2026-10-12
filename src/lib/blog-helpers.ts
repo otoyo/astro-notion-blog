@@ -4,6 +4,7 @@ import type {
   Heading1,
   Heading2,
   Heading3,
+  Heading4,
   RichText,
   Column,
 } from './interfaces'
@@ -75,7 +76,7 @@ export const extractTargetBlocks = (
     .flat()
 }
 
-const HEADING_TYPES = ['heading_1', 'heading_2', 'heading_3']
+const HEADING_TYPES = ['heading_1', 'heading_2', 'heading_3', 'heading_4']
 
 const _getChildBlocks = (block: Block): Block[] => {
   if (block.ColumnList && block.ColumnList.Columns) {
@@ -91,6 +92,7 @@ const _getChildBlocks = (block: Block): Block[] => {
     (block.Heading1 && block.Heading1.Children) ||
     (block.Heading2 && block.Heading2.Children) ||
     (block.Heading3 && block.Heading3.Children) ||
+    (block.Heading4 && block.Heading4.Children) ||
     (block.Quote && block.Quote.Children) ||
     (block.Callout && block.Callout.Children) ||
     []
@@ -107,7 +109,8 @@ export const extractHeadings = (blocks: Block[]): Block[] => {
 export const assignHeadingAnchorIds = (headings: Block[]): void => {
   const counts: { [key: string]: number } = {}
   headings.forEach((block) => {
-    const heading = block.Heading1 || block.Heading2 || block.Heading3
+    const heading =
+      block.Heading1 || block.Heading2 || block.Heading3 || block.Heading4
     if (!heading) {
       return
     }
@@ -214,14 +217,18 @@ export const getDateStr = (date: string) => {
   return y + '-' + m + '-' + d
 }
 
-export const buildHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
+export const buildHeadingId = (
+  heading: Heading1 | Heading2 | Heading3 | Heading4
+) => {
   if (heading.AnchorId) {
     return heading.AnchorId
   }
   return _buildBaseHeadingId(heading)
 }
 
-const _buildBaseHeadingId = (heading: Heading1 | Heading2 | Heading3) => {
+const _buildBaseHeadingId = (
+  heading: Heading1 | Heading2 | Heading3 | Heading4
+) => {
   return heading.RichTexts.map((richText: RichText) => {
     if (!richText.Text) {
       return ''

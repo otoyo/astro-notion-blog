@@ -84,6 +84,7 @@ export interface Heading4 {
   Color: string
   IsToggleable: boolean
   Children?: Block[]
+  AnchorId?: string
 }
 
 export interface BulletedListItem {

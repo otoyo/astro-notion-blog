@@ -16,13 +16,18 @@ const { block, headings } = Astro.props
   {
     headings.map((headingBlock: interfaces.Block) => {
       const heading =
-        headingBlock.Heading1 || headingBlock.Heading2 || headingBlock.Heading3
+        headingBlock.Heading1 ||
+        headingBlock.Heading2 ||
+        headingBlock.Heading3 ||
+        headingBlock.Heading4
 
       let indentClass = ''
       if (headingBlock.Type === 'heading_2') {
         indentClass = 'indent-1'
       } else if (headingBlock.Type === 'heading_3') {
         indentClass = 'indent-2'
+      } else if (headingBlock.Type === 'heading_4') {
+        indentClass = 'indent-3'
       }
 
       return (
@@ -59,5 +64,8 @@ const { block, headings } = Astro.props
   }
   .table-of-contents > a.indent-2 {
     padding-left: 3rem;
+  }
+  .table-of-contents > a.indent-3 {
+    padding-left: 4.5rem;
   }
 </style>
