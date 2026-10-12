@@ -13,7 +13,7 @@
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.ts,.astro src",
     "format": "npx prettier --write .",
     "cache:fetch": "node scripts/blog-contents-cache.cjs",
-    "cache:purge": "nx reset && rm -f tmp/*",
+    "cache:purge": "nx reset && rm -rf tmp/*",
     "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
@@ -69,7 +69,7 @@
           }
         ],
         "outputs": [
-          "{projectRoot}/tmp"
+          "{projectRoot}/tmp/{options.pageId}"
         ]
       }
     },
