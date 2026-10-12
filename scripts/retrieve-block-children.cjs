@@ -9,6 +9,10 @@ const notion = new Client({
 
 const requestDuration = 300;
 
+const pageId = process.argv
+  .find((arg) => arg.startsWith('--pageId='))
+  .replace('--pageId=', '');
+
 const retry = (maxRetries, fn) => {
   return fn().catch(function (err) {
     if (maxRetries <= 0) {
@@ -78,6 +82,5 @@ const retrieveAndWriteBlock = async (blockId) => {
 };
 
 (async () => {
-  const blockId = process.argv[2];
-  await retrieveAndWriteBlockChildren(blockId);
+  await retrieveAndWriteBlockChildren(pageId);
 })();
