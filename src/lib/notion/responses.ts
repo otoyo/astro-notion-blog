@@ -350,6 +350,7 @@ export interface BlockObject {
   heading_1?: Heading
   heading_2?: Heading
   heading_3?: Heading
+  heading_4?: Heading
   callout?: Callout
   quote?: Quote
   bulleted_list_item?: ListItem

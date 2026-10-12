@@ -29,6 +29,7 @@ import type {
   Heading1,
   Heading2,
   Heading3,
+  Heading4,
   Image,
   LinkPreview,
   LinkToPage,
@@ -388,6 +389,12 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.HasChildren
     ) {
       block.Heading3.Children = await getAllBlocksByBlockId(block.Id)
+    } else if (
+      block.Type === 'heading_4' &&
+      block.Heading4 &&
+      block.HasChildren
+    ) {
+      block.Heading4.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'quote' && block.Quote && block.HasChildren) {
       block.Quote.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'callout' && block.Callout && block.HasChildren) {
@@ -641,6 +648,16 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
           IsToggleable: blockObject.heading_3.is_toggleable,
         }
         block.Heading3 = heading3
+      }
+      break
+    case 'heading_4':
+      if (blockObject.heading_4) {
+        const heading4: Heading4 = {
+          RichTexts: blockObject.heading_4.rich_text.map(_buildRichText),
+          Color: blockObject.heading_4.color,
+          IsToggleable: blockObject.heading_4.is_toggleable,
+        }
+        block.Heading4 = heading4
       }
       break
     case 'bulleted_list_item':
