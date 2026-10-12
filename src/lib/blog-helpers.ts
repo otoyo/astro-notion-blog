@@ -60,6 +60,10 @@ export const extractTargetBlocks = (
         acc = acc.concat(
           extractTargetBlocks(blockType, block.Heading3.Children)
         )
+      } else if (block.Heading4 && block.Heading4.Children) {
+        acc = acc.concat(
+          extractTargetBlocks(blockType, block.Heading4.Children)
+        )
       } else if (block.Quote && block.Quote.Children) {
         acc = acc.concat(extractTargetBlocks(blockType, block.Quote.Children))
       } else if (block.Callout && block.Callout.Children) {
