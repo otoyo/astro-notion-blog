@@ -435,7 +435,7 @@ export async function downloadFile(url: URL) {
     stream = stream.pipe(rotate)
   }
   try {
-    return pipeline(stream, new ExifTransformer(), writeStream)
+    return await pipeline(stream, new ExifTransformer(), writeStream)
   } catch (err) {
     console.log(err)
     writeStream.end()
