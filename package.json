@@ -79,6 +79,6 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.60.1",
-    "@nx/nx-linux-x64-gnu": "^23.3.0"
+    "@nx/nx-linux-x64-gnu": "20.3.1"
   }
 }
