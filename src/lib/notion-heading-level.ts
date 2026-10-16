@@ -17,20 +17,26 @@ import type { Block } from './interfaces'
  * 変更前も h2（記事タイトル）→ h4 で同じように飛んでいた。
  *
  * そこで «その記事で実際に使われている見出しの種類» を数えて、
- * 浅い方から h2, h3, h4 と詰めて割り当てる。
+ * 浅い方から h2, h3, h4, h5 と詰めて割り当てる。
+ * ・heading_1 / 2 / 3 / 4 を使う記事 → h2 / h3 / h4 / h5
  * ・heading_1 / 2 / 3 を使う記事 → h2 / h3 / h4
  * ・heading_2 / 3 だけの記事     → h2 / h3
  * ・heading_2 だけの記事         → h2
  * どの記事でも «最初の本文見出しが必ず h2» になり、間が空かない。
  *
- * 見た目は変わらない。Heading1/2/3.astro はそれぞれ自分の font-size と
+ * 見た目は変わらない。Heading1/2/3/4.astro はそれぞれ自分の font-size と
  * margin を class で持っており、タグ名に依存する宣言
  * （layout-global.css の h2/h3 と Layout.astro の h2）は各コンポーネント側で
  * 打ち消してあるため。
  */
 
-// 浅い順。Notion の見出しは 3 段まで
-const NOTION_HEADING_TYPES = ['heading_1', 'heading_2', 'heading_3'] as const
+// 浅い順。Notion の見出しは 4 段まで（heading_4 は upstream の Heading4 対応で追加）
+const NOTION_HEADING_TYPES = [
+  'heading_1',
+  'heading_2',
+  'heading_3',
+  'heading_4',
+] as const
 
 export type NotionHeadingType = (typeof NOTION_HEADING_TYPES)[number]
 
@@ -43,11 +49,11 @@ export type NotionHeadingType = (typeof NOTION_HEADING_TYPES)[number]
 export function notionHeadingTag(
   type: NotionHeadingType,
   headings: Block[]
-): 'h2' | 'h3' | 'h4' {
+): 'h2' | 'h3' | 'h4' | 'h5' {
   const present = new Set(headings.map((heading) => heading.Type))
-  // 自分自身は必ず数える。headings はルート直下の見出しだけなので、
-  // トグルやカラムの中にある見出しはこの配列に入らない。
-  // 入れておかないと «自分が一覧に無い» ときに段が決まらない
+  // 自分自身は必ず数える。headings は extractHeadings でトグルやカラムの
+  // 中まで集めているが、記事のルート以外から描画された場合などに
+  // «自分が一覧に無い» と段が決まらないので念のため入れておく
   present.add(type)
 
   const used = NOTION_HEADING_TYPES.filter((candidate) =>
@@ -55,5 +61,5 @@ export function notionHeadingTag(
   )
   const rank = used.indexOf(type)
 
-  return `h${2 + rank}` as 'h2' | 'h3' | 'h4'
+  return `h${2 + rank}` as 'h2' | 'h3' | 'h4' | 'h5'
 }

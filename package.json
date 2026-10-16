@@ -16,7 +16,7 @@
     "format": "npx prettier --write .",
     "notion": "node --env-file-if-exists=.env scripts/notion-cli.mjs",
     "cache:fetch": "node scripts/blog-contents-cache.cjs",
-    "cache:purge": "nx reset && rm -f tmp/*",
+    "cache:purge": "nx reset && rm -rf tmp/*",
     "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
@@ -75,7 +75,7 @@
           }
         ],
         "outputs": [
-          "{projectRoot}/tmp"
+          "{projectRoot}/tmp/{options.pageId}"
         ]
       }
     },
@@ -84,7 +84,8 @@
     ]
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.60.1"
+    "@rollup/rollup-linux-x64-gnu": "^4.60.1",
+    "@nx/nx-linux-x64-gnu": "20.3.1"
   },
   "volta": {
     "node": "22.23.2"

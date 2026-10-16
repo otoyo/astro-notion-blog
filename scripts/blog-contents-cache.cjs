@@ -135,7 +135,7 @@ const formatOutput = (stdout, stderr) => {
     .for(pages)
     .process(async (page) => {
       return new Promise((resolve) => {
-        const command = `NX_BRANCH=main npx nx run astro-notion-blog:_fetch-notion-blocks ${page.id} ${page.last_edited_time}`;
+        const command = `NX_BRANCH=main npx nx run astro-notion-blog:_fetch-notion-blocks --pageId=${page.id} --lastEditedTime=${page.last_edited_time}`;
         const options = { timeout: COMMAND_TIMEOUT_MS };
 
         exec(command, options, (err, stdout, stderr) => {

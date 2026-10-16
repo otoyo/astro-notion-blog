@@ -4,11 +4,14 @@ import {
   isTweetURL,
   isAmazonURL,
   buildURLToHTMLMap,
+  extractHeadings,
+  assignHeadingAnchorIds,
 } from '../lib/blog-helpers.ts'
 import Paragraph from './notion-blocks/Paragraph.astro'
 import Heading1 from './notion-blocks/Heading1.astro'
 import Heading2 from './notion-blocks/Heading2.astro'
 import Heading3 from './notion-blocks/Heading3.astro'
+import Heading4 from './notion-blocks/Heading4.astro'
 import TableOfContents from './notion-blocks/TableOfContents.astro'
 import Image from './notion-blocks/Image.astro'
 import Video from './notion-blocks/Video.astro'
@@ -93,9 +96,8 @@ const blocks = rawBlocks.reduce((arr, block: interfaces.Block, i: number) => {
 
 let headings = rawHeadings
 if (isRoot) {
-  headings = blocks.filter((b: interfaces.Block) =>
-    ['heading_1', 'heading_2', 'heading_3'].includes(b.Type)
-  )
+  headings = extractHeadings(rawBlocks)
+  assignHeadingAnchorIds(headings)
 }
 
 const bookmarkURLs = blocks
@@ -159,6 +161,8 @@ const bookmarkURLMap = await buildURLToHTMLMap(bookmarkURLs)
         return <Heading2 block={block} headings={headings} />
       case 'heading_3':
         return <Heading3 block={block} headings={headings} />
+      case 'heading_4':
+        return <Heading4 block={block} headings={headings} />
       case 'table_of_contents':
         return <TableOfContents block={block} headings={headings} />
       case 'image':

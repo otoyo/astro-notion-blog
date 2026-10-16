@@ -290,6 +290,9 @@ const renderBlocks = async (blockId, indent = '') => {
       case 'heading_3':
         head = '### ' + richText(value.rich_text);
         break;
+      case 'heading_4':
+        head = '#### ' + richText(value.rich_text);
+        break;
       case 'bulleted_list_item':
         head = '- ' + richText(value.rich_text);
         break;

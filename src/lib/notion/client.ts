@@ -36,6 +36,7 @@ import type {
   Heading1,
   Heading2,
   Heading3,
+  Heading4,
   Image,
   LinkPreview,
   LinkToPage,
@@ -273,11 +274,61 @@ export async function getNumberOfPagesByTag(tagName: string): Promise<number> {
   )
 }
 
+let cacheFileIndex: Map<string, string> | null = null
+
+function _buildCacheFileIndex(): Map<string, string> {
+  const index = new Map<string, string>()
+  const mtimes = new Map<string, number>()
+
+  if (!fs.existsSync('tmp')) {
+    return index
+  }
+
+  const addFile = (filePath: string, fileName: string) => {
+    if (!fileName.endsWith('.json')) {
+      return
+    }
+    const blockId = fileName.slice(0, -'.json'.length)
+    const mtime = fs.statSync(filePath).mtimeMs
+    if (!index.has(blockId) || mtime > (mtimes.get(blockId) || 0)) {
+      index.set(blockId, filePath)
+      mtimes.set(blockId, mtime)
+    }
+  }
+
+  fs.readdirSync('tmp', { withFileTypes: true }).forEach((entry) => {
+    const entryPath = `tmp/${entry.name}`
+    if (entry.isDirectory()) {
+      fs.readdirSync(entryPath).forEach((fileName) =>
+        addFile(`${entryPath}/${fileName}`, fileName)
+      )
+    } else if (entry.isFile()) {
+      addFile(entryPath, entry.name)
+    }
+  })
+
+  return index
+}
+
+function _readCachedBlockChildren(
+  blockId: string
+): ListBlockChildrenResponse['results'] | null {
+  if (cacheFileIndex === null) {
+    cacheFileIndex = _buildCacheFileIndex()
+  }
+  const filePath = cacheFileIndex.get(blockId)
+  if (!filePath) {
+    return null
+  }
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+}
+
 export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
   let results: ListBlockChildrenResponse['results'] = []
 
-  if (fs.existsSync(`tmp/${blockId}.json`)) {
-    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  const cachedResults = _readCachedBlockChildren(blockId)
+  if (cachedResults) {
+    results = cachedResults
   } else {
     const params: ListBlockChildrenParameters = {
       block_id: blockId,
@@ -365,6 +416,12 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
       block.HasChildren
     ) {
       block.Heading3.Children = await getAllBlocksByBlockId(block.Id)
+    } else if (
+      block.Type === 'heading_4' &&
+      block.Heading4 &&
+      block.HasChildren
+    ) {
+      block.Heading4.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'quote' && block.Quote && block.HasChildren) {
       block.Quote.Children = await getAllBlocksByBlockId(block.Id)
     } else if (block.Type === 'callout' && block.Callout && block.HasChildren) {
@@ -898,6 +955,16 @@ function _buildBlock(blockObject: BlockObjectResponse): Block {
         block.Heading3 = heading3
       }
       break
+    case 'heading_4':
+      if (blockObject.heading_4) {
+        const heading4: Heading4 = {
+          RichTexts: blockObject.heading_4.rich_text.map(_buildRichText),
+          Color: blockObject.heading_4.color,
+          IsToggleable: blockObject.heading_4.is_toggleable,
+        }
+        block.Heading4 = heading4
+      }
+      break
     case 'bulleted_list_item':
       if (blockObject.bulleted_list_item) {
         const bulletedListItem: BulletedListItem = {
@@ -1136,8 +1203,9 @@ function _buildBlock(blockObject: BlockObjectResponse): Block {
 async function _getTableRows(blockId: string): Promise<TableRow[]> {
   let results: ListBlockChildrenResponse['results'] = []
 
-  if (fs.existsSync(`tmp/${blockId}.json`)) {
-    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  const cachedResults = _readCachedBlockChildren(blockId)
+  if (cachedResults) {
+    results = cachedResults
   } else {
     const params: ListBlockChildrenParameters = {
       block_id: blockId,
@@ -1211,8 +1279,9 @@ async function _getTableRows(blockId: string): Promise<TableRow[]> {
 async function _getColumns(blockId: string): Promise<Column[]> {
   let results: ListBlockChildrenResponse['results'] = []
 
-  if (fs.existsSync(`tmp/${blockId}.json`)) {
-    results = JSON.parse(fs.readFileSync(`tmp/${blockId}.json`, 'utf-8'))
+  const cachedResults = _readCachedBlockChildren(blockId)
+  if (cachedResults) {
+    results = cachedResults
   } else {
     const params: ListBlockChildrenParameters = {
       block_id: blockId,

@@ -1,0 +1,91 @@
+---
+import * as interfaces from '../../lib/interfaces.ts'
+import { buildHeadingId } from '../../lib/blog-helpers.ts'
+import { notionHeadingTag } from '../../lib/notion-heading-level.ts'
+import RichText from './RichText.astro'
+import NotionBlocks from '../NotionBlocks.astro'
+
+export interface Props {
+  block: interfaces.Block
+  headings: interfaces.Block[]
+}
+
+const { block, headings } = Astro.props
+
+const id = buildHeadingId(block.Heading4)
+
+// upstream の Heading4.astro は固定で h6 だった。段の決め方は Heading1.astro と
+// 同じで、中身は src/lib/notion-heading-level.ts にある
+const Tag = notionHeadingTag('heading_4', headings)
+---
+
+{
+  block.Heading4.IsToggleable ? (
+    <details class="toggle">
+      <summary>
+        <a href={`#${id}`} id={id}>
+          <Tag class="heading-4">
+            {block.Heading4.RichTexts.map((richText: interfaces.RichText) => (
+              <RichText richText={richText} />
+            ))}
+          </Tag>
+        </a>
+      </summary>
+      <div>
+        {block.Heading4.Children && (
+          <NotionBlocks blocks={block.Heading4.Children} headings={headings} />
+        )}
+      </div>
+    </details>
+  ) : (
+    <a href={`#${id}`} id={id}>
+      <Tag class="heading-4">
+        {block.Heading4.RichTexts.map((richText: interfaces.RichText) => (
+          <RichText richText={richText} />
+        ))}
+      </Tag>
+    </a>
+  )
+}
+
+<style>
+  /*
+   * Heading3.astro と同じ作り。出力するタグが記事によって h2〜h5 と
+   * 変わるため class で当てる。padding / font-weight / line-height は
+   * «タグ名で決まる宣言» の打ち消し（理由は Heading2.astro のコメント参照）。
+   * サイズと余白は upstream の Heading4.astro（h6）の値に合わせた
+   */
+  .heading-4 {
+    margin: 0.8em 0 0.3em;
+    padding: 0;
+    color: var(--fg);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: normal;
+  }
+  @media (max-width: 640px) {
+    .heading-4 {
+      font-size: 1.05rem;
+    }
+  }
+
+  .toggle {
+    margin: 1rem 0 0;
+  }
+
+  .toggle > summary {
+    cursor: pointer;
+  }
+
+  .toggle > summary > a {
+    display: inline;
+  }
+
+  .toggle > summary > a > .heading-4 {
+    display: inline;
+  }
+
+  .toggle > div {
+    margin-left: 1em;
+  }
+</style>

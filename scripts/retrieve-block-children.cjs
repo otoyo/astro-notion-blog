@@ -10,6 +10,14 @@ const notion = new Client({
 const requestDuration = 300;
 const maxRetries = 3;
 
+const pageId = process.argv
+  .find((arg) => arg.startsWith('--pageId='))
+  .replace('--pageId=', '');
+
+const outputDir = `tmp/${pageId}`;
+fs.rmSync(outputDir, { recursive: true, force: true });
+fs.mkdirSync(outputDir, { recursive: true });
+
 const retry = (retriesLeft, fn) => {
   return fn().catch(function (err) {
     if (retriesLeft <= 0) {
@@ -53,7 +61,7 @@ const retrieveAndWriteBlockChildren = async (blockId) => {
     params['start_cursor'] = res.next_cursor;
   }
 
-  fs.writeFileSync(`tmp/${blockId}.json`, JSON.stringify(results));
+  fs.writeFileSync(`${outputDir}/${blockId}.json`, JSON.stringify(results));
 
   // forEach(async ...) だとコールバックの Promise が await されないため、
   // この関数が子や synced_block の取得を待たずに返っていた。つまり
@@ -101,7 +109,7 @@ const retrieveAndWriteBlock = async (blockId) => {
 
   const block = await retry(maxRetries, () => notion.blocks.retrieve(params));
 
-  fs.writeFileSync(`tmp/${blockId}.json`, JSON.stringify(block));
+  fs.writeFileSync(`${outputDir}/${blockId}.json`, JSON.stringify(block));
 
   if (block.has_children) {
     await retrieveAndWriteBlockChildren(block.id);
@@ -109,14 +117,13 @@ const retrieveAndWriteBlock = async (blockId) => {
 };
 
 (async () => {
-  const blockId = process.argv[2];
-  await retrieveAndWriteBlockChildren(blockId);
+  await retrieveAndWriteBlockChildren(pageId);
 })().catch((err) => {
   // 取得に失敗したままキャッシュが不完全な状態で「成功」として扱われると、
   // その後のビルドが古い内容や欠けた内容で通ってしまう。
   // 途中の catch は文脈（block_id）だけを出して再スローするので、
   // エラー本体は再帰の段数ぶん重複させずここで一度だけ出す
-  console.error(`Failed to cache block children. block_id: ${process.argv[2]}`);
+  console.error(`Failed to cache block children. block_id: ${pageId}`);
   console.error(err);
   process.exit(1);
 });
