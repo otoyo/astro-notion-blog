@@ -482,12 +482,10 @@ export async function downloadFile(url: URL) {
     fs.mkdirSync(dir, { recursive: true })
   }
 
-  const filename = path.basename(decodeURIComponent(url.pathname.split('/').slice(-1)[0]))
-  if (
-    filename === '.' ||
-    filename === '..' ||
-    filename.includes('\0')
-  ) {
+  const filename = path.basename(
+    decodeURIComponent(url.pathname.split('/').slice(-1)[0])
+  )
+  if (filename === '.' || filename === '..' || filename.includes('\0')) {
     throw new Error('Unsafe filename')
   }
 
