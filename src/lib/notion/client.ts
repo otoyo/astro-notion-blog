@@ -2,6 +2,7 @@ import { APIResponseError, Client } from '@notionhq/client'
 import retry from 'async-retry'
 import ExifTransformer from 'exif-be-gone'
 import fs, { createWriteStream } from 'node:fs'
+import path from 'node:path'
 import { Readable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
 import sharp from 'sharp'
@@ -475,13 +476,23 @@ export async function downloadFile(url: URL) {
     return Promise.resolve()
   }
 
-  const dir = './public/notion/' + url.pathname.split('/').slice(-2)[0]
+  const baseDir = path.resolve('./public/notion')
+  const dir = path.resolve(baseDir, url.pathname.split('/').slice(-2)[0])
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
 
-  const filename = decodeURIComponent(url.pathname.split('/').slice(-1)[0])
-  const filepath = `${dir}/${filename}`
+  const filename = path.basename(
+    decodeURIComponent(url.pathname.split('/').slice(-1)[0])
+  )
+  if (filename === '.' || filename === '..' || filename.includes('\0')) {
+    throw new Error('Unsafe filename')
+  }
+
+  const filepath = path.resolve(dir, filename)
+  if (!filepath.startsWith(baseDir + path.sep)) {
+    throw new Error('Path escapes ./public/notion')
+  }
 
   const writeStream = createWriteStream(filepath)
   const rotate = sharp().rotate()
