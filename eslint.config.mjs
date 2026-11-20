@@ -1,49 +1,34 @@
-import { defineConfig } from 'eslint/config';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import parser from 'astro-eslint-parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import eslint from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-export default defineConfig([
+export default [
   {
-    extends: compat.extends(
-      'plugin:@typescript-eslint/recommended',
-      'plugin:astro/recommended'
-    ),
-
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-    },
-
-    rules: {
-      '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-    },
+    ignores: [
+      '**/*.astro',
+      'dist/**',
+      '.astro/**',
+      'node_modules/**',
+      '.nx/**',
+      'public/scripts/**',
+    ],
   },
+
   {
-    files: ['**/*.astro'],
-
     languageOptions: {
-      parser: parser,
-      ecmaVersion: 5,
-      sourceType: 'script',
-
-      parserOptions: {
-        parser: '@typescript-eslint/parser',
-        extraFileExtensions: ['.astro'],
+      globals: {
+        ...globals.node,
+        ...globals.browser,
       },
     },
-
-    rules: {},
   },
-]);
+
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    ...eslint.configs.recommended,
+  },
+  ...tseslint.configs.recommended.map((config) => ({
+    ...config,
+    files: ['**/*.{ts,mts,cts}'],
+  })),
+];

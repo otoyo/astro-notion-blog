@@ -1,4 +1,4 @@
-import { APIResponseError, Client } from '@notionhq/client'
+import notion from '@notionhq/client'
 import retry from 'async-retry'
 import ExifTransformer from 'exif-be-gone'
 import fs, { createWriteStream } from 'node:fs'
@@ -55,6 +55,8 @@ import type {
 } from '../interfaces'
 import type * as requestParams from './request-params'
 import type * as responses from './responses'
+
+const { Client, APIResponseError } = notion
 
 const client = new Client({
   auth: NOTION_API_SECRET,
@@ -880,12 +882,13 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         block.Table = table
       }
       break
-    case 'column_list':
+    case 'column_list': {
       const columnList: ColumnList = {
         Columns: [],
       }
       block.ColumnList = columnList
       break
+    }
     case 'table_of_contents':
       if (blockObject.table_of_contents) {
         const tableOfContents: TableOfContents = {
