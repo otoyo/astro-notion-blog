@@ -88,7 +88,7 @@ const getAllPages = async () => {
         const command = `NX_BRANCH=main npx nx run astro-notion-blog:_fetch-notion-blocks --pageId=${page.id} --lastEditedTime=${page.last_edited_time}`;
         const options = { timeout: 60000 };
 
-        exec(command, options, (err, stdout, stderr) => {
+        exec(command, options, (err) => {
           if (err) {
             console.error(`exec error: ${err}`);
           }
