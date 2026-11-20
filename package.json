@@ -17,14 +17,14 @@
     "_fetch-notion-blocks": "node scripts/retrieve-block-children.cjs"
   },
   "dependencies": {
-    "@astrojs/react": "^4.1.2",
-    "@astrojs/rss": "^4.0.11",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/rss": "^4.0.19",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@iconify-json/octicon": "^1.2.2",
     "@notionhq/client": "^5.16.0",
     "@supercharge/promise-pool": "^3.2.0",
-    "astro": "^5.1.3",
+    "astro": "^7.4.13",
     "astro-icon": "^1.1.5",
     "async-retry": "^1.3.3",
     "exif-be-gone": "^1.5.1",
@@ -78,7 +78,7 @@
     ]
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.60.1",
-    "@nx/nx-linux-x64-gnu": "20.3.1"
+    "@nx/nx-linux-x64-gnu": "20.3.1",
+    "@rollup/rollup-linux-x64-gnu": "^4.60.1"
   }
 }
