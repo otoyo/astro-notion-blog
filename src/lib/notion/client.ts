@@ -1,4 +1,4 @@
-import { APIResponseError, Client } from '@notionhq/client'
+import notion from '@notionhq/client'
 import retry from 'async-retry'
 import ExifTransformer from 'exif-be-gone'
 import fs, { createWriteStream } from 'node:fs'
@@ -55,6 +55,8 @@ import type {
 } from '../interfaces'
 import type * as requestParams from './request-params'
 import type * as responses from './responses'
+
+const { Client, APIResponseError } = notion;
 
 const client = new Client({
   auth: NOTION_API_SECRET,
