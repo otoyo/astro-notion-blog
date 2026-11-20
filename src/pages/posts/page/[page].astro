@@ -1,22 +1,21 @@
 ---
-import {
-  getPostsByPage,
-  getRankedPosts,
-  getAllTags,
-  getNumberOfPages,
-  getPostsByPage,
-} from '../../../lib/notion/client.ts'
-import Layout from '../../../layouts/Layout.astro'
-import NoContents from '../../../components/NoContents.astro'
-import PostDate from '../../../components/PostDate.astro'
-import PostTags from '../../../components/PostTags.astro'
-import PostTitle from '../../../components/PostTitle.astro'
-import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
-import PostExcerpt from '../../../components/PostExcerpt.astro'
-import ReadMoreLink from '../../../components/ReadMoreLink.astro'
-import Pagination from '../../../components/Pagination.astro'
 import BlogPostsLink from '../../../components/BlogPostsLink.astro'
 import BlogTagsLink from '../../../components/BlogTagsLink.astro'
+import NoContents from '../../../components/NoContents.astro'
+import Pagination from '../../../components/Pagination.astro'
+import PostDate from '../../../components/PostDate.astro'
+import PostExcerpt from '../../../components/PostExcerpt.astro'
+import PostFeaturedImage from '../../../components/PostFeaturedImage.astro'
+import PostTags from '../../../components/PostTags.astro'
+import PostTitle from '../../../components/PostTitle.astro'
+import ReadMoreLink from '../../../components/ReadMoreLink.astro'
+import Layout from '../../../layouts/Layout.astro'
+import {
+getAllTags,
+getNumberOfPages,
+getPostsByPage,
+getRankedPosts,
+} from '../../../lib/notion/client.ts'
 import styles from '../../../styles/blog.module.css'
 
 export async function getStaticPaths() {
