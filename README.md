@@ -75,7 +75,7 @@ Please note that the astro-notion-blog requires manual deployment every time you
 
 ### Additional requirements
 
-- Node.js v20.18.1 or higher
+- Node.js v22.23.5 or higher
 
 ### Steps
 
