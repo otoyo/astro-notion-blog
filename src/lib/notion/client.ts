@@ -56,7 +56,7 @@ import type {
 import type * as requestParams from './request-params'
 import type * as responses from './responses'
 
-const { Client, APIResponseError } = notion;
+const { Client, APIResponseError } = notion
 
 const client = new Client({
   auth: NOTION_API_SECRET,
