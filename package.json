@@ -64,16 +64,15 @@
   "nx": {
     "targets": {
       "_fetch-notion-blocks": {
+        "cache": true,
         "inputs": [
-          "!{projectRoot}/**/*",
-          "!{projectRoot}/**/.*",
-          "!{projectRoot}/**/.*/**/*",
+          "{projectRoot}/scripts/blog-contents-cache.cjs",
           {
             "env": "DATABASE_ID"
           }
         ],
         "outputs": [
-          "{projectRoot}/tmp/{options.pageId}"
+          "{projectRoot}/tmp"
         ]
       }
     },
