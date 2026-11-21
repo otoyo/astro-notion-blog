@@ -1,0 +1,7 @@
+{
+  "name": "astro-notion-blog",
+  "compatibility_date": "2026-11-21",
+  "assets": {
+    "directory": "./dist",
+  },
+}
