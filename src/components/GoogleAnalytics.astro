@@ -12,12 +12,12 @@ const { trackingId = '' } = Astro.props
       <script
         is:inline
         async
-        src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}
+        src={`https://www.googletagmanager.com/gtm.js?id=${trackingId}`}
       />
-      <script is:inline define:vars={{ trackingId }}>
-        window.dataLayer = window.dataLayer || []; function gtag()
-        {dataLayer.push(arguments)}
-        gtag('js', new Date()); gtag('config', trackingId);
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
       </script>
     </>
   )
